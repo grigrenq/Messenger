@@ -1,12 +1,13 @@
 #include <QMainWindow>
 #include <QLayout>
-class RegistrationWindow : public QMainWindow
+
+class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 private:
 	QVBoxLayout* mainLayout;			
 public:
-	RegistrationWindow();
+	MainWindow();
 	void addPushButton();
 	void addLineEdit();
 	void addStatusBar();
