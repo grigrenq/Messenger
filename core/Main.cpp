@@ -15,11 +15,8 @@ int main(int argc, char* argv[])
             s.run();
         }
         else if (str == "Client"){
-			std::string host = DEFAULT_HOST;
-            if (argc > 2)
-                host = argv[2];
-			std::cout << "host = " << host << std::endl;
-            Client c(host);
+			std::cout << "host = " << DEFAULT_HOST << std::endl;
+            Client c;
 			Controller controller(c);
             controller.run();
         }

@@ -113,8 +113,6 @@ public:
 		bool checkNames(const String&, const String&) const;
 		bool checkPasswords(const String& password1, const String& password2) const;
 
-		String extractUser(String&);
-
 		UserIter find(const String&);
 		UserIter find(User&);
 

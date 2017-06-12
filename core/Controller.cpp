@@ -31,6 +31,9 @@ void Controller::session()
 		if (c.recvMessage(message) == SUCCESS) {
 			processMessage(message);
 		}
+		else {
+			break;
+		}
 	}
 	inReaderPtr->stopRead();
 	c.closeConnection();
@@ -200,7 +203,7 @@ void Controller::processUserListRespond(String& userList)
 {
 	User u;
 	users.erase(users.begin(), users.end());
-	while (u.fromString(extractUser(userList))) {
+	while (u.fromString(userList)) {
 		users.push_back(u);
 	}
 	updateMessageWindow(users);
@@ -249,7 +252,7 @@ bool Controller::checkPasswords(const String& password1, const String& password2
 	return password1 == password2;
 }
 
-
+/*
 String Controller::extractUser(String& userList)
 {
 	String login = extractWord(userList);
@@ -258,6 +261,7 @@ String Controller::extractUser(String& userList)
 	String status = extractWord(userList);
 	return login + delim + name + delim + surname + delim + status + delim;
 }
+*/
 
 Controller::UserIter Controller::find(const String& login)
 {

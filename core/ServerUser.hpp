@@ -33,19 +33,19 @@ public:
 	{
 		String clientStr;
 		clientStr = login + delim + name + delim 
-			+ surname + delim + password + delim;
-
-		return clientStr;
-	}
-	String toString(int)
-	{
-		String clientStr = toString();
-		clientStr += "Socket = " + std::to_string(sock) + delim;
+			+ surname + delim;
 		if (status == true) {
 			clientStr += online + delim;
 		} else {
 			clientStr += offline + delim;
 		}
+		return clientStr;
+	}
+	String toStringLog()
+	{
+		String clientStr = toString();
+		clientStr += "Socket = " + std::to_string(sock) + delim;
+		clientStr += password + delim;
 
 		return clientStr;
 	}

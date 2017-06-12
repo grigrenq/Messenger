@@ -22,9 +22,9 @@ class ClientUser
 			fromString(clientStr);
 		}
 
-		bool fromString(String clientStr_)
+		bool fromString(String clientStr)
 		{
-			String clientStr(clientStr_);
+			//String clientStr(clientStr_);
 			login = extractWord(clientStr);
 			name = extractWord(clientStr);
 			surname = extractWord(clientStr);
@@ -32,6 +32,7 @@ class ClientUser
 
 			if (login.empty() || name.empty() 
 					|| surname.empty() || st.empty()) {
+				throw std::logic_error("Failed converting String to ClientUser.");
 				return false;
 			}
 

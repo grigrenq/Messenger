@@ -57,7 +57,7 @@ public:
 			String s;
 			for (auto it = serverUsers->begin(); it != serverUsers->end(); ++it) {
 				ServerUser* p = it->getPointer();
-				s = p->toString(4) + '\n';
+				s = p->toStringLog() + '\n';
 				ofile.write(s.c_str(), s.size());
 			}
 			ps = "..............end of the list............\n\n";

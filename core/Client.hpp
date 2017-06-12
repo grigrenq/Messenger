@@ -8,7 +8,7 @@ class Client
 	public:
 		using String = std::string;
 
-		Client(const String&);
+		Client();
 
 		void setupAndConnect();
 		void closeConnection();

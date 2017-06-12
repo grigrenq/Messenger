@@ -16,4 +16,4 @@ Controller.o:	Controller.hpp Controller.cpp Includes.hpp
 
 .PHONY:
 clean:
-	rm *.o run
+	rm *.o run ./ClientLog/*.txt ./ServerLog/*.txt

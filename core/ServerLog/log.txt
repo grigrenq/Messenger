@@ -1,0 +1,28 @@
+Waiting for incoming connections...
+
+Accepted - 4
+Thread - 3074521920 inserted in the map.
+
+Waiting for incoming connections...
+
+
+........Row Message: regRequest%1%name%surname%pass%
+Registration request....(login=1).(name=name).(surname=surname).(password=pass)...... 
+Success%You are registered.
+
+........Row Message: regRequest%2%name%surname%pass%
+Registration request....(login=2).(name=name).(surname=surname).(password=pass)...... 
+Success%You are registered.
+
+........Row Message: loginRequest%1%pass%
+Login request.......(login=1).(password=pass)....
+Setting online user with login: 1
+Send failed.
+Success%You are logged in.
+
+........Row Message: userListRequest%This is a user list request.
+...Client list request....sent string =2%name%surname%offline%1%name%surname%online%....
+Receive failed. Socket is closed.
+Setting Offline user: 1
+Thread - 3074521920 deleted.
+
