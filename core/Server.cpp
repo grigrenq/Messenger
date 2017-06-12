@@ -123,9 +123,17 @@ Server::UserIter Server::find(const SOCKET sock)
 	if (sock == INVALID_SOCKET) {
 		throw "Cannot find user in the multiset with INVALID_SOCKET";
 	}
-	User c(sock);
+	//User c;
+	//c.setSocket(sock);
 	//mutGuard mg(mutex);
-	return users.find(c);
+	
+	UserIter it;
+	for (it = users.begin(); it != users.end(); ++it) {
+		if (it->getSocket() == sock) {
+			return it;
+		}
+	}
+	return it;
 }
 
 Server::UserIter Server::find(const Server::String& login)
@@ -169,6 +177,7 @@ bool Server::setOnline(UserIter& it)
 		User *p = it->getPointer();	//?????????????
 		//mutex.unlock();
 		dbcontroller.logUsers(); 	//logging
+		sendUserChangedRespond(*p);
 		return true;
 	} else {
 		throw std::logic_error("Attempting to set online a user which is already online");
@@ -191,6 +200,7 @@ bool Server::setOffline(UserIter& it)
 		User *p = it->getPointer();	//?????????????
 		//mutex.unlock();
 		dbcontroller.logUsers();	//logging
+		sendUserChangedRespond(*p);
 		return true;
 	} else {
 		throw std::logic_error("Attempting to set offline a user which is already offline.");
@@ -211,24 +221,31 @@ int Server::recvMessage(const SOCKET sock, Server::String& msg)
 	char buffer[DEFAULT_BUFFER];
 	int recvSize = recv(sock, buffer, DEFAULT_BUFFER, 0);
 	if (recvSize < 0) {
-		String log("Receive failed.");
+		String log = "Receive failed.Error occurred.";
 		std::cout << log << std::endl;
-		dbcontroller.logServer(log);
 		auto it = find(sock);
 		if (it != users.end()) {
 			setOffline(it);
+			log += "User-" + (it->getLogin()) + " disconnected.";
+		} else {
+			log += "Unknown socket.";
 		}
+		dbcontroller.logServer(log);
 		closeSocket(sock);
 		return ERROR;
 	}
 	else if (recvSize == SOCKET_CLOSED) {
-		String log("Receive failed. Socket is closed.");
+		String log = "Receive failed. Socket is closed.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 		auto it = find(sock);
 		if (it != users.end()) {
 			setOffline(it);
+			log += "User-" + (it->getLogin()) + " disconnected.";
+		} else {
+			log += "Unknown socket.";
 		}
+		dbcontroller.logClient(log);
 		closeSocket(sock);
 		return SOCKET_CLOSED;
 	}
@@ -323,15 +340,18 @@ void Server::processMessage(const SOCKET sock, String& message)
 void Server::processPlainMessage(const SOCKET sock, String& message)
 {
 	mutex.lock();
-	auto itFrom = find(sock);
-	String fromClient;
+	/*auto itFrom = find(sock);
 	if (itFrom != users.end())
 		fromClient = itFrom->getLogin();
-	else
+	else {
+		throw std::logic_error("processPlainMessage: there is no such socket in the multiset.");
 		fromClient = "Unknown Client.";
-
+	}*/
+	String fromClient = extractWord(message);
 	String toClient = extractWord(message);
+
 	message = fromClient + delim + message;
+	std::cout << "........................attempt to send message: " << message << std::endl;
 
 	auto itToClient = find(toClient);
 	if (itToClient != users.end()) {
@@ -380,7 +400,6 @@ void Server::processLoginRequest(const SOCKET sock, String& message)
 				dbcontroller.logUsers();	//logging
 				User *p = it->getPointer();	//????????????
 				//mutex.unlock();
-				sendUserChangedRespond(*p);
 			}
 		}
 	}
@@ -393,22 +412,15 @@ void Server::processLogoutRequest(const SOCKET sock)
 {
 	String respond;
 	//mutex.lock();
-	String test("processLogoutRequest");
+	String test = "processLogoutRequest from socket:" + std::to_string(sock) + "......:";
 	std::cout << test << std::endl;
 	dbcontroller.logServer(test);
 	auto it = find(sock);
 	if (it == users.end()) {
-		respond = error + delim + "Client with socket: " + std::to_string(sock) + " is not registered.";
-		String s = "Logout request.........(login=" + it->getLogin() + ").(status=";
-		if(it->getStatus() == true) {
-			s += online + ")...";
-			dbcontroller.logServer(s);
-		}
-		mutex.unlock();
+		respond = error + delim + "Client with socket:" + std::to_string(sock) + " is not registered.";
 	} else {
 		if (it->getStatus() == false) {
 			respond = error + delim + "Client with login: "	+ it->getLogin() + " is already logged out.";
-			//mutex.unlock();
 		} else {
 			setOffline(it);
 
@@ -416,7 +428,6 @@ void Server::processLogoutRequest(const SOCKET sock)
 			dbcontroller.logUsers();	//logging
 			User *p = it->getPointer();	//?????????
 			//mutex.unlock();
-			sendUserChangedRespond(*p);
 		}
 	}
 	dbcontroller.logServer(respond);

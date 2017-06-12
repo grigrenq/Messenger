@@ -73,7 +73,9 @@ int Client::sendMessage(const String& message)
 	else
 	{
 		return SUCCESS;
-		std::cout << "Message sent.\n";
+		String log = "Message sent. Row message: " + message;
+		std::cout << log << std::endl;
+		dbcontroller.logClient(log);
 	}
 }
 

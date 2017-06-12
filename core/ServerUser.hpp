@@ -9,7 +9,7 @@ public:
 	using String = std::string;	
 	using PendigMessages = std::list<String>;
 
-	ServerUser(const SOCKET sock_, const String& login_, const std::string& name_,
+	explicit ServerUser(const SOCKET sock_, const String& login_, const std::string& name_,
 			const String& surname_, const std::string& password_,  const bool st)
 		: sock(sock_), login(login_), name(name_)
 		, surname(surname_), password(password_), status(st) 
@@ -95,7 +95,7 @@ public:
 
 	bool operator<(const ServerUser& rhs) const 
 	{
-		return (this->sock < rhs.sock);
+		return (sock < rhs.sock);
 	}
 
 	ServerUser* getPointer() const

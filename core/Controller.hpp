@@ -84,14 +84,14 @@ public:
 			String login;
 
 			if (type == "log") {
-				login = extractWord(str, ' ');
+				login = extractWord(str);
 				std::cout << sendLoginRequest(login, p) << std::endl;
 			} else if (type == "reg") {
-				login = extractWord(str, ' ');
+				login = extractWord(str);
 				std::cout << sendRegistrationRequest(login, n, sn, p, p) << std::endl;
 			} else if (type == "logout") {
 				std::cout << sendLogoutRequest() << std::endl;
-			} else {	
+			} else {
 				std::cout << sendMessageToUser(type, str) << std::endl;
 			}
 		}
@@ -121,6 +121,7 @@ public:
 
 		Client& c;
 		Users users;
+		String UserName;
 		LoginWindow *loginWindow;
 		RegistrationWindow *registrationWindow;
 		MessageWindow *messageWindow;

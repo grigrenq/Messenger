@@ -27,7 +27,7 @@ using mutGuard = std::lock_guard<std::mutex>;
 
 #define DEFAULT_HOST "192.168.68.148"
 #define LOCAL_HOST "127.0.0.1"
-#define DEFAULT_PORT 4859
+#define DEFAULT_PORT 4857
 
 #ifndef INVALID_SOCKET
 #define INVALID_SOCKET -1

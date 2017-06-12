@@ -45,6 +45,7 @@ String Controller::sendLoginRequest(const String& login, const String& password)
 		return incorrectLoginOrPassword;
 	}
 
+	UserName = login;
 	String msg = login + delim + password + delim;
 	return "Login request: " + sendMessage(msg, loginRequest);
 }
@@ -83,6 +84,7 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 		throw std::logic_error("Attempting to send a message to an unknown user.");
 	}
 	msg = toUser + delim + msg;
+	msg = UserName + delim + msg;
 	return "Message to Client " + toUser + ": " + sendMessage(msg, plainMessage);
 }
 
@@ -128,7 +130,9 @@ void Controller::processMessage(String& message)
 void Controller::processPlainMessage(String& message)
 {
 	String fromUser = extractWord(message);
-	std::cout << "From User: " << fromUser << ". message: " << message << std::endl;
+	String log = "From User: " + fromUser + ". message: " + message;
+	std::cout << log << std::endl;
+	dbcontroller.logClient(log);
 
 	auto it = find(fromUser);
 	if (it == users.end()) {
@@ -176,13 +180,15 @@ void Controller::processRegistrationRespond(String& message)
 {
 	dbcontroller.logClient(message);
 	String result = extractWord(message);
+	String log;
 	if (result == error) {
 		//invoke some function of RegistrationWindow
-		std::cout << error << "-" << message << std::endl;
+		log =  error + "-" + message;
 	} else {
 		//invoke some function of RegistrationWindow
-		std::cout << success << "-" << message << std::endl;
+		log = success + "-" + message;
 	}
+	dbcontroller.logClient(log);
 }
 
 
