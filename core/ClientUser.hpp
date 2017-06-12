@@ -22,7 +22,7 @@ class ClientUser
 			fromString(clientStr);
 		}
 
-		bool fromString(String clientStr)
+		bool fromString(String& clientStr)
 		{
 			//String clientStr(clientStr_);
 			login = extractWord(clientStr);
@@ -32,7 +32,7 @@ class ClientUser
 
 			if (login.empty() || name.empty() 
 					|| surname.empty() || st.empty()) {
-				throw std::logic_error("Failed converting String to ClientUser.");
+				//throw std::logic_error("Failed converting String to ClientUser.");
 				return false;
 			}
 
@@ -60,10 +60,7 @@ class ClientUser
 			return clientStr;
 		}
 
-		bool operator==(ClientUser &rhs) 
-		{
-			return login == rhs.login;
-		}
+		
 
 		String getLogin() const { return login; }
 		String getName() const { return name; }
@@ -77,6 +74,7 @@ class ClientUser
 		ClientUser* getPointer() { return this; }
 	private:
 		void operator=(const ClientUser&);
+		bool operator==(ClientUser &rhs);
 
 		String login;
 		String name;

@@ -107,7 +107,7 @@ void Controller::processMessage(String& message)
 {
 	dbcontroller.logClient(message);
 	String msgType = extractWord(message);
-	std::cout << "Message Type: " << msgType << std::endl;
+	//std::cout << "Message Type: " << msgType << std::endl;
 	if (msgType == plainMessage) {
 		processPlainMessage(message);
 	} else if (msgType == loginRespond) {
@@ -158,14 +158,18 @@ void Controller::processLogoutRespond(String& message)
 {
 	dbcontroller.logClient(message);
 	String result = extractWord(message);
+	String log;
 	if (result == error) {
 		//invoke some function of Gui
-		std::cout << error << "-" << message << std::endl;
-		users.erase(users.begin(), users.end());
+		log =  error + "-" + message;
 	} else {
 		//invoke some function of Gui
-		std::cout << success << "-" << message << std::endl;
+		log = success + "-" + message;
+		users.erase(users.begin(), users.end());
 	}
+	std::cout << log << std::endl;
+	dbcontroller.logClient(log);
+	dbcontroller.logUsers();
 }
 
 void Controller::processRegistrationRespond(String& message)
@@ -185,30 +189,41 @@ void Controller::processRegistrationRespond(String& message)
 void Controller::processUserChangedRespond(String& userStr)
 {
 	User u;
+	String log = "UserChangedRespond: User: " + u.toString();
+	UserIter it;
 	if (!u.fromString(userStr)) {
-		throw std::logic_error("...Error occurred when processing user changed respond");
+		log += ". missing from the list.";
+		//throw std::logic_error("...Error occurred when processing user changed respond");
+	} else {
+		it = find(u);
+		if (it == users.end()) {
+			users.push_back(u);
+			it = users.end();
+			--it;
+			log += ". adding into the list.";
+		}
+		else {
+			it->setStatus(u.getStatus());
+			log += ". setting status to " + std::to_string(u.getStatus());
+		}
 	}
-	auto it = find(u);
-	if (it == users.end()) {
-		users.push_back(u);
-		it = users.end();
-		--it;
-	}
-	else {
-		it->setStatus(u.getStatus());
-	}
-
-	updateMessageWindow(it);
+	dbcontroller.logClient(log);
 	dbcontroller.logUsers();
+	updateMessageWindow(it);
 }
 
 void Controller::processUserListRespond(String& userList)
 {
 	User u;
+	String log = "processUserListResp......";
+	dbcontroller.logClient(log);
 	users.erase(users.begin(), users.end());
 	while (u.fromString(userList)) {
 		users.push_back(u);
+		log = " adding into the list user:" + u.toString();
+		dbcontroller.logClient(log);
 	}
+	dbcontroller.logUsers();
 	updateMessageWindow(users);
 }
 
@@ -281,7 +296,7 @@ Controller::UserIter Controller::find(Controller::User& u)
 {
 	auto it = users.begin();
 	for (; it != users.end(); ++it) {
-		if ((*it) == u)
+		if (it->getLogin() == u.getLogin())
 			return it;
 	}
 	return it;

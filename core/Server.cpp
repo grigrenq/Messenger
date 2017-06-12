@@ -282,9 +282,14 @@ int Server::sendMessage(const SOCKET sock, String& msg, const String& msgType)
 void Server::sendUserChangedRespond(User& user)
 {
 	String userStr = user.toString();
+	String log = "sendUserChangedResp......userchanged: " + userStr;
+	dbcontroller.logServer(log);
 	//mutex.lock();
 	for (auto it = users.begin(); it != users.end(); ++it) {
 		if (it->getStatus() == true) {
+			if (it->getLogin() == user.getLogin()) {
+				continue;
+			}
 			sendMessage(it->getSocket(), userStr, userChangedRespond);
 		}
 	}
@@ -425,7 +430,7 @@ void Server::processRegistrationRequest(const SOCKET sock, String& message)
 	u.fromString(message);
 	String log = "Registration request....(login=" + u.getLogin() + ").(name="
 		+ u.getName() + ").(surname=" + u.getSurname()
-		+ ").(password=" + u.getPassword() + ")...... " + message;
+		+ ").(password=" + u.getPassword() + ").(status=" + std::to_string(u.getStatus()) + ")..." + message;
 	std::cout << log << std::endl;
 	dbcontroller.logServer(log);
 
@@ -436,11 +441,12 @@ void Server::processRegistrationRequest(const SOCKET sock, String& message)
 		respond = error + delim + "Client with login: " + u.getLogin() + " is already registered.";
 		//mutex.unlock();
 	} else {
-		users.insert(u);
+		it = users.insert(u);
 		respond = success + delim + "You are registered.";
 		dbcontroller.logUsers();	//logging
 		//mutex.unlock();
-		sendUserChangedRespond(u);
+		User *p = it->getPointer();
+		sendUserChangedRespond(*p);
 	}
 	dbcontroller.logServer(respond);
 	sendMessage(sock, respond, registrationRespond);
