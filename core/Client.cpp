@@ -97,7 +97,10 @@ int Client::recvMessage(String& message)
 	{
 		buffer[recvSize] = '\0';
 		message.assign(buffer);
-		std::cout << "........Row Message: " << message << std::endl;
+
+		String log("....Row Message: " + message);
+		std::cout << log << std::endl;
+		dbcontroller.logClient(log);
 		return SUCCESS;
 	}
 }

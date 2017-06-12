@@ -17,19 +17,30 @@ public:
 	using String = std::string;
 	using mutGuard = std::lock_guard<std::mutex>;
 
+	DBController()
+		: serverUsers(nullptr), clientUsers(nullptr) {}
 	DBController(ServerUsers *su)
 		: serverUsers(su), clientUsers(nullptr) {}
 	DBController(ClientUsers *cu)
 		: serverUsers(nullptr), clientUsers(cu) {}
 
-	void log(String& str)
+	void logServer(const String& str)
 	{
 		mutGuard mg(mutex);
 		std::ofstream ofile("./ServerLog/log.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
-		str += "\n";
 		ofile.write(str.c_str(), str.size());
+		ofile.write("\n", 1);
 		ofile.close();
 	}
+	void logClient(const String& str)
+	{
+		mutGuard mg(mutex);
+		std::ofstream ofile("./ClientLog/log.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
+		ofile.write(str.c_str(), str.size());
+		ofile.write("\n", 1);
+		ofile.close();
+	}
+
 
 	void logUsers()
 	{

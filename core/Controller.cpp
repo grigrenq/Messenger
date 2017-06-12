@@ -105,6 +105,7 @@ String Controller::sendMessage(String& message, const String& msgType)
 
 void Controller::processMessage(String& message)
 {
+	dbcontroller.logClient(message);
 	String msgType = extractWord(message);
 	std::cout << "Message Type: " << msgType << std::endl;
 	if (msgType == plainMessage) {
@@ -140,13 +141,14 @@ void Controller::processPlainMessage(String& message)
 
 void Controller::processLoginRespond(String& message)
 {
+	dbcontroller.logClient(message);
 	String result = extractWord(message);
 	if (result == error) {
 		//invoke some function of LoginWindow
-		std::cout << error << "-";
+		std::cout << error << "-" << message << std::endl;
 	} else {
 		//invoke some function of LoginWindow
-		std::cout << success << "-";
+		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
 	}
 	std::cout << message << std::endl;
@@ -154,28 +156,29 @@ void Controller::processLoginRespond(String& message)
 
 void Controller::processLogoutRespond(String& message)
 {
+	dbcontroller.logClient(message);
 	String result = extractWord(message);
 	if (result == error) {
 		//invoke some function of Gui
-		std::cout << error << "-";
+		std::cout << error << "-" << message << std::endl;
+		users.erase(users.begin(), users.end());
 	} else {
 		//invoke some function of Gui
-		std::cout << success << "-";
+		std::cout << success << "-" << message << std::endl;
 	}
-	std::cout << message << std::endl;
 }
 
 void Controller::processRegistrationRespond(String& message)
 {
+	dbcontroller.logClient(message);
 	String result = extractWord(message);
 	if (result == error) {
 		//invoke some function of RegistrationWindow
-		std::cout << error << "-";
+		std::cout << error << "-" << message << std::endl;
 	} else {
 		//invoke some function of RegistrationWindow
-		std::cout << success << "-";
+		std::cout << success << "-" << message << std::endl;
 	}
-	std::cout << message << std::endl;
 }
 
 

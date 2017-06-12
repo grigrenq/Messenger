@@ -2,6 +2,8 @@
 #define CLIENT_HPP
 
 #include "Includes.hpp"
+#include "DBController.hpp"
+
 
 class Client
 {
@@ -26,6 +28,8 @@ class Client
 
 		String host;
 		String login;
+
+		DBController dbcontroller;
 };
 
 #endif
