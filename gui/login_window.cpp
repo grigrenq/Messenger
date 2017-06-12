@@ -1,6 +1,7 @@
 #include "login_window.h"
 #include <iostream>
-#include<QLabel>
+#include <QLabel>
+#include <QPalette>
 login_window::login_window()
 {
     this->setGeometry(50,50,850,600);
@@ -38,13 +39,13 @@ void login_window::create_layout()
 //   m_v_layout->setMaximumSize(80);
     QLabel *label1 = new QLabel(this);
     QLabel *label2 = new QLabel(this);
-    label1->setGeometry(15,5,200,50);
-    label2->setGeometry(15,65,200,50);
+    label1->setGeometry(15,5,50,50);
+    label2->setGeometry(15,65,50,50);
     
-    label1->setMinimumSize(80,100);
-    label1->setMaximumSize(8,100);
-    label2->setMinimumSize(80,100);
-    label2->setMaximumSize(80,100);
+    label1->setMinimumSize(40,50);
+    label1->setMaximumSize(120,150);
+    label2->setMinimumSize(50,50);
+    label2->setMaximumSize(120,150);
 }
 
 void login_window::create_buttons()
@@ -67,12 +68,12 @@ void login_window::create_text_edit()
     m_password_text = new QLineEdit(this);
     m_password_text->setEchoMode(QLineEdit::Password);
     m_login_text->setMinimumHeight(30);
-    m_login_text->setMinimumWidth(300);
-    m_login_text->setMaximumHeight(30);
+    m_login_text->setMinimumWidth(200);
+    m_login_text->setMaximumHeight(40);
     m_login_text->setMaximumWidth(300);
     m_password_text->setMinimumHeight(30);
-    m_password_text->setMinimumWidth(300);
-    m_password_text->setMaximumHeight(30);
+    m_password_text->setMinimumWidth(200);
+    m_password_text->setMaximumHeight(40);
     m_password_text->setMaximumWidth(300);
 
 }
@@ -80,11 +81,17 @@ void login_window::create_text_edit()
 void login_window::create_username_label()
 {
     m_username_label = new QLabel("Username", this);
+    QPalette sample_palette;
+    sample_palette.setColor(QPalette::WindowText, Qt::white);
+    m_username_label->setPalette(sample_palette);
 }
 
 void login_window::create_password_label()
 {
     m_password_label = new QLabel("Password", this);
+    QPalette sample_palette;
+    sample_palette.setColor(QPalette::WindowText, Qt::white);
+    m_password_label->setPalette(sample_palette);
 }
 
 void login_window::set_logo()
