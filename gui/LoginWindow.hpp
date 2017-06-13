@@ -16,6 +16,7 @@
 
 #include "RegistrationWindow.hpp"
 #include "../core/InputValidator.hpp"
+#include "../core/Controller.hpp"
 
 class LoginWindow : public QWidget
 {
@@ -24,7 +25,7 @@ class LoginWindow : public QWidget
 public:
 	typedef std::string String;
 
-    LoginWindow();
+    LoginWindow(Controller&);
 
 public slots:
     void openRegWin();
@@ -56,6 +57,8 @@ private:
     QPixmap* m_pix;
     QIcon* m_icon;
     RegistrationWindow* m_regWin;
+
+	Controller& controller;
 	InputValidator validator;
 };
 

@@ -76,7 +76,7 @@ void Server::doAcceptClient()
 	std::pair<Server*, SOCKET> *pairPtr = new std::pair<Server*, SOCKET>(this, sockAccepted);
 	std::shared_ptr<pthread_t> shptr(new pthread_t);
 	if (pthread_create(&(*shptr), NULL, ::handleSession, pairPtr)) {
-		log = "Error creating thread.";
+		log = "An error occurred during thread creation process.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 		return;
@@ -168,7 +168,7 @@ void Server::sendPendingMessages(const SOCKET sock)
 		log = "Sent pending Message: " + messages.front();
 		dbcontroller.logServer(log);
 		messages.pop_front();
-		//usleep(1000);
+		//usleer(1000);
 	}
 }
 

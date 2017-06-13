@@ -8,6 +8,7 @@
 class QLineEdit;
 
 #include "../core/InputValidator.hpp"
+#include "../core/Controller.hpp"
 
 class RegistrationWindow : public QMainWindow
 {
@@ -16,7 +17,8 @@ class RegistrationWindow : public QMainWindow
 public:
 	typedef std::string String;
 
-	RegistrationWindow();
+	RegistrationWindow(Controller&);
+
 	void addPushButton();
 	void addLineEdit();
 	void addStatusBar();
@@ -41,6 +43,8 @@ private:
 	QLineEdit* surname;
 	QLineEdit* password1;
 	QLineEdit* password2;
+
+	Controller& controller;
 	InputValidator validator;
 };
 

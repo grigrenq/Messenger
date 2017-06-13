@@ -1,11 +1,7 @@
 #ifndef INPUTVALIDATOR_HPP
 #define INPUTVALIDATOR_HPP
 
-#include <string>
-
 //extern const char underscore;
-const char underscore = '_';
-
 
 class InputValidator
 {
@@ -53,6 +49,7 @@ class InputValidator
 	private:
 		const SizeType minimalSymbols;
 		const SizeType maximumSymbols;
+		const char underscore = '_';
 };
 
 #endif

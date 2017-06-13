@@ -10,11 +10,13 @@
 #include <QObject>
 #include <QSize>
 #include <QIcon>
-#include "RegistrationWindow.hpp"
-
 #include <iostream>
 
-RegistrationWindow::RegistrationWindow()
+#include "RegistrationWindow.hpp"
+
+
+RegistrationWindow::RegistrationWindow(Controller& c)
+	: controller(c)
 {
 	const QSize windowSize(450,380);
 	setMaximumSize(windowSize);

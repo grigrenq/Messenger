@@ -7,8 +7,8 @@
 #include "InputValidator.hpp"
 
 class LoginWindow;
-class RegistrationWindow;
-class MessageWindow;
+//class RegistrationWindow;
+class MainWindow;
 
 
 
@@ -51,9 +51,10 @@ public:
 						//break;
 						//exit(1);
 					} else {
-						controller.f(message);
+						//controller.f(message);
 					}
 				}
+				return nullptr;
 			}
 			bool stopRequested() const {
 				return stopReading;
@@ -71,7 +72,7 @@ public:
 		String sendLoginRequest(const String& login, const String& password);
 		String sendLogoutRequest();
 		String sendRegistrationRequest(const String& login, const String& name,
-				const String& surname, const String& password1, const String& password2);
+				const String& surname, const String& password);
 		String sendMessageToUser(const String& toUser, String& msg);
 
 		void f(String& str)	//for testing
@@ -90,7 +91,7 @@ public:
 			} else if (type == "reg") {
 				login = extractWord(str);
 				UserName = login;
-				std::cout << sendRegistrationRequest(login, n, sn, p, p) << std::endl;
+				std::cout << sendRegistrationRequest(login, n, sn, p) << std::endl;
 			} else if (type == "logout") {
 				std::cout << sendLogoutRequest() << std::endl;
 			} else {
@@ -124,7 +125,6 @@ public:
 		String UserName;
 
 		LoginWindow *loginWindow;
-		RegistrationWindow *registrationWindow;
 		MainWindow *mainWindow;
 
 		ExtractWord extractWord;

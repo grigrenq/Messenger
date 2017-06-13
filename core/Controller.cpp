@@ -24,27 +24,21 @@ void Controller::closeConnection()
 
 void Controller::session()
 {
-	inReaderPtr.reset(new InputReader(*this));
-	inReaderPtr->startRead();
+	//inReaderPtr.reset(new InputReader(*this));
+	//inReaderPtr->startRead();
+	
+
 	String message;
-	while (!inReaderPtr->stopRequested()) {
-		if (c.recvMessage(message) == SUCCESS) {
+	while (c.recvMessage(message) == SUCCESS) {
 			processMessage(message);
-		}
-		else {
-			break;
-		}
 	}
-	inReaderPtr->stopRead();
+
+	//inReaderPtr->stopRead();
 	c.closeConnection();
 }
 
 String Controller::sendLoginRequest(const String& login, const String& password)
 {
-	/*if (checkLoginPassword(login, password) == false) {
-		return incorrectLoginOrPassword;
-	}*/
-
 	UserName = login;
 	String msg = login + delim + password + delim;
 	return "Login request: " + sendMessage(msg, loginRequest);
@@ -57,20 +51,10 @@ String Controller::sendLogoutRequest()
 }
 
 String Controller::sendRegistrationRequest(const String& login, const String& name,
-			const String& surname, const String& password1, const String& password2)
+			const String& surname, const String& password)
 {
-	/*if (checkLoginPassword(login, password1) == false) {
-		return incorrectLoginOrPassword;
-	}
-	if (checkNames(name, surname) == false) {
-		return incorrectName;
-	}
-	if (checkPasswords(password1, password2) == false) {
-		return incorrectPasswords;
-	}*/
-
 	String msg = login + delim + name + delim 
-			+ surname + delim + password1 + delim;
+			+ surname + delim + password + delim;
 	return "Registration request: " + sendMessage(msg, registrationRequest);
 }
 
@@ -282,4 +266,5 @@ void Controller::updateMessageWindow(const Users& users_)
 void* readMessage(void *thisV) {
     Controller::InputReader *thisI = (Controller::InputReader *)thisV;
     thisI->readMessage();
+	return nullptr;
 }

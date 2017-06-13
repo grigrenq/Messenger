@@ -3,7 +3,8 @@
 #include <QLabel>
 #include <QPalette>
 
-LoginWindow::LoginWindow()
+LoginWindow::LoginWindow(Controller& c)
+	: controller(c)
 {
     this->setGeometry(50,50,850,600);
     this->setMinimumHeight(300);
@@ -128,7 +129,7 @@ void LoginWindow::setWindowIcon()
 
 void LoginWindow::openRegWin()
 {
-    m_regWin = new RegistrationWindow();
+    m_regWin = new RegistrationWindow(controller);
     m_regWin->show();
 }
 
@@ -175,6 +176,5 @@ void LoginWindow::sendLoginReq()
 		std::cout << "Wrong password.\n";
 		return;
 	}
-
-	//..................
+	controller.sendLoginRequest(l, p);
 }
