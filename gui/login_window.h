@@ -43,6 +43,6 @@ private:
     QPalette* m_pal;
     QPixmap* m_pix;
     QIcon* m_icon;
-    MainWindow* m_reg_win;
+    RegistrationWindow* m_reg_win;
 
 };

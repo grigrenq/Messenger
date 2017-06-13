@@ -125,7 +125,7 @@ void login_window::set_window_icon()
 
 void login_window::open_reg_win()
 {
-    m_reg_win = new MainWindow;
+    m_reg_win = new RegistrationWindow;
     m_reg_win->show();
 }
 

@@ -16,7 +16,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_MainWindow[] = {
+static const uint qt_meta_data_RegistrationWindow[] = {
 
  // content:
        6,       // revision
@@ -30,20 +30,20 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      12,   11,   11,   11, 0x0a,
+      20,   19,   19,   19, 0x0a,
 
        0        // eod
 };
 
-static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0sendDetails()\0"
+static const char qt_meta_stringdata_RegistrationWindow[] = {
+    "RegistrationWindow\0\0sendDetails()\0"
 };
 
-void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void RegistrationWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         Q_ASSERT(staticMetaObject.cast(_o));
-        MainWindow *_t = static_cast<MainWindow *>(_o);
+        RegistrationWindow *_t = static_cast<RegistrationWindow *>(_o);
         switch (_id) {
         case 0: _t->sendDetails(); break;
         default: ;
@@ -52,33 +52,33 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData MainWindow::staticMetaObjectExtraData = {
+const QMetaObjectExtraData RegistrationWindow::staticMetaObjectExtraData = {
     0,  qt_static_metacall 
 };
 
-const QMetaObject MainWindow::staticMetaObject = {
-    { &QMainWindow::staticMetaObject, qt_meta_stringdata_MainWindow,
-      qt_meta_data_MainWindow, &staticMetaObjectExtraData }
+const QMetaObject RegistrationWindow::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_RegistrationWindow,
+      qt_meta_data_RegistrationWindow, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &MainWindow::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &RegistrationWindow::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *MainWindow::metaObject() const
+const QMetaObject *RegistrationWindow::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *MainWindow::qt_metacast(const char *_clname)
+void *RegistrationWindow::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_MainWindow))
-        return static_cast<void*>(const_cast< MainWindow*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_RegistrationWindow))
+        return static_cast<void*>(const_cast< RegistrationWindow*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 
-int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int RegistrationWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
