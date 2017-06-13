@@ -51,6 +51,7 @@ private:
 	void processLogoutRequest(const SOCKET);
 	void processRegistrationRequest(const SOCKET, String&);
 	void processUserListRequest(const SOCKET);
+	void processPendingMessagesRequest(const SOCKET);
 
 	Users users;
 

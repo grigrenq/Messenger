@@ -166,7 +166,7 @@ void Server::sendPendingMessages(const SOCKET sock)
 bool Server::setOnline(UserIter& it)
 {
 	if (it->getStatus() == false) {
-		//mutex.lock();
+		mutex.lock();
 		String log = "Setting online user with login: " + it->getLogin();
 
 		dbcontroller.logServer(log);
@@ -175,7 +175,7 @@ bool Server::setOnline(UserIter& it)
 		u.setStatus(true);
 		it = users.insert(u);
 		User *p = it->getPointer();	//?????????????
-		//mutex.unlock();
+		mutex.unlock();
 		dbcontroller.logUsers(); 	//logging
 		sendUserChangedRespond(*p);
 		return true;
@@ -189,7 +189,7 @@ bool Server::setOnline(UserIter& it)
 bool Server::setOffline(UserIter& it)
 {	
 	if (it->getStatus() == true) {
-		//mutex.lock();
+		mutex.lock();
 		String log("Setting Offline user: " + it->getLogin());
 		dbcontroller.logServer(log);
 		auto u = *it;
@@ -198,7 +198,7 @@ bool Server::setOffline(UserIter& it)
 		u.setSocket(INVALID_SOCKET);
 		it = users.insert(u);
 		User *p = it->getPointer();	//?????????????
-		//mutex.unlock();
+		mutex.unlock();
 		dbcontroller.logUsers();	//logging
 		sendUserChangedRespond(*p);
 		return true;
@@ -328,7 +328,9 @@ void Server::processMessage(const SOCKET sock, String& message)
 		processRegistrationRequest(sock, message);
 	} else if (msgType == userListRequest) {
 		processUserListRequest(sock);
-	} else {
+	} else if (msgType == pendingMessagesRequest) {
+		processPendingMessagesRequest(sock);
+	}else {
 		String log("Unknown type: " + msgType + ". message: " + message);
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
@@ -339,7 +341,7 @@ void Server::processMessage(const SOCKET sock, String& message)
 
 void Server::processPlainMessage(const SOCKET sock, String& message)
 {
-	mutex.lock();
+	//mutex.lock();
 	/*auto itFrom = find(sock);
 	if (itFrom != users.end())
 		fromClient = itFrom->getLogin();
@@ -355,14 +357,15 @@ void Server::processPlainMessage(const SOCKET sock, String& message)
 
 	auto itToClient = find(toClient);
 	if (itToClient != users.end()) {
-		mutex.unlock();
+		//mutex.unlock();
 		if (itToClient->getStatus() == true) {
 			sendMessage((itToClient->getSocket()), message, plainMessage);
 		} else {
 			itToClient->addPendingMessage(message);
+			dbcontroller.logServer(String("pending message - ") + message);
 		}
 	} else {
-		mutex.unlock();
+		//mutex.unlock();
 		String log("From-" + extractWord(message) + ". To-" 
 			+ toClient + ". Message-" + message);
 		dbcontroller.logServer(log);
@@ -463,7 +466,7 @@ void Server::processRegistrationRequest(const SOCKET sock, String& message)
 	sendMessage(sock, respond, registrationRespond);
 }
 
-void Server::processUserListRequest(SOCKET sock)
+void Server::processUserListRequest(const SOCKET sock)
 {
 	String respond;
 	//mutex.lock();
@@ -477,6 +480,11 @@ void Server::processUserListRequest(SOCKET sock)
 		dbcontroller.logServer(log);
 		sendMessage(sock, respond, userListRespond);
 	}
+}
+
+void Server::processPendingMessagesRequest(const SOCKET sock)
+{
+	sendPendingMessages(sock);
 }
 
 

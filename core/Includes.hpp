@@ -54,6 +54,8 @@ const std::string logoutRespond = "logoutRespond";
 const std::string registrationRequest = "regRequest";
 const std::string registrationRespond = "regRespond";
 
+const std::string pendingMessagesRequest = "pendMsgRequest";
+
 const std::string userChangedRespond = "userChanged";
 
 const std::string userListRequest = "userListRequest";

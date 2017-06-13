@@ -94,8 +94,15 @@ String Controller::sendUserListRequest()
 	return "Client List request: " + sendMessage(msg, userListRequest);
 }
 
+String Controller::sendPendingMessagesRequest()
+{
+	String msg = "This is a pending messages request.";
+	return "Pending Messages Request: " + sendMessage(msg, pendingMessagesRequest);
+}
+
 String Controller::sendMessage(String& message, const String& msgType)
 {
+	usleep(50);
 	message = msgType + delim + message;
 	if (c.sendMessage(message) == SUCCESS) {
 		return success + "message to Server sent.";
@@ -154,6 +161,7 @@ void Controller::processLoginRespond(String& message)
 		//invoke some function of LoginWindow
 		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
+		sendPendingMessagesRequest();
 	}
 	std::cout << message << std::endl;
 }
@@ -291,6 +299,7 @@ Controller::UserIter Controller::find(const String& login)
 {
 	auto it = users.begin();
 	for (; it != users.end(); ++it) {
+		//std::cout << "getLogin() - " << it->getLogin() << ".....login-" << login << std::endl;
 		if (it->getLogin() == login) {
 			return it;
 		}

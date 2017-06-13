@@ -72,7 +72,6 @@ public:
 		String sendRegistrationRequest(const String& login, const String& name,
 				const String& surname, const String& password1, const String& password2);
 		String sendMessageToUser(const String& toUser, String& msg);
-		String sendUserListRequest();
 
 		void f(String& str)	//for testing
 		{
@@ -99,6 +98,8 @@ public:
 		void session();
 		void closeConnection();
 
+		String sendUserListRequest();
+		String sendPendingMessagesRequest();
 		String sendMessage(String& msg, const String& msgType);
 
 		void processMessage(String&);
