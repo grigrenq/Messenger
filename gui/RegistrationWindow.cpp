@@ -12,6 +12,7 @@
 #include <QIcon>
 #include "RegistrationWindow.hpp"
 
+#include <iostream>
 
 RegistrationWindow::RegistrationWindow()
 {
@@ -25,6 +26,7 @@ RegistrationWindow::RegistrationWindow()
 	addStatusBar();
 	this->setStyleSheet("background-image: url(../resources/background.jpg)");
 	addIcon();
+	connectLines();
 }
 
 void RegistrationWindow::addLayout(){
@@ -57,32 +59,39 @@ void RegistrationWindow::addIcon()
 
 void RegistrationWindow::addLineEdit()
 {
-	QLineEdit* le1 = new QLineEdit(this);
-	le1->setGeometry(100,50,250,30);
-	le1->setPlaceholderText("Your name here...");
+	login = new QLineEdit(this);
+	login->setGeometry(100,50,250,30);
+	login->setPlaceholderText("Your login here...");
 	QPalette p;
 	p.setColor(QPalette::Background,Qt::red);
-	le1->setPalette(p);
-	QLineEdit* le2 = new QLineEdit(this);
-	le2->setGeometry(100,100,250,30);
-	le2->setPlaceholderText("Your surname here...");
-	QLineEdit* le3 = new QLineEdit(this);
-	le3->setGeometry(100,150,250,30);
-	le3->setPlaceholderText("Your login here...");
-	QLineEdit* le4 = new QLineEdit(this);
-	le4->setGeometry(100,200,250,30);
-	le4->setEchoMode(QLineEdit::Password);
-	le4->setPlaceholderText("Your password here...");
-	QLineEdit* le5 = new QLineEdit(this);
-	le5->setGeometry(100,250,250,30);
-	le5->setEchoMode(QLineEdit::Password);
-	le5->setPlaceholderText("repeat password");
-	m_mainLayout->addWidget(le1);
-	m_mainLayout->addWidget(le2);
-	m_mainLayout->addWidget(le3);
-	m_mainLayout->addWidget(le4);
-	m_mainLayout->addWidget(le5);
+	login->setPalette(p);
+
+	name = new QLineEdit(this);
+	name->setGeometry(100,100,250,30);
+	name->setPlaceholderText("Your name here...");
+
+	surname = new QLineEdit(this);
+	surname->setGeometry(100,150,250,30);
+	surname->setPlaceholderText("Your surname here...");
+
+	password1 = new QLineEdit(this);
+	password1->setGeometry(100,200,250,30);
+	password1->setEchoMode(QLineEdit::Password);
+	password1->setPlaceholderText("Your password here...");
+
+	password2 = new QLineEdit(this);
+	password2->setGeometry(100,250,250,30);
+	password2->setEchoMode(QLineEdit::Password);
+	password2->setPlaceholderText("repeat password");
+
+	m_mainLayout->addWidget(login);
+	m_mainLayout->addWidget(name);
+	m_mainLayout->addWidget(surname);
+	m_mainLayout->addWidget(password1);
+	m_mainLayout->addWidget(password2);
 }
+
+
 
 void RegistrationWindow::addStatusBar()
 {
@@ -94,3 +103,81 @@ void RegistrationWindow::addStatusBar()
 void RegistrationWindow::sendDetails()
 {
 }
+
+void RegistrationWindow::connectLines()
+{
+	connect(login, SIGNAL(textChanged(const QString&)), this, SLOT(checkLogin(const QString&)));
+	connect(name, SIGNAL(textChanged(const QString&)), this, SLOT(checkName(const QString&)));
+	connect(surname, SIGNAL(textChanged(const QString&)), this, SLOT(checkSurname(const QString&)));
+	connect(password1, SIGNAL(textChanged(const QString&)), this, SLOT(checkPassword(const QString&)));
+	connect(password2, SIGNAL(textChanged(const QString&)), this, SLOT(checkPasswords(const QString&)));
+}
+
+
+void RegistrationWindow::checkLogin(const QString& qs)
+{
+	String s = qs.toStdString();
+	if (validator.checkLoginPassword(s)) {
+		//?????????
+		login->setStyleSheet("border: 3px solid black");
+	} else {
+		//?????????
+		std::cout << "Wrong Login.\n";
+		login->setStyleSheet("border: 3px solid red");
+	}
+}
+
+void RegistrationWindow::checkName(const QString& qs)
+{
+	String s = qs.toStdString();
+	if (validator.checkName(s)) {
+		//?????????
+		name->setStyleSheet("border: 3px solid black");
+	} else {
+		//?????????
+		std::cout << "Wrong Name.\n";
+		name->setStyleSheet("border: 3px solid red");
+	}
+}
+
+void RegistrationWindow::checkSurname(const QString& qs)
+{
+	String s = qs.toStdString();
+	if (validator.checkName(s)) {
+		//?????????
+		surname->setStyleSheet("border: 3px solid black");
+	} else {
+		//?????????
+		std::cout << "Wrong Surname.\n";
+		surname->setStyleSheet("border: 3px solid red");
+	}
+}
+
+
+void RegistrationWindow::checkPassword(const QString& qs)
+{
+	String s = qs.toStdString();
+	if (validator.checkLoginPassword(s)) {
+		//?????????
+		password1->setStyleSheet("border: 3px solid black");
+	} else {
+		//?????????
+		std::cout << "Wrong password.\n";
+		password1->setStyleSheet("border: 3px solid red");
+	}
+}
+
+void RegistrationWindow::checkPasswords(const QString& qs)
+{
+	String s = qs.toStdString();
+	if (validator.checkPasswords((password1->text()).toStdString(), s)) {
+		//?????????
+		password2->setStyleSheet("border: 3px solid black");
+	} else {
+		//?????????
+		std::cout << "Passwords do not match.\n";
+		password2->setStyleSheet("border: 3px solid red");
+	}
+}
+
+

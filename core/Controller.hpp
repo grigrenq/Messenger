@@ -113,10 +113,6 @@ public:
 		void processUserChangedRespond(String&);
 		void processUserListRespond(String&);
 
-		//bool checkLoginPassword(const String& login, const String& password) const;
-		//bool checkNames(const String&, const String&) const;
-		//bool checkPasswords(const String& password1, const String& password2) const;
-
 		UserIter find(const String&);
 		UserIter find(User&);
 
@@ -126,9 +122,11 @@ public:
 		Client& c;
 		Users users;
 		String UserName;
+
 		LoginWindow *loginWindow;
 		RegistrationWindow *registrationWindow;
-		MessageWindow *messageWindow;
+		MainWindow *mainWindow;
+
 		ExtractWord extractWord;
 		std::shared_ptr<InputReader> inReaderPtr;
 		DBController dbcontroller;

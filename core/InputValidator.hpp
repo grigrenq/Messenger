@@ -1,21 +1,30 @@
-
 #ifndef INPUTVALIDATOR_HPP
 #define INPUTVALIDATOR_HPP
+
+#include <string>
+
+//extern const char underscore;
+const char underscore = '_';
 
 
 class InputValidator
 {
 	public:
-		using SizeType = size_t;
-		using String = std::string;
+		typedef std::string String;
+		typedef std::string::size_type SizeType;
 
-		bool checkLoginOrPassword(const String& s) const
+		InputValidator()
+			: minimalSymbols(4), maximumSymbols(20)
+		{
+		}
+
+		bool checkLoginPassword(const String& s) const
 		{
 			const SizeType sz = s.size();
 			if (sz > maximumSymbols || sz < minimalSymbols) {
 				return false;
 			}
-			for (auto i = 0; i < sz; ++i) {
+			for (SizeType i = 0; i < sz; ++i) {
 					if (!isalnum(s[i]) && s[i] != underscore) {
 						return false;
 				}
@@ -26,10 +35,10 @@ class InputValidator
 		bool checkName(const String& s) const
 		{
 			const SizeType sz = s.size();
-			if (sz < maximumSymbols || sz < minimalSymbols) {
+			if (sz > maximumSymbols || sz < minimalSymbols) {
 				return false;
 			}
-			for (auto i = 0; i < sz; ++i) {
+			for (SizeType i = 0; i < sz; ++i) {
 				if (!isalpha(s[i])) {
 					return false;
 				}
@@ -42,8 +51,8 @@ class InputValidator
 			return p1 == p2;
 		}
 	private:
-		const SizeType minimalSymbols = 5;
-		const SizeType maximumSymbols = 12;
+		const SizeType minimalSymbols;
+		const SizeType maximumSymbols;
 };
 
 #endif
