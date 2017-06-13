@@ -98,7 +98,7 @@ void login_window::set_logo()
 {
     m_logo = new QLabel(this);
     m_logo->setGeometry(350, 10, 450, 450);
-    QPixmap* p = new QPixmap("../back_image/asd");
+    QPixmap* p = new QPixmap("../resources/asd");
     m_logo->setPixmap(*p);
 
 }
@@ -106,7 +106,7 @@ void login_window::set_logo()
 void login_window::set_background()
 {
     //m_pal = new QPalette();
-    m_pix = new QPixmap("../back_image/b.jpeg");
+    m_pix = new QPixmap("../resources/b.jpeg");
     //*m_pix = m_pix->scaled(this->size(), Qt::IgnoreAspectRatio);
     QLabel *label1=new QLabel(this);
     label1->setGeometry(0,0,1700,1300);
@@ -119,7 +119,7 @@ void login_window::set_background()
 
 void login_window::set_window_icon()
 {
-    m_icon = new QIcon("../back_image/a.png");
+    m_icon = new QIcon("../resources/a.png");
     this->setWindowIcon(*m_icon);
 }
 
