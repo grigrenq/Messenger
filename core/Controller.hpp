@@ -84,9 +84,11 @@ public:
 
 			if (type == "log") {
 				login = extractWord(str);
+				UserName = login;
 				std::cout << sendLoginRequest(login, p) << std::endl;
 			} else if (type == "reg") {
 				login = extractWord(str);
+				UserName = login;
 				std::cout << sendRegistrationRequest(login, n, sn, p, p) << std::endl;
 			} else if (type == "logout") {
 				std::cout << sendLogoutRequest() << std::endl;
