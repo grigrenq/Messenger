@@ -24,7 +24,7 @@ MainWindow::MainWindow()
 	addLineEdit();
 //	addPic();
 	addStatusBar();
-	this->setStyleSheet("background-image: url(../back_image/b.jpeg)");
+	this->setStyleSheet("background-image: url(../resources/b.jpeg)");
 	addIcon();
 }
 
@@ -91,7 +91,6 @@ void MainWindow::addStatusBar()
 	sb=statusBar();
 	QLabel* ql = new QLabel(sb);
 }
-
 void MainWindow::sendDetails()
 {
 }
