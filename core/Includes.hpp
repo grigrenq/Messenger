@@ -30,11 +30,11 @@ using mutGuard = std::lock_guard<std::mutex>;
 #define DEFAULT_PORT 4857
 
 #ifndef INVALID_SOCKET
-#define INVALID_SOCKET -1
+const int INVALID_SOCKET = -1;
 #endif
 
 #ifndef SOCKET
-#define SOCKET int
+using SOCKET = int;
 #endif
 
 #include <typeinfo>
@@ -75,5 +75,6 @@ const std::string error = "Error";
 const std::string success = "Success";
 
 const char delim = '%';
+const char underscore = '_';
 
 #endif

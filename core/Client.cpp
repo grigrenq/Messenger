@@ -53,7 +53,7 @@ void Client::setupAndConnect()
 
 int Client::sendMessage(const String& message)
 {
-	usleep(100);
+	//usleep(100);
 
 	int sendSize = send(socketD, message.c_str(), message.size(), 0);
 	if (sendSize < 0) 

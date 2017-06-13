@@ -41,9 +41,9 @@ void Controller::session()
 
 String Controller::sendLoginRequest(const String& login, const String& password)
 {
-	if (checkLoginPassword(login, password) == false) {
+	/*if (checkLoginPassword(login, password) == false) {
 		return incorrectLoginOrPassword;
-	}
+	}*/
 
 	UserName = login;
 	String msg = login + delim + password + delim;
@@ -59,7 +59,7 @@ String Controller::sendLogoutRequest()
 String Controller::sendRegistrationRequest(const String& login, const String& name,
 			const String& surname, const String& password1, const String& password2)
 {
-	if (checkLoginPassword(login, password1) == false) {
+	/*if (checkLoginPassword(login, password1) == false) {
 		return incorrectLoginOrPassword;
 	}
 	if (checkNames(name, surname) == false) {
@@ -67,7 +67,7 @@ String Controller::sendRegistrationRequest(const String& login, const String& na
 	}
 	if (checkPasswords(password1, password2) == false) {
 		return incorrectPasswords;
-	}
+	}*/
 
 	String msg = login + delim + name + delim 
 			+ surname + delim + password1 + delim;
@@ -102,7 +102,7 @@ String Controller::sendPendingMessagesRequest()
 
 String Controller::sendMessage(String& message, const String& msgType)
 {
-	usleep(50);
+	//usleep(50);
 	message = msgType + delim + message;
 	if (c.sendMessage(message) == SUCCESS) {
 		return success + "message to Server sent.";
@@ -161,6 +161,7 @@ void Controller::processLoginRespond(String& message)
 		//invoke some function of LoginWindow
 		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
+		//usleep(10);
 		sendPendingMessagesRequest();
 	}
 	std::cout << message << std::endl;
@@ -242,58 +243,6 @@ void Controller::processUserListRespond(String& userList)
 }
 
 
-bool Controller::checkLoginPassword(const String& login, const String& password) const
-{
-	const size_t sz = (login.size() > password.size() ? login.size() : password.size());
-	for (auto i = 0; i < sz; ++i) {
-		if (i < login.size()) {
-			if (!isalnum(login[i])) {
-				return false;
-			}
-		}
-		if (i < password.size()) {
-			if (!isalnum(password[i])) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-
-bool Controller::checkNames(const String& name, const String& surname) const
-{
-	size_t sz = (name.size() > surname.size() ? name.size() : surname.size());
-	for (auto i = 0; i < sz; ++i) {
-		if (i < name.size()) {
-			if (!isalpha(name[i])) {
-				return false;
-			}
-		}
-		if (i < surname.size()) {
-			if (!isalpha(surname[i])) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-bool Controller::checkPasswords(const String& password1, const String& password2) const
-{
-	return password1 == password2;
-}
-
-/*
-String Controller::extractUser(String& userList)
-{
-	String login = extractWord(userList);
-	String name = extractWord(userList);
-	String surname = extractWord(userList);
-	String status = extractWord(userList);
-	return login + delim + name + delim + surname + delim + status + delim;
-}
-*/
 
 Controller::UserIter Controller::find(const String& login)
 {

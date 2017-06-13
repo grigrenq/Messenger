@@ -4,6 +4,7 @@
 #include "Client.hpp"
 #include "ClientUser.hpp"
 #include "DBController.hpp"
+#include "InputValidator.hpp"
 
 class LoginWindow;
 class RegistrationWindow;
@@ -112,9 +113,9 @@ public:
 		void processUserChangedRespond(String&);
 		void processUserListRespond(String&);
 
-		bool checkLoginPassword(const String& login, const String& password) const;
-		bool checkNames(const String&, const String&) const;
-		bool checkPasswords(const String& password1, const String& password2) const;
+		//bool checkLoginPassword(const String& login, const String& password) const;
+		//bool checkNames(const String&, const String&) const;
+		//bool checkPasswords(const String& password1, const String& password2) const;
 
 		UserIter find(const String&);
 		UserIter find(User&);
@@ -131,6 +132,7 @@ public:
 		ExtractWord extractWord;
 		std::shared_ptr<InputReader> inReaderPtr;
 		DBController dbcontroller;
+		InputValidator validator;
 };
 
 #endif

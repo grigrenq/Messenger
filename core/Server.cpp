@@ -64,7 +64,7 @@ void Server::doAcceptClient()
 	dbcontroller.logServer(log);
 	sockAccepted = accept(socketD, (sockaddr*)&ServerClient, (socklen_t*)&c);
 	if (sockAccepted == INVALID_SOCKET) {
-		log = "Accept failed.\n";
+		log = "Accept failed.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 		return;
@@ -76,7 +76,7 @@ void Server::doAcceptClient()
 	std::pair<Server*, SOCKET> *pairPtr = new std::pair<Server*, SOCKET>(this, sockAccepted);
 	std::shared_ptr<pthread_t> shptr(new pthread_t);
 	if (pthread_create(&(*shptr), NULL, ::handleSession, pairPtr)) {
-		log = "Error creating thread.\n";
+		log = "Error creating thread.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 		return;
@@ -88,7 +88,7 @@ void Server::doAcceptClient()
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 	} else {
-		log = "Socket already exists in the map.\n";
+		log = "Socket already exists in the map.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 	}
@@ -110,7 +110,7 @@ void Server::handleSession(const SOCKET sock)
 	mutGuard mg(mutex);
 	if (threads.find(sock) != threads.end()) {
 		pthread_detach(*(threads.at(sock)));
-		String log = "Thread - " + std::to_string(*(threads.at(sock))) + " deleted.\n";
+		String log = "Thread - " + std::to_string(*(threads.at(sock))) + " deleted.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 		threads.erase(sock);
@@ -123,10 +123,9 @@ Server::UserIter Server::find(const SOCKET sock)
 	if (sock == INVALID_SOCKET) {
 		throw "Cannot find user in the multiset with INVALID_SOCKET";
 	}
-	//User c;
-	//c.setSocket(sock);
-	//mutGuard mg(mutex);
-	
+	mutGuard mg(mutex);
+	User u;
+	u.setSocket(sock);	
 	UserIter it;
 	for (it = users.begin(); it != users.end(); ++it) {
 		if (it->getSocket() == sock) {
@@ -134,11 +133,12 @@ Server::UserIter Server::find(const SOCKET sock)
 		}
 	}
 	return it;
+	//return users.find(u);
 }
 
-Server::UserIter Server::find(const Server::String& login)
+Server::UserIter Server::find(const String& login)
 {	
-	//mutGuard mg(mutex);
+	mutGuard mg(mutex);
 	for (auto it = users.begin(); it != users.end(); ++it) {
 		if (it->getLogin() == login) {
 			return it;
@@ -150,16 +150,25 @@ Server::UserIter Server::find(const Server::String& login)
 void Server::sendPendingMessages(const SOCKET sock)
 {
 	//mutex.lock();
-	auto it = find(sock);
-	String log("Sending pending " + std::to_string(it->messagesCount()) + " messages to Client - "
-		+ it->getLogin());
-	dbcontroller.logServer(log);
-	auto messages = it->getPendingMessages();
 	//mutex.unlock();	//?????????
-
+	auto it = find(sock);
+	String log = ".....Attempting to to send pending " + std::to_string(it->messagesCount())
+		+ " messages to user: - "	+ it->getLogin() + ".";
+	std::cout << log << std::endl;
+	dbcontroller.logServer(log);
+	if (!it->messagesCount()) {
+		log = "....No pending messages for user: " + it->getLogin() + ".";
+		std::cout << log << std::endl;
+		dbcontroller.logServer(log);
+		return;
+	}
+	auto messages = it->getPendingMessages();
 	while (!messages.empty() && it->getStatus()) {
 		sendMessage(sock, messages.front(), plainMessage);
+		log = "Sent pending Message: " + messages.front();
+		dbcontroller.logServer(log);
 		messages.pop_front();
+		usleep(1000);
 	}
 }
 
@@ -261,7 +270,7 @@ int Server::recvMessage(const SOCKET sock, Server::String& msg)
 
 int Server::sendMessage(const SOCKET sock, String& msg, const String& msgType) 
 {
-	usleep(50);
+	//usleep(50);
 
 	msg = msgType + delim + msg;
 	int sendSize = send(sock, msg.c_str(), msg.size(), 0);
@@ -293,6 +302,8 @@ int Server::sendMessage(const SOCKET sock, String& msg, const String& msgType)
 		return SOCKET_CLOSED;
 	}
 	else {
+		String log = "Sent Row Message: " + msg;
+		dbcontroller.logServer(log);
 		return SUCCESS;
 	}
 }

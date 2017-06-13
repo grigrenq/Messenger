@@ -12,19 +12,19 @@ public:
 	explicit ServerUser(const SOCKET sock_, const String& login_, const std::string& name_,
 			const String& surname_, const std::string& password_,  const bool st)
 		: sock(sock_), login(login_), name(name_)
-		, surname(surname_), password(password_), status(st) 
+		, surname(surname_), password(password_), status(st), pendingMessages(PendigMessages()) 
 	{
 		//
 	}
 
 	explicit ServerUser(const SOCKET sock_)
-		: sock(sock_), status(false)
+		: sock(sock_), status(false), pendingMessages(PendigMessages())
 	{
 		//
 	}
 
 	ServerUser()
-		: sock(INVALID_SOCKET), status(false)
+		: sock(INVALID_SOCKET), status(false), pendingMessages(PendigMessages())
 	{
 		//
 	}
