@@ -1,14 +1,14 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'login_window.h'
+** Meta object code from reading C++ file 'RegistrationWindow.hpp'
 **
 ** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.7)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "login_window.h"
+#include "RegistrationWindow.hpp"
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'login_window.h' doesn't include <QObject>."
+#error "The header file 'RegistrationWindow.hpp' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63
 #error "This file was generated using the moc from 4.8.7. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -16,7 +16,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_login_window[] = {
+static const uint qt_meta_data_RegistrationWindow[] = {
 
  // content:
        6,       // revision
@@ -30,57 +30,57 @@ static const uint qt_meta_data_login_window[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      14,   13,   13,   13, 0x0a,
+      20,   19,   19,   19, 0x0a,
 
        0        // eod
 };
 
-static const char qt_meta_stringdata_login_window[] = {
-    "login_window\0\0open_reg_win()\0"
+static const char qt_meta_stringdata_RegistrationWindow[] = {
+    "RegistrationWindow\0\0sendDetails()\0"
 };
 
-void login_window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void RegistrationWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         Q_ASSERT(staticMetaObject.cast(_o));
-        login_window *_t = static_cast<login_window *>(_o);
+        RegistrationWindow *_t = static_cast<RegistrationWindow *>(_o);
         switch (_id) {
-        case 0: _t->open_reg_win(); break;
+        case 0: _t->sendDetails(); break;
         default: ;
         }
     }
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData login_window::staticMetaObjectExtraData = {
+const QMetaObjectExtraData RegistrationWindow::staticMetaObjectExtraData = {
     0,  qt_static_metacall 
 };
 
-const QMetaObject login_window::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_login_window,
-      qt_meta_data_login_window, &staticMetaObjectExtraData }
+const QMetaObject RegistrationWindow::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_RegistrationWindow,
+      qt_meta_data_RegistrationWindow, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &login_window::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &RegistrationWindow::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *login_window::metaObject() const
+const QMetaObject *RegistrationWindow::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *login_window::qt_metacast(const char *_clname)
+void *RegistrationWindow::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_login_window))
-        return static_cast<void*>(const_cast< login_window*>(this));
-    return QWidget::qt_metacast(_clname);
+    if (!strcmp(_clname, qt_meta_stringdata_RegistrationWindow))
+        return static_cast<void*>(const_cast< RegistrationWindow*>(this));
+    return QMainWindow::qt_metacast(_clname);
 }
 
-int login_window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int RegistrationWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

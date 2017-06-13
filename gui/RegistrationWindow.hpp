@@ -1,14 +1,13 @@
 #include <QMainWindow>
 #include <QLayout>
+
 class RegistrationWindow : public QMainWindow
 {
-	
-	
-	
-	
-	Q_OBJECT
+Q_OBJECT
+
 private:
-	QVBoxLayout* mainLayout;			
+	QVBoxLayout* m_mainLayout;			
+
 public:
 	RegistrationWindow();
 	void addPushButton();
@@ -17,6 +16,7 @@ public:
 	void addPic();
 	void addLayout();
 	void addIcon();
+
 public slots:
 	void sendDetails();
 };

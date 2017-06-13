@@ -10,7 +10,7 @@
 #include <QObject>
 #include <QSize>
 #include <QIcon>
-#include "registration.hpp"
+#include "RegistrationWindow.hpp"
 
 
 RegistrationWindow::RegistrationWindow()
@@ -28,7 +28,7 @@ RegistrationWindow::RegistrationWindow()
 }
 
 void RegistrationWindow::addLayout(){
-	mainLayout=new QVBoxLayout();
+    m_mainLayout=new QVBoxLayout();
 }
 
 void RegistrationWindow::addPushButton()
@@ -37,7 +37,7 @@ void RegistrationWindow::addPushButton()
 	pb->setGeometry(180,300,70,25);
 	pb->setStyleSheet("QPushButton{background-color: #456ba8; color: white;}");
 	QObject::connect(pb,SIGNAL(clicked()),this,SLOT(sendDetails()));
-	mainLayout->addWidget(pb);
+	m_mainLayout->addWidget(pb);
 }
 
 void RegistrationWindow::addPic()
@@ -77,11 +77,11 @@ void RegistrationWindow::addLineEdit()
 	le5->setGeometry(100,250,250,30);
 	le5->setEchoMode(QLineEdit::Password);
 	le5->setPlaceholderText("repeat password");
-	mainLayout->addWidget(le1);
-	mainLayout->addWidget(le2);
-	mainLayout->addWidget(le3);
-	mainLayout->addWidget(le4);
-	mainLayout->addWidget(le5);
+	m_mainLayout->addWidget(le1);
+	m_mainLayout->addWidget(le2);
+	m_mainLayout->addWidget(le3);
+	m_mainLayout->addWidget(le4);
+	m_mainLayout->addWidget(le5);
 }
 
 void RegistrationWindow::addStatusBar()
