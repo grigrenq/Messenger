@@ -4,8 +4,10 @@
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
+
 private:
 	QVBoxLayout* mainLayout;			
+
 public:
 	MainWindow();
 	void addPushButton();
@@ -14,6 +16,7 @@ public:
 	void addPic();
 	void addLayout();
 	void addIcon();
+
 public slots:
 	void sendDetails();
 };
