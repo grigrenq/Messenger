@@ -13,7 +13,7 @@
 #include "registration.hpp"
 
 
-MainWindow::MainWindow()
+RegistrationWindow::RegistrationWindow()
 {
 	const QSize windowSize(450,380);
 	setMaximumSize(windowSize);
@@ -22,17 +22,16 @@ MainWindow::MainWindow()
 	addLayout();
 	addPushButton();
 	addLineEdit();
-//	addPic();
 	addStatusBar();
-	this->setStyleSheet("background-image: url(../resources/b.jpeg)");
+	this->setStyleSheet("background-image: url(../resources/background.jpg)");
 	addIcon();
 }
 
-void MainWindow::addLayout(){
+void RegistrationWindow::addLayout(){
 	mainLayout=new QVBoxLayout();
 }
 
-void MainWindow::addPushButton()
+void RegistrationWindow::addPushButton()
 {
 	QPushButton* pb = new QPushButton("SignUp",this);
 	pb->setGeometry(180,300,70,25);
@@ -41,22 +40,22 @@ void MainWindow::addPushButton()
 	mainLayout->addWidget(pb);
 }
 
-void MainWindow::addPic()
+void RegistrationWindow::addPic()
 {
 	QLabel* lb = new QLabel(this);
     lb->setGeometry(35,118,100,100);
-	QPixmap* pm = new QPixmap("../addtext_com_MDM0ODA5MTk0NjA4.png");
+	QPixmap* pm = new QPixmap("addtext_com_MDM0ODA5MTk0NjA4.png");
 	lb->setPixmap(*pm);
 	lb->setScaledContents(true);
 }
 
-void MainWindow::addIcon()
+void RegistrationWindow::addIcon()
 {
 	QIcon* icon = new QIcon("logo.png");
 	setWindowIcon(*icon);
 }
 
-void MainWindow::addLineEdit()
+void RegistrationWindow::addLineEdit()
 {
 	QLineEdit* le1 = new QLineEdit(this);
 	le1->setGeometry(100,50,250,30);
@@ -85,12 +84,13 @@ void MainWindow::addLineEdit()
 	mainLayout->addWidget(le5);
 }
 
-void MainWindow::addStatusBar()
+void RegistrationWindow::addStatusBar()
 {
 	QStatusBar* sb = new QStatusBar(this);
 	sb=statusBar();
-	QLabel* ql = new QLabel(sb);
+	QLabel ql(sb);
 }
-void MainWindow::sendDetails()
+
+void RegistrationWindow::sendDetails()
 {
 }
