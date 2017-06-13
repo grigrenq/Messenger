@@ -168,17 +168,17 @@ void Server::sendPendingMessages(const SOCKET sock)
 		log = "Sent pending Message: " + messages.front();
 		dbcontroller.logServer(log);
 		messages.pop_front();
-		usleep(1000);
+		//usleep(1000);
 	}
 }
 
 bool Server::setOnline(UserIter& it)
 {
 	if (it->getStatus() == false) {
-		mutex.lock();
 		String log = "Setting online user with login: " + it->getLogin();
-
 		dbcontroller.logServer(log);
+		
+		mutex.lock();
 		auto u = *it;
 		users.erase(it);
 		u.setStatus(true);

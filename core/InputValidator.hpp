@@ -9,13 +9,13 @@ class InputValidator
 		using SizeType = size_t;
 		using String = std::string;
 
-		bool checkLoginPassword(const String& s) const
+		bool checkLoginOrPassword(const String& s) const
 		{
 			const SizeType sz = s.size();
 			if (sz > maximumSymbols || sz < minimalSymbols) {
 				return false;
 			}
-			for (auto i = 0; i < ; ++i) {
+			for (auto i = 0; i < sz; ++i) {
 					if (!isalnum(s[i]) && s[i] != underscore) {
 						return false;
 				}
@@ -23,13 +23,13 @@ class InputValidator
 			return true;
 		}
 
-		bool checkNames(const String& s) const
+		bool checkName(const String& s) const
 		{
 			const SizeType sz = s.size();
 			if (sz < maximumSymbols || sz < minimalSymbols) {
 				return false;
 			}
-			for (auto i = 0; i < maxSize; ++i) {
+			for (auto i = 0; i < sz; ++i) {
 				if (!isalpha(s[i])) {
 					return false;
 				}
