@@ -31,7 +31,7 @@ void Server::createSocket()
 void Server::setupAddress() 
 {
 	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = inet_addr(LOCAL_HOST);
+	server.sin_addr.s_addr = inet_addr(DEFAULT_HOST);
 	server.sin_port = htons(DEFAULT_PORT);
 }
 
@@ -73,9 +73,9 @@ void Server::doAcceptClient()
 	std::cout << log << std::endl;
 	dbcontroller.logServer(log);
 
-	std::pair<Server *, SOCKET> *pairPtr = new std::pair<Server *, SOCKET>(this, sockAccepted);
+	std::pair<Server*, SOCKET> *pairPtr = new std::pair<Server*, SOCKET>(this, sockAccepted);
 	std::shared_ptr<pthread_t> shptr(new pthread_t);
-	if (pthread_create(&(*shptr), NULL, ::session, pairPtr)) {
+	if (pthread_create(&(*shptr), NULL, ::handleSession, pairPtr)) {
 		log = "Error creating thread.\n";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
@@ -95,7 +95,7 @@ void Server::doAcceptClient()
 }
 
 
-void Server::session(const SOCKET sock)
+void Server::handleSession(const SOCKET sock)
 {
 	String msg;
 	try {
@@ -480,12 +480,12 @@ void Server::processUserListRequest(SOCKET sock)
 }
 
 
-void* session(void *pairV) 
+void* handleSession(void *pairV) 
 {
-	std::pair<Server*, int>* p = (std::pair<Server*, int>*)pairV;
-	Server* thisS = (*p).first;
-	int sock = (*p).second;
-	thisS->session(sock);
+	std::pair<Server*, SOCKET>* p = (std::pair<Server*, SOCKET>*)pairV;
+	Server* server = p->first;
+	SOCKET sock = p->second;
+	server->handleSession(sock);
 }
 
 

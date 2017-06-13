@@ -28,8 +28,8 @@ void Client::createSocket()
 void Client::setupAddress()
 {
 	server.sin_family = AF_INET;
-	//server.sin_addr.s_addr = inet_addr(DEFAULT_HOST);
-	server.sin_addr.s_addr = inet_addr(LOCAL_HOST);
+	server.sin_addr.s_addr = inet_addr(DEFAULT_HOST);
+	//server.sin_addr.s_addr = inet_addr(LOCAL_HOST);
 	server.sin_port = htons(DEFAULT_PORT);
 }
 

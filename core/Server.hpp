@@ -8,7 +8,7 @@
 #include "ExtractWord.hpp"
 
 
-void* session(void *);
+void* handleSession(void *);
 
 class Server
 {
@@ -22,7 +22,7 @@ public:
     Server();
 
     void run(); 
-    void session(SOCKET);
+    void handleSession(SOCKET);
 
 private:
     void createSocket();
