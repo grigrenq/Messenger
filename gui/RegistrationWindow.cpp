@@ -37,11 +37,10 @@ void RegistrationWindow::addLayout(){
 
 void RegistrationWindow::addPushButton()
 {
-	QPushButton* pb = new QPushButton("SignUp",this);
-	pb->setGeometry(180,300,70,25);
-	pb->setStyleSheet("QPushButton{background-color: #456ba8; color: white;}");
-	QObject::connect(pb,SIGNAL(clicked()),this,SLOT(sendDetails()));
-	m_mainLayout->addWidget(pb);
+	signUp = new QPushButton("SignUp",this);
+	signUp->setGeometry(180,300,70,25);
+	singUp->setStyleSheet("QPushButton{background-color: #456ba8; color: white;}");
+	m_mainLayout->addWidget(signUp);
 }
 
 void RegistrationWindow::addPic()
@@ -102,10 +101,6 @@ void RegistrationWindow::addStatusBar()
 	QLabel ql(sb);
 }
 
-void RegistrationWindow::sendDetails()
-{
-}
-
 void RegistrationWindow::connectLines()
 {
 	connect(login, SIGNAL(textChanged(const QString&)), this, SLOT(checkLogin(const QString&)));
@@ -113,6 +108,8 @@ void RegistrationWindow::connectLines()
 	connect(surname, SIGNAL(textChanged(const QString&)), this, SLOT(checkSurname(const QString&)));
 	connect(password1, SIGNAL(textChanged(const QString&)), this, SLOT(checkPassword(const QString&)));
 	connect(password2, SIGNAL(textChanged(const QString&)), this, SLOT(checkPasswords(const QString&)));
+
+	connect(signUp, SIGNAL(clicked()), this, SLOT(sendRegistrationReq()));
 }
 
 
@@ -182,4 +179,33 @@ void RegistrationWindow::checkPasswords(const QString& qs)
 	}
 }
 
+void RegistrationWindow::sendRegistrationReq()
+{
+	String l = login->text().toStdString();
+	String n = name->text().toStdString();
+	String sn = surname->text().toStdString();
+	String p1 = password1->text().toStdString();
+	String p2 = password2->text().toStdString();
 
+	if (!validator.checkLoginPassword(l)) {
+		//?????
+		return;
+	}
+	if (!validator.checkName(n)) {
+		//????
+		return;
+	}
+	if (!validator.checkName(sn)) {
+		//????
+		return;
+	}
+	if (!validator.checkLoginPassword(p1)) {
+		//?????
+		return;
+	}
+	if (!validator.checkPasswords(p1, p2)) {
+		//????
+		return;
+	}
+	controller.sendRegistrationRequest(l, n, sn, p1);
+}

@@ -6,6 +6,7 @@
 #include <QString>
 
 class QLineEdit;
+class QPushButton;
 
 #include "../core/InputValidator.hpp"
 #include "../core/Controller.hpp"
@@ -34,10 +35,11 @@ public slots:
 	void checkPassword(const QString&);
 	void checkPasswords(const QString&);
 
-	void sendDetails();
+	void sendRegistrationReq();
 
 private:
 	QVBoxLayout* m_mainLayout;
+	QPushButton* signUp;
 	QLineEdit* login;
 	QLineEdit* name;
 	QLineEdit* surname;

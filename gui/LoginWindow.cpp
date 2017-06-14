@@ -147,6 +147,7 @@ void LoginWindow::checkLogin(const QString& qs)
 		//????
 		m_login->setStyleSheet("border: 3px solid black");
 	} else {
+		//?????????
 		std::cout << "Wrong Login.\n";
 		m_login->setStyleSheet("border: 3px solid red");
 	}
@@ -158,6 +159,7 @@ void LoginWindow::checkPassword(const QString& qs)
 		//????
 		m_password->setStyleSheet("border: 3px solid black");
 	} else {
+		///????????
 		std::cout << "Wrong Password.\n";
 		m_password->setStyleSheet("border: 3px solid red");
 	}
@@ -177,4 +179,12 @@ void LoginWindow::sendLoginReq()
 		return;
 	}
 	controller.sendLoginRequest(l, p);
+}
+
+
+void LoginWindow::closeRegWindow()
+{
+	m_regWin->close();
+	delete m_regWin;
+	m_regWin = nullptr;
 }

@@ -43,8 +43,9 @@ private:
     void setBackground();
     void setWindowIcon();
 	void connectLines();
-    
-private:
+
+	void closeRegWindow();
+	   
     QLineEdit* m_login;
     QLineEdit* m_password;
     QPushButton* m_loginButton;
