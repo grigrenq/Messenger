@@ -181,6 +181,7 @@ dist:
 clean:compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
+	rm ../core/ServerLog/*.txt ../core/ClientLog/*.txt
 
 
 ####### Sub-libraries

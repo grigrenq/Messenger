@@ -27,7 +27,7 @@ public:
 	void logServer(const String& str)
 	{
 		mutGuard mg(mutex);
-		std::ofstream ofile("./ServerLog/log.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
+		std::ofstream ofile("../core/ServerLog/log.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
 		ofile.write(str.c_str(), str.size());
 		ofile.write("\n", 1);
 		ofile.close();
@@ -35,7 +35,7 @@ public:
 	void logClient(const String& str)
 	{
 		mutGuard mg(mutex);
-		std::ofstream ofile("./ClientLog/log.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
+		std::ofstream ofile("../core/ClientLog/log.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
 		ofile.write(str.c_str(), str.size());
 		ofile.write("\n", 1);
 		ofile.close();
@@ -48,7 +48,7 @@ public:
 		String ps = ".............All clients are........\n...Number of clients: ";
 
 		if (clientUsers != nullptr)	{
-			std::ofstream ofile("./ClientLog/users.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
+			std::ofstream ofile("../core/ClientLog/users.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
 			ps += std::to_string(clientUsers->size()) + "........\n";
 			ofile.write(ps.c_str(), ps.size());
 			String s;
@@ -62,7 +62,7 @@ public:
 			ofile.close();
 		}
 		if (serverUsers != nullptr) {
-			std::ofstream ofile("./ServerLog/users.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
+			std::ofstream ofile("../core/ServerLog/users.txt", std::fstream::binary | std::fstream::out | std::fstream::app);
 			ps += std::to_string(serverUsers->size()) + ".........\n";
 			ofile.write(ps.c_str(), ps.size());
 			String s;

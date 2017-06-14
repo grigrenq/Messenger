@@ -24,16 +24,13 @@ void Controller::closeConnection()
 
 void Controller::session()
 {
-	//inReaderPtr.reset(new InputReader(*this));
-	//inReaderPtr->startRead();
-	
-
+	inReaderPtr.reset(new InputReader(*this));
+	inReaderPtr->startRead();
 	String message;
 	while (c.recvMessage(message) == SUCCESS) {
 			processMessage(message);
 	}
-
-	//inReaderPtr->stopRead();
+	inReaderPtr->stopRead();
 	c.closeConnection();
 }
 
@@ -145,7 +142,7 @@ void Controller::processLoginRespond(String& message)
 		//invoke some function of LoginWindow
 		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
-		//usleep(10);
+		//usleep(100);
 		sendPendingMessagesRequest();
 	}
 	std::cout << message << std::endl;
@@ -251,13 +248,13 @@ Controller::UserIter Controller::find(Controller::User& u)
 }
 
 
-void Controller::updateMessageWindow(const UserIter& it)
+void Controller::updateMessageWindow(const UserIter&)
 {
 	//messageWindow->update(it);
 }
 
 
-void Controller::updateMessageWindow(const Users& users_)
+void Controller::updateMessageWindow(const Users&)
 {
 	//messageWindow->update(users_);
 }

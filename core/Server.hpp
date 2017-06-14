@@ -46,7 +46,7 @@ private:
 	void sendUserChangedRespond(User&);
 
 	void processMessage(const SOCKET, String&);
-	void processPlainMessage(const SOCKET, String&);
+	void processPlainMessage(String&);
 	void processLoginRequest(const SOCKET, String&);
 	void processLogoutRequest(const SOCKET);
 	void processRegistrationRequest(const SOCKET, String&);
@@ -55,9 +55,6 @@ private:
 
 	Users users;
 
-	ExtractWord extractWord;
-	DBController dbcontroller;
-
     SOCKET socketD;
     struct sockaddr_in server;
 
@@ -65,6 +62,8 @@ private:
     bool stopRequested;
 
     std::mutex mutex;
+	ExtractWord extractWord;
+	DBController dbcontroller;
 };
 
 
