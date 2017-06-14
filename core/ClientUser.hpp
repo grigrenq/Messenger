@@ -71,6 +71,7 @@ class ClientUser
 		String getSurname() const { return surname; }
 		bool getStatus() const { return status; }
 		size_t getUnreadMessagesCount() const { return unreadMessages; }
+		Messages& getMessages() { return messages; }
 
 		void setStatus(const bool st) { status = st; }
 		void setUnreadMessages(const size_t um) { unreadMessages = um; }

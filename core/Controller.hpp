@@ -84,15 +84,15 @@ public:
 			String p = "pass";
 
 			String type = extractWord(str, ' ');
-			String login;
+			String l;
 
 			if (type == "log") {
-				login = extractWord(str);
-				UserName = login;
+				l = extractWord(str);
+				login = l;
 				std::cout << sendLoginRequest(login, p) << std::endl;
 			} else if (type == "reg") {
-				login = extractWord(str);
-				UserName = login;
+				l = extractWord(str);
+				login = l;
 				std::cout << sendRegistrationRequest(login, n, sn, p) << std::endl;
 			} else if (type == "logout") {
 				std::cout << sendLogoutRequest() << std::endl;
@@ -101,7 +101,7 @@ public:
 			}
 		}
 
-		String getUserName() const { return UserName; }
+		String getLogin() const { return login; }
 	private:
 		void closeConnection();
 
@@ -125,7 +125,7 @@ public:
 
 		Client& c;
 		Users users;
-		String UserName;
+		String login;
 
 		LoginWindow *loginWindow;
 		MainWindow *mainWindow;
