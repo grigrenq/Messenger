@@ -1,3 +1,11 @@
+/** 
+*  @file    LoginWindow.hpp
+*  @author  GRI Team
+*  @date    06/14/2017  
+*  @version 1.0 
+*/
+
+
 #ifndef LOGINWINDOW_HPP
 #define LOGINWINDOW_HPP
 
@@ -18,6 +26,9 @@
 #include "../core/InputValidator.hpp"
 #include "../core/Controller.hpp"
 
+/**
+*  @brief LoginWindow class which creates the GUI for login window.  
+*/  
 class LoginWindow : public QWidget
 {
     Q_OBJECT
@@ -25,12 +36,21 @@ class LoginWindow : public QWidget
 public:
 	typedef std::string String;
 
-    LoginWindow(Controller&);
+        /** 
+        *   @brief LoginWindow constructor for class LoginWindow   
+        *   @param  is an initialized  
+        */  
+        LoginWindow(Controller&);
 	
+        /** 
+        *   @brief closeRegWindow closing registration window    
+        *   @param no parametrs 
+        *   @return void
+        */  
 	void closeRegWindow();
 
 public slots:
-    void openRegWin();
+        void openRegWin();
 	void checkLogin(const QString&);
 	void checkPassword(const QString&);
 	void sendLoginReq();
@@ -44,7 +64,7 @@ private:
     void setLogo();
     void setBackground();
     void setWindowIcon();
-	void connectLines();
+    void connectLines();
    
     QLineEdit* m_login;
     QLineEdit* m_password;
@@ -59,8 +79,8 @@ private:
     QIcon* m_icon;
     RegistrationWindow* m_regWin;
 
-	Controller& controller;
-	InputValidator validator;
+    Controller& controller;
+    InputValidator validator;
 };
 
 #endif

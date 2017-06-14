@@ -1,15 +1,27 @@
+/** 
+*  @file    RefistrationWindow.hpp
+*  @author  GRI Team
+*  @date    06/14/2017  
+*  @version 1.0 
+*/
+
+
 #ifndef REGISTRATIONWINDOW_HPP
 #define REGISTRATIONWINDOW_HPP
+
+class QLineEdit;
+class QPushButton;
 
 #include <QMainWindow>
 #include <QLayout>
 #include <QString>
 
-class QLineEdit;
-class QPushButton;
-
 #include "../core/InputValidator.hpp"
 #include "../core/Controller.hpp"
+
+/**
+*  @brief RegistrationWindow class w creates the GUI for login window.  
+*/
 
 class RegistrationWindow : public QMainWindow
 {
@@ -18,8 +30,18 @@ class RegistrationWindow : public QMainWindow
 public:
 	typedef std::string String;
 
+        /** 
+        *   @brief RegistrationWindow constructor for class RegistrationWindow 
+        *   @param  is an initialized  
+        */
 	RegistrationWindow(Controller&);
 
+        /** 
+        *   @brief  addPushButton the values of two integer parameters.   
+        *   @param  a is an initialized integer variable 
+        *   @param  b is an initialized integer variable 
+        *   @return void
+        */  
 	void addPushButton();
 	void addLineEdit();
 	void addStatusBar();
