@@ -8,7 +8,7 @@
 #include "ExtractWord.hpp"
 
 
-void* handleSession(void *);
+void* handleServerSession(void *);
 
 class Server
 {

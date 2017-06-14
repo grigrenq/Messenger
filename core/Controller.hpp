@@ -12,7 +12,8 @@ class MainWindow;
 
 
 
-void* readMessage(void *);
+void* readMessage(void*);
+void* handleContrSession(void*);
 
 class Controller
 {
@@ -68,6 +69,7 @@ public:
 	
 		Controller(Client& c_);
 		void run();
+		void handleSession();
 
 		String sendLoginRequest(const String& login, const String& password);
 		String sendLogoutRequest();
@@ -98,8 +100,9 @@ public:
 				std::cout << sendMessageToUser(type, str) << std::endl;
 			}
 		}
+
+		String getUserName() const { return UserName; }
 	private:
-		void session();
 		void closeConnection();
 
 		String sendUserListRequest();

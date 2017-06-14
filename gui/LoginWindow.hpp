@@ -26,6 +26,8 @@ public:
 	typedef std::string String;
 
     LoginWindow(Controller&);
+	
+	void closeRegWindow();
 
 public slots:
     void openRegWin();
@@ -43,9 +45,7 @@ private:
     void setBackground();
     void setWindowIcon();
 	void connectLines();
-
-	void closeRegWindow();
-	   
+   
     QLineEdit* m_login;
     QLineEdit* m_password;
     QPushButton* m_loginButton;
