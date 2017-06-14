@@ -51,7 +51,7 @@ public:
 						//break;
 						//exit(1);
 					} else {
-						//controller.f(message);
+						controller.f(message);
 					}
 				}
 				return nullptr;

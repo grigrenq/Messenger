@@ -168,7 +168,7 @@ void Server::sendPendingMessages(const SOCKET sock)
 		log = "Sent pending Message: " + messages.front();
 		dbcontroller.logServer(log);
 		messages.pop_front();
-		//usleer(1000);
+		usleep(300);
 	}
 }
 
@@ -330,7 +330,7 @@ void Server::processMessage(const SOCKET sock, String& message)
 {
 	String msgType = extractWord(message);
 	if (msgType == plainMessage) {
-		processPlainMessage(sock, message);
+		processPlainMessage(message);
 	} else if (msgType == loginRequest) {
 		processLoginRequest(sock, message);
 	} else if (msgType == logoutRequest) {
@@ -350,7 +350,7 @@ void Server::processMessage(const SOCKET sock, String& message)
 
 
 
-void Server::processPlainMessage(const SOCKET sock, String& message)
+void Server::processPlainMessage(String& message)
 {
 	//mutex.lock();
 	/*auto itFrom = find(sock);
@@ -364,7 +364,9 @@ void Server::processPlainMessage(const SOCKET sock, String& message)
 	String toClient = extractWord(message);
 
 	message = fromClient + delim + message;
-	std::cout << "........................attempt to send message: " << message << std::endl;
+	String log =  "...........attempt to send message: " + message;
+	std::cout << log << std::endl;
+	dbcontroller.logServer(log);
 
 	auto itToClient = find(toClient);
 	if (itToClient != users.end()) {
@@ -373,12 +375,13 @@ void Server::processPlainMessage(const SOCKET sock, String& message)
 			sendMessage((itToClient->getSocket()), message, plainMessage);
 		} else {
 			itToClient->addPendingMessage(message);
-			dbcontroller.logServer(String("pending message - ") + message);
+			log = "pending message - " + message;
+			dbcontroller.logServer(log);
 		}
 	} else {
 		//mutex.unlock();
-		String log("From-" + extractWord(message) + ". To-" 
-			+ toClient + ". Message-" + message);
+		log + "From-" + extractWord(message) + ". To-" 
+			+ toClient + ". Message-" + message;
 		dbcontroller.logServer(log);
 	}
 }
@@ -412,7 +415,7 @@ void Server::processLoginRequest(const SOCKET sock, String& message)
 
 				respond = success + delim + "You are logged in.";
 				dbcontroller.logUsers();	//logging
-				User *p = it->getPointer();	//????????????
+				//User *p = it->getPointer();	//????????????
 				//mutex.unlock();
 			}
 		}
@@ -440,7 +443,7 @@ void Server::processLogoutRequest(const SOCKET sock)
 
 			respond = success + delim + "You are logged out.";
 			dbcontroller.logUsers();	//logging
-			User *p = it->getPointer();	//?????????
+			//User *p = it->getPointer();	//?????????
 			//mutex.unlock();
 		}
 	}
@@ -505,6 +508,7 @@ void* handleSession(void *pairV)
 	Server* server = p->first;
 	SOCKET sock = p->second;
 	server->handleSession(sock);
+	return nullptr;
 }
 
 
