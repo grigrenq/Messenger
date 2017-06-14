@@ -39,7 +39,7 @@ void RegistrationWindow::addPushButton()
 {
 	signUp = new QPushButton("SignUp",this);
 	signUp->setGeometry(180,300,70,25);
-	singUp->setStyleSheet("QPushButton{background-color: #456ba8; color: white;}");
+	signUp->setStyleSheet("QPushButton{background-color: #456ba8; color: white;}");
 	m_mainLayout->addWidget(signUp);
 }
 

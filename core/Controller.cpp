@@ -1,4 +1,6 @@
 #include "Controller.hpp"
+#include "../gui/LoginWindow.hpp"
+#include "../gui/RegistrationWindow.hpp"
 
 
 using String = Controller::String;
@@ -14,7 +16,17 @@ Controller::Controller(Client& c_)
 void Controller::run()
 {
 	c.setupAndConnect();
-	session();
+	std::cout << "StartPoint\n";
+	loginWindow = new LoginWindow(*this);
+	loginWindow->show();
+	std::cout << "EndPoint\n";
+
+	std::shared_ptr<pthread_t> th(new pthread_t);
+	if (pthread_create(&(*th), NULL, ::handleContrSession, this)) {
+		std::cout << "An error occurred during thread creation process.";
+		return;
+	}
+	//handleSession();
 }
 
 void Controller::closeConnection()
@@ -22,15 +34,15 @@ void Controller::closeConnection()
 	c.closeConnection();
 }
 
-void Controller::session()
+void Controller::handleSession()
 {
-	inReaderPtr.reset(new InputReader(*this));
-	inReaderPtr->startRead();
+	//inReaderPtr.reset(new InputReader(*this));
+	//inReaderPtr->startRead();
 	String message;
 	while (c.recvMessage(message) == SUCCESS) {
 			processMessage(message);
 	}
-	inReaderPtr->stopRead();
+	//inReaderPtr->stopRead();
 	c.closeConnection();
 }
 
@@ -142,6 +154,10 @@ void Controller::processLoginRespond(String& message)
 		//invoke some function of LoginWindow
 		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
+		if (loginWindow != nullptr) {
+			delete loginWindow;
+			loginWindow = nullptr;
+		}
 		//usleep(100);
 		sendPendingMessagesRequest();
 	}
@@ -177,6 +193,7 @@ void Controller::processRegistrationRespond(String& message)
 	} else {
 		//invoke some function of RegistrationWindow
 		log = success + "-" + message;
+		loginWindow->closeRegWindow();
 	}
 	dbcontroller.logClient(log);
 }
@@ -260,8 +277,16 @@ void Controller::updateMessageWindow(const Users&)
 }
 
 
+
 void* readMessage(void *thisV) {
     Controller::InputReader *thisI = (Controller::InputReader *)thisV;
     thisI->readMessage();
+	return nullptr;
+}
+
+void* handleContrSession(void *p)
+{
+	Controller* ptr = static_cast<Controller*>(p);
+	ptr->handleSession();
 	return nullptr;
 }

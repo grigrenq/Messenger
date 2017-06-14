@@ -7,15 +7,6 @@
 #include <QApplication>
 
 
-void* startControllerOperating(void*)
-{
-	Client c;
-	Controller controller(c);
-	controller.run();
-	return nullptr;
-}
-
-
 int main(int argc, char* argv[])
 {  
 	QApplication app(argc, argv);
@@ -30,11 +21,9 @@ int main(int argc, char* argv[])
         }
         else if (str == "Client") {
 			std::cout << "host = " << DEFAULT_HOST << std::endl;
-			std::shared_ptr<pthread_t> th(new pthread_t);
-			if (pthread_create(&(*th), NULL, startControllerOperating, NULL)) {
-				std::cout << "An error occurred during thread creation process.";
-				return 1;
-			}
+			Client c;
+			Controller controller(c);
+			controller.run();
         }
         else {
             std::cout << "Neither\n";
