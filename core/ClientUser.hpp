@@ -1,6 +1,10 @@
 #ifndef CLIENTUSER_HPP
 #define CLIENTUSER_HPP
 
+extern const std::string online;
+extern const std::string offline;
+
+
 #include <string>
 
 #include "ExtractWord.hpp"
@@ -66,7 +70,7 @@ class ClientUser
 		String getName() const { return name; }
 		String getSurname() const { return surname; }
 		bool getStatus() const { return status; }
-		size_t getUnreadMessages() const { return unreadMessages; }
+		size_t getUnreadMessagesCount() const { return unreadMessages; }
 
 		void setStatus(const bool st) { status = st; }
 		void setUnreadMessages(const size_t um) { unreadMessages = um; }

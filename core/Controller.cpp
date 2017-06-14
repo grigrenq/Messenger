@@ -1,6 +1,7 @@
 #include "Controller.hpp"
+
 #include "../gui/LoginWindow.hpp"
-#include "../gui/RegistrationWindow.hpp"
+#include "../gui/MainWindow/MainWindow.hpp"
 
 
 using String = Controller::String;
