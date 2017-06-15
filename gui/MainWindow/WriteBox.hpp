@@ -2,14 +2,15 @@
 #define WRITEBOX_HPP
 
 #include <string>
+#include <QObject>
 
 class QLayout;
 class QTextEdit;
 class QPushButton;
 
-#include "MainWindow.hpp"
-
-class WriteBox
+//#include "MainWindow.hpp"
+class MainWindow;
+class WriteBox: public  QObject
 {
 	Q_OBJECT
 

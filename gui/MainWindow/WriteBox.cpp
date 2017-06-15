@@ -1,5 +1,10 @@
 #include "WriteBox.hpp"
-
+#include <QLayout>
+#include <QTextEdit>
+#include <QPushButton>
+#include "MainWindow.hpp"
+#include <QString>
+#include <string>
 
 
 WriteBox::WriteBox(MainWindow& mw)
@@ -12,7 +17,7 @@ WriteBox::WriteBox(MainWindow& mw)
 void WriteBox::createWriteBox()
 {
 	
-	writeBox=new QHBoxLayout();
+	writeBox = new QHBoxLayout();
 	textEdit = new QTextEdit();
 	textEdit->setMinimumSize(500,70);
 	textEdit->setMaximumSize(800,70);
@@ -27,5 +32,6 @@ void WriteBox::createWriteBox()
 
 void WriteBox::sendMessage()
 {
-	mw.sendMessage(textEdit.text().toStdString());
+	std::string a=textEdit->toPlainText().toStdString();
+	mainWindow.sendMessage(a);
 }
