@@ -1,55 +1,53 @@
 #ifndef INPUTVALIDATOR_HPP
 #define INPUTVALIDATOR_HPP
 
-//extern const char underscore;
+#include "ValidationInfo.hpp"
 
 class InputValidator
 {
 	public:
-		typedef std::string String;
-		typedef std::string::size_type SizeType;
+		using String = std::string;
+		using SizeType = std::string::size_type;
 
-		InputValidator()
-			: minimalSymbols(4), maximumSymbols(20)
-		{
-		}
-
-		bool checkLoginPassword(const String& s) const
+		String checkLoginPassword(const String& s) const
 		{
 			const SizeType sz = s.size();
-			if (sz > maximumSymbols || sz < minimalSymbols) {
-				return false;
+			if (sz > maximumSymbols) {
+				return ValidationInfo::validMaxLength;
 			}
+            if (sz < minimalSymbols) {
+                return ValidationInfo::validMinLength;
+            }
 			for (SizeType i = 0; i < sz; ++i) {
 					if (!isalnum(s[i]) && s[i] != underscore) {
-						return false;
+						return ValidationInfo::validLogPass;
 				}
 			}
-			return true;
 		}
 
-		bool checkName(const String& s) const
+		String checkName(const String& s) const
 		{
 			const SizeType sz = s.size();
-			if (sz > maximumSymbols || sz < minimalSymbols) {
-				return false;
+			if (sz > maximumSymbols) {
+				return ValidationInfo::validMaxLength;
 			}
+            if (sz < minimalSymbols) {
+                return ValidationInfo::validMinLength;
+            }
 			for (SizeType i = 0; i < sz; ++i) {
 				if (!isalpha(s[i])) {
-					return false;
+					return validName;
 				}
 			}
-			return true;
 		}
 
-		bool checkPasswords(const String& p1, const String& p2) const
+		String checkPasswords(const String& p1, const String& p2) const
 		{
-			return p1 == p2;
+            if (p1 != p2) {
+                return ValidationInfo::mismatchPass;
+            }
+			//return p1 == p2;
 		}
-	private:
-		const SizeType minimalSymbols;
-		const SizeType maximumSymbols;
-		const char underscore = '_';
 };
 
 #endif
