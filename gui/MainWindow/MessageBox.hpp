@@ -3,14 +3,17 @@
 
 #include <string>
 #include <list>
+#include <QVBoxLayout>
+#include <QTextEdit>
+
 
 #include "../../core/ClientUser.hpp"
 
 class QLayout;
 class QTextEdit;
 
-#include "MainWindow.hpp"
-
+//#include "MainWindow.hpp"
+class MainWindow;
 class MessageBox
 {
 public:
@@ -23,7 +26,7 @@ public:
 	MessageBox(MainWindow&);
 	
 	void createMessageBox();
-	void update(const std::string&, const Messages&);
+	void update(const std::string&, Messages&);
 	void writeLeft(const std::string& msg);
 	void writeRight(const std::string& msg);
 

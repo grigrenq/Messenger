@@ -12,14 +12,15 @@ MessageBox::MessageBox(MainWindow& mw)
 void MessageBox::createMessageBox()
 {
 	messageBox = new QVBoxLayout();
-	messageText = new QTextEdit(this);
+	messageText = new QTextEdit();
 	messageText->setReadOnly(true);
 	messageBox->addWidget(messageText);
 //	messageTextLayout = new QVBoxLayout();
 }		
 
-void MessageBox::update(const std::string& mylogin, const Messages& msgs)
+void MessageBox::update(const std::string& mylogin, Messages& msgs)
 {
+	ExtractWord extractWord;
 	std::string msg;
 	for(msg : msgs) {
 		std::string currentLogin = extractWord(msg);

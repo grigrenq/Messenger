@@ -71,7 +71,7 @@ void MainWindow::updateMessageBox()
    	messageBox.update(userPtr->getLogin(), userPtr->getMessages()); 
 }
 
-void MainWindow::sendMessage(String& msg)
+void MainWindow::sendMessage( String& msg)
 {
 	if(userPtr == nullptr) {
 		return;

@@ -48,12 +48,12 @@ public:
     void createLayout();
 	void setUser(User& u);	
 	void updateMessageBox();
+	void sendMessage(String& msg);
 
 private:
 	void createLayouts();
 	void addAvatar(Avatar*);
 	void addAvatars();
-	void sendMessage(String& msg);
 	void updateMainWindow(User& u);
 	void createAvatars(Users& users); 
 	AvatarsIter find(const User& u);
