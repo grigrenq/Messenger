@@ -76,6 +76,7 @@ public:
 		String sendRegistrationRequest(const String& login, const String& name,
 				const String& surname, const String& password);
 		String sendMessageToUser(const String& toUser, String& msg);
+		String sendConvRequest(const String&);
 
 		void f(String& str)	//for testing
 		{
@@ -116,6 +117,7 @@ public:
 		void processRegistrationRespond(String&);
 		void processUserChangedRespond(String&);
 		void processUserListRespond(String&);
+		void processConvRespond(String&);
 
 		UserIter find(const String&);
 		UserIter find(User&);

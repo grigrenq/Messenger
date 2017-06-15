@@ -27,7 +27,6 @@ void Controller::run()
 		std::cout << "An error occurred during thread creation process.";
 		return;
 	}
-	//handleSession();
 }
 
 void Controller::closeConnection()
@@ -82,6 +81,12 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	return "Message to Client " + toUser + ": " + sendMessage(msg, plainMessage);
 }
 
+String Controller::sendConversationRequest(const String& uLogin)
+{
+	String msg = userLogin + delim + uLogin + delim + "Conversation Request";
+	return "Conversation Request: " + sendMessage(msg, convRequest);
+}
+
 String Controller::sendUserListRequest()
 {
 	String msg = "This is a user list request.";
@@ -93,6 +98,7 @@ String Controller::sendPendingMessagesRequest()
 	String msg = "This is a pending messages request.";
 	return "Pending Messages Request: " + sendMessage(msg, pendingMessagesRequest);
 }
+
 
 String Controller::sendMessage(String& message, const String& msgType)
 {
@@ -123,6 +129,8 @@ void Controller::processMessage(String& message)
 		processUserChangedRespond(message);
 	} else if (msgType == userListRespond) {
 		processUserListRespond(message);
+	} else if (msgType == convRespond) {
+		processConvRespond(message);
 	} else {
 		std::cout << "Unknown type: " << msgType << " message: " << message << std::endl;
 	}
@@ -241,7 +249,10 @@ void Controller::processUserListRespond(String& userList)
 	updateMessageWindow(users);
 }
 
-
+void Controller::processConvRespond(String& msg)
+{
+	//??????????
+}
 
 Controller::UserIter Controller::find(const String& login)
 {

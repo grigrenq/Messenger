@@ -41,9 +41,10 @@ private:
 
     void closeSocket(const SOCKET);
     int recvMessage(const SOCKET, String&);
-    int sendMessage(const SOCKET, String& msg, const String& delim);
+    int sendMessage(const SOCKET, String&, const String&);
 
 	void sendUserChangedRespond(User&);
+	void sendConvRespond(const SOCKET, const String&, const String&);
 
 	void processMessage(const SOCKET, String&);
 	void processPlainMessage(String&);
@@ -52,6 +53,7 @@ private:
 	void processRegistrationRequest(const SOCKET, String&);
 	void processUserListRequest(const SOCKET);
 	void processPendingMessagesRequest(const SOCKET);
+	void processConvRequest(const SOCKET, String&);
 
 	Users users;
 

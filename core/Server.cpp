@@ -324,6 +324,11 @@ void Server::sendUserChangedRespond(User& user)
 	//mutex.unlock();
 }
 
+void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
+{
+	//??????????????????
+}
+
 
 
 void Server::processMessage(const SOCKET sock, String& message)
@@ -341,7 +346,9 @@ void Server::processMessage(const SOCKET sock, String& message)
 		processUserListRequest(sock);
 	} else if (msgType == pendingMessagesRequest) {
 		processPendingMessagesRequest(sock);
-	}else {
+	} else if (msgType == convRequest) {
+		processConvRequest(sock, message);
+	} else {
 		String log("Unknown type: " + msgType + ". message: " + message);
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
@@ -496,9 +503,15 @@ void Server::processUserListRequest(const SOCKET sock)
 	}
 }
 
-void Server::processPendingMessagesRequest(const SOCKET sock)
+void Server::processPendingMessagesRequest(const SOCKET s)
 {
-	sendPendingMessages(sock);
+	sendPendingMessages(s);
+}
+
+void Server::processConvRequest(const SOCKET s, String& msg)
+{
+	//????????????????
+	
 }
 
 

@@ -40,39 +40,36 @@ using SOCKET = int;
 #include <typeinfo>
 #include <sstream>
 
-#define ERROR -1
-#define SUCCESS 1
-#define SOCKET_CLOSED 0
+const int ERROR = -1;
+const int SUCCESS = 1;
+const int SOCKET_CLOSED = 0;
 
+using String = std::string;
 
-const std::string loginRequest = "loginRequest";
-const std::string loginRespond = "loginRespond";
+const String loginRequest = "loginRequest";
+const String loginRespond = "loginRespond";
+const String logoutRequest = "logoutRequest";
+const String logoutRespond = "logoutRespond";
+const String registrationRequest = "regRequest";
+const String registrationRespond = "regRespond";
+const String pendingMessagesRequest = "pendMsgRequest";
+const String userListRequest = "userListRequest";
+const String userListRespond = "userListRespond";
+const String userChangedRespond = "userChanged";
+const String plainMessage = "plainMessage";
+const String convRequest = "userConvReq";
+const String convRespond = "userConvResp";
 
-const std::string logoutRequest = "logoutRequest";
-const std::string logoutRespond = "logoutRespond";
+const String incorrectLoginOrPassword = "Error. Login or password is incorrect.";
+const String incorrectName = "Error. Name or Surname is incorrect.";
+const String incorrectPasswords = "Error. Passwords do not match.";
+const String emptyMessage = "Error. Message cannot be empty";
 
-const std::string registrationRequest = "regRequest";
-const std::string registrationRespond = "regRespond";
+const String online = "online";
+const String offline = "offline";
 
-const std::string pendingMessagesRequest = "pendMsgRequest";
-
-const std::string userChangedRespond = "userChanged";
-
-const std::string userListRequest = "userListRequest";
-const std::string userListRespond = "userListRespond";
-
-const std::string plainMessage = "plainMessage";
-
-const std::string incorrectLoginOrPassword = "Error. Login or password is incorrect.";
-const std::string incorrectName = "Error. Name or Surname is incorrect.";
-const std::string incorrectPasswords = "Error. Passwords do not match.";
-const std::string emptyMessage = "Error. Message cannot be empty";
-
-const std::string online = "online";
-const std::string offline = "offline";
-
-const std::string error = "Error";
-const std::string success = "Success";
+const String error = "Error";
+const String success = "Success";
 
 const char delim = '%';
 const char underscore = '_';
