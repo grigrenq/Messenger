@@ -32,8 +32,8 @@ setupAddress and connectServer
                 *   @param no parametrs 
                 *   @return void
                 */
-		void setupAndConnect();
-                
+		
+                void connect();              
                 /** 
                 *   @brief closeConnection closing socket that comunicated with server?
                 *   @param no parametrs 

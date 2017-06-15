@@ -11,7 +11,8 @@
 
 Client::Client()
 {
-	//
+	createSocket();
+        setupAddress();
 }
 
 
@@ -33,7 +34,7 @@ void Client::setupAddress()
 	server.sin_port = htons(DEFAULT_PORT);
 }
 
-void Client::connectServer()
+void Client::connect()
 {
 	int error = connect(socketD, (struct sockaddr*)&server, sizeof(server));
 	if (error < 0)
@@ -42,13 +43,6 @@ void Client::connectServer()
 		exit(1);
 	}
 	std::cout << "Connected\n";
-}
-
-void Client::setupAndConnect()
-{
-	createSocket();
-	setupAddress();
-	connectServer();
 }
 
 int Client::sendMessage(const String& message)
