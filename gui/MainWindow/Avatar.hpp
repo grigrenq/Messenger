@@ -8,7 +8,7 @@
 
 #include "../../core/ClientUser.hpp"
 
-#include "MainWindow.hpp"
+class MainWindow;
 
 class Avatar : public QLabel
 {

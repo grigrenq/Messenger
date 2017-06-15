@@ -28,7 +28,7 @@
 #include "WriteBox.hpp"
 
 class Avatar;
-
+class Controller;
 #include "../../core/Controller.hpp"
 
 class MainWindow : public QWidget
