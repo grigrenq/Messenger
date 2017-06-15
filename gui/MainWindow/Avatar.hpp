@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 
 #include "../../core/ClientUser.hpp"
+
 #include "MainWindow.hpp"
 
 class Avatar : public QLabel
@@ -14,9 +15,14 @@ class Avatar : public QLabel
 	Q_OBJECT
 
 public:
-	using User = ClientUser;
+	using User = MainWindow::User;
+	using String = MainWindow::String;
 
-	Avatar(MainWindow&, User&);
+	Avatar(User&, MainWindow&);
+	
+	void setStatus(bool);
+	void incrementCount() {}
+	String getLogin() { return user.getLogin(); }
 
 
 public slots:

@@ -21,7 +21,7 @@ public:
 	using User = ClientUser;
 	using Users = std::list<User>;
 	using UserIter = Users::iterator;
-	using String = std::string;
+	using String = User::String;
 
 	class InputReader {
 		public:

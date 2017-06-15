@@ -34,15 +34,17 @@ class Avatar;
 class MainWindow : public QWidget
 {
 	Q_OBJECT
+
 public:
-	using User = ClientUser;
-	using Users = std::list<User>;
-	using String = std::string;
+	using String = Controller::String;
+	using User = Controller::User;
+	using Users = Controller::Users;
+	using Messages = Controller::User::Messages;
 	using Avatars = std::list<Avatar*>;
 	using AvatarsIter = Avatars::iterator;
-	using Messages = std::list<String>;
 
     MainWindow(Controller&);
+
     void createLayout();
 	void setUser(User& u);	
 	void updateMessageBox();
@@ -65,6 +67,7 @@ private:
 	QScrollArea *scrollArea;
 	QTextEdit* messageText;
 	QLayout* messageTextLayout;
+
 	Avatars avatars;
 	MessageBox messageBox;
 	WriteBox writeBox;

@@ -3,8 +3,8 @@
 #include <QScrollBar>
 #include <Qt>
 #include <QFontMetrics>
-#include "Avatar.hpp"
 
+#include "Avatar.hpp"
 #include "MainWindow.hpp"
 
 MainWindow::MainWindow(Controller& c)
@@ -42,7 +42,7 @@ void MainWindow::addAvatars()
 
 void MainWindow::addAvatar(Avatar* a)
 {
-	avLay.addWidget(a);
+	avLay->addWidget(a);
 }
 
 void MainWindow::createLayout(){
@@ -55,24 +55,17 @@ void MainWindow::createLayout(){
 	mainLayout->addLayout(rightSide,0,1);
 
 	setLayout(mainLayout);
-	
 }
 
+/*
 void MainWindow::createAvatar()
 {
 	Avatar* a = new Avatar();
 	avLay->addWidget(a);
 	avatars.push_back(a);
-}
+}*/
 
-void MainWindow::sendMessage()
-{
-	messages.push_back("");
-	messages[0]+="\n>>>>>>>>>>\n";
-	messages[0]+=(textEdit->toPlainText()+"\n");
-	messageText->setText(messages[0]);
-	textEdit->setText(" ");
-}
+
 void MainWindow::updateMessageBox()
 {
    	messageBox.update(userPtr->getLogin(), userPtr->getMessages()); 
@@ -80,20 +73,21 @@ void MainWindow::updateMessageBox()
 
 void MainWindow::sendMessage(String& msg)
 {
-	if(userPtr == nullptr)
+	if(userPtr == nullptr) {
 		return;
+	}
 	String toUser = userPtr->getLogin();
+	userPtr->addMessage(controller.getLogin() + delim + msg);
 	controller.sendMessageToUser(toUser, msg);
-	userPtr->addMessage(controller.getLogin(),msg);
-	messageBox.update(userPtr->getMessages());
+	messageBox.update(userPtr->getLogin(), userPtr->getMessages());
 }
 
 void MainWindow:: updateMainWindow(User& u)
 {
 	auto it = find(u);
-	if (it == Avatars.end()) {
-		Avatars.push_back(new Avatar(u));
-		addAvatar(Avatars.back());
+	if (it == avatars.end()) {
+		avatars.push_back(new Avatar(u, *this));
+		addAvatar(avatars.back());
 	} else {
 		(*it)->setStatus(u.getStatus());
 		if (userPtr->getLogin() == u.getLogin()) {
@@ -110,13 +104,13 @@ void MainWindow::setUser(User& u)
 
 void MainWindow::createAvatars(Users& users) 
 {
-	for (auto it = users.begin(), it != users.end(); ++it) {
-		avatars.push_back(new Avatar(*it));
+	for (auto it = users.begin(); it != users.end(); ++it) {
+		avatars.push_back(new Avatar(*it, *this));
 	}
 	addAvatars();
 	//show();
 }
-AvatarsIter MainWindow::find(const User& u)
+MainWindow::AvatarsIter MainWindow::find(const User& u)
 {
 	AvatarsIter it;
 	for (; it != avatars.end(); ++it) {

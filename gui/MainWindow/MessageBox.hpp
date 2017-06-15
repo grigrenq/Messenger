@@ -4,23 +4,28 @@
 #include <string>
 #include <list>
 
-#include "MainWindow.hpp"
+#include "../../core/ClientUser.hpp"
 
 class QLayout;
 class QTextEdit;
 
+#include "MainWindow.hpp"
+
 class MessageBox
 {
 public:
-	using String = std::string;
-	using Messages = std::list<String>;
+	using User = ClientUser;
+	using Messages = std::list<std::string>;
+	//using User = MainWindow::User;
+	//using String = MainWindow::String;
+	//using Messages = MainWindow::Messages;
 	
 	MessageBox(MainWindow&);
 	
 	void createMessageBox();
-	void updateMessageBox(const String&, Messages&);
-	void writeLeft(String msg);
-	void writeRight(String msg);
+	void update(const std::string&, const Messages&);
+	void writeLeft(const std::string& msg);
+	void writeRight(const std::string& msg);
 
 private:
 	MainWindow& mainWindow;

@@ -1,12 +1,13 @@
 #include "MessageBox.hpp"
-
 #include "../../core/ExtractWord.hpp"
+
+//#include "MainWindow.hpp"
 
 MessageBox::MessageBox(MainWindow& mw)
 	: mainWindow(mw)
 {
 	createMessageBox();
-	mainWindow.rightSide->addLayout(messageBox);
+	//mainWindow->rightSide->addLayout(messageBox);
 }
 void MessageBox::createMessageBox()
 {
@@ -17,25 +18,27 @@ void MessageBox::createMessageBox()
 //	messageTextLayout = new QVBoxLayout();
 }		
 
-void MessageBox::updateMessageBox(const String& mylogin, Messages& msgs)
+void MessageBox::update(const std::string& mylogin, const Messages& msgs)
 {
-	String msg;
-	for(msg in msgs) {
-		String currentLogin = extractWord(msg);
-		if(mylogin == currentLogin) 
+	std::string msg;
+	for(msg : msgs) {
+		std::string currentLogin = extractWord(msg);
+		if(mylogin == currentLogin) {
 			writeLeft(msg);
-		else
+		}
+		else {
 			writeRight(msg);
+		}
 	}
 }
 
-void MessageBox::writeLeft(String msg)
+void MessageBox::writeLeft(const std::string& msg)
 {
 	//conversation.push_back(">>>>>>>>>\n");
 	//conversation.push_back(msg);
 }
 
-void MessageBox::writeRight(String msg)
+void MessageBox::writeRight(const std::string& msg)
 {
 	//conversation.push_back("<<<<<<<<<\n");
 	//conversation.push_back(msg);

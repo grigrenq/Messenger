@@ -34,7 +34,7 @@
 }*/
 
 
-Avatar::Avatar(MainWindow& mw, User& u)
+Avatar::Avatar(User& u, MainWindow& mw)
 	: user(u)
 	, mainWindow(mw)
 {
@@ -72,4 +72,6 @@ void Avatar::openConversation()
 	mainWindow.updateMessageBox();
 }
 
-
+void Avatar::setStatus(bool)
+{
+}

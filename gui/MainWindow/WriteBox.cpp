@@ -2,10 +2,11 @@
 
 
 
-WriteBox::WriteBox(MainWindow &mw)
+WriteBox::WriteBox(MainWindow& mw)
+	: mainWindow(mw)
 {
 	createWriteBox();
-	mw.rightSide->addLayout(writebox);
+	//mw.rightSide->addLayout(writebox);
 }
 
 void WriteBox::createWriteBox()
@@ -26,5 +27,5 @@ void WriteBox::createWriteBox()
 
 void WriteBox::sendMessage()
 {
-	mw.sendMessage(textEdit.text());
+	mw.sendMessage(textEdit.text().toStdString());
 }

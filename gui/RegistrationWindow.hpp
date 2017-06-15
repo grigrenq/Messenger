@@ -28,7 +28,7 @@ class RegistrationWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	typedef std::string String;
+	using String = std::string;
 
         /** 
         *   @brief RegistrationWindow constructor for class RegistrationWindow 

@@ -1,7 +1,6 @@
 #ifndef WRITEBOX_HPP
 #define WRITEBOX_HPP
 
-#include <string>
 
 class QLayout;
 class QTextEdit;
@@ -14,8 +13,6 @@ class WriteBox
 	Q_OBJECT
 
 public:
-	using String = std::string;
-	//using String = MainWindow::String;
 
 	WriteBox(MainWindow&);
 
