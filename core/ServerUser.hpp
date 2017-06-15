@@ -9,6 +9,13 @@ public:
 	using String = std::string;	
 	using PendigMessages = std::list<String>;
 
+
+	ServerUser()
+		: sock(INVALID_SOCKET), status(false), pendingMessages(PendigMessages())
+	{
+		//
+	}
+
 	explicit ServerUser(const SOCKET sock_, const String& login_, const std::string& name_,
 			const String& surname_, const std::string& password_,  const bool st)
 		: sock(sock_), login(login_), name(name_)
@@ -19,12 +26,6 @@ public:
 
 	explicit ServerUser(const SOCKET sock_)
 		: sock(sock_), status(false), pendingMessages(PendigMessages())
-	{
-		//
-	}
-
-	ServerUser()
-		: sock(INVALID_SOCKET), status(false), pendingMessages(PendigMessages())
 	{
 		//
 	}
@@ -44,8 +45,8 @@ public:
 	String toStringLog()
 	{
 		String clientStr = toString();
-		clientStr += "Socket = " + std::to_string(sock) + delim;
 		clientStr += password + delim;
+		clientStr += "Socket = " + std::to_string(sock) + delim;
 
 		return clientStr;
 	}

@@ -14,6 +14,7 @@ void Server::run()
 	createSocket();
 	setupAddress();
 	bindListen();
+	initializeUsers();
 	acceptClient();
 }
 
@@ -91,6 +92,16 @@ void Server::doAcceptClient()
 		log = "Socket already exists in the map.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
+	}
+}
+
+void Server::initializeUsers()
+{
+	User u;
+	while (dbcontroller.getUser(u)) {
+		u.setSocket(INVALID_SOCKET);
+		u.setStatus(false);
+		users.insert(u);
 	}
 }
 
@@ -327,6 +338,7 @@ void Server::sendUserChangedRespond(User& user)
 void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
 {
 	//??????????????????
+	std::cout << s << " , " << u1 << ", " << u2 << std::endl;
 }
 
 
@@ -481,6 +493,7 @@ void Server::processRegistrationRequest(const SOCKET sock, String& message)
 		dbcontroller.logUsers();	//logging
 		//mutex.unlock();
 		User *p = it->getPointer();
+		dbcontroller.addUser(*p);
 		sendUserChangedRespond(*p);
 	}
 	dbcontroller.logServer(respond);
@@ -508,7 +521,7 @@ void Server::processPendingMessagesRequest(const SOCKET s)
 	sendPendingMessages(s);
 }
 
-void Server::processConvRequest(const SOCKET s, String& msg)
+void Server::processConvRequest(const SOCKET, String&)
 {
 	//????????????????
 	

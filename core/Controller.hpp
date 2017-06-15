@@ -8,7 +8,7 @@
 
 class LoginWindow;
 //class RegistrationWindow;
-class MainWindow;
+//class MainWindow;
 
 
 
@@ -89,12 +89,12 @@ public:
 
 			if (type == "log") {
 				l = extractWord(str);
-				login = l;
-				std::cout << sendLoginRequest(login, p) << std::endl;
+				userLogin = l;
+				std::cout << sendLoginRequest(l, p) << std::endl;
 			} else if (type == "reg") {
 				l = extractWord(str);
-				login = l;
-				std::cout << sendRegistrationRequest(login, n, sn, p) << std::endl;
+				userLogin = l;
+				std::cout << sendRegistrationRequest(l, n, sn, p) << std::endl;
 			} else if (type == "logout") {
 				std::cout << sendLogoutRequest() << std::endl;
 			} else {
@@ -102,7 +102,7 @@ public:
 			}
 		}
 
-		String getLogin() const { return login; }
+		String getLogin() const;
 	private:
 		void closeConnection();
 
@@ -127,10 +127,10 @@ public:
 
 		Client& c;
 		Users users;
-		String login;
+		String userLogin;
 
 		LoginWindow *loginWindow;
-		MainWindow *mainWindow;
+		//MainWindow *mainWindow;
 
 		ExtractWord extractWord;
 		std::shared_ptr<InputReader> inReaderPtr;

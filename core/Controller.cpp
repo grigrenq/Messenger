@@ -1,7 +1,7 @@
 #include "Controller.hpp"
 
 #include "../gui/LoginWindow.hpp"
-#include "../gui/MainWindow/MainWindow.hpp"
+//#include "../gui/MainWindow/MainWindow.hpp"
 
 
 using String = Controller::String;
@@ -23,10 +23,16 @@ void Controller::run()
 	std::cout << "EndPoint\n";
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
-	if (pthread_create(&(*th), NULL, ::handleContrSession, this)) {
-		std::cout << "An error occurred during thread creation process.";
-		return;
-	}
+	//if (pthread_create(&(*th), NULL, ::handleContrSession, this)) {
+	//	std::cout << "An error occurred during thread creation process.";
+	//	return;
+	//}
+	handleSession();
+}
+
+String Controller::getLogin() const
+{
+	return userLogin;
 }
 
 void Controller::closeConnection()
@@ -36,19 +42,19 @@ void Controller::closeConnection()
 
 void Controller::handleSession()
 {
-	//inReaderPtr.reset(new InputReader(*this));
-	//inReaderPtr->startRead();
+	inReaderPtr.reset(new InputReader(*this));
+	inReaderPtr->startRead();
 	String message;
 	while (c.recvMessage(message) == SUCCESS) {
 			processMessage(message);
 	}
-	//inReaderPtr->stopRead();
+	inReaderPtr->stopRead();
 	c.closeConnection();
 }
 
 String Controller::sendLoginRequest(const String& login, const String& password)
 {
-	UserName = login;
+	userLogin = login;
 	String msg = login + delim + password + delim;
 	return "Login request: " + sendMessage(msg, loginRequest);
 }
@@ -77,11 +83,12 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 		throw std::logic_error("Attempting to send a message to an unknown user.");
 	}
 	msg = toUser + delim + msg;
-	msg = UserName + delim + msg;
+	msg = userLogin + delim + msg;
 	return "Message to Client " + toUser + ": " + sendMessage(msg, plainMessage);
 }
 
-String Controller::sendConversationRequest(const String& uLogin)
+
+String Controller::sendConvRequest(const String& uLogin)
 {
 	String msg = userLogin + delim + uLogin + delim + "Conversation Request";
 	return "Conversation Request: " + sendMessage(msg, convRequest);
@@ -202,7 +209,9 @@ void Controller::processRegistrationRespond(String& message)
 	} else {
 		//invoke some function of RegistrationWindow
 		log = success + "-" + message;
-		loginWindow->closeRegWindow();
+		if (loginWindow != nullptr) {
+			//loginWindow->closeRegWindow();
+		}
 	}
 	dbcontroller.logClient(log);
 }
@@ -249,7 +258,7 @@ void Controller::processUserListRespond(String& userList)
 	updateMessageWindow(users);
 }
 
-void Controller::processConvRespond(String& msg)
+void Controller::processConvRespond(String&)
 {
 	//??????????
 }

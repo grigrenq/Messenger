@@ -30,6 +30,7 @@ private:
     void bindListen();
     void acceptClient();
     void doAcceptClient();
+	void initializeUsers();
 
 	UserIter find(const SOCKET);
 	UserIter find(const String&);

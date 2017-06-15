@@ -24,6 +24,20 @@ public:
 	DBController(ClientUsers *cu)
 		: serverUsers(nullptr), clientUsers(cu) {}
 
+	void addUser(ServerUser& u)
+	{
+		mutGuard mg(mutex);
+		std::ofstream ofile("../core/Server/users.txt", std::fstream::out | std::fstream::app);
+		String s = u.toStringLog() + "\n";
+		ofile.write(s.c_str(), s.size());
+		ofile.close();
+	}
+	bool getUser(ServerUser&)
+	{
+		return false;
+	}
+
+
 	void logServer(const String& str)
 	{
 		mutGuard mg(mutex);
