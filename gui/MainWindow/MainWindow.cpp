@@ -3,10 +3,14 @@
 #include <QScrollBar>
 #include <Qt>
 #include <QFontMetrics>
+#include "Avatar.hpp"
 
 #include "MainWindow.hpp"
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(Controller& c)
+	: messageBox(*this)
+	, writeBox(*this)
+	, controller(c)
 {
 	setGeometry(10,10,1000,500);
 	setWindowTitle("GRI-System");

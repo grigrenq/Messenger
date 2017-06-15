@@ -1,5 +1,4 @@
 #include "MessageBox.hpp"
-#include "MainWindow.hpp"
 
 #include "../../core/ExtractWord.hpp"
 

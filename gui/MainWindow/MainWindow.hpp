@@ -22,19 +22,18 @@
 
 #include "../../core/ClientUser.hpp"
 
-#include "Avatar.hpp"
+//#include "Avatar.hpp"
 
 #include "MessageBox.hpp"
 #include "WriteBox.hpp"
 
-//class Avatar;
+class Avatar;
 
 #include "../../core/Controller.hpp"
 
 class MainWindow : public QWidget
 {
 	Q_OBJECT
-
 public:
 	using User = ClientUser;
 	using Users = std::list<User>;
@@ -43,7 +42,7 @@ public:
 	using AvatarsIter = Avatars::iterator;
 	using Messages = std::list<String>;
 
-    MainWindow();
+    MainWindow(Controller&);
     void createLayout();
 	void setUser(User& u);	
 	void updateMessageBox();

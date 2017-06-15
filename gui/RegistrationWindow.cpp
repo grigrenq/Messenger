@@ -13,10 +13,11 @@
 #include <iostream>
 
 #include "RegistrationWindow.hpp"
+#include "../core/ValidationInfo.hpp"
 
 
-	RegistrationWindow::RegistrationWindow(Controller& c)
-: controller(c)
+RegistrationWindow::RegistrationWindow(Controller& c)
+	: controller(c)
 {
 	const QSize windowSize(450,380);
 	setMaximumSize(windowSize);
@@ -115,7 +116,7 @@ void RegistrationWindow::connectLines()
 void RegistrationWindow::checkLogin(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLoginPassword(s)) {
+	if (validator.checkLoginPassword(s) == ValidationInfo::validLogPass) {
 
 		login->setStyleSheet("border: 3px solid black");
 	} else {
@@ -128,7 +129,7 @@ void RegistrationWindow::checkLogin(const QString& qs)
 void RegistrationWindow::checkName(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkName(s)) {
+	if (validator.checkName(s) == ValidationInfo::validName) {
 
 		name->setStyleSheet("border: 3px solid black");
 	} else {
@@ -141,7 +142,7 @@ void RegistrationWindow::checkName(const QString& qs)
 void RegistrationWindow::checkSurname(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkName(s)) {
+	if (validator.checkName(s) == ValidationInfo::validName) {
 
 		surname->setStyleSheet("border: 3px solid black");
 	} else {
@@ -155,7 +156,7 @@ void RegistrationWindow::checkSurname(const QString& qs)
 void RegistrationWindow::checkPassword(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLoginPassword(s)) {
+	if (validator.checkLoginPassword(s) == ValidationInfo::validLogPass) {
 
 		password1->setStyleSheet("border: 3px solid black");
 	} else {
@@ -167,8 +168,10 @@ void RegistrationWindow::checkPassword(const QString& qs)
 
 void RegistrationWindow::checkPasswords(const QString& qs)
 {
-	String s = qs.toStdString();
-	if (validator.checkPasswords((password1->text()).toStdString(), s)) {
+	String p1 = password1->text().toStdString();
+	String p2 = qs.toStdString();
+
+	if (validator.checkPasswords(p1, p2) == ValidationInfo::mismatchPass) {
 
 		password2->setStyleSheet("border: 3px solid black");
 	} else {
@@ -186,23 +189,23 @@ void RegistrationWindow::sendRegistrationReq()
 	String p1 = password1->text().toStdString();
 	String p2 = password2->text().toStdString();
 
-	if (!validator.checkLoginPassword(l)) {
+	if (validator.checkLoginPassword(l) == ValidationInfo::validLogPass) {
 
 		return;
 	}
-	if (!validator.checkName(n)) {
+	if (validator.checkName(n) == ValidationInfo::validName) {
 
 		return;
 	}
-	if (!validator.checkName(sn)) {
+	if (validator.checkName(sn) == ValidationInfo::validName) {
 
 		return;
 	}
-	if (!validator.checkLoginPassword(p1)) {
+	if (validator.checkLoginPassword(p1) == ValidationInfo::validLogPass) {
 
 		return;
 	}
-	if (!validator.checkPasswords(p1, p2)) {
+	if (validator.checkPasswords(p1, p2) == ValidationInfo::mismatchPass) {
 
 		return;
 	}

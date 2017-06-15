@@ -1,7 +1,9 @@
-#include "LoginWindow.hpp"
 #include <iostream>
 #include <QLabel>
 #include <QPalette>
+
+#include "LoginWindow.hpp"
+#include "../core/ValidationInfo.hpp"
 
 LoginWindow::LoginWindow(Controller& c)
 	: controller(c)
@@ -143,7 +145,7 @@ void LoginWindow::connectLines()
 void LoginWindow::checkLogin(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLoginPassword(s)) {
+	if (validator.checkLoginPassword(s) == ValidationInfo::validLogPass) {
 		//????
 		m_login->setStyleSheet("border: 3px solid black");
 	} else {
@@ -152,10 +154,11 @@ void LoginWindow::checkLogin(const QString& qs)
 		m_login->setStyleSheet("border: 3px solid red");
 	}
 }
+
 void LoginWindow::checkPassword(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLoginPassword(s)) {
+	if (validator.checkLoginPassword(s) == ValidationInfo::validLogPass) {
 		//????
 		m_password->setStyleSheet("border: 3px solid black");
 	} else {
@@ -169,12 +172,12 @@ void LoginWindow::checkPassword(const QString& qs)
 void LoginWindow::sendLoginReq()
 {
 	String l = m_login->text().toStdString();
-	if (!validator.checkLoginPassword(l)) {
+	if (validator.checkLoginPassword(l) == ValidationInfo::validLogPass) {
 		std::cout << "Wrong Login.\n";
 		return;
 	}
 	String p = m_password->text().toStdString();
-	if (!validator.checkLoginPassword(p)) {
+	if (validator.checkLoginPassword(p) == ValidationInfo::validLogPass) {
 		std::cout << "Wrong password.\n";
 		return;
 	}
