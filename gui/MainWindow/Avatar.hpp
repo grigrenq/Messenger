@@ -6,26 +6,21 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-
 #include "../../core/ClientUser.hpp"
+#include "MainWindow.hpp"
 
-//#include "MainWindow.cpp"
-
-
-class Avatar:public QLabel
+class Avatar : public QLabel
 {
-	//Q_OBJECT
+	Q_OBJECT
 
 public:
 	using User = ClientUser;
 
-	Avatar();
-	Avatar(User&);
+	Avatar(MainWindow&, User&);
 
-	/*
+
 public slots:
 	void openConversation();
-	*/
 
 private:
 	QLabel* avName=new QLabel(this);
@@ -33,7 +28,8 @@ private:
 	QLabel* avLogin=new QLabel(this);
 	QLabel* avStatus=new QLabel(this);
 	QLabel* avCount=new QLabel(this);
-	ClientUser* user;
+	User& user;
+	MainWindow& mainWindow;
 };
 
 #endif

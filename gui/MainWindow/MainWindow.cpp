@@ -6,14 +6,13 @@
 
 #include "MainWindow.hpp"
 
-MainWindow::mainWindow()
+MainWindow::MainWindow()
 {
 	setGeometry(10,10,1000,500);
 	setWindowTitle("GRI-System");
 	createLayout();
 	addAvatars();
 }
-
 
 void MainWindow::addAvatars()
 {
@@ -70,3 +69,63 @@ void MainWindow::sendMessage()
 	messageText->setText(messages[0]);
 	textEdit->setText(" ");
 }
+void MainWindow::updateMessageBox()
+{
+   	messageBox.update(userPtr->getLogin(), userPtr->getMessages()); 
+}
+
+void MainWindow::sendMessage(String& msg)
+{
+	if(userPtr == nullptr)
+		return;
+	String toUser = userPtr->getLogin();
+	controller.sendMessageToUser(toUser, msg);
+	userPtr->addMessage(controller.getLogin(),msg);
+	messageBox.update(userPtr->getMessages());
+}
+
+void MainWindow:: updateMainWindow(User& u)
+{
+	auto it = find(u);
+	if (it == Avatars.end()) {
+		Avatars.push_back(new Avatar(u));
+		addAvatar(Avatars.back());
+	} else {
+		(*it)->setStatus(u.getStatus());
+		if (userPtr->getLogin() == u.getLogin()) {
+			messageBox.update(u.getLogin(), u.getMessages());
+		} else {
+			(*it)->incrementCount();
+		}
+	}
+}
+void MainWindow::setUser(User& u)
+{
+   	userPtr = &u; 
+}
+
+void MainWindow::createAvatars(Users& users) 
+{
+	for (auto it = users.begin(), it != users.end(); ++it) {
+		avatars.push_back(new Avatar(*it));
+	}
+	addAvatars();
+	//show();
+}
+AvatarsIter MainWindow::find(const User& u)
+{
+	AvatarsIter it;
+	for (; it != avatars.end(); ++it) {
+		if ((*it)->getLogin() == u.getLogin()) {
+			return it;
+		}
+	}
+	return it;
+}
+
+
+
+
+
+
+

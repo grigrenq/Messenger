@@ -1,34 +1,33 @@
 #ifndef MESSAGEBOX_HPP
 #define MESSAGEBOX_HPP
 
+#include <string>
+#include <list>
 
 #include "MainWindow.hpp"
 
+class QLayout;
+class QTextEdit;
+
 class MessageBox
 {
-	public:
-		MessageBox(MainWindow& mw)
-			: mainWindow(mw) 
-		{
-		}
-
+public:
+	using String = std::string;
+	using Messages = std::list<String>;
 	
+	MessageBox(MainWindow&);
+	
+	void createMessageBox();
+	void updateMessageBox(const String&, Messages&);
+	void writeLeft(String msg);
+	void writeRight(String msg);
 
-		void createMessageBox()
-		{
-			messageBox = new QVBoxLayout();
-			rightSide->addLayout(messageBox);
-			messageText=new QTextEdit(this);
-			messageText->setReadOnly(true);
-			messageBox->addWidget(messageText);
-			messageTextLayout = new QVBoxLayout();
-		}		
-
-	private:
-		MainWindow& mainWindow;
-		QVBoxLayout* messageBox;
-		QTextEdit* messageText;
-		QVBoxLayout* messageTextLayout;
+private:
+	MainWindow& mainWindow;
+	QVBoxLayout* messageBox;
+	QTextEdit* messageText;
+//	Conversation conversation;
+//	QVBoxLayout* messageTextLayout;
 };
 
 #endif

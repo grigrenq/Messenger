@@ -2,18 +2,16 @@
 
 
 
-WriteBox::WriteBox()
+WriteBox::WriteBox(MainWindow &mw)
 {
-	//writeBox = new QHBoxLayout();
-	//textEdit = new QTextEdit();
-	//textEdit->set
+	createWriteBox();
+	mw.rightSide->addLayout(writebox);
 }
 
 void WriteBox::createWriteBox()
 {
 	
 	writeBox=new QHBoxLayout();
-	rightSide->addLayout(writeBox);
 	textEdit = new QTextEdit();
 	textEdit->setMinimumSize(500,70);
 	textEdit->setMaximumSize(800,70);
@@ -22,7 +20,11 @@ void WriteBox::createWriteBox()
 	sendButton->setMaximumSize(150,30);
 	writeBox->addWidget(textEdit);
 	writeBox->addWidget(sendButton);
-	rightSide->addLayout(writeBox);
 	QObject::connect(sendButton,SIGNAL(clicked()),this,SLOT(sendMessage()));
 
+}
+
+void WriteBox::sendMessage()
+{
+	mw.sendMessage(textEdit.text());
 }
