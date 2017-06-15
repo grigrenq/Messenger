@@ -2,7 +2,7 @@
 #include <QPalette>
 #include <QGridLayout>
 #include <QString>
-
+#include "MainWindow.hpp"
 #include "Avatar.hpp"
 //#include "MainWindow.hpp"
 

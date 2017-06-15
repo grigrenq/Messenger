@@ -3,6 +3,7 @@
 *  @author  GRI Team
 *  @date    06/14/2017  
 *  @version 1.0 
+*  @brief ...
 */
 
 
@@ -38,7 +39,7 @@ public:
 
         /** 
         *   @brief LoginWindow constructor for class LoginWindow   
-        *   @param  is an initialized  
+        *   @param  is an initialized....  
         */  
         LoginWindow(Controller&);
 	
