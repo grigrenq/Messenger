@@ -16,7 +16,7 @@ Controller::Controller(Client& c_)
 
 void Controller::run()
 {
-	c.setupAndConnect();
+	c.connectServer();
 	std::cout << "StartPoint\n";
 	loginWindow = new LoginWindow(*this);
 	loginWindow->show();

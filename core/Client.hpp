@@ -33,7 +33,7 @@ setupAddress and connectServer
                 *   @return void
                 */
 		
-                void connect();              
+                void connectServer();
                 /** 
                 *   @brief closeConnection closing socket that comunicated with server?
                 *   @param no parametrs 
@@ -60,7 +60,6 @@ if not errors,else asking about errore??
 	private:
 		void createSocket();
 		void setupAddress();
-		void connectServer();
 
 		SOCKET socketD;
 		sockaddr_in server;

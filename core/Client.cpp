@@ -34,7 +34,7 @@ void Client::setupAddress()
 	server.sin_port = htons(DEFAULT_PORT);
 }
 
-void Client::connect()
+void Client::connectServer()
 {
 	int error = connect(socketD, (struct sockaddr*)&server, sizeof(server));
 	if (error < 0)
