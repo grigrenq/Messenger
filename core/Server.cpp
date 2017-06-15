@@ -97,12 +97,7 @@ void Server::doAcceptClient()
 
 void Server::initializeUsers()
 {
-	User u;
-	while (dbcontroller.getUser(u)) {
-		u.setSocket(INVALID_SOCKET);
-		u.setStatus(false);
-		users.insert(u);
-	}
+	dbcontroller.getUsers();
 }
 
 

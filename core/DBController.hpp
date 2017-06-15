@@ -32,9 +32,16 @@ public:
 		ofile.write(s.c_str(), s.size());
 		ofile.close();
 	}
-	bool getUser(ServerUser&)
+	void getUsers()
 	{
-		return false;
+		std::ifstream ifile("../core/Server/users.txt", std::fstream::in);
+		String s;
+		while (std::getline(ifile, s)) {
+			ServerUser u;
+			u.fromString(s);
+			serverUsers->insert(u);
+		}
+		ifile.close();
 	}
 
 
