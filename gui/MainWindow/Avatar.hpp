@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QVBoxLayout>
-
+#include <MainWindow.hpp>
 #include "../../core/ClientUser.hpp"
 
 class MainWindow;
