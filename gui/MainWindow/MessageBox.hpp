@@ -29,6 +29,7 @@ public:
 	void update(const std::string&, Messages&);
 	void writeLeft(const std::string& msg);
 	void writeRight(const std::string& msg);
+	QTextEdit* getMessageText();
 
 private:
 	MainWindow& mainWindow;
