@@ -69,8 +69,8 @@ private:
 	QLayout* messageTextLayout;
 
 	Avatars avatars;
-	MessageBox messageBox;
-	WriteBox writeBox;
+	MessageBox *messageBox;
+	WriteBox *writeBox;
 	User* userPtr;
 	Controller& controller;
 };

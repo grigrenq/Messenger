@@ -44,3 +44,8 @@ void MessageBox::writeRight(const std::string& msg)
 	//conversation.push_back(msg);
 }
 
+QTextEdit* MessageBox::getMessageText()
+{
+	    return messageText;
+}
+
