@@ -17,8 +17,10 @@ Controller::Controller(Client& c_)
 void Controller::run()
 {
 	c.connectServer();
-	loginWindow = new LoginWindow(*this);
-	loginWindow->show();
+	//mainWindow = new MainWindow(*this);
+	//loginWindow = new LoginWindow(*this);
+	//mainWindow->show();
+	//loginWindow->show();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleContrSession, this)) {
@@ -172,8 +174,8 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow != nullptr) {
 			delete loginWindow;
 			loginWindow = nullptr;
-			mainWindow = new MainWindow();
-			mainWindow->show();
+		//	mainWindow = new MainWindow();
+		//	mainWindow->show();
 		}
 		//usleep(100);
 		sendPendingMessagesRequest();
@@ -211,7 +213,7 @@ void Controller::processRegistrationRespond(String& message)
 		//invoke some function of RegistrationWindow
 		log = success + "-" + message;
 		if (loginWindow != nullptr) {
-			loginWindow->closeRegWindow();
+			//loginWindow->closeRegWindow();
 		}
 	}
 	//dbcontroller.logClient(log);

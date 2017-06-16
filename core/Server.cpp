@@ -15,6 +15,7 @@ void Server::run()
 	setupAddress();
 	bindListen();
 	initializeUsers();
+	dbcontroller.logUsers();
 	acceptClient();
 }
 

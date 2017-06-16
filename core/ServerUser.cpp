@@ -50,6 +50,12 @@ bool ServerUser::fromString(String& str)
 	login = extractWord(str);
 	name = extractWord(str);
 	surname = extractWord(str);
+	String st = extractWord(str);
+	if (st == online) {
+		status = true;
+	} else {
+		status = false;
+	}
 	password = extractWord(str);
 
 	if (login.empty() || name.empty()
@@ -63,6 +69,7 @@ bool ServerUser::fromString(String& str, int)
 {
 	login = extractWord(str);
 	password = extractWord(str);
+	std::cout << "...fromString()...login=" << login << ".password=" << password << ".\n";
 	if (login.empty() ||  password.empty()) {
 		throw std::logic_error("Failed to convert");
 	}
