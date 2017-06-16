@@ -4,8 +4,10 @@
 #include <Qt>
 #include <QFontMetrics>
 
-#include "Avatar.hpp"
 #include "MainWindow.hpp"
+#include "Avatar.hpp"
+
+const char delim = '%';
 
 MainWindow::MainWindow(Controller& c)
 	: messageBox(*this)

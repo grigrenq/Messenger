@@ -31,8 +31,8 @@
 	lay->addWidget(avStatus);
 	lay->addWidget(avCount);
 	setStyleSheet("border:1px solid black");
-}*/
-
+}
+*/
 
 Avatar::Avatar(User& u, MainWindow& mw)
 	: user(u)
