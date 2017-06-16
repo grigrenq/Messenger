@@ -1,10 +1,14 @@
 #include "Controller.hpp"
 
 #include "../gui/LoginWindow.hpp"
+#include "../gui/MainWindow/MainWindow.hpp"
+
 #include "MessageTypes.hpp"
 
 Controller::Controller(Client& c_)
-	: c(c_) 
+	: c(c_)
+	, loginWindow(nullptr)
+	, mainWindow(nullptr)
 	//, dbcontroller(&users)
 {
 	//
@@ -168,6 +172,8 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow != nullptr) {
 			delete loginWindow;
 			loginWindow = nullptr;
+			mainWindow = new MainWindow();
+			mainWindow->show();
 		}
 		//usleep(100);
 		sendPendingMessagesRequest();

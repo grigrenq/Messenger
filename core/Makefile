@@ -1,4 +1,4 @@
-#OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o 
+OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o 
 
 
 run:	Main.cpp $(OFiles) Includes.hpp

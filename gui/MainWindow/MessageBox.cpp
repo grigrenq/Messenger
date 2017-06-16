@@ -21,8 +21,7 @@ void MessageBox::createMessageBox()
 void MessageBox::update(const std::string& mylogin, Messages& msgs)
 {
 	ExtractWord extractWord;
-	std::string msg;
-	for(msg : msgs) {
+	for(auto msg : msgs) {
 		std::string currentLogin = extractWord(msg);
 		if(mylogin == currentLogin) {
 			writeLeft(msg);

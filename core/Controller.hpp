@@ -8,7 +8,7 @@
 
 class LoginWindow;
 //class RegistrationWindow;
-//class MainWindow;
+class MainWindow;
 
 
 
@@ -132,7 +132,7 @@ public:
 		String userLogin;
 
 		LoginWindow *loginWindow;
-		//MainWindow *mainWindow;
+		MainWindow *mainWindow;
 
 		ExtractWord extractWord;
 		std::shared_ptr<InputReader> inReaderPtr;
