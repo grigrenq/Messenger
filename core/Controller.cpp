@@ -17,10 +17,8 @@ Controller::Controller(Client& c_)
 void Controller::run()
 {
 	c.connectServer();
-	std::cout << "StartPoint\n";
 	loginWindow = new LoginWindow(*this);
 	loginWindow->show();
-	std::cout << "EndPoint\n";
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	//if (pthread_create(&(*th), NULL, ::handleContrSession, this)) {

@@ -2,6 +2,7 @@
 #define SERVERUSER_HPP
 
 #include "ExtractWord.hpp"
+#include "Includes.hpp"
 
 class ServerUser
 {
@@ -114,6 +115,7 @@ public:
 		status = u.status;
 		pendingMessages = u.pendingMessages;
 	}
+
 private:
 	mutable SOCKET sock;
 	String login;

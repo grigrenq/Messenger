@@ -20,6 +20,7 @@ namespace ValidationInfo
     const String takenLogin = "Taken login";
     const String mismatchPass = "Mismatching pass";
 };
+
 #endif
 
 

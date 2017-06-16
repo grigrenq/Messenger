@@ -84,8 +84,10 @@ public:
 			String sn = "surname";
 			String p = "pass";
 
-			String type = extractWord(str, ' ');
+			String type = extractWord(str, true, ' ');
 			String l;
+
+			std::cout << "type=" << type << "." << str << ".\n";
 
 			if (type == "log") {
 				l = extractWord(str);

@@ -7,15 +7,16 @@ extern const char delim;
 #include <string>
 
 
-struct ExtractWord : std::binary_function<std::string&, const char, std::string>
+struct ExtractWord : std::binary_function<std::string&, const bool, std::string>
 {
-	std::string operator()(std::string& str, const char d = delim)
+	std::string operator()(std::string& str, const bool erase = true, const char d = delim)
 	{
 		std::stringstream ss(str);
 		std::string word;
 		std::getline(ss, word, d);
-		str.erase(str.find(word), word.size() + 1);
-
+		if (erase ==true) {
+			str.erase(str.find(word), word.size() + 1);
+		}
 		return word;
 	}
 };
