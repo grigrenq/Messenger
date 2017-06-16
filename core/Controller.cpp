@@ -5,10 +5,10 @@
 
 #include "MessageTypes.hpp"
 
-Controller::Controller(Client& c_)
+Controller::Controller(Client& c_, MainWindow* p)
 	: c(c_)
 	, loginWindow(nullptr)
-	, mainWindow(nullptr)
+	, mainWindow(p)
 	//, dbcontroller(&users)
 {
 	//
@@ -170,12 +170,16 @@ void Controller::processLoginRespond(String& message)
 		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
 		if (loginWindow != nullptr) {
-			delete loginWindow;
-			loginWindow = nullptr;
-			mainWindow = new MainWindow();
-			mainWindow->show();
+			//delete loginWindow;
+			//loginWindow = nullptr;
+			//mainWindow = new MainWindow(*this);
 		}
-		//usleep(100);
+		sleep(1);
+		if (mainWindow != nullptr) {
+				mainWindow->show();
+		} else {
+			std::cout << "...............................MainWindow == nullptr\n";
+		}
 		sendPendingMessagesRequest();
 	}
 	std::cout << message << std::endl;
