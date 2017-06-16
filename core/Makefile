@@ -1,4 +1,4 @@
-$OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o 
+#OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o 
 
 
 run:	Main.cpp $(OFiles) Includes.hpp
@@ -12,9 +12,6 @@ DBController.o:   DBController.hpp DBController.cpp
 
 ServerUser.o:	ServerUser.hpp ServerUser.cpp
 	g++ -c -std=c++11 ServerUser.cpp -o ServerUser.o
-
-#ClientUser.o: ClientUser.hpp ClientUser.cpp
-#	g++ -c -std=c++11 ClientUser.cpp -o ClientUser.o
 
 ExtractWord.o: ExtractWord.hpp ExtractWord.cpp
 	g++ -c -std=c++11 ExtractWord.cpp -o ExtractWord.o
