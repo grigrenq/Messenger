@@ -1,11 +1,9 @@
 #ifndef CLIENTUSER_HPP
 #define CLIENTUSER_HPP
 
-extern const std::string online;
-extern const std::string offline;
-
 
 #include <string>
+#include <list>
 
 #include "ExtractWord.hpp"
 
@@ -15,71 +13,29 @@ class ClientUser
 		using String = std::string;
 		using Messages = std::list<String>;
 
-		ClientUser() 
-			: status(false), unreadMessages(0)
-		{
+		ClientUser();
+		explicit ClientUser(String&);
 
-		}
-		explicit ClientUser(String& clientStr)
-			: unreadMessages(0)
-		{
-			fromString(clientStr);
-		}
+		bool fromString(String&);
 
-		bool fromString(String& clientStr)
-		{
-			//String clientStr(clientStr_);
-			login = extractWord(clientStr);
-			name = extractWord(clientStr);
-			surname = extractWord(clientStr);
-			String st = extractWord(clientStr);
+		void addMessage(const String&);
 
-			if (login.empty() || name.empty() 
-					|| surname.empty() || st.empty()) {
-				//throw std::logic_error("Failed converting String to ClientUser.");
-				return false;
-			}
+		String toString();
 
-			if (st == online) {
-				status = true;
-			} else {
-				status = false;
-			}
-			return true;
-		}
+		String getLogin() const;
+		String getName() const;
+		String getSurname() const;
+		bool getStatus() const;
+		size_t getUnreadMessagesCount() const;
+		Messages& getMessages();
 
-		void addMessage(const String& message)
-		{
-			messages.push_back(message);
-			++unreadMessages;
-		}
+		void setStatus(const bool);
+		void setUnreadMessages(const size_t);
 
-		String toString() {
-			String clientStr = login + delim + name + delim + surname + delim;
-			if (status == true)
-				clientStr = clientStr + online + delim;
-			else
-				clientStr = clientStr + offline + delim;
-
-			return clientStr;
-		}
-
-		
-
-		String getLogin() const { return login; }
-		String getName() const { return name; }
-		String getSurname() const { return surname; }
-		bool getStatus() const { return status; }
-		size_t getUnreadMessagesCount() const { return unreadMessages; }
-		Messages& getMessages() { return messages; }
-
-		void setStatus(const bool st) { status = st; }
-		void setUnreadMessages(const size_t um) { unreadMessages = um; }
-
-		ClientUser* getPointer() { return this; }
+		ClientUser* getPointer();
 	private:
 		void operator=(const ClientUser&);
-		bool operator==(ClientUser &rhs);
+		bool operator==(const ClientUser&);
 
 		String login;
 		String name;

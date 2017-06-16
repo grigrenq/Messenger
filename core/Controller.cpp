@@ -1,11 +1,7 @@
 #include "Controller.hpp"
 
 #include "../gui/LoginWindow.hpp"
-//#include "../gui/MainWindow/MainWindow.hpp"
-
-
-using String = Controller::String;
-
+#include "MessageTypes.hpp"
 
 Controller::Controller(Client& c_)
 	: c(c_) 

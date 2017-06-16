@@ -1,5 +1,5 @@
 #include "Server.hpp"
-
+#include "MessageTypes.hpp"
 
 Server::Server() 
 	: socketD(INVALID_SOCKET)
