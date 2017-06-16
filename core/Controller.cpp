@@ -5,7 +5,7 @@
 
 Controller::Controller(Client& c_)
 	: c(c_) 
-	, dbcontroller(&users)
+	//, dbcontroller(&users)
 {
 	//
 }
@@ -115,7 +115,8 @@ String Controller::sendMessage(String& message, const String& msgType)
 
 void Controller::processMessage(String& message)
 {
-	dbcontroller.logClient(message);
+	//dbcontroller.logClient(message);
+	//
 	String msgType = extractWord(message);
 	//std::cout << "Message Type: " << msgType << std::endl;
 	if (msgType == plainMessage) {
@@ -142,7 +143,7 @@ void Controller::processPlainMessage(String& message)
 	String fromUser = extractWord(message);
 	String log = "From User: " + fromUser + ". message: " + message;
 	std::cout << log << std::endl;
-	dbcontroller.logClient(log);
+	//dbcontroller.logClient(log);
 
 	auto it = find(fromUser);
 	if (it == users.end()) {
@@ -155,7 +156,7 @@ void Controller::processPlainMessage(String& message)
 
 void Controller::processLoginRespond(String& message)
 {
-	dbcontroller.logClient(message);
+	//dbcontroller.logClient(message);
 	String result = extractWord(message);
 	if (result == error) {
 		//invoke some function of LoginWindow
@@ -176,7 +177,7 @@ void Controller::processLoginRespond(String& message)
 
 void Controller::processLogoutRespond(String& message)
 {
-	dbcontroller.logClient(message);
+	//dbcontroller.logClient(message);
 	String result = extractWord(message);
 	String log;
 	if (result == error) {
@@ -188,13 +189,13 @@ void Controller::processLogoutRespond(String& message)
 		users.erase(users.begin(), users.end());
 	}
 	std::cout << log << std::endl;
-	dbcontroller.logClient(log);
-	dbcontroller.logUsers();
+	//dbcontroller.logClient(log);
+	//dbcontroller.logUsers();
 }
 
 void Controller::processRegistrationRespond(String& message)
 {
-	dbcontroller.logClient(message);
+	//dbcontroller.logClient(message);
 	String result = extractWord(message);
 	String log;
 	if (result == error) {
@@ -207,7 +208,7 @@ void Controller::processRegistrationRespond(String& message)
 			//loginWindow->closeRegWindow();
 		}
 	}
-	dbcontroller.logClient(log);
+	//dbcontroller.logClient(log);
 }
 
 
@@ -232,8 +233,8 @@ void Controller::processUserChangedRespond(String& userStr)
 			log += ". setting status to " + std::to_string(u.getStatus());
 		}
 	}
-	dbcontroller.logClient(log);
-	dbcontroller.logUsers();
+	//dbcontroller.logClient(log);
+	//dbcontroller.logUsers();
 	updateMessageWindow(it);
 }
 
@@ -241,14 +242,14 @@ void Controller::processUserListRespond(String& userList)
 {
 	User u;
 	String log = "processUserListResp......";
-	dbcontroller.logClient(log);
+	//dbcontroller.logClient(log);
 	users.erase(users.begin(), users.end());
 	while (u.fromString(userList)) {
 		users.push_back(u);
 		log = " adding into the list user:" + u.toString();
-		dbcontroller.logClient(log);
+		//dbcontroller.logClient(log);
 	}
-	dbcontroller.logUsers();
+	//dbcontroller.logUsers();
 	updateMessageWindow(users);
 }
 

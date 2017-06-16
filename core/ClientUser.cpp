@@ -1,9 +1,11 @@
 #include "ClientUser.hpp"
+#include "MessageTypes.hpp"
 
 using String = ClientUser::String;
 
-extern const String online;
-extern const String offline;
+//extern const String online;
+//extern const String offline;
+//extern const char delim;
 
 
 ClientUser::ClientUser() 

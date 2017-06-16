@@ -1,11 +1,6 @@
-
 #include "ServerUser.hpp"
+#include "MessageTypes.hpp"
 
-
-using String = ServerUser::String;
-
-extern const String online;
-extern const String offline;
 
 ServerUser::ServerUser()
 : sock(INVALID_SOCKET), status(false), pendingMessages(PendigMessages())

@@ -6,23 +6,24 @@
 
 
 DBController::DBController()
-: serverUsers(nullptr), clientUsers(nullptr) 
+: serverUsers(nullptr)//, clientUsers(nullptr) 
 {
 	//
 }
 
 DBController::DBController(ServerUsers *su)
-: serverUsers(su), clientUsers(nullptr) 
+: serverUsers(su)//, clientUsers(nullptr) 
 {
 	//
 }
 
+/*
 DBController::DBController(ClientUsers *cu)
 : serverUsers(nullptr), clientUsers(cu)
 {
 	//
 }
-
+*/
 
 
 DBController::ConvIter DBController::findConversation(const String& u1, const String& u2)
@@ -84,6 +85,7 @@ void DBController::logServer(const String& str)
 	ofile.close();
 }
 
+/*
 void DBController::logClient(const String& str)
 {
 	mutGuard mg(mutex);
@@ -93,14 +95,14 @@ void DBController::logClient(const String& str)
 	ofile.write("\n", 1);
 	ofile.close();
 }
-
+*/
 
 void DBController::logUsers()
 {
 	mutGuard mg(mutex);
 	String ps = ".............All clients are........\n...Number of clients: ";
 
-	if (clientUsers != nullptr)	{
+	/*if (clientUsers != nullptr)	{
 		std::ofstream ofile(Files::ClientLogDir + Files::usersFile, 
 				std::fstream::binary | std::fstream::out | std::fstream::app);
 		ps += std::to_string(clientUsers->size()) + "........\n";
@@ -114,7 +116,7 @@ void DBController::logUsers()
 		ps = "..............end of the list............\n\n";
 		ofile.write(ps.c_str(), ps.size());
 		ofile.close();
-	}
+	}*/
 	if (serverUsers != nullptr) {
 		std::ofstream ofile(Files::ServerLogDir + Files::usersFile, 
 				std::fstream::binary | std::fstream::out | std::fstream::app);

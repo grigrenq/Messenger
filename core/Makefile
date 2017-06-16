@@ -1,19 +1,27 @@
-#HeaderServer := Server.hpp
-#HeaderClient := Client.hpp
-#HeaderController := Controller.hpp
+$OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o 
 
-run:	Main.cpp Server.o Client.o Controller.o Includes.hpp DBController.hpp ServerUser.hpp ClientUser.hpp
-	g++ -std=c++11 Main.cpp Server.o Client.o Controller.o -o run -lpthread
 
-Server.o:   Server.hpp Server.cpp Includes.hpp
+run:	Main.cpp $(OFiles) Includes.hpp
+	g++ -std=c++11 Main.cpp $(OFiles) -o run -lpthread
+
+Server.o:   Server.hpp Server.cpp Includes.hpp MessageTypes.hpp
 	g++ -c -std=c++11 Server.cpp -o Server.o
 
-Client.o:   Client.hpp Client.cpp Includes.hpp
-	g++ -c -std=c++11 Client.cpp -o Client.o
+DBController.o:   DBController.hpp DBController.cpp
+	g++ -c -std=c++11 DBController.cpp -o DBController.o
 
-Controller.o:	Controller.hpp Controller.cpp Includes.hpp
-	g++ -c -std=c++11 Controller.cpp -o Controller.o
+ServerUser.o:	ServerUser.hpp ServerUser.cpp
+	g++ -c -std=c++11 ServerUser.cpp -o ServerUser.o
+
+#ClientUser.o: ClientUser.hpp ClientUser.cpp
+#	g++ -c -std=c++11 ClientUser.cpp -o ClientUser.o
+
+ExtractWord.o: ExtractWord.hpp ExtractWord.cpp
+	g++ -c -std=c++11 ExtractWord.cpp -o ExtractWord.o
+
+Conversation.o: Conversation.hpp Conversation.cpp
+	g++ -c -std=c++11 Conversation.cpp -o Conversation.o
 
 .PHONY:
 clean:
-	rm *.o run ./ClientLog/*.txt ./ServerLog/*.txt
+	rm *.o run ./ClientLog/*.txt ./ServerLog/*.txt ./Server/Users/users.txt

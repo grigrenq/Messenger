@@ -69,7 +69,7 @@ int Client::sendMessage(const String& message)
 		return SUCCESS;
 		String log = "Message sent. Row message: " + message;
 		std::cout << log << std::endl;
-		dbcontroller.logClient(log);
+		//dbcontroller.logClient(log);
 	}
 }
 
@@ -96,7 +96,7 @@ int Client::recvMessage(String& message)
 
 		String log("....Row Message: " + message);
 		std::cout << log << std::endl;
-		dbcontroller.logClient(log);
+		//dbcontroller.logClient(log);
 		return SUCCESS;
 	}
 }

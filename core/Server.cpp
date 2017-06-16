@@ -260,7 +260,7 @@ int Server::recvMessage(const SOCKET sock, Server::String& msg)
 		} else {
 			log += "Unknown socket.";
 		}
-		dbcontroller.logClient(log);
+		dbcontroller.logServer(log);
 		closeSocket(sock);
 		return SOCKET_CLOSED;
 	}
