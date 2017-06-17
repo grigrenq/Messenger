@@ -42,49 +42,49 @@ public:
         *   @param no parametrs 
         *   @return void
         */  
-	void addPushButton();
+//	void addPushButton();
     
         /** 
         *   @brief  addLineEdit....   
         *   @param  no parametrs 
         *   @return void
         */
-	void addLineEdit();
+//	void addLineEdit();
 
         /** 
         *   @brief  addStatusBar...   
         *   @param  no parametrs 
         *   @return void
         */
-	void addStatusBar();
+//	void addStatusBar();
 
         /** 
         *  @brief  addPic....   
         *   @param  no parametrs 
         *   @return void
         */
-	void addPic();
+//	void addPic();
     
         /** 
         *   @brief  addLayout...   
         *   @param  no parametrs 
         *   @return void
         */
-	void addLayout();
+//	void addLayout();
 
         /** 
         *   @brief  addIcon...  
         *   @param  no parametrs 
         *   @return void
         */
-	void addIcon();
+//	void addIcon();
   
         /** 
         *   @brief  connectLines....   
         *   @param  no parametrs 
         *   @return void
         */
-	void connectLines();
+//	void connectLines();
 
 public slots:
 	void checkLogin(const QString&);
@@ -96,6 +96,16 @@ public slots:
 	void sendRegistrationReq();
 
 private:
+    
+
+	void addPushButton();
+	void addLineEdit();
+	void addStatusBar();
+	void addPic();
+	void addLayout();
+	void addIcon();
+	void connectLines();
+
 	QVBoxLayout* m_mainLayout;
 	QPushButton* signUp;
 	QLineEdit* login;
