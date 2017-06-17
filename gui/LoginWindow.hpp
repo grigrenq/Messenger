@@ -3,7 +3,7 @@
 *  @author  GRI Team
 *  @date    06/14/2017  
 *  @version 1.0 
-*  @brief ...
+*  @brief LoginWindow.hpp creating a GUI for login window and connection for checking the login password 
 */
 
 
@@ -38,8 +38,8 @@ public:
 	typedef std::string String;
 
         /** 
-        *   @brief LoginWindow constructor for class LoginWindow   
-        *   @param  is an initialized....  
+        *   @brief LoginWindow constructor for class LoginWindow which creates GUI for login window
+        *   @param  is an initialized....  ??
         */  
         LoginWindow(Controller&);
 	

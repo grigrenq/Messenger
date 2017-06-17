@@ -1,8 +1,9 @@
 /** 
-*  @file    RefistrationWindow.hpp
+*  @file    RegistrationWindow.hpp
 *  @author  GRI Team
 *  @date    06/14/2017  
-*  @version 1.0 
+*  @version 1.0
+*  @brief RegistrationWindow.hpp creating a GUI for registration window and connection   for checking params for registration
 */
 
 
@@ -20,7 +21,7 @@ class QPushButton;
 #include "../core/Controller.hpp"
 
 /**
-*  @brief RegistrationWindow class w creates the GUI for login window.  
+*  @brief RegistrationWindow class which creates the GUI for login window.  
 */
 
 class RegistrationWindow : public QMainWindow
@@ -31,23 +32,58 @@ public:
 	using String = std::string;
 
         /** 
-        *   @brief RegistrationWindow constructor for class RegistrationWindow 
-        *   @param  is an initialized  
+        *   @brief RegistrationWindow constructor for class RegistrationWindow which     creates GUI for registration window 
+        *   @param  is an initialized......???  
         */
 	RegistrationWindow(Controller&);
 
         /** 
-        *   @brief  addPushButton the values of two integer parameters.   
-        *   @param  a is an initialized integer variable 
-        *   @param  b is an initialized integer variable 
+        *   @brief  addPushButton ...   
+        *   @param no parametrs 
         *   @return void
         */  
 	void addPushButton();
+    
+        /** 
+        *   @brief  addLineEdit....   
+        *   @param  no parametrs 
+        *   @return void
+        */
 	void addLineEdit();
+
+        /** 
+        *   @brief  addStatusBar...   
+        *   @param  no parametrs 
+        *   @return void
+        */
 	void addStatusBar();
+
+        /** 
+        *  @brief  addPic....   
+        *   @param  no parametrs 
+        *   @return void
+        */
 	void addPic();
+    
+        /** 
+        *   @brief  addLayout...   
+        *   @param  no parametrs 
+        *   @return void
+        */
 	void addLayout();
+
+        /** 
+        *   @brief  addIcon...  
+        *   @param  no parametrs 
+        *   @return void
+        */
 	void addIcon();
+  
+        /** 
+        *   @brief  connectLines....   
+        *   @param  no parametrs 
+        *   @return void
+        */
 	void connectLines();
 
 public slots:
