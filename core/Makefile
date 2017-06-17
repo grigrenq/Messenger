@@ -2,22 +2,22 @@ OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o
 
 
 run:	Main.cpp $(OFiles) Includes.hpp
-	g++ -std=c++11 Main.cpp $(OFiles) -o run -lpthread
+	g++ -std=c++11 -Wall -pedantic Main.cpp $(OFiles) -o run -lpthread
 
 Server.o:   Server.hpp Server.cpp Includes.hpp MessageTypes.hpp
-	g++ -c -std=c++11 Server.cpp -o Server.o
+	g++ -c -std=c++11 -Wall -pedantic Server.cpp -o Server.o
 
 DBController.o:   DBController.hpp DBController.cpp
-	g++ -c -std=c++11 DBController.cpp -o DBController.o
+	g++ -c -std=c++11 -Wall -pedantic DBController.cpp -o DBController.o
 
 ServerUser.o:	ServerUser.hpp ServerUser.cpp
-	g++ -c -std=c++11 ServerUser.cpp -o ServerUser.o
+	g++ -c -std=c++11 -Wall -pedantic ServerUser.cpp -o ServerUser.o
 
 ExtractWord.o: ExtractWord.hpp ExtractWord.cpp
-	g++ -c -std=c++11 ExtractWord.cpp -o ExtractWord.o
+	g++ -c -std=c++11 -Wall -pedantic ExtractWord.cpp -o ExtractWord.o
 
 Conversation.o: Conversation.hpp Conversation.cpp
-	g++ -c -std=c++11 Conversation.cpp -o Conversation.o
+	g++ -c -std=c++11 -Wall -pedantic Conversation.cpp -o Conversation.o
 
 .PHONY:
 clean:

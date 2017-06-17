@@ -50,11 +50,19 @@ public:
         */  
 	void closeRegWindow();
 
+
+
+	void showWindow();	//???
+
 public slots:
         void openRegWin();
 	void checkLogin(const QString&);
 	void checkPassword(const QString&);
 	void sendLoginReq();
+	void showSlot();
+
+signals:
+	void showSignal();
 
 private:
     void createLayout();

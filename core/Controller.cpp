@@ -17,8 +17,8 @@ Controller::Controller(Client& c_)
 void Controller::run()
 {
 	c.connectServer();
-	//mainWindow = new MainWindow(*this);
-	//loginWindow = new LoginWindow(*this);
+	mainWindow = new MainWindow(*this);
+	loginWindow = new LoginWindow(*this);
 	//mainWindow->show();
 	//loginWindow->show();
 
@@ -68,8 +68,8 @@ String Controller::sendLogoutRequest()
 String Controller::sendRegistrationRequest(const String& login, const String& name,
 			const String& surname, const String& password)
 {
-	String msg = login + delim + name + delim 
-			+ surname + delim + password + delim;
+	String msg = login + delim + name + delim + surname
+			+ delim + offline + delim + password + delim;
 	return "Registration request: " + sendMessage(msg, registrationRequest);
 }
 
@@ -172,10 +172,10 @@ void Controller::processLoginRespond(String& message)
 		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
 		if (loginWindow != nullptr) {
-			delete loginWindow;
-			loginWindow = nullptr;
-		//	mainWindow = new MainWindow();
-		//	mainWindow->show();
+		//	delete loginWindow;
+		//	loginWindow = nullptr;
+			mainWindow->showWindow();
+			loginWindow->showWindow();
 		}
 		//usleep(100);
 		sendPendingMessagesRequest();

@@ -60,7 +60,7 @@ bool ServerUser::fromString(String& str)
 
 	if (login.empty() || name.empty()
 			|| surname.empty() || password.empty()) {
-		throw std::logic_error("Failed to convert");
+		throw std::logic_error("fromString(String&)...Failed to convert");
 	}
 	return true;
 }

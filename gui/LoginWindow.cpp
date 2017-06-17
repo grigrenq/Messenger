@@ -140,6 +140,7 @@ void LoginWindow::connectLines()
 {
 	connect(m_login, SIGNAL(textChanged(const QString&)), this, SLOT(checkLogin(const QString&)));
 	connect(m_password, SIGNAL(textChanged(const QString&)), this, SLOT(checkPassword(const QString&)));
+	connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
 }
 
 void LoginWindow::checkLogin(const QString& qs)
@@ -184,6 +185,15 @@ void LoginWindow::sendLoginReq()
 	controller.sendLoginRequest(l, p);
 }
 
+void LoginWindow::showWindow()
+{
+	emit showSignal();
+}
+
+void LoginWindow::showSlot()
+{
+	this->show();
+}
 
 void LoginWindow::closeRegWindow()
 {
