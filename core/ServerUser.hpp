@@ -4,11 +4,14 @@
 #include "ExtractWord.hpp"
 #include "Includes.hpp"
 
+
 class ServerUser
 {
 public:
 	using String = std::string;	
-	using PendigMessages = std::list<String>;
+	using PendingMessages = std::list<String>;
+	using SizeType = PendingMessages::size_type;
+	using PendingMessagesPtr = std::shared_ptr<PendingMessages>;
 
 
 	ServerUser();
@@ -31,9 +34,9 @@ public:
 	void setSocket(const SOCKET) const;
 	void setStatus(const bool) const;
 
-	size_t messagesCount() const;
-	PendigMessages& getPendingMessages() const;
-	void addPendingMessage(const String&) const;
+	SizeType messagesCount() const;
+	void setPMessages(PendingMessagesPtr) const;
+	PendingMessagesPtr getPMessages() const;
 
 	void closeSocket() const;
 
@@ -49,7 +52,7 @@ private:
 	String surname;
 	String password;
 	mutable bool status;
-	mutable PendigMessages pendingMessages;
+	mutable PendingMessagesPtr pendingMessages;
 
 	ExtractWord extractWord;
 };

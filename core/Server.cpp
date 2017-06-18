@@ -154,29 +154,28 @@ Server::UserIter Server::find(const String& login)
 	return users.end();
 }
 
-void Server::sendPendingMessages(const SOCKET sock)
+void Server::sendPendingMessages(UserIter it)
 {
 	//mutex.lock();
 	//mutex.unlock();	//?????????
-	auto it = find(sock);
-	String log = ".....Attempting to to send pending " + std::to_string(it->messagesCount())
-		+ " messages to user: - "	+ it->getLogin() + ".";
+	auto p = it->getPointer();
+	p->setPMessages(dbcontroller.getPMessages(p->getLogin()));
+	String log("...Attempting to send " + std::to_string(it->messagesCount())
+			+ " pending messages to user: - "	+ it->getLogin() + ".");
 	std::cout << log << std::endl;
 	dbcontroller.logServer(log);
 	if (!it->messagesCount()) {
-		log = "....No pending messages for user: " + it->getLogin() + ".";
-		std::cout << log << std::endl;
-		dbcontroller.logServer(log);
 		return;
 	}
-	auto messages = it->getPendingMessages();
-	while (!messages.empty() && it->getStatus()) {
-		sendMessage(sock, messages.front(), plainMessage);
-		log = "Sent pending Message: " + messages.front();
+	auto messages = it->getPMessages();
+	while (!messages->empty() && it->getStatus()) {
+		sendMessage(it->getSocket(), messages->front(), plainMessage);
+		log = "Sent pending Message: " + messages->front();
 		dbcontroller.logServer(log);
-		messages.pop_front();
-		usleep(300);
+		messages->pop_front();
+		usleep(100);
 	}
+	dbcontroller.addPMsgsToConv(it->getLogin());
 }
 
 bool Server::setOnline(UserIter& it)
@@ -379,7 +378,7 @@ void Server::processPlainMessage(String& message)
 	String toClient = extractWord(message);
 
 	message = fromClient + delim + message;
-	String log =  "...........attempt to send message: " + message;
+	String log =  "...........attempting to send message: " + message;
 	std::cout << log << std::endl;
 	dbcontroller.logServer(log);
 
@@ -387,9 +386,11 @@ void Server::processPlainMessage(String& message)
 	if (itToClient != users.end()) {
 		//mutex.unlock();
 		if (itToClient->getStatus() == true) {
+			dbcontroller.addMessage(fromClient, toClient, message);	//?????????
 			sendMessage((itToClient->getSocket()), message, plainMessage);
 		} else {
-			itToClient->addPendingMessage(message);
+			//itToClient->addPendingMessage(message);
+			dbcontroller.addPendingMessage(toClient, message);	//?????
 			log = "pending message - " + message;
 			dbcontroller.logServer(log);
 		}
@@ -514,7 +515,13 @@ void Server::processUserListRequest(const SOCKET sock)
 
 void Server::processPendingMessagesRequest(const SOCKET s)
 {
-	sendPendingMessages(s);
+	auto it = find(s);
+	if (it == users.end()) {
+		String msg("processPendingMessagesRequest: could not find user with socket-");
+		msg +=  std::to_string(s);
+		throw std::logic_error(msg);
+	}
+	sendPendingMessages(it);
 }
 
 void Server::processConvRequest(const SOCKET, String&)

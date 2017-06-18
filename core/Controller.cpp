@@ -174,8 +174,8 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow != nullptr) {
 		//	delete loginWindow;
 		//	loginWindow = nullptr;
-			mainWindow->showWindow();
-			loginWindow->showWindow();
+		//	mainWindow->showWindow();
+		//	loginWindow->showWindow();
 		}
 		//usleep(100);
 		sendPendingMessagesRequest();
@@ -254,7 +254,7 @@ void Controller::processUserListRespond(String& userList)
 	users.erase(users.begin(), users.end());
 	while (u.fromString(userList)) {
 		users.push_back(u);
-		log = " adding into the list user:" + u.toString();
+		log = " adding into the list of users: " + u.toString();
 		//dbcontroller.logClient(log);
 	}
 	//dbcontroller.logUsers();

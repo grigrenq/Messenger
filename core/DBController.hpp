@@ -7,8 +7,9 @@
 
 #include "ServerUser.hpp"
 //#include "ClientUser.hpp"
-
 #include "Conversation.hpp"
+#include <memory>
+#include "ExtractWord.hpp"
 
 
 class DBController
@@ -20,6 +21,8 @@ public:
 	using mutGuard = std::lock_guard<std::mutex>;
 	using Conversations = std::list<Conversation>;
 	using ConvIter = Conversations::iterator;
+	using PendingMessages = ServerUser::PendingMessages;
+	using PendingMessagesPtr = ServerUser::PendingMessagesPtr;
 
 	DBController();
 	DBController(ServerUsers*);
@@ -27,7 +30,10 @@ public:
 
 	ConvIter findConversation(const String& u1, const String& u2);
 
-	void addMessage(const String& u1, const String& u2, const String& msg);
+	void addMessage(const String&, const String&, const String& msg);
+	void addPendingMessage(const String&, const String&);
+	void addPMsgsToConv(const String&);
+	PendingMessagesPtr getPMessages(const String&);
 
 	void addUser(ServerUser& u);
 	void getUsers();
@@ -37,10 +43,13 @@ public:
 	void logUsers();
 
 private:
+	void clearPMessages(const String&);
+
 	ServerUsers *serverUsers;
 	//ClientUsers *clientUsers;
 	std::mutex mutex;
 	Conversations conversations;
+	ExtractWord extractWord;
 };
 
 #endif 

@@ -51,12 +51,62 @@ void DBController::addMessage(const String& u1, const String& u2, const String& 
 	}
 }
 
+void DBController::addPendingMessage(const String& u, const String& msg)
+{
+	String file = Files::PMsgDir + u + Files::fileType;
+	mutGuard mg(mutex);
+	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
+	ofile.write(msg.c_str(), msg.size());
+	ofile.write("\n", 1);
+	ofile.close();
+}
+
+void DBController::addPMsgsToConv(const String& u)
+{
+	String pMessages = Files::PMsgDir + u + Files::fileType;
+	//mutGuard mg(mutex);
+	std::ifstream ifile(pMessages, std::fstream::in);
+	String fromUser;
+	String msg;
+	if (!ifile.is_open()) {
+		return;
+	}
+	while (std::getline(ifile, msg)) {
+		fromUser = extractWord(msg, false);
+		addMessage(u, fromUser, msg);
+	}
+	clearPMessages(u);
+}
+
+void DBController::clearPMessages(const String& u)
+{
+	mutGuard mg(mutex);
+	String file = Files::PMsgDir + u + Files::fileType;
+	std::ofstream ofile(file, std::ofstream::trunc);
+	ofile.close();
+}
+
+DBController::PendingMessagesPtr DBController::getPMessages(const String& u)
+{
+	mutGuard mg(mutex);
+	String file = Files::PMsgDir + u + Files::fileType;
+	std::ifstream ifile(file, std::fstream::in);
+	PendingMessagesPtr pm(new PendingMessages);
+	if (ifile.is_open()) {
+		String msg;
+		while (std::getline(ifile, msg)) {
+			pm->push_back(msg);
+		}
+	}
+	return pm;
+}
+
+
 void DBController::addUser(ServerUser& u)
 {
 	mutGuard mg(mutex);
-
-	std::ofstream ofile(Files::ServerUsersDir + Files::usersFile, 
-			std::fstream::out | std::fstream::app);
+	String file = Files::ServerUsersDir + Files::usersFile;
+	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	String s = u.toStringLog() + "\n";
 	ofile.write(s.c_str(), s.size());
 	ofile.close();
@@ -64,7 +114,8 @@ void DBController::addUser(ServerUser& u)
 
 void DBController::getUsers()
 {
-	std::ifstream ifile(Files::ServerUsersDir + Files::usersFile, std::fstream::in);
+	String usersFile = Files::ServerUsersDir + Files::usersFile;
+	std::ifstream ifile(usersFile, std::fstream::in);
 	String s;
 	while (std::getline(ifile, s)) {
 		ServerUser u;

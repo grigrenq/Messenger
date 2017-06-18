@@ -3,7 +3,7 @@
 
 
 ServerUser::ServerUser()
-: sock(INVALID_SOCKET), status(false), pendingMessages(PendigMessages())
+: sock(INVALID_SOCKET), status(false)
 {
 	//
 }
@@ -11,13 +11,13 @@ ServerUser::ServerUser()
 ServerUser::ServerUser(const SOCKET sock_, const String& login_, const String& name_,
 		const String& surname_, const String& password_,  const bool st)
 : sock(sock_), login(login_), name(name_)
-, surname(surname_), password(password_), status(st), pendingMessages(PendigMessages()) 
+, surname(surname_), password(password_), status(st)
 {
 	//
 }
 
 ServerUser::ServerUser(const SOCKET sock_)
-: sock(sock_), status(false), pendingMessages(PendigMessages())
+: sock(sock_), status(false)
 {
 	//
 }
@@ -116,21 +116,25 @@ void ServerUser::setStatus(const bool st) const
 	status = st; 
 }
 
-size_t ServerUser::messagesCount() const 
+ServerUser::SizeType ServerUser::messagesCount() const 
 {
-	return pendingMessages.size(); 
+	if (!pendingMessages) {
+		return 0;
+	}
+	return pendingMessages->size(); 
 }
 
-ServerUser::PendigMessages& ServerUser::getPendingMessages() const 
+void ServerUser::setPMessages(PendingMessagesPtr pm) const
+{
+	pendingMessages = pm;
+}
+
+
+
+ServerUser::PendingMessagesPtr ServerUser::getPMessages() const
 { 
 	return pendingMessages; 
 }
-
-void ServerUser::addPendingMessage(const String& msg) const 
-{
-	pendingMessages.push_back(msg); 
-}
-
 
 
 void ServerUser::closeSocket() const
