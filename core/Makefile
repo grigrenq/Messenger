@@ -8,10 +8,10 @@ run:	Main.cpp $(OFiles) Includes.hpp
 Server.o:   Server.hpp Server.cpp Includes.hpp MessageTypes.hpp
 	g++ -c -std=c++11 -Wall -pedantic Server.cpp -o Server.o
 
-DBController.o:   DBController.hpp DBController.cpp Files.hpp
+DBController.o:   DBController.hpp DBController.cpp ServerUser.o Conversation.o ExtractWord.o Files.hpp
 	g++ -c -std=c++11 -Wall -pedantic DBController.cpp -o DBController.o
 
-ServerUser.o:	ServerUser.hpp ServerUser.cpp Files.hpp
+ServerUser.o:	ServerUser.hpp ServerUser.cpp Includes.hpp ExtractWord.o Files.hpp
 	g++ -c -std=c++11 -Wall -pedantic ServerUser.cpp -o ServerUser.o
 
 ExtractWord.o: ExtractWord.hpp ExtractWord.cpp

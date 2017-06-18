@@ -4,7 +4,6 @@
 #include "Files.hpp"
 
 
-
 DBController::DBController()
 : serverUsers(nullptr)//, clientUsers(nullptr) 
 {
@@ -24,7 +23,6 @@ DBController::DBController(ClientUsers *cu)
 	//
 }
 */
-
 
 DBController::ConvIter DBController::findConversation(const String& u1, const String& u2)
 {
@@ -86,12 +84,12 @@ void DBController::clearPMessages(const String& u)
 	ofile.close();
 }
 
-DBController::PendingMessagesPtr DBController::getPMessages(const String& u)
+DBController::PMessagesPtr DBController::getPMessages(const String& u)
 {
 	mutGuard mg(mutex);
 	String file = Files::PMsgDir + u + Files::fileType;
 	std::ifstream ifile(file, std::fstream::in);
-	PendingMessagesPtr pm(new PendingMessages);
+	PMessagesPtr pm(new PMessages);
 	if (ifile.is_open()) {
 		String msg;
 		while (std::getline(ifile, msg)) {
@@ -99,6 +97,17 @@ DBController::PendingMessagesPtr DBController::getPMessages(const String& u)
 		}
 	}
 	return pm;
+}
+
+
+DBController::ConvPtr DBController::getConversation(const String& u1, const String& u2)
+{
+	//???????
+	auto it = findConversation(u1, u2);
+	if (it == conversations.end()) {
+		return ConvPtr();
+	}
+	return it->getConversation();
 }
 
 

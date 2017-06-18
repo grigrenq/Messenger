@@ -34,3 +34,15 @@ void Conversation::addMessage(const String& msg)
 	ofile.write("\n", 1);
 	ofile.close();
 }
+
+Conversation::ConvPtr Conversation::getConversation()
+{
+	ConvPtr p(new Conv);
+	String file = Files::ConvDir + fileName + Files::fileType;
+	std::ifstream ifile(file, std::fstream::in);
+	String s;
+	while (std::getline(ifile, s)) {
+		p->push_back(s);
+	}
+	return p;
+}

@@ -124,14 +124,14 @@ ServerUser::SizeType ServerUser::messagesCount() const
 	return pendingMessages->size(); 
 }
 
-void ServerUser::setPMessages(PendingMessagesPtr pm) const
+void ServerUser::setPMessages(PMessagesPtr pm) const
 {
 	pendingMessages = pm;
 }
 
 
 
-ServerUser::PendingMessagesPtr ServerUser::getPMessages() const
+ServerUser::PMessagesPtr ServerUser::getPMessages() const
 { 
 	return pendingMessages; 
 }

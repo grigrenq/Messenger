@@ -11,7 +11,7 @@ public:
 	using String = std::string;	
 	using PendingMessages = std::list<String>;
 	using SizeType = PendingMessages::size_type;
-	using PendingMessagesPtr = std::shared_ptr<PendingMessages>;
+	using PMessagesPtr = std::shared_ptr<PendingMessages>;
 
 
 	ServerUser();
@@ -35,8 +35,8 @@ public:
 	void setStatus(const bool) const;
 
 	SizeType messagesCount() const;
-	void setPMessages(PendingMessagesPtr) const;
-	PendingMessagesPtr getPMessages() const;
+	void setPMessages(PMessagesPtr) const;
+	PMessagesPtr getPMessages() const;
 
 	void closeSocket() const;
 
@@ -52,7 +52,7 @@ private:
 	String surname;
 	String password;
 	mutable bool status;
-	mutable PendingMessagesPtr pendingMessages;
+	mutable PMessagesPtr pendingMessages;
 
 	ExtractWord extractWord;
 };

@@ -178,7 +178,8 @@ void Controller::processLoginRespond(String& message)
 		//	loginWindow->showWindow();
 		}
 		//usleep(100);
-		sendPendingMessagesRequest();
+		//sendPendingMessagesRequest();
+		sendConvRequest("222");
 	}
 	std::cout << message << std::endl;
 }
@@ -261,9 +262,18 @@ void Controller::processUserListRespond(String& userList)
 	updateMessageWindow(users);
 }
 
-void Controller::processConvRespond(String&)
+void Controller::processConvRespond(String& msg)
 {
 	//??????????
+	//??????????
+	String u = extractWord(msg);
+	auto it = find(u);
+	if (it == users.end()) {
+		String msg("No user with login-" + u);
+		throw std::logic_error(msg);
+	}
+	it->addMessage(msg);
+	//updateMessageWindow(it);
 }
 
 Controller::UserIter Controller::find(const String& login)
