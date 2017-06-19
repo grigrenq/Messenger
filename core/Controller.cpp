@@ -19,8 +19,7 @@ void Controller::run()
 	c.connectServer();
 	mainWindow = new MainWindow(*this);
 	loginWindow = new LoginWindow(*this);
-	//mainWindow->show();
-	//loginWindow->show();
+	loginWindow->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleContrSession, this)) {
@@ -171,10 +170,10 @@ void Controller::processLoginRespond(String& message)
 		//invoke some function of LoginWindow
 		std::cout << success << "-" << message << std::endl;
 		sendUserListRequest();
+		mainWindow->showWindow();
 		if (loginWindow != nullptr) {
-		//	delete loginWindow;
-		//	loginWindow = nullptr;
-		//	mainWindow->showWindow();
+			delete loginWindow;
+			loginWindow = nullptr;
 		//	loginWindow->showWindow();
 		}
 		//usleep(100);

@@ -13,7 +13,7 @@ WriteBox::WriteBox(MainWindow& mw)
 	: mainWindow(mw)
 {
 	createWriteBox();
-	//mw.rightSide->addLayout(writebox);
+//`	mainWindow.rightSide->addLayout(writebox);
 }
 
 void WriteBox::createWriteBox()
@@ -21,6 +21,7 @@ void WriteBox::createWriteBox()
 	writeBox = new QHBoxLayout();
 	textEdit = new QTextEdit();
 	textEdit->setMinimumSize(500,70);
+	textEdit->setMaximumHeight(70);
 	sendButton = new QPushButton();
 	sendButton->setMaximumSize(100,100);
 	QPixmap sendPic("./send.png");
@@ -40,4 +41,9 @@ void WriteBox::sendMessage()
 {
 	std::string a=textEdit->toPlainText().toStdString();
 	mainWindow.sendMessage(a);
+}
+
+QLayout* WriteBox::getWriteBox()
+{
+	return writeBox;
 }
