@@ -11,7 +11,6 @@ int main(int argc, char* argv[])
 {  
 	QApplication app(argc, argv);
 
-
 	std::string host;
 	if (argc > 1) {
 		host = argv[1];

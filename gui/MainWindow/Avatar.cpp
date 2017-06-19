@@ -2,44 +2,22 @@
 #include <QPalette>
 #include <QGridLayout>
 #include <QString>
+#include <QFont>
+#include <QEvent>
+
 #include "MainWindow.hpp"
 #include "Avatar.hpp"
-//#include "MainWindow.hpp"
 
 
-
-/*Avatar::Avatar()
-	: user(nullptr)
-{
-	setFixedSize(280,70);
-	avName->setText("NameName");
-	avName->setWordWrap(true);
-	avName->setGeometry(10,10,100,20);
-	avSurname->setText("Surname");
-	avSurname->setGeometry(120,10,150,20);
-	avLogin->setText("Login");
-	avLogin->setGeometry(75,40,100,20);
-	QPalette sample_palette;
-	sample_palette.setColor(QPalette::WindowText, Qt::blue);
-	avStatus->setGeometry(30,40,20,20);
-	avStatus->setStyleSheet("border: 20px solid green");
-	avCount->setText("5");
-	avCount->setGeometry(200,40,20,20);
-	avCount->setStyleSheet("border: 1px solid black");
-	QGridLayout* lay=new QGridLayout;
-	lay->addWidget(avName);
-	lay->addWidget(avSurname);
-	lay->addWidget(avLogin);
-	lay->addWidget(avStatus);
-	lay->addWidget(avCount);
-	setStyleSheet("border:1px solid black");
-
-}
-*/
 Avatar::Avatar(User& u, MainWindow& mw)
 	: user(u)
-	  , mainWindow(mw)
+	, mainWindow(mw)
 {
+	avName = new QLabel(this);
+	avSurname = new QLabel(this);
+	avLogin = new QLabel(this);
+	avStatus = new QLabel(this);
+	avCount = new QLabel(this);
 	setFixedSize(200,40);
 	QFont smallFont = font();
 	smallFont.setPointSize(10);
@@ -52,13 +30,15 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	avName->setStyleSheet("border:0px solid grey");
 	avName->setFont(smallFont);
 	avName->hide();
-	QPalette* sample_palette;
+	QPalette* sample_palette = new QPalette();
 	sample_palette->setColor(QPalette::WindowText, Qt::blue);
 	avLogin->setPalette(*sample_palette);
-	if(user.getStatus() == true)
+	if(user.getStatus() == true) {
 		avLogin->setStyleSheet("border: 15px solid green;border-radius:7px");
-	else
+	} else {
 		avLogin->setStyleSheet("border: 15px solid grey;border-radius:7px");
+	}
+
 	avLogin->setText(user.getLogin().c_str());
 	avLogin->setGeometry(10,7,150,20);
 	avCount->setText(std::to_string(user.getUnreadMessagesCount()).c_str());
@@ -67,7 +47,8 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	QGridLayout* lay=new QGridLayout;
 	lay->addWidget(avLogin);
 	lay->addWidget(avCount);
-	setStyleSheet("border:1px solid black");
+	//setStyleSheet("border:1px solid black");
+	
 	QObject::connect(this,SIGNAL(clicked()),this,SLOT(openConversation()));
 }
 
@@ -77,7 +58,19 @@ void Avatar::openConversation()
 	mainWindow.updateMessageBox();
 }
 
-void Avatar::setStatus(bool)
+void Avatar::setStatus(bool b)
 {
+
 }
 
+void Avatar::enterEvent(QEvent*)
+{
+	avName->show();
+	avSurname->show();
+}
+
+void Avatar::leaveEvent(QEvent*)
+{
+	avName->hide();
+	avSurname->hide();
+}
