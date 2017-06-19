@@ -3,6 +3,7 @@
 #include <QScrollBar>
 #include <Qt>
 #include <QFontMetrics>
+#include <QMetaType>
 
 #include "MainWindow.hpp"
 #include "Avatar.hpp"
@@ -14,17 +15,24 @@ MainWindow::MainWindow(Controller& c)
 	, writeBox(new WriteBox(*this))
 	, controller(c)
 {
+	qRegisterMetaType<User>("User");
+	qRegisterMetaType<Users>("Users");
+	//qRegisterMetaTypeStreamOperators<User>();
+	//qRegisterMetaTypeStreamOperators<Users>();
 	setGeometry(10,10,1000,500);
 	setWindowTitle("GRI-System");
 	createLayout();
-	addAvatars();
+//	addAvatars();
+//	addAvatars();
+//	addAvatars();
 
 	QObject::connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
+	QObject::connect(this, SIGNAL(updateSignal(User)), this, SLOT(updateSlot(User)));
+	QObject::connect(this, SIGNAL(updateSignal(Users)), this, SLOT(updateSlot(Users)));
 }
 
 void MainWindow::addAvatars()
 {
-	avLay = new QVBoxLayout();
 	avLay->setAlignment(Qt::AlignTop);
 
 	scrollArea = new QScrollArea(this);
@@ -39,7 +47,6 @@ void MainWindow::addAvatars()
 	scrollWidget->setLayout(avLay);
 	scrollArea->setWidget(scrollWidget);
 	leftSide->addWidget(scrollArea);
-
 }
 
 void MainWindow::addAvatar(Avatar* a)
@@ -47,12 +54,14 @@ void MainWindow::addAvatar(Avatar* a)
 	avLay->addWidget(a);
 }
 
+
 void MainWindow::createLayout(){
 	
 	mainLayout = new QGridLayout();
 	leftSide   = new QVBoxLayout();
 	rightSide  = new QVBoxLayout();
 	
+	avLay = new QVBoxLayout();
 
 	rightSide->addLayout(messageBox->getMessageBox());
 	rightSide->addLayout(writeBox->getWriteBox());
@@ -89,7 +98,28 @@ void MainWindow::sendMessage( String& msg)
 	messageBox->update(userPtr->getLogin(), userPtr->getMessages());
 }
 
-void MainWindow:: updateMainWindow(User& u)
+void MainWindow::updateMainWindow(User& u)
+{
+	emit updateSignal(u);
+}
+
+void MainWindow::updateMainWindow(Users& users)
+{
+	emit updateSignal(users);
+}
+
+void MainWindow::updateSlot(User u)
+{
+	updateMainWindowHelper(u);
+}
+
+void MainWindow::updateSlot(Users users)
+{
+	updateMainWindowHelper(users);
+}
+
+
+void MainWindow::updateMainWindowHelper(User& u)
 {
 	auto it = find(u);
 	if (it == avatars.end()) {
@@ -104,19 +134,23 @@ void MainWindow:: updateMainWindow(User& u)
 		}
 	}
 }
-void MainWindow::setUser(User& u)
+#include <typeinfo>
+void MainWindow::updateMainWindowHelper(Users& users)
 {
-   	userPtr = &u; 
-}
-
-void MainWindow::createAvatars(Users& users) 
-{
+	//std::cout << typeid(avatars).name() << std::endl;
+	avatars.clear();
 	for (auto it = users.begin(); it != users.end(); ++it) {
 		avatars.push_back(new Avatar(*it, *this));
 	}
 	addAvatars();
 	//show();
 }
+
+void MainWindow::setUser(User& u)
+{
+   	userPtr = &u; 
+}
+
 MainWindow::AvatarsIter MainWindow::find(const User& u)
 {
 	AvatarsIter it;
@@ -127,11 +161,6 @@ MainWindow::AvatarsIter MainWindow::find(const User& u)
 	}
 	return it;
 }
-
-
-
-
-
 
 
 void MainWindow::showWindow()

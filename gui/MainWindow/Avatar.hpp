@@ -9,6 +9,7 @@
 #include "../../core/ClientUser.hpp"
 
 class MainWindow;
+class QEvent;
 
 class Avatar : public QLabel
 {
@@ -29,13 +30,15 @@ public slots:
 	void openConversation();
 
 private:
-	QLabel* avName=new QLabel(this);
-	QLabel* avSurname=new QLabel(this);
-	QLabel* avLogin=new QLabel(this);
-	QLabel* avStatus=new QLabel(this);
-	QLabel* avCount=new QLabel(this);
+	QLabel* avName;
+	QLabel* avSurname;
+	QLabel* avLogin;
+	QLabel* avStatus;
+	QLabel* avCount;
 	User& user;
 	MainWindow& mainWindow;
+	void enterEvent(QEvent*);
+	void leaveEvent(QEvent*);
 };
 
 #endif

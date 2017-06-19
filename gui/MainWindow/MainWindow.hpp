@@ -45,7 +45,8 @@ public:
 
     MainWindow(Controller&);
 
-    void createLayout();
+	void updateMainWindow(User& u);
+	void updateMainWindow(Users& users);
 	void setUser(User& u);	
 	void updateMessageBox();
 	void sendMessage(String& msg);
@@ -55,16 +56,22 @@ public:
 
 public slots:
 	void showSlot();
+	void updateSlot(User);
+	void updateSlot(Users);
 
 signals:
 	void showSignal();
+	void updateSignal(User);
+	void updateSignal(Users);
 
 private:
+    void createLayout();
 	void createLayouts();
 	void addAvatar(Avatar*);
 	void addAvatars();
-	void updateMainWindow(User& u);
-	void createAvatars(Users& users); 
+
+	void updateMainWindowHelper(User&);
+	void updateMainWindowHelper(Users&);
 	AvatarsIter find(const User& u);
 
 	QGridLayout *mainLayout;

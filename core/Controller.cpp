@@ -11,7 +11,7 @@ Controller::Controller(Client& c_, MainWindow* p)
 	: c(c_)
 	, loginWindow(nullptr)
 	, mainWindow(p)
-	//, dbcontroller(&users)
+	, dbcontroller(&users)
 {
 	//
 }
@@ -123,8 +123,7 @@ String Controller::sendMessage(String& message, const String& msgType)
 
 void Controller::processMessage(String& message)
 {
-	dbcontroller.logClient(message);
-	//
+	dbcontroller.logClient(message);	
 	String msgType = extractWord(message);
 	//std::cout << "Message Type: " << msgType << std::endl;
 	if (msgType == plainMessage) {
@@ -158,13 +157,13 @@ void Controller::processPlainMessage(String& message)
 		throw std::logic_error("The message is from unknown user");
 	} else {
 		it->addMessage(message);
-		updateMessageWindow(it);
+		updateMainWindow(it);
 	}
 }
 
 void Controller::processLoginRespond(String& message)
 {
-	//dbcontroller.logClient(message);
+	dbcontroller.logClient(message);
 	String result = extractWord(message);
 	if (result == error) {
 		//invoke some function of LoginWindow
@@ -182,15 +181,12 @@ void Controller::processLoginRespond(String& message)
 		if (mainWindow != nullptr) {
 			mainWindow->showWindow();
 		} else {
-			std::cout << "...............................MainWindow == nullptr\n";
+			std::cout << "...........MainWindow == nullptr\n";
 		}
-		sendPendingMessagesRequest();
-		//	delete loginWindow;
-		//	loginWindow = nullptr;
-		//	loginWindow->showWindow();
+		//sendPendingMessagesRequest();
 		//usleep(100);
 		//sendPendingMessagesRequest();
-		sendConvRequest("222");
+		//sendConvRequest("222");
 	}
 	std::cout << message << std::endl;
 }
@@ -225,7 +221,7 @@ void Controller::processRegistrationRespond(String& message)
 		//invoke some function of RegistrationWindow
 		log = success + "-" + message;
 		if (loginWindow != nullptr) {
-			loginWindow->closeRegWindow();
+			//loginWindow->closeRegWindow();
 		}
 	}
 	dbcontroller.logClient(log);
@@ -255,7 +251,7 @@ void Controller::processUserChangedRespond(String& userStr)
 	}
 	dbcontroller.logClient(log);
 	dbcontroller.logUsers();
-	updateMessageWindow(it);
+	updateMainWindow(it);
 }
 
 void Controller::processUserListRespond(String& userList)
@@ -267,10 +263,10 @@ void Controller::processUserListRespond(String& userList)
 	while (u.fromString(userList)) {
 		users.push_back(u);
 		log = " adding into the list of users: " + u.toString();
-		//dbcontroller.logClient(log);
+		dbcontroller.logClient(log);
 	}
-	//dbcontroller.logUsers();
-	updateMessageWindow(users);
+	dbcontroller.logUsers();
+	updateMainWindow();
 }
 
 void Controller::processConvRespond(String& msg)
@@ -284,7 +280,7 @@ void Controller::processConvRespond(String& msg)
 		throw std::logic_error(msg);
 	}
 	it->addMessage(msg);
-	//updateMessageWindow(it);
+	updateMainWindow(it);
 }
 
 Controller::UserIter Controller::find(const String& login)
@@ -310,15 +306,15 @@ Controller::UserIter Controller::find(Controller::User& u)
 }
 
 
-void Controller::updateMessageWindow(const UserIter&)
+void Controller::updateMainWindow(const UserIter& it)
 {
-	//messageWindow->update(it);
+	mainWindow->updateMainWindow(*it);
 }
 
 
-void Controller::updateMessageWindow(const Users&)
+void Controller::updateMainWindow()
 {
-	//messageWindow->update(users_);
+	mainWindow->updateMainWindow(users);
 }
 
 

@@ -124,8 +124,8 @@ public:
 		UserIter find(const String&);
 		UserIter find(User&);
 
-		void updateMessageWindow(const UserIter&);
-		void updateMessageWindow(const Users&);
+		void updateMainWindow(const UserIter&);
+		void updateMainWindow();
 
 		Client& c;
 		Users users;
