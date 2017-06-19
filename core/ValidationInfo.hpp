@@ -1,10 +1,11 @@
 #ifndef VALIDATIONINFO_HPP
 #define VALIDATIONINFO_HPP
+#include <string>
 
 namespace ValidationInfo
 {
     using String = std::string;
-	using SizeType = String::size_type;
+	using SizeType = std::string::size_type;
     
     const SizeType minimalSymbols = 2;
     const SizeType maximumSymbols = 20;

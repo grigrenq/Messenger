@@ -25,12 +25,6 @@ int main(int argc, char* argv[])
 	MainWindow *p = nullptr;
 	Controller controller(c, p);
 	controller.run();
-<<<<<<< HEAD
-	MainWindow* p = new MainWindow(controller);
-	p->show();
-=======
-	p = new MainWindow(controller);
->>>>>>> e0d297522b2942ba772e2f474562781937a8ce3b
 
 	return app.exec();
 }

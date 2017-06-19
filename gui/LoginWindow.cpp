@@ -77,10 +77,12 @@ void LoginWindow::createTextEdit()
     m_login->setMinimumWidth(200);
     m_login->setMaximumHeight(40);
     m_login->setMaximumWidth(300);
+    m_login->setPlaceholderText("asdasdasd");
     m_password->setMinimumHeight(30);
     m_password->setMinimumWidth(200);
     m_password->setMaximumHeight(40);
     m_password->setMaximumWidth(300);
+    m_password->setPlaceholderText("asdsdgdfgdgf");
 
 }
 
@@ -146,7 +148,7 @@ void LoginWindow::connectLines()
 void LoginWindow::checkLogin(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLoginPassword(s) == ValidationInfo::validLogPass) {
+	if (validator.checkLogin(s)) {
 		//????
 		m_login->setStyleSheet("border: 3px solid black");
 	} else {
@@ -159,7 +161,7 @@ void LoginWindow::checkLogin(const QString& qs)
 void LoginWindow::checkPassword(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLoginPassword(s) == ValidationInfo::validLogPass) {
+	if (validator.checkPassword(s)) {
 		//????
 		m_password->setStyleSheet("border: 3px solid black");
 	} else {
@@ -173,13 +175,9 @@ void LoginWindow::checkPassword(const QString& qs)
 void LoginWindow::sendLoginReq()
 {
 	String l = m_login->text().toStdString();
-	if (validator.checkLoginPassword(l) == ValidationInfo::validLogPass) {
-		std::cout << "Wrong Login.\n";
-		return;
-	}
 	String p = m_password->text().toStdString();
-	if (validator.checkLoginPassword(p) == ValidationInfo::validLogPass) {
-		std::cout << "Wrong password.\n";
+	if ((validator.checkLogin(l) == false) || (validator.checkPassword(p) == false)) {
+		std::cout << "Wrong Login or Password.\n";
 		return;
 	}
 	controller.sendLoginRequest(l, p);

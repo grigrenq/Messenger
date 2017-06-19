@@ -12,7 +12,7 @@
 #include <QIcon>
 #include <iostream>
 #include <QToolTip>
-
+#include <QApplication>
 #include "RegistrationWindow.hpp"
 #include "../core/ValidationInfo.hpp"
 
@@ -23,15 +23,24 @@ RegistrationWindow::RegistrationWindow(Controller& c)
 	const QSize windowSize(450,380);
 	setMaximumSize(windowSize);
 	setGeometry(600,400,450,380);
-	this->setStyleSheet("background-image: url(../resources/background.jpg)");
+	//this->setStyleSheet("background-image: url(../resources/background.jpg)");
+    setBackground();
 	setWindowTitle("Registration");	
 	addLayout();
 	addPushButton();
 	addLineEdit();
-	addStatusBar();
 	addIcon();
 	connectLines();
-    setToolTip();
+    setTipColor();
+}
+
+void RegistrationWindow::setBackground()
+{
+    m_pix = new QPixmap("../resources/background.jpg");
+    QLabel *label1 = new QLabel(this);
+    label1->setGeometry(0,0,450,380);
+    label1->setScaledContents(true);
+    label1->setPixmap(*m_pix);
 }
 
 void RegistrationWindow::addLayout(){
@@ -97,12 +106,12 @@ void RegistrationWindow::addLineEdit()
 
 
 
-void RegistrationWindow::addStatusBar()
+/*void RegistrationWindow::addStatusBar()
 {
 	QStatusBar* sb = new QStatusBar(this);
 	sb=statusBar();
 	QLabel ql(sb);
-}
+}*/
 
 void RegistrationWindow::connectLines()
 {
@@ -119,7 +128,7 @@ void RegistrationWindow::setTipColor()
 {
     palette = QToolTip::palette();
     palette.setColor(QPalette::ToolTipBase,Qt::red);
-    palette.setColor(QPalette::ToolTipText,Qt::red);//dark grey for text
+    palette.setColor(QPalette::ToolTipText,Qt::red);
     QToolTip::setPalette(palette);
 }
 
@@ -127,9 +136,12 @@ void RegistrationWindow::checkLogin(const QString& qs)
 {
 	String s = qs.toStdString();
 	if (validator.checkLogin(s)) {
+        std::cout << "checkLogin" <<std::endl;
 		login->setStyleSheet("border: 3px solid black");
 	} else {
-        QToolTip::showText(login->mapToGlobal(QPoint(250, 0)), "Login or password must contain only esim incher\n");
+        QApplication* app;
+        app->setStyleSheet("QToolTip{color: #ffffff; background-color: #990000; border: none;}");
+        QToolTip::showText(login->mapToGlobal(QPoint(250, -15)), "Login or password must contain only esim incher");
 		login->setStyleSheet("border: 3px solid red");
 	}
 }
@@ -140,15 +152,14 @@ void RegistrationWindow::checkName(const QString& qs)
 	if (validator.checkName(s) == "") {
 		name->setStyleSheet("border: 3px solid black");
 	} else if(validator.checkName(s) == ValidationInfo::validMaxLength){
-        QToolTip::showText(name->mapToGlobal(QPoint(250, 0)), "The name is too long\n");
+        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "The name is too long");
 		name->setStyleSheet("border: 3px solid red");
 	} else if(validator.checkName(s) == ValidationInfo::validMinLength){
-        QToolTip::showText(name->mapToGlobal(QPoint(250, 0)), "The name is too short\n");
+        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "The name is too short");
         name->setStyleSheet("border: 3px solid red");
     }
     else {
-        name->setToolTip();
-        QToolTip::showText(name->mapToGlobal(QPoint(250, 0)), "Name and Surname must cotain inch vor baner\n");
+        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "Name and Surname must cotain inch vor baner");
         name->setStyleSheet("border: 3px solid red");
     }
 }
@@ -156,13 +167,13 @@ void RegistrationWindow::checkName(const QString& qs)
 void RegistrationWindow::checkSurname(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkSurname(s) == "") {
+	if (validator.checkSurName(s) == "") {
 		surname->setStyleSheet("border: 3px solid black");
-	} else if(validator.checkSurname(s) == ValidationInfo::validMaxLength){
-        QToolTip::showText(surname->maptoGlobal(QPoint(250, 0)), "Surname is tooooo long");
+	} else if(validator.checkSurName(s) == ValidationInfo::validMaxLength){
+        QToolTip::showText(surname->mapToGlobal(QPoint(250, -15)), "Surname is tooooo long");
 		surname->setStyleSheet("border: 3px solid red");
-	} else if(validator.checkSurname(s) == ValidationInfo::validMinLength){
-        QToolTip::showText(surname->maptoGlobal(QPoint(250, 0)), "Surname is tooooo short");
+	} else if(validator.checkSurName(s) == ValidationInfo::validMinLength){
+        QToolTip::showText(surname->mapToGlobal(QPoint(250, -15)), "Surname is tooooo short");
         surname->setStyleSheet("border: 3px solid red");
     }
     else {
@@ -178,7 +189,7 @@ void RegistrationWindow::checkPassword(const QString& qs)
 	if (validator.checkPassword(s)) {
 		password1->setStyleSheet("border: 3px solid black");
 	} else {
-        QToolTip::showText(password1->mapToGlobal(QPoint(250, 0)), "login or password must contain only characters, numbers and underscore\n");
+        QToolTip::showText(password1->mapToGlobal(QPoint(250, -15)), "login or password must contain only characters, numbers and underscore");
 		password1->setStyleSheet("border: 3px solid red");
 	}
 }
@@ -189,11 +200,9 @@ void RegistrationWindow::checkPasswords(const QString& qs)
 	String p2 = qs.toStdString();
 
 	if (validator.checkPasswords(p1, p2)) {
-
 		password2->setStyleSheet("border: 3px solid black");
 	} else {
-        QToolTip::showText(password2->mapToGlobal(QPoint(250, 0)), "Passwords does not match");
-        passwor2->setToolTip("passwords does not match");
+        QToolTip::showText(password2->mapToGlobal(QPoint(250, -15)), "Passwords does not match");
         password2->setStyleSheet("border: 3px solid red");
 	}
 }

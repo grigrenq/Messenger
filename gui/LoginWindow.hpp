@@ -55,7 +55,7 @@ public:
 	void showWindow();	//???
 
 public slots:
-        void openRegWin();
+    void openRegWin();
 	void checkLogin(const QString&);
 	void checkPassword(const QString&);
 	void sendLoginReq();

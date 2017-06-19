@@ -1,8 +1,8 @@
 #ifndef INPUTVALIDATOR_HPP
 #define INPUTVALIDATOR_HPP
-
 #include "ValidationInfo.hpp"
 
+#include <string>
 class InputValidator
 {
     public:
@@ -10,15 +10,15 @@ class InputValidator
         using SizeType = std::string::size_type;
     
     private:
-        bool checkIsNotAlpha(const String& s) const
-        bool checkIsAlNum(Const String& s) const
+        bool checkIsNotAlpha(const String& s) const;
+        bool checkIsAlNum(const String& s) const;
 
     public:
-        bool checkLogin(const String& s) const
-        bool checkPassword(const String& s) const
-        String checkName(const String& s) const
-        String checkSurname(const String& s) const
-        bool checkPasswords(const String& p1, const String& p2) const
+        bool checkLogin(const String& s) const;
+        bool checkPassword(const String& s) const;
+        String checkName(const String& s) const;
+        String checkSurName(const String& s) const;
+        bool checkPasswords(const String& p1, const String& p2) const;
 };
 
 #endif
