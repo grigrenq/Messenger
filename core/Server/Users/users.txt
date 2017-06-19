@@ -1,5 +1,0 @@
-111%name%surname%offline%pass%Socket = -1%
-222%name%surname%offline%pass%Socket = -1%
-333%name%surname%offline%pass%Socket = -1%
-444%name%surname%offline%pass%Socket = -1%
-Login1%Anun%Azganun%offline%1111%Socket = -1%

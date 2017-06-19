@@ -183,7 +183,7 @@ void Controller::processLoginRespond(String& message)
 		} else {
 			std::cout << "...........MainWindow == nullptr\n";
 		}
-		//sendPendingMessagesRequest();
+		sendPendingMessagesRequest();
 		//usleep(100);
 		//sendPendingMessagesRequest();
 		//sendConvRequest("222");
