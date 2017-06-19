@@ -50,6 +50,15 @@ public:
 	void updateMessageBox();
 	void sendMessage(String& msg);
 
+	void showWindow();	//???
+
+
+public slots:
+	void showSlot();
+
+signals:
+	void showSignal();
+
 private:
 	void createLayouts();
 	void addAvatar(Avatar*);
@@ -69,10 +78,11 @@ private:
 	QLayout* messageTextLayout;
 
 	Avatars avatars;
-	MessageBox messageBox;
-	WriteBox writeBox;
+	MessageBox *messageBox;
+	WriteBox *writeBox;
 	User* userPtr;
 	Controller& controller;
 };
+
 
 #endif

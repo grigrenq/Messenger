@@ -8,7 +8,8 @@
 
 struct ExtractWord : std::binary_function<std::string&, const bool, std::string>
 {
-	std::string operator()(std::string& str, const bool erase = true, const char d = '%');
+	static const char delim = '%';
+	std::string operator()(std::string& str, const bool erase = true, const char d = delim);
 };
 
 

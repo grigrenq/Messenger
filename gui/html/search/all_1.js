@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['loginwindow',['LoginWindow',['../classLoginWindow.html',1,'LoginWindow'],['../classLoginWindow.html#ad3f4ec97bdb1fd55e3e6f6f25112f9d8',1,'LoginWindow::LoginWindow()']]],
-  ['loginwindow_2ehpp',['LoginWindow.hpp',['../LoginWindow_8hpp.html',1,'']]]
+  ['checkpassword',['checkPassword',['../classLoginWindow.html#ad5a16b9244af77d36f98a4f48d3d423d',1,'LoginWindow']]],
+  ['closeregwindow',['closeRegWindow',['../classLoginWindow.html#a1d429ebfb0f2ebb21591b209da5d4ecb',1,'LoginWindow']]],
+  ['connectlines',['connectLines',['../classRegistrationWindow.html#af09a56afbb0978a3e9e04388540a8866',1,'RegistrationWindow']]]
 ];

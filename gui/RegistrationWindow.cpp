@@ -68,7 +68,7 @@ void RegistrationWindow::addLineEdit()
 	login->setPlaceholderText("Your login here...");
 	QPalette p;
 	p.setColor(QPalette::Background,Qt::red);
-	login->setPalette(p);
+	//login->setPalette(p);
 
 	name = new QLineEdit(this);
 	name->setGeometry(100,100,250,30);

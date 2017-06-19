@@ -67,7 +67,7 @@ public:
 		};//InputReader
 
 	
-		Controller(Client& c_);
+		Controller(Client&, MainWindow*);
 		void run();
 		void handleSession();
 
@@ -87,7 +87,7 @@ public:
 			String type = extractWord(str, true, ' ');
 			String l;
 
-			std::cout << "type=" << type << "." << str << ".\n";
+			//std::cout << "type=" << type << "." << str << ".\n";
 
 			if (type == "log") {
 				l = extractWord(str);

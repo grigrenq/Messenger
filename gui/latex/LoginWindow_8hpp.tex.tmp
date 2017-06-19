@@ -1,5 +1,10 @@
 \hypertarget{LoginWindow_8hpp}{}\section{Login\+Window.\+hpp File Reference}
 \label{LoginWindow_8hpp}\index{Login\+Window.\+hpp@{Login\+Window.\+hpp}}
+
+
+\hyperlink{LoginWindow_8hpp}{Login\+Window.\+hpp} creating a G\+UI for login window and connection for checking the login password.  
+
+
 {\ttfamily \#include $<$Q\+Object$>$}\\*
 {\ttfamily \#include $<$Q\+Widget$>$}\\*
 {\ttfamily \#include $<$Q\+Line\+Edit$>$}\\*
@@ -21,10 +26,12 @@ Include dependency graph for Login\+Window.\+hpp\+:
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{classLoginWindow}{Login\+Window}
-\begin{DoxyCompactList}\small\item\em Class which creates the G\+UI for login window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classLoginWindow}{Login\+Window} class which creates the G\+UI for login window. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
+\hyperlink{LoginWindow_8hpp}{Login\+Window.\+hpp} creating a G\+UI for login window and connection for checking the login password. 
+
 \begin{DoxyAuthor}{Author}
 G\+RI Team 
 \end{DoxyAuthor}

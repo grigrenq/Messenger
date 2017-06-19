@@ -7,7 +7,7 @@ MessageBox::MessageBox(MainWindow& mw)
 	: mainWindow(mw)
 {
 	createMessageBox();
-	//mainWindow->rightSide->addLayout(messageBox);
+//	mainWindow.rightSide->addLayout(messageBox);
 }
 void MessageBox::createMessageBox()
 {
@@ -44,3 +44,12 @@ void MessageBox::writeRight(const std::string& msg)
 	//conversation.push_back(msg);
 }
 
+QTextEdit* MessageBox::getMessageText()
+{
+	    return messageText;
+}
+
+QLayout* MessageBox::getMessageBox()
+{
+	    return messageBox;
+}

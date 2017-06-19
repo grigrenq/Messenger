@@ -15,6 +15,7 @@ void Server::run()
 	setupAddress();
 	bindListen();
 	initializeUsers();
+	dbcontroller.logUsers();
 	acceptClient();
 }
 
@@ -108,8 +109,8 @@ void Server::handleSession(const SOCKET sock)
 		while (recvMessage(sock, msg) == SUCCESS) {
 			processMessage(sock, msg);
 		}
-	} catch (const String& e) {
-		std::cout << e << std::endl;
+	} catch (...) {
+		closeSocket(socketD);
 	}
 	
 	closeSocket(sock);
@@ -127,7 +128,8 @@ void Server::handleSession(const SOCKET sock)
 Server::UserIter Server::find(const SOCKET sock) 
 {
 	if (sock == INVALID_SOCKET) {
-		throw "Cannot find user in the multiset with INVALID_SOCKET";
+		String msg("Cannot find user in the multiset with INVALID_SOCKET");
+		throw std::logic_error(msg);
 	}
 	mutGuard mg(mutex);
 	User u;
@@ -153,29 +155,25 @@ Server::UserIter Server::find(const String& login)
 	return users.end();
 }
 
-void Server::sendPendingMessages(const SOCKET sock)
+void Server::sendPendingMessages(UserIter it)
 {
-	//mutex.lock();
-	//mutex.unlock();	//?????????
-	auto it = find(sock);
-	String log = ".....Attempting to to send pending " + std::to_string(it->messagesCount())
-		+ " messages to user: - "	+ it->getLogin() + ".";
+	it->setPMessages(dbcontroller.getPMessages(it->getLogin()));
+	String log("...Attempting to send " + std::to_string(it->messagesCount())
+			+ " pending messages to user: - "	+ it->getLogin() + ".");
 	std::cout << log << std::endl;
 	dbcontroller.logServer(log);
 	if (!it->messagesCount()) {
-		log = "....No pending messages for user: " + it->getLogin() + ".";
-		std::cout << log << std::endl;
-		dbcontroller.logServer(log);
 		return;
 	}
-	auto messages = it->getPendingMessages();
-	while (!messages.empty() && it->getStatus()) {
-		sendMessage(sock, messages.front(), plainMessage);
-		log = "Sent pending Message: " + messages.front();
+	auto messages = it->getPMessages();
+	while (!messages->empty() && it->getStatus()) {
+		sendMessage(it->getSocket(), messages->front(), plainMessage);
+		log = "Sent pending Message: " + messages->front();
 		dbcontroller.logServer(log);
-		messages.pop_front();
-		usleep(300);
+		messages->pop_front();
+		usleep(100);
 	}
+	dbcontroller.addPMsgsToConv(it->getLogin());
 }
 
 bool Server::setOnline(UserIter& it)
@@ -191,13 +189,13 @@ bool Server::setOnline(UserIter& it)
 		it = users.insert(u);
 		User *p = it->getPointer();	//?????????????
 		mutex.unlock();
-		dbcontroller.logUsers(); 	//logging
+		dbcontroller.logUsers();
 		sendUserChangedRespond(*p);
 		return true;
 	} else {
 		throw std::logic_error("Attempting to set online a user which is already online");
-		return false;
 	}
+	return false;
 }
 
 
@@ -214,13 +212,13 @@ bool Server::setOffline(UserIter& it)
 		it = users.insert(u);
 		User *p = it->getPointer();	//?????????????
 		mutex.unlock();
-		dbcontroller.logUsers();	//logging
+		dbcontroller.logUsers();
 		sendUserChangedRespond(*p);
 		return true;
 	} else {
 		throw std::logic_error("Attempting to set offline a user which is already offline.");
-		return false;
 	}
+	return false;
 }
 
 
@@ -318,7 +316,7 @@ void Server::sendUserChangedRespond(User& user)
 	String userStr = user.toString();
 	String log = "sendUserChangedResp......userchanged: " + userStr;
 	dbcontroller.logServer(log);
-	//mutex.lock();
+	mutex.lock();
 	for (auto it = users.begin(); it != users.end(); ++it) {
 		if (it->getStatus() == true) {
 			if (it->getLogin() == user.getLogin()) {
@@ -327,13 +325,31 @@ void Server::sendUserChangedRespond(User& user)
 			sendMessage(it->getSocket(), userStr, userChangedRespond);
 		}
 	}
-	//mutex.unlock();
+	mutex.unlock();
 }
 
 void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
 {
 	//??????????????????
 	std::cout << s << " , " << u1 << ", " << u2 << std::endl;
+	auto it = find(s);
+	if (it == users.end()) {
+		String msg("sendConvRespond: could not find user with socket-");
+		msg +=  std::to_string(s);
+		dbcontroller.logServer(msg);
+		throw std::logic_error(msg);
+	}
+	auto c = dbcontroller.getConversation(u1,u2);
+	if (!c) {
+		String log("No conversation for user-" + u1 + ", and user-" + u2);
+		dbcontroller.logServer(log);
+		return;
+	}
+	for (auto it = c->begin(); it != c->end(); ++it) {
+		*it = u2 + delim + (*it);
+		sendMessage(s, *it, convRespond);
+		sleep(1);
+	}
 }
 
 
@@ -378,7 +394,7 @@ void Server::processPlainMessage(String& message)
 	String toClient = extractWord(message);
 
 	message = fromClient + delim + message;
-	String log =  "...........attempt to send message: " + message;
+	String log =  "......attempting to send message: " + message;
 	std::cout << log << std::endl;
 	dbcontroller.logServer(log);
 
@@ -386,9 +402,11 @@ void Server::processPlainMessage(String& message)
 	if (itToClient != users.end()) {
 		//mutex.unlock();
 		if (itToClient->getStatus() == true) {
+			dbcontroller.addMessage(fromClient, toClient, message);	//?????????
 			sendMessage((itToClient->getSocket()), message, plainMessage);
 		} else {
-			itToClient->addPendingMessage(message);
+			//itToClient->addPendingMessage(message);
+			dbcontroller.addPendingMessage(toClient, message);	//?????
 			log = "pending message - " + message;
 			dbcontroller.logServer(log);
 		}
@@ -513,13 +531,21 @@ void Server::processUserListRequest(const SOCKET sock)
 
 void Server::processPendingMessagesRequest(const SOCKET s)
 {
-	sendPendingMessages(s);
+	auto it = find(s);
+	if (it == users.end()) {
+		String msg("processPendingMessagesRequest: could not find user with socket-");
+		msg +=  std::to_string(s);
+		throw std::logic_error(msg);
+	}
+	sendPendingMessages(it);
 }
 
-void Server::processConvRequest(const SOCKET, String&)
+void Server::processConvRequest(const SOCKET s, String& msg)
 {
 	//????????????????
-	
+	String u1 = extractWord(msg);
+	String u2 = extractWord(msg);
+	sendConvRespond(s, u1, u2);
 }
 
 

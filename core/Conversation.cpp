@@ -28,8 +28,21 @@ bool Conversation::equal(const String& u1, const String& u2) const
 
 void Conversation::addMessage(const String& msg)
 {
-	std::ofstream ofile(Files::ConvDir + fileName, std::fstream::out | std::fstream::app);
+	String file = Files::ConvDir + fileName + Files::fileType;
+	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(msg.c_str(), msg.size());
 	ofile.write("\n", 1);
 	ofile.close();
+}
+
+Conversation::ConvPtr Conversation::getConversation()
+{
+	ConvPtr p(new Conv);
+	String file = Files::ConvDir + fileName + Files::fileType;
+	std::ifstream ifile(file, std::fstream::in);
+	String s;
+	while (std::getline(ifile, s)) {
+		p->push_back(s);
+	}
+	return p;
 }

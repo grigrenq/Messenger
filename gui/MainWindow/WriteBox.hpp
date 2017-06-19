@@ -19,6 +19,7 @@ public:
 	//using String = MainWindow::String;
 
 	WriteBox(MainWindow&);
+	QLayout* getWriteBox();
 
 public slots:
 	void sendMessage();

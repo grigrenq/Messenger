@@ -10,36 +10,36 @@
 const char delim = '%';
 
 MainWindow::MainWindow(Controller& c)
-	: messageBox(*this)
-	, writeBox(*this)
+	: messageBox(new MessageBox(*this))
+	, writeBox(new WriteBox(*this))
 	, controller(c)
 {
 	setGeometry(10,10,1000,500);
 	setWindowTitle("GRI-System");
 	createLayout();
 	addAvatars();
+
+	QObject::connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
 }
 
 void MainWindow::addAvatars()
 {
-	leftLabel = new QLabel(this);
-	leftLabel->setGeometry(0,0,300,1800);
-	
 	avLay = new QVBoxLayout();
 	avLay->setAlignment(Qt::AlignTop);
-	leftLabel->setLayout(avLay);
-	
-	scrollArea = new QScrollArea(this);
-	scrollArea->setGeometry(0,0,320,1150);
-	scrollArea->setMaximumWidth(320);
-	scrollArea->setWidget(leftLabel);
 
-	scrollArea->setWidgetResizable(false);
+	scrollArea = new QScrollArea(this);
+	scrollArea->move(0,0);
+	scrollArea->setMaximumWidth(250);
+	scrollArea->setMinimumWidth(250);
+
 	for (auto a : avatars) {
 		avLay->addWidget(a);
 	}
-
+	QWidget* scrollWidget = new QWidget;
+	scrollWidget->setLayout(avLay);
+	scrollArea->setWidget(scrollWidget);
 	leftSide->addWidget(scrollArea);
+
 }
 
 void MainWindow::addAvatar(Avatar* a)
@@ -52,6 +52,10 @@ void MainWindow::createLayout(){
 	mainLayout = new QGridLayout();
 	leftSide   = new QVBoxLayout();
 	rightSide  = new QVBoxLayout();
+	
+
+	rightSide->addLayout(messageBox->getMessageBox());
+	rightSide->addLayout(writeBox->getWriteBox());
 	
 	mainLayout->addLayout(leftSide,0,0);
 	mainLayout->addLayout(rightSide,0,1);
@@ -70,7 +74,7 @@ void MainWindow::createAvatar()
 
 void MainWindow::updateMessageBox()
 {
-   	messageBox.update(userPtr->getLogin(), userPtr->getMessages()); 
+   	messageBox->update(userPtr->getLogin(), userPtr->getMessages()); 
 }
 
 void MainWindow::sendMessage( String& msg)
@@ -78,10 +82,11 @@ void MainWindow::sendMessage( String& msg)
 	if(userPtr == nullptr) {
 		return;
 	}
+	messageBox->getMessageText()->verticalScrollBar()->setValue(messageBox->getMessageText()->verticalScrollBar()->maximum());
 	String toUser = userPtr->getLogin();
 	userPtr->addMessage(controller.getLogin() + delim + msg);
 	controller.sendMessageToUser(toUser, msg);
-	messageBox.update(userPtr->getLogin(), userPtr->getMessages());
+	messageBox->update(userPtr->getLogin(), userPtr->getMessages());
 }
 
 void MainWindow:: updateMainWindow(User& u)
@@ -93,7 +98,7 @@ void MainWindow:: updateMainWindow(User& u)
 	} else {
 		(*it)->setStatus(u.getStatus());
 		if (userPtr->getLogin() == u.getLogin()) {
-			messageBox.update(u.getLogin(), u.getMessages());
+			messageBox->update(u.getLogin(), u.getMessages());
 		} else {
 			(*it)->incrementCount();
 		}
@@ -129,3 +134,12 @@ MainWindow::AvatarsIter MainWindow::find(const User& u)
 
 
 
+void MainWindow::showWindow()
+{
+	emit showSignal();
+}
+
+void MainWindow::showSlot()
+{
+	this->show();
+}
