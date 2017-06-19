@@ -53,6 +53,10 @@ void MainWindow::createLayout(){
 	leftSide   = new QVBoxLayout();
 	rightSide  = new QVBoxLayout();
 	
+
+	rightSide->addLayout(messageBox->getMessageBox());
+	rightSide->addLayout(writeBox->getWriteBox());
+	
 	mainLayout->addLayout(leftSide,0,0);
 	mainLayout->addLayout(rightSide,0,1);
 
