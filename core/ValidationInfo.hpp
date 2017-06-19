@@ -10,15 +10,15 @@ namespace ValidationInfo
     const SizeType maximumSymbols = 20;
     const char underscore = '_';
 
-    const String emptyField = "Empty field.";
-    const String loggedUser = "Logged user";
-    const String validLogPass = "Valid log pass";
-    const String validAccount = "Valid account";
-    const String validMaxLength = "Valid max length";
-    const String validMinLength = "Valid min length";
-    const String validName = "Valid name";
-    const String takenLogin = "Taken login";
-    const String mismatchPass = "Mismatching pass";
+    const String emptyField = "Emptyfield.";
+    const String loggedUser = "Loggeduser";
+    const String validLogPass = "Validlogpass";
+    const String validAccount = "Validaccount";
+    const String validMaxLength = "Validmaxlength";
+    const String validMinLength = "Validminlength";
+    const String validName = "Validname";
+    const String takenLogin = "Takenlogin";
+    const String mismatchPass = "Mismatchingpass";
 };
 
 #endif
