@@ -16,6 +16,7 @@ class QPushButton;
 #include <QMainWindow>
 #include <QLayout>
 #include <QString>
+#include <QPalette>
 
 #include "../core/InputValidator.hpp"
 #include "../core/Controller.hpp"
@@ -42,6 +43,16 @@ public:
         *   @param no parametrs 
         *   @return void
         */  
+<<<<<<< HEAD
+	void addPushButton();
+	void addLineEdit();
+	void addStatusBar();
+	void addPic();
+	void addLayout();
+	void addIcon();
+	void connectLines();
+    void setTipColor();
+=======
 //	void addPushButton();
     
         /** 
@@ -85,6 +96,7 @@ public:
         *   @return void
         */
 //	void connectLines();
+>>>>>>> d505217bcb553ee7a96705e3ae47aee6b4ddf3d1
 
 public slots:
 	void checkLogin(const QString&);
@@ -92,8 +104,8 @@ public slots:
 	void checkSurname(const QString&);
 	void checkPassword(const QString&);
 	void checkPasswords(const QString&);
-
-	void sendRegistrationReq();
+	
+    void sendRegistrationReq();
 
 private:
     
@@ -113,6 +125,8 @@ private:
 	QLineEdit* surname;
 	QLineEdit* password1;
 	QLineEdit* password2;
+
+    QPalette palette;
 
 	Controller& controller;
 	InputValidator validator;

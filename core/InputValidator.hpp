@@ -5,51 +5,20 @@
 
 class InputValidator
 {
-	public:
-		using String = std::string;
-		using SizeType = std::string::size_type;
+    public:
+        using String = std::string;
+        using SizeType = std::string::size_type;
+    
+    private:
+        bool checkIsNotAlpha(const String& s) const
+        bool checkIsAlNum(Const String& s) const
 
-		String checkLoginPassword(const String& s) const
-		{
-			const SizeType sz = s.size();
-			if (sz > ValidationInfo::maximumSymbols) {
-				return ValidationInfo::validMaxLength;
-			}
-            if (sz < ValidationInfo::minimalSymbols) {
-                return ValidationInfo::validMinLength;
-            }
-			for (SizeType i = 0; i < sz; ++i) {
-					if (!isalnum(s[i]) && s[i] != ValidationInfo::underscore) {
-						return ValidationInfo::validLogPass;
-				}
-			}
-			return "";
-		}
-
-		String checkName(const String& s) const
-		{
-			const SizeType sz = s.size();
-			if (sz > ValidationInfo::maximumSymbols) {
-				return ValidationInfo::validMaxLength;
-			}
-            if (sz < ValidationInfo::minimalSymbols) {
-                return ValidationInfo::validMinLength;
-            }
-			for (SizeType i = 0; i < sz; ++i) {
-				if (!isalpha(s[i])) {
-					return ValidationInfo::validName;
-				}
-			}
-			return "";
-		}
-
-		String checkPasswords(const String& p1, const String& p2) const
-		{
-            if (p1 != p2) {
-                return ValidationInfo::mismatchPass;
-            }
-			return "";
-		}
+    public:
+        bool checkLogin(const String& s) const
+        bool checkPassword(const String& s) const
+        String checkName(const String& s) const
+        String checkSurname(const String& s) const
+        bool checkPasswords(const String& p1, const String& p2) const
 };
 
 #endif
