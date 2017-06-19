@@ -6,7 +6,7 @@
 #include <string>
 
 #include "ServerUser.hpp"
-//#include "ClientUser.hpp"
+#include "ClientUser.hpp"
 #include "Conversation.hpp"
 #include "ExtractWord.hpp"
 
@@ -15,7 +15,7 @@ class DBController
 {
 public:
 	using ServerUsers = std::multiset<ServerUser>;
-	//using ClientUsers = std::list<ClientUser>;
+	using ClientUsers = std::list<ClientUser>;
 	using String = std::string;
 	using mutGuard = std::lock_guard<std::mutex>;
 	using Conversations = std::list<Conversation>;
@@ -26,7 +26,7 @@ public:
 
 	DBController();
 	DBController(ServerUsers*);
-	//DBController(ClientUsers*);
+	DBController(ClientUsers*);
 
 	ConvIter findConversation(const String&, const String&);
 
@@ -41,14 +41,14 @@ public:
 	void getUsers();
 
 	void logServer(const String&);
-	//void logClient(const String&);
+	void logClient(const String&);
 	void logUsers();
 
 private:
 	void clearPMessages(const String&);
 
 	ServerUsers *serverUsers;
-	//ClientUsers *clientUsers;
+	ClientUsers *clientUsers;
 	std::mutex mutex;
 	Conversations conversations;
 	ExtractWord extractWord;

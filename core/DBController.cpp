@@ -5,24 +5,24 @@
 
 
 DBController::DBController()
-: serverUsers(nullptr)//, clientUsers(nullptr) 
+: serverUsers(nullptr), clientUsers(nullptr) 
 {
 	//
 }
 
 DBController::DBController(ServerUsers *su)
-: serverUsers(su)//, clientUsers(nullptr) 
+: serverUsers(su), clientUsers(nullptr) 
 {
 	//
 }
 
-/*
+
 DBController::DBController(ClientUsers *cu)
 : serverUsers(nullptr), clientUsers(cu)
 {
 	//
 }
-*/
+
 
 DBController::ConvIter DBController::findConversation(const String& u1, const String& u2)
 {
@@ -38,7 +38,6 @@ DBController::ConvIter DBController::findConversation(const String& u1, const St
 void DBController::addMessage(const String& u1, const String& u2, const String& msg)
 {
 	mutGuard mg(mutex);
-
 	auto it = findConversation(u1, u2);
 	if (it == conversations.end()) {
 		Conversation c(u1, u2);
@@ -51,8 +50,8 @@ void DBController::addMessage(const String& u1, const String& u2, const String& 
 
 void DBController::addPendingMessage(const String& u, const String& msg)
 {
-	String file = Files::PMsgDir + u + Files::fileType;
 	mutGuard mg(mutex);
+	const String file = Files::PMsgDir + u + Files::fileType;
 	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(msg.c_str(), msg.size());
 	ofile.write("\n", 1);
@@ -61,8 +60,8 @@ void DBController::addPendingMessage(const String& u, const String& msg)
 
 void DBController::addPMsgsToConv(const String& u)
 {
-	String pMessages = Files::PMsgDir + u + Files::fileType;
 	//mutGuard mg(mutex);
+	const String pMessages = Files::PMsgDir + u + Files::fileType;
 	std::ifstream ifile(pMessages, std::fstream::in);
 	String fromUser;
 	String msg;
@@ -79,7 +78,7 @@ void DBController::addPMsgsToConv(const String& u)
 void DBController::clearPMessages(const String& u)
 {
 	mutGuard mg(mutex);
-	String file = Files::PMsgDir + u + Files::fileType;
+	const String file = Files::PMsgDir + u + Files::fileType;
 	std::ofstream ofile(file, std::ofstream::trunc);
 	ofile.close();
 }
@@ -87,7 +86,7 @@ void DBController::clearPMessages(const String& u)
 DBController::PMessagesPtr DBController::getPMessages(const String& u)
 {
 	mutGuard mg(mutex);
-	String file = Files::PMsgDir + u + Files::fileType;
+	const String file = Files::PMsgDir + u + Files::fileType;
 	std::ifstream ifile(file, std::fstream::in);
 	PMessagesPtr pm(new PMessages);
 	if (ifile.is_open()) {
@@ -114,7 +113,7 @@ DBController::ConvPtr DBController::getConversation(const String& u1, const Stri
 void DBController::addUser(ServerUser& u)
 {
 	mutGuard mg(mutex);
-	String file = Files::ServerUsersDir + Files::usersFile;
+	const String file = Files::ServerUsersDir + Files::usersFile;
 	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	String s = u.toStringLog() + "\n";
 	ofile.write(s.c_str(), s.size());
@@ -123,8 +122,9 @@ void DBController::addUser(ServerUser& u)
 
 void DBController::getUsers()
 {
-	String usersFile = Files::ServerUsersDir + Files::usersFile;
-	std::ifstream ifile(usersFile, std::fstream::in);
+	mutGuard mg(mutex);
+	const String file = Files::ServerUsersDir + Files::usersFile;
+	std::ifstream ifile(file, std::fstream::in);
 	String s;
 	while (std::getline(ifile, s)) {
 		ServerUser u;
@@ -138,33 +138,33 @@ void DBController::getUsers()
 void DBController::logServer(const String& str)
 {
 	mutGuard mg(mutex);
-	std::ofstream ofile(Files::ServerLogDir + Files::logFile, std::fstream::binary 
-			| std::fstream::out | std::fstream::app);
+	const String file = Files::ServerLogDir + Files::logFile;
+	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(str.c_str(), str.size());
 	ofile.write("\n", 1);
 	ofile.close();
 }
 
-/*
+
 void DBController::logClient(const String& str)
 {
 	mutGuard mg(mutex);
-	std::ofstream ofile(Files::ClientLogDir + Files::logFile,
-			std::fstream::binary | std::fstream::out | std::fstream::app);
+	const String file = Files::ClientLogDir + Files::logFile;
+	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(str.c_str(), str.size());
 	ofile.write("\n", 1);
 	ofile.close();
 }
-*/
+
 
 void DBController::logUsers()
 {
 	mutGuard mg(mutex);
 	String ps = ".............All clients are........\n...Number of clients: ";
 
-	/*if (clientUsers != nullptr)	{
-		std::ofstream ofile(Files::ClientLogDir + Files::usersFile, 
-				std::fstream::binary | std::fstream::out | std::fstream::app);
+	if (clientUsers != nullptr)	{
+		const String file = Files::ClientLogDir + Files::usersFile;
+		std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 		ps += std::to_string(clientUsers->size()) + "........\n";
 		ofile.write(ps.c_str(), ps.size());
 		String s;
@@ -176,10 +176,10 @@ void DBController::logUsers()
 		ps = "..............end of the list............\n\n";
 		ofile.write(ps.c_str(), ps.size());
 		ofile.close();
-	}*/
+	}
 	if (serverUsers != nullptr) {
-		std::ofstream ofile(Files::ServerLogDir + Files::usersFile, 
-				std::fstream::binary | std::fstream::out | std::fstream::app);
+		const String file = Files::ServerLogDir + Files::usersFile;
+		std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 		ps += std::to_string(serverUsers->size()) + ".........\n";
 		ofile.write(ps.c_str(), ps.size());
 		String s;

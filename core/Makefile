@@ -1,4 +1,4 @@
-OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o 
+OFiles := Server.o DBController.o ServerUser.o ClientUser.o ExtractWord.o Conversation.o 
 LogFiles := ./ClientLog/*.txt ./ServerLog/*.txt
 UsersFiles := ./Server/Users/users.txt ./Server/PendingMessages/*.txt ./Server/Conversations/*.txt
 
@@ -13,6 +13,9 @@ DBController.o:   DBController.hpp DBController.cpp ServerUser.o Conversation.o 
 
 ServerUser.o:	ServerUser.hpp ServerUser.cpp Includes.hpp ExtractWord.o Files.hpp
 	g++ -c -std=c++11 -Wall -pedantic ServerUser.cpp -o ServerUser.o
+
+ClientUser.o: ClientUser.hpp ClientUser.cpp Includes.hpp ExtractWord.o Files.hpp
+	g++ -c -std=c++11 -Wall -pedantic ClientUser.cpp -o ClientUser.o
 
 ExtractWord.o: ExtractWord.hpp ExtractWord.cpp
 	g++ -c -std=c++11 -Wall -pedantic ExtractWord.cpp -o ExtractWord.o

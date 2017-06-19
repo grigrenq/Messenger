@@ -67,7 +67,7 @@ public:
 		};//InputReader
 
 	
-		Controller(Client& c_);
+		Controller(Client&, MainWindow*);
 		void run();
 		void handleSession();
 

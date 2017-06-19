@@ -109,8 +109,8 @@ void Server::handleSession(const SOCKET sock)
 		while (recvMessage(sock, msg) == SUCCESS) {
 			processMessage(sock, msg);
 		}
-	} catch (const String& e) {
-		std::cout << e << std::endl;
+	} catch (...) {
+		closeSocket(socketD);
 	}
 	
 	closeSocket(sock);
@@ -128,7 +128,8 @@ void Server::handleSession(const SOCKET sock)
 Server::UserIter Server::find(const SOCKET sock) 
 {
 	if (sock == INVALID_SOCKET) {
-		throw "Cannot find user in the multiset with INVALID_SOCKET";
+		String msg("Cannot find user in the multiset with INVALID_SOCKET");
+		throw std::logic_error(msg);
 	}
 	mutGuard mg(mutex);
 	User u;
