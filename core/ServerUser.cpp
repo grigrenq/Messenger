@@ -3,7 +3,7 @@
 
 
 ServerUser::ServerUser()
-: sock(INVALID_SOCKET), status(false), pendingMessages(PendigMessages())
+: sock(INVALID_SOCKET), status(false)
 {
 	//
 }
@@ -11,13 +11,13 @@ ServerUser::ServerUser()
 ServerUser::ServerUser(const SOCKET sock_, const String& login_, const String& name_,
 		const String& surname_, const String& password_,  const bool st)
 : sock(sock_), login(login_), name(name_)
-, surname(surname_), password(password_), status(st), pendingMessages(PendigMessages()) 
+, surname(surname_), password(password_), status(st)
 {
 	//
 }
 
 ServerUser::ServerUser(const SOCKET sock_)
-: sock(sock_), status(false), pendingMessages(PendigMessages())
+: sock(sock_), status(false)
 {
 	//
 }
@@ -50,11 +50,17 @@ bool ServerUser::fromString(String& str)
 	login = extractWord(str);
 	name = extractWord(str);
 	surname = extractWord(str);
+	String st = extractWord(str);
+	if (st == online) {
+		status = true;
+	} else {
+		status = false;
+	}
 	password = extractWord(str);
 
 	if (login.empty() || name.empty()
 			|| surname.empty() || password.empty()) {
-		throw std::logic_error("Failed to convert");
+		throw std::logic_error("fromString(String&)...Failed to convert");
 	}
 	return true;
 }
@@ -63,6 +69,7 @@ bool ServerUser::fromString(String& str, int)
 {
 	login = extractWord(str);
 	password = extractWord(str);
+	std::cout << "...fromString()...login=" << login << ".password=" << password << ".\n";
 	if (login.empty() ||  password.empty()) {
 		throw std::logic_error("Failed to convert");
 	}
@@ -109,21 +116,25 @@ void ServerUser::setStatus(const bool st) const
 	status = st; 
 }
 
-size_t ServerUser::messagesCount() const 
+ServerUser::SizeType ServerUser::messagesCount() const 
 {
-	return pendingMessages.size(); 
+	if (!pendingMessages) {
+		return 0;
+	}
+	return pendingMessages->size(); 
 }
 
-ServerUser::PendigMessages& ServerUser::getPendingMessages() const 
+void ServerUser::setPMessages(PMessagesPtr pm) const
+{
+	pendingMessages = pm;
+}
+
+
+
+ServerUser::PMessagesPtr ServerUser::getPMessages() const
 { 
 	return pendingMessages; 
 }
-
-void ServerUser::addPendingMessage(const String& msg) const 
-{
-	pendingMessages.push_back(msg); 
-}
-
 
 
 void ServerUser::closeSocket() const

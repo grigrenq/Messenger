@@ -18,6 +18,8 @@ MainWindow::MainWindow(Controller& c)
 	setWindowTitle("GRI-System");
 	createLayout();
 	addAvatars();
+
+	QObject::connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
 }
 
 void MainWindow::addAvatars()
@@ -128,3 +130,12 @@ MainWindow::AvatarsIter MainWindow::find(const User& u)
 
 
 
+void MainWindow::showWindow()
+{
+	emit showSignal();
+}
+
+void MainWindow::showSlot()
+{
+	this->show();
+}

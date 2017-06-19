@@ -87,7 +87,7 @@ public:
 			String type = extractWord(str, true, ' ');
 			String l;
 
-			std::cout << "type=" << type << "." << str << ".\n";
+			//std::cout << "type=" << type << "." << str << ".\n";
 
 			if (type == "log") {
 				l = extractWord(str);

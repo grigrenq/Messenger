@@ -1,5 +1,7 @@
+
 #include "../core/Client.hpp"
 #include "../core/Controller.hpp"
+#include "./MainWindow/MainWindow.hpp"
 
 
 #include <QApplication>
@@ -20,8 +22,10 @@ int main(int argc, char* argv[])
 	}
 
 	Client c;
-	Controller controller(c);
+	MainWindow *p = nullptr;
+	Controller controller(c, p);
 	controller.run();
+	p = new MainWindow(controller);
 
 	return app.exec();
 }

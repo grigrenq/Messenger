@@ -1,24 +1,32 @@
-OFiles := Server.o DBController.o ServerUser.o ExtractWord.o Conversation.o 
-
+OFiles := Server.o DBController.o ServerUser.o ClientUser.o ExtractWord.o Conversation.o 
+LogFiles := ./ClientLog/*.txt ./ServerLog/*.txt
+UsersFiles := ./Server/Users/users.txt ./Server/PendingMessages/*.txt ./Server/Conversations/*.txt
 
 run:	Main.cpp $(OFiles) Includes.hpp
-	g++ -std=c++11 Main.cpp $(OFiles) -o run -lpthread
+	g++ -std=c++11 -Wall -pedantic Main.cpp $(OFiles) -o run -lpthread
 
 Server.o:   Server.hpp Server.cpp Includes.hpp MessageTypes.hpp
-	g++ -c -std=c++11 Server.cpp -o Server.o
+	g++ -c -std=c++11 -Wall -pedantic Server.cpp -o Server.o
 
-DBController.o:   DBController.hpp DBController.cpp
-	g++ -c -std=c++11 DBController.cpp -o DBController.o
+DBController.o:   DBController.hpp DBController.cpp ServerUser.o Conversation.o ExtractWord.o Files.hpp
+	g++ -c -std=c++11 -Wall -pedantic DBController.cpp -o DBController.o
 
-ServerUser.o:	ServerUser.hpp ServerUser.cpp
-	g++ -c -std=c++11 ServerUser.cpp -o ServerUser.o
+ServerUser.o:	ServerUser.hpp ServerUser.cpp Includes.hpp ExtractWord.o Files.hpp
+	g++ -c -std=c++11 -Wall -pedantic ServerUser.cpp -o ServerUser.o
+
+ClientUser.o: ClientUser.hpp ClientUser.cpp Includes.hpp ExtractWord.o Files.hpp
+	g++ -c -std=c++11 -Wall -pedantic ClientUser.cpp -o ClientUser.o
 
 ExtractWord.o: ExtractWord.hpp ExtractWord.cpp
-	g++ -c -std=c++11 ExtractWord.cpp -o ExtractWord.o
+	g++ -c -std=c++11 -Wall -pedantic ExtractWord.cpp -o ExtractWord.o
 
 Conversation.o: Conversation.hpp Conversation.cpp
-	g++ -c -std=c++11 Conversation.cpp -o Conversation.o
+	g++ -c -std=c++11 -Wall -pedantic Conversation.cpp -o Conversation.o
 
 .PHONY:
 clean:
-	rm *.o run ./ClientLog/*.txt ./ServerLog/*.txt ./Server/Users/users.txt
+	rm *.o run $(LogFiles)
+
+.PHONY:
+cleanUsers:
+	rm $(UsersFiles)

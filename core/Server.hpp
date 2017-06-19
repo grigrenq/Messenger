@@ -35,7 +35,7 @@ private:
 	UserIter find(const SOCKET);
 	UserIter find(const String&);
 
-	void sendPendingMessages(const SOCKET sock);
+	void sendPendingMessages(UserIter);
 
 	bool setOnline(UserIter&);
 	bool setOffline(UserIter&);
