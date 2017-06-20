@@ -72,6 +72,7 @@ String Controller::sendRegistrationRequest(const String& login, const String& na
 {
 	String msg = login + delim + name + delim + surname
 			+ delim + offline + delim + password + delim;
+            std::cout << "Sending reg request" << std::endl;
 	return "Registration request: " + sendMessage(msg, registrationRequest);
 }
 

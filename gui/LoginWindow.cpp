@@ -148,7 +148,7 @@ void LoginWindow::connectLines()
 void LoginWindow::checkLogin(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLogin(s)) {
+	if (validator.checkLogin(s) == ValidationInfo::validLog) {
 		//????
 		m_login->setStyleSheet("border: 3px solid black");
 	} else {
@@ -161,7 +161,7 @@ void LoginWindow::checkLogin(const QString& qs)
 void LoginWindow::checkPassword(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkPassword(s)) {
+	if (validator.checkPassword(s) == ValidationInfo::validLog) {
 		//????
 		m_password->setStyleSheet("border: 3px solid black");
 	} else {
@@ -171,15 +171,33 @@ void LoginWindow::checkPassword(const QString& qs)
 	}
 }
 
-
 void LoginWindow::sendLoginReq()
 {
 	String l = m_login->text().toStdString();
 	String p = m_password->text().toStdString();
-	if ((validator.checkLogin(l) == false) || (validator.checkPassword(p) == false)) {
-		std::cout << "Wrong Login or Password.\n";
+
+    String logRes = validator.checkLogin(l);
+    String passRes = validator.checkPassword(p);
+    
+    if (logRes == ValidationInfo::emptyField) {
+        m_login->setPlaceholderText("You can't leave this empty");
+        m_login->setStyleSheet("border: 3px solid red");
+		return;
+	} else if(validator.checkLogin(l) != ValidationInfo::validLog ) {
+        return;
+    }
+    
+    if(passRes == ValidationInfo::emptyField){
+        m_password->setPlaceholderText("You can't leave this empty");
+        m_password->setStyleSheet("border: 3px solid red");
+        return;
+
+    } else if (validator.checkPassword(p) != ValidationInfo::validLog) {
 		return;
 	}
+
+
+
 	controller.sendLoginRequest(l, p);
 }
 

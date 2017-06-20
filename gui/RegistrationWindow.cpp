@@ -135,31 +135,35 @@ void RegistrationWindow::setTipColor()
 void RegistrationWindow::checkLogin(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkLogin(s)) {
-        std::cout << "checkLogin" <<std::endl;
+	if (validator.checkLogin(s) == ValidationInfo::validLog) {
 		login->setStyleSheet("border: 3px solid black");
-	} else {
+	} else if(validator.checkLogin(s) == ValidationInfo::validMaxLength) {
         QApplication* app;
         app->setStyleSheet("QToolTip{color: #ffffff; background-color: #990000; border: none;}");
-        QToolTip::showText(login->mapToGlobal(QPoint(250, -15)), "Login or password must contain only esim incher");
+        QToolTip::showText(login->mapToGlobal(QPoint(250, -15)), "You can't use more than 20 charactrs");
 		login->setStyleSheet("border: 3px solid red");
-	}
+	} else if(validator.checkLogin(s) == ValidationInfo::validMinLength) {
+        QToolTip::showText(login->mapToGlobal(QPoint(250, -15)), "Use at least 5 charactrs");
+		login->setStyleSheet("border: 3px solid red");
+    } else if(validator.checkLogin(s) == ValidationInfo::invalidSymbol) {
+        QToolTip::showText(login->mapToGlobal(QPoint(250, -15)), "You can use only letters, numbers and underscore symbols");
+		login->setStyleSheet("border: 3px solid red");
+    }
 }
 
 void RegistrationWindow::checkName(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkName(s) == "") {
+	if (validator.checkName(s) == ValidationInfo::validName) {
 		name->setStyleSheet("border: 3px solid black");
-	} else if(validator.checkName(s) == ValidationInfo::validMaxLength){
-        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "The name is too long");
+	} else if(validator.checkName(s) == ValidationInfo::validMaxLength) {
+        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "You can't use more than 20 characters");
 		name->setStyleSheet("border: 3px solid red");
-	} else if(validator.checkName(s) == ValidationInfo::validMinLength){
-        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "The name is too short");
+	} else if(validator.checkName(s) == ValidationInfo::validMinLength) {
+        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "Use at least 5 characters");
         name->setStyleSheet("border: 3px solid red");
-    }
-    else {
-        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "Name and Surname must cotain inch vor baner");
+    } else if(validator.checkName(s) == ValidationInfo::invalidSymbol) {
+        QToolTip::showText(name->mapToGlobal(QPoint(250, -15)), "You can use only letters");
         name->setStyleSheet("border: 3px solid red");
     }
 }
@@ -167,17 +171,16 @@ void RegistrationWindow::checkName(const QString& qs)
 void RegistrationWindow::checkSurname(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkSurName(s) == "") {
+	if (validator.checkSurName(s) == ValidationInfo::validName) {
 		surname->setStyleSheet("border: 3px solid black");
-	} else if(validator.checkSurName(s) == ValidationInfo::validMaxLength){
+	} else if(validator.checkSurName(s) == ValidationInfo::validMaxLength) {
         QToolTip::showText(surname->mapToGlobal(QPoint(250, -15)), "Surname is tooooo long");
 		surname->setStyleSheet("border: 3px solid red");
-	} else if(validator.checkSurName(s) == ValidationInfo::validMinLength){
+	} else if(validator.checkSurName(s) == ValidationInfo::validMinLength) {
         QToolTip::showText(surname->mapToGlobal(QPoint(250, -15)), "Surname is tooooo short");
         surname->setStyleSheet("border: 3px solid red");
-    }
-    else {
-        std::cout << "checkIsNotAlpha" <<std::endl;// must be changed
+    } else if(validator.checkSurName(s) == ValidationInfo::invalidSymbol) {
+        QToolTip::showText(surname->mapToGlobal(QPoint(250, -15)), "Name and Surname must cotain inch vor baner");
         surname->setStyleSheet("border: 3px solid red");
     }
 }
@@ -186,12 +189,18 @@ void RegistrationWindow::checkSurname(const QString& qs)
 void RegistrationWindow::checkPassword(const QString& qs)
 {
 	String s = qs.toStdString();
-	if (validator.checkPassword(s)) {
+	if (validator.checkPassword(s) == ValidationInfo::validLog) {
 		password1->setStyleSheet("border: 3px solid black");
-	} else {
-        QToolTip::showText(password1->mapToGlobal(QPoint(250, -15)), "login or password must contain only characters, numbers and underscore");
+	} else if(validator.checkPassword(s) == ValidationInfo::validMaxLength) {
+        QToolTip::showText(password1->mapToGlobal(QPoint(250, -15)), "You can't use more than characters");
 		password1->setStyleSheet("border: 3px solid red");
-	}
+	} else if(validator.checkPassword(s) == ValidationInfo::validMinLength) {
+        QToolTip::showText(password1->mapToGlobal(QPoint(250, -15)), "use at least 5 characters");
+		password1->setStyleSheet("border: 3px solid red");
+    } else if(validator.checkSurName(s) == ValidationInfo::invalidSymbol) {
+        QToolTip::showText(password1->mapToGlobal(QPoint(250, -15)), "You can use only letters, numbers and underscore simbols");
+		password1->setStyleSheet("border: 3px solid red");
+    }
 }
 
 void RegistrationWindow::checkPasswords(const QString& qs)
@@ -202,7 +211,7 @@ void RegistrationWindow::checkPasswords(const QString& qs)
 	if (validator.checkPasswords(p1, p2)) {
 		password2->setStyleSheet("border: 3px solid black");
 	} else {
-        QToolTip::showText(password2->mapToGlobal(QPoint(250, -15)), "Passwords does not match");
+        QToolTip::showText(password2->mapToGlobal(QPoint(250, -15)), "These passwords don't match, Try again");
         password2->setStyleSheet("border: 3px solid red");
 	}
 }
@@ -214,27 +223,60 @@ void RegistrationWindow::sendRegistrationReq()
 	String sn = surname->text().toStdString();
 	String p1 = password1->text().toStdString();
 	String p2 = password2->text().toStdString();
+    
+    String logRes = validator.checkLogin(l);
+    String passRes = validator.checkPassword(p1);
+    String nameRes = validator.checkName(n);
+    String surnameRes = validator.checkSurName(sn);
+    String passRes2 = validator.checkPassword(p2);
 
-	if (validator.checkLogin(l)) {
+	if (logRes == ValidationInfo::emptyField) {
+        login->setPlaceholderText("You can't leave this empty");
+        login->setStyleSheet("border: 3px solid red");
+		return;
+	} else if(validator.checkLogin(l) != ValidationInfo::validLog ) {
+        return;
+    }
 
+    if(nameRes == ValidationInfo::emptyField) {
+        name->setPlaceholderText("You can't leave this empty");
+        name->setStyleSheet("border: 3px solid red");
+        return;
+    } else if (validator.checkName(n) != ValidationInfo::validName) {
 		return;
 	}
-	if (validator.checkName(n) == "") {
 
+    if(surnameRes == ValidationInfo::emptyField) {
+        surname->setPlaceholderText("You can't leave this empty");
+        surname->setStyleSheet("border: 3px solid red");
+        return;
+    } else if (validator.checkSurName(sn) != ValidationInfo::validName) {
 		return;
 	}
-	if (validator.checkSurName(sn) == "") {
 
+    if(passRes == ValidationInfo::emptyField){
+        password1->setPlaceholderText("You can't leave this empty");
+        password1->setStyleSheet("border: 3px solid red");
+        return;
+
+    } else if (validator.checkPassword(p1) != ValidationInfo::validLog) {
 		return;
 	}
-	if (validator.checkPassword(p1)) {
+    
+    if(passRes2 == ValidationInfo::emptyField){
+        password2->setPlaceholderText("You can't leave this empty");
+        password2->setStyleSheet("border: 3px solid red");
+        return;
 
+    } else if (validator.checkPassword(p2) != ValidationInfo::validLog) {
 		return;
 	}
-	if (validator.checkPasswords(p1, p2)) {
+    
 
+	if (!validator.checkPasswords(p1, p2)) {
 		return;
 	}
 	controller.sendRegistrationRequest(l, n, sn, p1);
+    this->hide();
 }
 
