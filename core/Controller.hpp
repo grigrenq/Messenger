@@ -5,6 +5,7 @@
 #include "ClientUser.hpp"
 #include "DBController.hpp"
 #include "InputValidator.hpp"
+#include "TransportLayer.hpp"
 
 class LoginWindow;
 //class RegistrationWindow;
@@ -135,6 +136,7 @@ public:
 		MainWindow *mainWindow;
 
 		ExtractWord extractWord;
+		TransportLayer transportLayer;
 		std::shared_ptr<InputReader> inReaderPtr;
 		DBController dbcontroller;
 		InputValidator validator;

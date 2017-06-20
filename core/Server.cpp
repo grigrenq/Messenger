@@ -1,6 +1,7 @@
 #include "Server.hpp"
 #include "MessageTypes.hpp"
 
+
 Server::Server() 
 	: socketD(INVALID_SOCKET)
 	, stopRequested(false)
@@ -104,10 +105,12 @@ void Server::initializeUsers()
 
 void Server::handleSession(const SOCKET sock)
 {
-	String msg;
 	try {
-		while (recvMessage(sock, msg) == SUCCESS) {
-			processMessage(sock, msg);
+		while (recvMessage(sock) == SUCCESS) {
+			for (auto p : transportLayer) {
+				processMessage(sock, *p);
+			}
+			transportLayer.clear();
 		}
 	} catch (...) {
 		closeSocket(socketD);
@@ -229,7 +232,7 @@ void Server::closeSocket(const SOCKET sock)
 }
 
 
-int Server::recvMessage(const SOCKET sock, Server::String& msg)
+int Server::recvMessage(const SOCKET sock)
 {
 	char buffer[DEFAULT_BUFFER];
 	int recvSize = recv(sock, buffer, DEFAULT_BUFFER, 0);
@@ -264,8 +267,9 @@ int Server::recvMessage(const SOCKET sock, Server::String& msg)
 	}
 	else {
 		buffer[recvSize] = '\0';
-		msg.assign(buffer);
-		String log("\n...Row Message: " + msg);
+		transportLayer.processMessage(buffer);
+		String log("\n...Row Message: ");
+		log += buffer;
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
 		return SUCCESS;
@@ -277,6 +281,8 @@ int Server::sendMessage(const SOCKET sock, String& msg, const String& msgType)
 	//usleep(50);
 
 	msg = msgType + delim + msg;
+	msg = std::to_string(msg.size()) + delim + msg;
+
 	int sendSize = send(sock, msg.c_str(), msg.size(), 0);
 	if (sendSize < 0) {
 		String log = "Send failed.Error occurred.";

@@ -11,6 +11,7 @@
 
 #include "Includes.hpp"
 #include "DBController.hpp"
+#include "TransportLayer.hpp"
 
 /**
 *  @brief Class Client ....  
@@ -55,7 +56,7 @@ if not errors,else asking about errore??
                 *   @param Message is an initialized string variable 
                 *   @return Integer
                 */  
-                int recvMessage(String&);
+                int recvMessage(TransportLayer&);
 
 	private:
 		void createSocket();

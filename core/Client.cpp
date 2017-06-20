@@ -69,11 +69,11 @@ int Client::sendMessage(const String& message)
 		return SUCCESS;
 		String log = "Message sent. Row message: " + message;
 		std::cout << log << std::endl;
-		//dbcontroller.logClient(log);
+		dbcontroller.logClient(log);
 	}
 }
 
-int Client::recvMessage(String& message)
+int Client::recvMessage(TransportLayer& tl)
 {
 	char buffer[DEFAULT_BUFFER];
 	int recvSize = recv(socketD, buffer, DEFAULT_BUFFER, 0);
@@ -92,11 +92,11 @@ int Client::recvMessage(String& message)
 	else
 	{
 		buffer[recvSize] = '\0';
-		message.assign(buffer);
-
-		String log("....Row Message: " + message);
+		tl.processMessage(buffer);
+		String log("\n...Row Message: ");
+		log += buffer;
 		std::cout << log << std::endl;
-		//dbcontroller.logClient(log);
+		dbcontroller.logClient(log);
 		return SUCCESS;
 	}
 }

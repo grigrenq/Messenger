@@ -86,7 +86,7 @@ void MainWindow::updateMessageBox()
    	messageBox->update(userPtr->getLogin(), userPtr->getMessages()); 
 }
 
-void MainWindow::sendMessage( String& msg)
+void MainWindow::sendMessage(String& msg)
 {
 	if(userPtr == nullptr) {
 		return;
@@ -121,6 +121,8 @@ void MainWindow::updateSlot(Users users)
 
 void MainWindow::updateMainWindowHelper(User& u)
 {
+	auto p = new Avatar(u, *this);
+	
 	auto it = find(u);
 	if (it == avatars.end()) {
 		avatars.push_back(new Avatar(u, *this));
@@ -134,10 +136,10 @@ void MainWindow::updateMainWindowHelper(User& u)
 		}
 	}
 }
-#include <typeinfo>
+
+
 void MainWindow::updateMainWindowHelper(Users& users)
 {
-	//std::cout << typeid(avatars).name() << std::endl;
 	avatars.clear();
 	for (auto it = users.begin(); it != users.end(); ++it) {
 		avatars.push_back(new Avatar(*it, *this));
@@ -153,13 +155,14 @@ void MainWindow::setUser(User& u)
 
 MainWindow::AvatarsIter MainWindow::find(const User& u)
 {
-	AvatarsIter it;
+	/*AvatarsIter it;
 	for (; it != avatars.end(); ++it) {
 		if ((*it)->getLogin() == u.getLogin()) {
 			return it;
 		}
 	}
-	return it;
+	return it;*/
+	return avatars.end();
 }
 
 

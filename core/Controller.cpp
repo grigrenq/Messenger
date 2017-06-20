@@ -47,8 +47,11 @@ void Controller::handleSession()
 	inReaderPtr.reset(new InputReader(*this));
 	inReaderPtr->startRead();
 	String message;
-	while (c.recvMessage(message) == SUCCESS) {
-			processMessage(message);
+	while (c.recvMessage(transportLayer) == SUCCESS) {
+		for (auto p : transportLayer) {
+			processMessage( *p);
+		}
+		transportLayer.clear();
 	}
 	inReaderPtr->stopRead();
 	c.closeConnection();
@@ -113,6 +116,8 @@ String Controller::sendMessage(String& message, const String& msgType)
 {
 	//usleep(50);
 	message = msgType + delim + message;
+	message = std::to_string(message.size()) + delim + message; 
+
 	if (c.sendMessage(message) == SUCCESS) {
 		return success + "message to Server sent.";
 	}

@@ -6,7 +6,7 @@
 #include "ServerUser.hpp"
 #include "DBController.hpp"
 #include "ExtractWord.hpp"
-
+#include "TransportLayer.hpp"
 
 void* handleServerSession(void *);
 
@@ -41,7 +41,7 @@ private:
 	bool setOffline(UserIter&);
 
     void closeSocket(const SOCKET);
-    int recvMessage(const SOCKET, String&);
+    int recvMessage(const SOCKET);
     int sendMessage(const SOCKET, String&, const String&);
 
 	void sendUserChangedRespond(User&);
@@ -67,6 +67,7 @@ private:
     std::mutex mutex;
 	ExtractWord extractWord;
 	DBController dbcontroller;
+	TransportLayer transportLayer;
 };
 
 
