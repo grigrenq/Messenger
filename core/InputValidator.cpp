@@ -1,5 +1,5 @@
 #include "InputValidator.hpp"
-
+#include <iostream>
 using String = InputValidator::String;
 
 bool InputValidator::checkIsNotAlpha(const String& s) const
@@ -26,16 +26,24 @@ bool InputValidator::checkIsAlNum(const String& s) const
 }
 
 
-bool InputValidator::checkLogin(const String& s) const
+String InputValidator::checkLogin(const String& s) const
 {
     const SizeType sz = s.size();
-    if (checkIsAlNum(s) && sz < ValidationInfo::maximumSymbols && sz > ValidationInfo::minimalSymbols) {
-        return true;
+    if(sz == 0){
+        return ValidationInfo::emptyField;
     }
-    return false;
+    if (checkIsAlNum(s) && sz <= ValidationInfo::maximumSymbols && sz >= ValidationInfo::minimalSymbols) {
+        return ValidationInfo::validLog;
+    } else if(sz > ValidationInfo::maximumSymbols){
+        return ValidationInfo::validMaxLength;
+    } else if(sz < ValidationInfo::minimalSymbols){
+        return ValidationInfo::validMinLength;
+    } else {
+        return ValidationInfo::invalidSymbol;
+    }
 }
 
-bool InputValidator::checkPassword(const String& s) const
+String InputValidator::checkPassword(const String& s) const
 {
     return checkLogin(s);
 }
@@ -43,14 +51,18 @@ bool InputValidator::checkPassword(const String& s) const
 String InputValidator::checkName(const String& s) const
 {
     const SizeType sz = s.size();
-    if(checkIsNotAlpha(s) && sz < ValidationInfo::maximumSymbols && sz > ValidationInfo::minimalSymbols){
-        return "";
+    if(sz == 0){
+        return ValidationInfo::emptyField;
+    }
+    if(checkIsNotAlpha(s) && sz <= ValidationInfo::maximumSymbols && sz >= ValidationInfo::minimalSymbols){
+        return ValidationInfo::validName;
     } else if (sz > ValidationInfo::maximumSymbols) {
         return ValidationInfo::validMaxLength;
     } else if (sz < ValidationInfo::minimalSymbols) {
         return ValidationInfo::validMinLength;
-    } else 
-        return "isNotAlpha";
+    } else { 
+        return ValidationInfo::invalidSymbol;
+    }
 }
 
 String InputValidator::checkSurName(const String& s) const

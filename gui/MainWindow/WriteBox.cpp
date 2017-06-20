@@ -24,7 +24,7 @@ void WriteBox::createWriteBox()
 	textEdit->setMaximumHeight(70);
 	sendButton = new QPushButton();
 	sendButton->setMaximumSize(100,100);
-	QPixmap sendPic("./send.png");
+	QPixmap sendPic("../../resources/send.png");
 	sendButton->setIcon(sendPic);
 	QRegion* region = new QRegion(*(new QRect(sendButton->x()+10,sendButton->y()+10,50,50)),QRegion::Ellipse);
 	sendButton->setMask(*region);

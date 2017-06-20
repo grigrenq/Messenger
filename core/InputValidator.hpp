@@ -14,8 +14,8 @@ class InputValidator
         bool checkIsAlNum(const String& s) const;
 
     public:
-        bool checkLogin(const String& s) const;
-        bool checkPassword(const String& s) const;
+        String checkLogin(const String& s) const;
+        String checkPassword(const String& s) const;
         String checkName(const String& s) const;
         String checkSurName(const String& s) const;
         bool checkPasswords(const String& p1, const String& p2) const;
