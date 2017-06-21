@@ -4,7 +4,7 @@
 *  @author  GRI Team
 *  @date    06/21/2017  
 *  @version 1.0 
-*  @brief ...
+*  @brief 
 */
 
 #ifndef CLIENTUSER_HPP
@@ -31,85 +31,84 @@ class ClientUser
                 */  
 		ClientUser();
                 /** 
-                *   @brief  ...
-                *   @param...  
-                *   @return ...
+                *   @brief  ClientUser is constructor for Class ClientUser
+                *   @param  Reference of String
                 */  
 		explicit ClientUser(String&);
 
 		/** 
-                *   @brief  ...
-                *   @param  ...
+                *   @brief  set parametrs login, name, surname, string and check if this empty
+                *   @param  Reference of String
                 *   @return bool parametr
                 */  
                 bool fromString(String&);
 
                 /** 
-                *   @brief  ...
-                *   @param  ...
+                *   @brief  addMessage asign new message in old mesages and increase by one
+                *   @param  const reference of String??
                 *   @return void
                 */  
 		void addMessage(const String&);
 
                 /** 
-                *   @brief  ...
+                *   @brief toString add login name and surname in string 
                 *   @param  no parametrs 
                 *   @return String 
                 */  
 		String toString();
 
                 /** 
-                *   @brief  ...
+                *   @brief  getLogin return login
                 *   @param  no parametrs 
                 *   @return String
                 */  
 		String getLogin() const;
 
                 /** 
-                *   @brief  ...
+                *   @brief  getName return name
                 *   @param  no parametrs 
                 *   @return String
                 */  
 		String getName() const;
 
                 /** 
-                *   @brief  ....
+                *   @brief  getSurname return surname
                 *   @param  no parametrs 
                 *   @return String
                 */  
 		String getSurname() const;
 
                 /** 
-                *   @brief  ....
+                *   @brief  getStatus return status
                 *   @param  no parametrs 
                 *   @return bool
                 */  
 		bool getStatus() const;
 
                 /** 
-                *   @brief  ....
+                *   @brief  getUnreadMessagesCount return unread messages count
                 *   @param  no parametrs 
-                *   @return ??....
+                *   @return SizeType,it's size of string
                 */  
 		SizeType getUnreadMessagesCount() const;
 
                 /** 
-                *   @brief  ...
+                *   @brief  getMessages return messages
                 *   @param  no parametrs
                 *   @return ???...
                 */  
 		Messages& getMessages();
 
                 /** 
-                *   @brief  ....
-                *   @param  ...
+                *   @brief  asigne the value to status 
+                *   @param  const bool parametr?
                 *   @return void
                 */  
 		void setStatus(const bool);
 
                 /** 
-                *   @brief  ...
-                *   @param  ...
+                *   @brief  asign the value to unread messages
+                *   @param  size of string
                 *   @return void
                 */  
 		void setUnreadMessages(const SizeType);
