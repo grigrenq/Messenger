@@ -4,6 +4,7 @@
 #include <Qt>
 #include <QFontMetrics>
 #include <QMetaType>
+#include <QIcon>
 
 #include "MainWindow.hpp"
 #include "Avatar.hpp"
@@ -18,6 +19,7 @@ MainWindow::MainWindow(Controller& c)
 	qRegisterMetaType<User>("User");
 	qRegisterMetaType<Users>("Users");
 	setGeometry(10,10,1000,500);
+	setWindowIcon();
 	setWindowTitle("GRI-System");
 	createLayout();
 
@@ -169,4 +171,10 @@ void MainWindow::showWindow()
 void MainWindow::showSlot()
 {
 	this->show();
+}
+
+void MainWindow::setWindowIcon()
+{
+	windowIcon = new QIcon("../resources/a.png");
+	QWidget::setWindowIcon(*windowIcon);
 }

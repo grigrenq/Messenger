@@ -14,7 +14,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QPalette>
-#include <QIcon>
+//#include <QIcon>
 #include <QScrollBar>
 #include <QScrollArea>
 #include <list>
@@ -27,6 +27,8 @@
 #include "MessageBox.hpp"
 #include "WriteBox.hpp"
 
+
+class QIcon;
 class Avatar;
 class Controller;
 #include "../../core/Controller.hpp"
@@ -69,6 +71,7 @@ private:
 	void createLayouts();
 	void addAvatar(Avatar*);
 	void addAvatars();
+	void setWindowIcon();
 
 	void updateMainWindowHelper(User&);
 	void updateMainWindowHelper(Users&);
@@ -83,6 +86,7 @@ private:
 	QScrollArea *scrollArea;
 	QTextEdit* messageText;
 	QLayout* messageTextLayout;
+	QIcon* windowIcon;
 
 	Avatars avatars;
 	MessageBox *messageBox;
