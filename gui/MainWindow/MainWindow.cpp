@@ -15,6 +15,7 @@ MainWindow::MainWindow(Controller& c)
 	: messageBox(new MessageBox(*this))
 	, writeBox(new WriteBox(*this))
 	, controller(c)
+    , userPtr(nullptr)
 {
 	qRegisterMetaType<User>("User");
 	qRegisterMetaType<Users>("Users");
@@ -125,7 +126,12 @@ void MainWindow::updateMainWindowHelper(User& u)
 		avatars.push_back(new Avatar(u, *this));
 		addAvatar(avatars.back());
 	} else {
-		(*it)->setStatus(u.getStatus());
+        if (userPtr == nullptr) {
+            if ((*it)->getStatus() != u.getStatus()) {
+                (*it)->setStatus(u.getStatus());
+                return;
+            }
+        }
 		if (userPtr->getLogin() == u.getLogin()) {
 			messageBox->update(u.getLogin(), u.getMessages());
 		} else {
@@ -152,14 +158,14 @@ void MainWindow::setUser(User& u)
 
 MainWindow::AvatarsIter MainWindow::find(const User& u)
 {
-	/*AvatarsIter it;
+	AvatarsIter it = avatars.begin();
 	for (; it != avatars.end(); ++it) {
 		if ((*it)->getLogin() == u.getLogin()) {
 			return it;
 		}
 	}
-	return it;*/
-	return avatars.end();
+	return it;
+	//return avatars.end();
 }
 
 

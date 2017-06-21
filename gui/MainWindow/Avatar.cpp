@@ -12,6 +12,7 @@
 Avatar::Avatar(User& u, MainWindow& mw)
 	: user(u)
 	, mainWindow(mw)
+    , status(false)
 {
 	avName = new QLabel(this);
 	avSurname = new QLabel(this);
@@ -24,6 +25,7 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	std::string name = user.getName().c_str();
 	std::string surname = user.getSurname().c_str();
 	std::string nameSurname = name + " " + surname;
+    status = user.getStatus();
 	avName->setText(QString::fromStdString(nameSurname));
 	avName->setWordWrap(true);
 	avName->setGeometry(12,23,100,20);
@@ -33,6 +35,7 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	QPalette* sample_palette = new QPalette();
 	sample_palette->setColor(QPalette::WindowText, Qt::blue);
 	avLogin->setPalette(*sample_palette);
+    status = user.getStatus();
 	if(user.getStatus() == true) {
 		avLogin->setStyleSheet("border: 15px solid green;border-radius:7px");
 	} else {
@@ -60,7 +63,12 @@ void Avatar::openConversation()
 
 void Avatar::setStatus(bool b)
 {
-
+    status = b;
+    if(b == true) {
+        avLogin->setStyleSheet("border: 15px solid green;border-radius:7px");
+    } else {
+        avLogin->setStyleSheet("border: 15px solid grey;border-radius:7px");
+    }
 }
 
 void Avatar::mousePressEvent(QEvent*)

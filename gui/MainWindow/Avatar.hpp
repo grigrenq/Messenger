@@ -23,6 +23,7 @@ public:
 	Avatar(User&, MainWindow&);
 	
 	void setStatus(bool);
+    bool getStatus() const { return status; }
 	void incrementCount() {}
 	String getLogin() { return user.getLogin(); }
 
@@ -39,6 +40,7 @@ private:
 	QLabel* avLogin;
 	QLabel* avStatus;
 	QLabel* avCount;
+    bool status;
 	User& user;
 	MainWindow& mainWindow;
 	void mousePressEvent(QEvent*);
