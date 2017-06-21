@@ -23,6 +23,7 @@ class ClientUser
 {
 	public:
 		using String = std::string;
+                using SizeType = String::size_type;
 		using Messages = std::list<String>;
 
                 /** 
@@ -90,7 +91,7 @@ class ClientUser
                 *   @param  no parametrs 
                 *   @return ??....
                 */  
-		size_t getUnreadMessagesCount() const;
+		SizeType getUnreadMessagesCount() const;
 
                 /** 
                 *   @brief  ...
@@ -111,7 +112,7 @@ class ClientUser
                 *   @param  ...
                 *   @return void
                 */  
-		void setUnreadMessages(const size_t);
+		void setUnreadMessages(const SizeType);
 
                 /** 
                 *   @brief  ...

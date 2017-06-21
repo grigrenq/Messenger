@@ -78,7 +78,7 @@ bool ClientUser::getStatus() const
 	return status_; 
 }
 
-size_t ClientUser::getUnreadMessagesCount() const 
+ClientUser::SizeType ClientUser::getUnreadMessagesCount() const 
 {
 	return unreadMessages_; 
 }
@@ -93,7 +93,7 @@ void ClientUser::setStatus(const bool st)
 	status_ = st; 
 }
 
-void ClientUser::setUnreadMessages(const size_t um) 
+void ClientUser::setUnreadMessages(const SizeType um) 
 { 
 	unreadMessages_ = um;
 }
