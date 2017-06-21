@@ -68,6 +68,7 @@ void Server::doAcceptClient()
 	struct sockaddr_in ServerClient;
 
 	String log("Waiting for incoming connections...\n");
+	std::cout << log << std::endl;
 	dbcontroller_.logServer(log);
 	sockAccepted = accept(socket_, (sockaddr*)&ServerClient, (socklen_t*)&c);
 	if (sockAccepted == INVALID_SOCKET) {

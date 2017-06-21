@@ -6,7 +6,8 @@
 #include "../core/ValidationInfo.hpp"
 
 LoginWindow::LoginWindow(Controller& c)
-	: controller(c)
+	: m_regWin(nullptr)
+	, controller(c)
 {
     this->setGeometry(50,50,850,600);
     this->setMinimumHeight(300);
@@ -213,7 +214,9 @@ void LoginWindow::showSlot()
 
 void LoginWindow::closeRegWindow()
 {
-	m_regWin->close();
-	delete m_regWin;
-	m_regWin = nullptr;
+	if (m_regWin != nullptr) {
+		m_regWin->close();
+		delete m_regWin;
+		m_regWin = nullptr;
+	}
 }
