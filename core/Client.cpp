@@ -12,15 +12,15 @@
 Client::Client()
 {
 	createSocket();
-        setupAddress();
+    setupAddress();
 }
 
 
 void Client::createSocket()
 {
-	socketD = socket(AF_INET, SOCK_STREAM, 0);
+	socket_ = socket(AF_INET, SOCK_STREAM, 0);
 
-	if (socketD == INVALID_SOCKET){
+	if (socket_ == INVALID_SOCKET){
 		std::cout << "Could not create socket\n";
 		exit(1);
 	}
@@ -28,15 +28,14 @@ void Client::createSocket()
 
 void Client::setupAddress()
 {
-	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = inet_addr(DEFAULT_HOST);
-	//server.sin_addr.s_addr = inet_addr(LOCAL_HOST);
-	server.sin_port = htons(DEFAULT_PORT);
+	server_.sin_family = AF_INET;
+	server_.sin_addr.s_addr = inet_addr(DEFAULT_HOST);
+	server_.sin_port = htons(DEFAULT_PORT);
 }
 
 void Client::connectServer()
 {
-	int error = connect(socketD, (struct sockaddr*)&server, sizeof(server));
+	int error = connect(socket_, (struct sockaddr*)&server_, sizeof(server_));
 	if (error < 0)
 	{
 		std::cout << "Connect Error - " << error << std::endl;
@@ -47,9 +46,8 @@ void Client::connectServer()
 
 int Client::sendMessage(const String& message)
 {
-	//usleep(100);
 
-	int sendSize = send(socketD, message.c_str(), message.size(), 0);
+	int sendSize = send(socket_, message.c_str(), message.size(), 0);
 	if (sendSize < 0) 
 	{
 		std::cout << "Send failed\n";
@@ -66,17 +64,16 @@ int Client::sendMessage(const String& message)
 	}
 	else
 	{
-		return SUCCESS;
 		String log = "Message sent. Row message: " + message;
-		std::cout << log << std::endl;
-		dbcontroller.logClient(log);
+		dbcontroller_.logClient(log);
+		return SUCCESS;
 	}
 }
 
 int Client::recvMessage(TransportLayer& tl)
 {
 	char buffer[DEFAULT_BUFFER];
-	int recvSize = recv(socketD, buffer, DEFAULT_BUFFER, 0);
+	int recvSize = recv(socket_, buffer, DEFAULT_BUFFER, 0);
 	if (recvSize < 0)
 	{
 		std::cout << "Receive failed\n";
@@ -96,13 +93,13 @@ int Client::recvMessage(TransportLayer& tl)
 		String log("\n...Row Message: ");
 		log += buffer;
 		std::cout << log << std::endl;
-		dbcontroller.logClient(log);
+		dbcontroller_.logClient(log);
 		return SUCCESS;
 	}
 }
 
 void Client::closeConnection()
 {
-	shutdown(socketD,SHUT_RDWR);
-	close(socketD);
+	shutdown(socket_, SHUT_RDWR);
+	close(socket_);
 }

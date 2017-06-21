@@ -62,13 +62,13 @@ if not errors,else asking about errore??
 		void createSocket();
 		void setupAddress();
 
-		SOCKET socketD;
-		sockaddr_in server;
+		SOCKET socket_;
+		sockaddr_in server_;
 
-		String host;
-		String login;
+		String host_;
+		String login_;
 
-		DBController dbcontroller;
+		DBController dbcontroller_;
 };
 
 #endif

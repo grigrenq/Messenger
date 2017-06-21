@@ -33,8 +33,8 @@ public:
 	void addMessage(const String&, const String&, const String&);
 	void addPendingMessage(const String&, const String&);
 	void addPMsgsToConv(const String&);
-	PMessagesPtr getPMessages(const String&);
 
+	PMessagesPtr getPMessages(const String&);
 	ConvPtr getConversation(const String&, const String&);
 
 	void addUser(ServerUser&);
@@ -47,11 +47,11 @@ public:
 private:
 	void clearPMessages(const String&);
 
-	ServerUsers *serverUsers;
-	ClientUsers *clientUsers;
-	std::mutex mutex;
-	Conversations conversations;
-	ExtractWord extractWord;
+	ServerUsers* serverUsers_;
+	ClientUsers* clientUsers_;
+	std::mutex mutex_;
+	Conversations conversations_;
+	ExtractWord extractWord_;
 };
 
 #endif 

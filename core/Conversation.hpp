@@ -23,7 +23,7 @@ public:
 	ConvPtr getConversation();
 	
 private:
-	String fileName;
+	String fileName_;
 };
 
 #endif

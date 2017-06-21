@@ -5,20 +5,20 @@
 
 
 DBController::DBController()
-: serverUsers(nullptr), clientUsers(nullptr) 
+: serverUsers_(nullptr), clientUsers_(nullptr) 
 {
 	//
 }
 
 DBController::DBController(ServerUsers *su)
-: serverUsers(su), clientUsers(nullptr) 
+: serverUsers_(su), clientUsers_(nullptr) 
 {
 	//
 }
 
 
 DBController::DBController(ClientUsers *cu)
-: serverUsers(nullptr), clientUsers(cu)
+: serverUsers_(nullptr), clientUsers_(cu)
 {
 	//
 }
@@ -26,8 +26,8 @@ DBController::DBController(ClientUsers *cu)
 
 DBController::ConvIter DBController::findConversation(const String& u1, const String& u2)
 {
-	auto it = conversations.begin();
-	for (; it != conversations.end(); ++it) {
+	auto it = conversations_.begin();
+	for (; it != conversations_.end(); ++it) {
 		if (it->equal(u1, u2)) {
 			return it;
 		}
@@ -37,12 +37,12 @@ DBController::ConvIter DBController::findConversation(const String& u1, const St
 
 void DBController::addMessage(const String& u1, const String& u2, const String& msg)
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	auto it = findConversation(u1, u2);
-	if (it == conversations.end()) {
+	if (it == conversations_.end()) {
 		Conversation c(u1, u2);
 		c.addMessage(msg);
-		conversations.push_back(c);
+		conversations_.push_back(c);
 	} else {
 		it->addMessage(msg);
 	}
@@ -50,7 +50,7 @@ void DBController::addMessage(const String& u1, const String& u2, const String& 
 
 void DBController::addPendingMessage(const String& u, const String& msg)
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	const String file = Files::PMsgDir + u + Files::fileType;
 	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(msg.c_str(), msg.size());
@@ -60,7 +60,7 @@ void DBController::addPendingMessage(const String& u, const String& msg)
 
 void DBController::addPMsgsToConv(const String& u)
 {
-	//mutGuard mg(mutex);
+	//mutGuard mg(mutex_);
 	const String pMessages = Files::PMsgDir + u + Files::fileType;
 	std::ifstream ifile(pMessages, std::fstream::in);
 	String fromUser;
@@ -69,7 +69,7 @@ void DBController::addPMsgsToConv(const String& u)
 		return;
 	}
 	while (std::getline(ifile, msg)) {
-		fromUser = extractWord(msg, false);
+		fromUser = extractWord_(msg, false);
 		addMessage(u, fromUser, msg);
 	}
 	clearPMessages(u);
@@ -77,7 +77,7 @@ void DBController::addPMsgsToConv(const String& u)
 
 void DBController::clearPMessages(const String& u)
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	const String file = Files::PMsgDir + u + Files::fileType;
 	std::ofstream ofile(file, std::ofstream::trunc);
 	ofile.close();
@@ -85,7 +85,7 @@ void DBController::clearPMessages(const String& u)
 
 DBController::PMessagesPtr DBController::getPMessages(const String& u)
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	const String file = Files::PMsgDir + u + Files::fileType;
 	std::ifstream ifile(file, std::fstream::in);
 	PMessagesPtr pm(new PMessages);
@@ -103,7 +103,7 @@ DBController::ConvPtr DBController::getConversation(const String& u1, const Stri
 {
 	//???????
 	auto it = findConversation(u1, u2);
-	if (it == conversations.end()) {
+	if (it == conversations_.end()) {
 		return ConvPtr();
 	}
 	return it->getConversation();
@@ -112,7 +112,7 @@ DBController::ConvPtr DBController::getConversation(const String& u1, const Stri
 
 void DBController::addUser(ServerUser& u)
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	const String file = Files::ServerUsersDir + Files::usersFile;
 	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	String s = u.toStringLog() + "\n";
@@ -122,14 +122,14 @@ void DBController::addUser(ServerUser& u)
 
 void DBController::getUsers()
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	const String file = Files::ServerUsersDir + Files::usersFile;
 	std::ifstream ifile(file, std::fstream::in);
 	String s;
 	while (std::getline(ifile, s)) {
 		ServerUser u;
 		u.fromString(s);
-		serverUsers->insert(u);
+		serverUsers_->insert(u);
 	}
 	ifile.close();
 }
@@ -137,7 +137,7 @@ void DBController::getUsers()
 
 void DBController::logServer(const String& str)
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	const String file = Files::ServerLogDir + Files::logFile;
 	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(str.c_str(), str.size());
@@ -148,7 +148,7 @@ void DBController::logServer(const String& str)
 
 void DBController::logClient(const String& str)
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	const String file = Files::ClientLogDir + Files::logFile;
 	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(str.c_str(), str.size());
@@ -159,16 +159,16 @@ void DBController::logClient(const String& str)
 
 void DBController::logUsers()
 {
-	mutGuard mg(mutex);
+	mutGuard mg(mutex_);
 	String ps = ".............All clients are........\n...Number of clients: ";
 
-	if (clientUsers != nullptr)	{
+	if (clientUsers_ != nullptr)	{
 		const String file = Files::ClientLogDir + Files::usersFile;
 		std::ofstream ofile(file, std::fstream::out | std::fstream::app);
-		ps += std::to_string(clientUsers->size()) + "........\n";
+		ps += std::to_string(clientUsers_->size()) + "........\n";
 		ofile.write(ps.c_str(), ps.size());
 		String s;
-		for (auto it = clientUsers->begin(); it != clientUsers->end(); ++it) {
+		for (auto it = clientUsers_->begin(); it != clientUsers_->end(); ++it) {
 			ClientUser* p = it->getPointer();
 			s = p->toString() + '\n';
 			ofile.write(s.c_str(), s.size());
@@ -177,13 +177,13 @@ void DBController::logUsers()
 		ofile.write(ps.c_str(), ps.size());
 		ofile.close();
 	}
-	if (serverUsers != nullptr) {
+	if (serverUsers_ != nullptr) {
 		const String file = Files::ServerLogDir + Files::usersFile;
 		std::ofstream ofile(file, std::fstream::out | std::fstream::app);
-		ps += std::to_string(serverUsers->size()) + ".........\n";
+		ps += std::to_string(serverUsers_->size()) + ".........\n";
 		ofile.write(ps.c_str(), ps.size());
 		String s;
-		for (auto it = serverUsers->begin(); it != serverUsers->end(); ++it) {
+		for (auto it = serverUsers_->begin(); it != serverUsers_->end(); ++it) {
 			ServerUser* p = it->getPointer();
 			s = p->toStringLog() + '\n';
 			ofile.write(s.c_str(), s.size());
