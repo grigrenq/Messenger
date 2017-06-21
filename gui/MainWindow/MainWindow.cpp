@@ -39,7 +39,7 @@ void MainWindow::addAvatars()
 	scrollArea->setMinimumWidth(250);
 
 	for (auto a : avatars) {
-		avLay->addWidget(a);
+		avLay->addWidget(&(*a));
 	}
 	QWidget* scrollWidget = new QWidget;
 	scrollWidget->setLayout(avLay);
@@ -119,24 +119,19 @@ void MainWindow::updateSlot(Users users)
 
 void MainWindow::updateMainWindowHelper(User& u)
 {
-	auto p = new Avatar(u, *this);
-	
 	auto it = find(u);
 	if (it == avatars.end()) {
-		avatars.push_back(new Avatar(u, *this));
-		addAvatar(avatars.back());
+		avatars.push_back(AvatarPtr(new Avatar(u, *this)));
+		addAvatar(&(*avatars.back()));
 	} else {
-        if (userPtr == nullptr) {
-            if ((*it)->getStatus() != u.getStatus()) {
-                (*it)->setStatus(u.getStatus());
-                return;
-            }
-        }
+		it->reset(new Avatar(u, *this));
+
+		if (userPtr == nullptr) {
+			return;
+		}
 		if (userPtr->getLogin() == u.getLogin()) {
 			messageBox->update(u.getLogin(), u.getMessages());
-		} else {
-			(*it)->incrementCount();
-		}
+		} 
 	}
 }
 
@@ -145,7 +140,7 @@ void MainWindow::updateMainWindowHelper(Users& users)
 {
 	avatars.clear();
 	for (auto it = users.begin(); it != users.end(); ++it) {
-		avatars.push_back(new Avatar(*it, *this));
+		avatars.push_back(AvatarPtr(new Avatar(*it, *this)));
 	}
 	addAvatars();
 	//show();

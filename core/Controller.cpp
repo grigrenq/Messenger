@@ -199,6 +199,10 @@ void Controller::processLogoutRespond(String& message)
 		popError_->setText(message);
 		popError_->execute();
 	} else {
+		if (mainWindow_ != nullptr) {
+			delete mainWindow_;
+			mainWindow_ = nullptr;
+		}
 		users_.erase(users_.begin(), users_.end());
 	}
 	dbcontroller_.logUsers();

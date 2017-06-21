@@ -59,6 +59,7 @@ void Avatar::openConversation()
 {
 	mainWindow.setUser(user);
 	mainWindow.updateMessageBox();
+	user.setUnreadMessages(0);
 }
 
 void Avatar::setStatus(bool b)

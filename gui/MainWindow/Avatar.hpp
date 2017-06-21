@@ -24,7 +24,9 @@ public:
 	
 	void setStatus(bool);
     bool getStatus() const { return status; }
-	void incrementCount() {}
+	void incrementCount() 
+	{
+	}
 	String getLogin() { return user.getLogin(); }
 
 
@@ -41,6 +43,7 @@ private:
 	QLabel* avStatus;
 	QLabel* avCount;
     bool status;
+	//int unreadMessages;
 	User& user;
 	MainWindow& mainWindow;
 	void mousePressEvent(QEvent*);

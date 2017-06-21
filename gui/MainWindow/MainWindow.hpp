@@ -19,6 +19,7 @@
 #include <QScrollArea>
 #include <list>
 #include <string>
+#include <memory>
 
 #include "../../core/ClientUser.hpp"
 
@@ -42,7 +43,8 @@ public:
 	using User = Controller::User;
 	using Users = Controller::Users;
 	using Messages = Controller::User::Messages;
-	using Avatars = std::list<Avatar*>;
+	using AvatarPtr = std::shared_ptr<Avatar>;
+	using Avatars = std::list<AvatarPtr>;
 	using AvatarsIter = Avatars::iterator;
 
     MainWindow(Controller&);
