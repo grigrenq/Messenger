@@ -2,6 +2,7 @@
 #include "MessageTypes.hpp"
 
 
+
 Server::Server() 
 	: socket_(INVALID_SOCKET)
 	, stopRequested_(false)

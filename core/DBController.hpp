@@ -10,6 +10,7 @@
 #include "Conversation.hpp"
 #include "ExtractWord.hpp"
 
+
 template<typename Users>
 class DBController
 {

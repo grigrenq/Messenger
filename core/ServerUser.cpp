@@ -2,6 +2,7 @@
 #include "MessageTypes.hpp"
 
 
+
 ServerUser::ServerUser()
 : sock_(INVALID_SOCKET), status_(false)
 {

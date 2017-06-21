@@ -4,6 +4,7 @@
 #include <fstream>
 
 
+
 Conversation::Conversation(const String& u1, const String& u2)
 : fileName_(u1 + u2)
 {

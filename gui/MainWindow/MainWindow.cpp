@@ -11,6 +11,7 @@
 
 const char delim = '%';
 
+
 MainWindow::MainWindow(Controller& c)
 	: controller(c)
     , userPtr(nullptr)

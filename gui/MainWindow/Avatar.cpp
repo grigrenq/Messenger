@@ -9,6 +9,7 @@
 #include "Avatar.hpp"
 
 
+
 Avatar::Avatar(User& u, MainWindow& mw)
 	: user(u)
 	, mainWindow(mw)

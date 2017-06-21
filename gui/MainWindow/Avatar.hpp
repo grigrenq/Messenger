@@ -12,6 +12,7 @@
 class MainWindow;
 class QEvent;
 
+
 class Avatar : public QLabel
 {
 	Q_OBJECT

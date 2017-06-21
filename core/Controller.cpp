@@ -8,6 +8,7 @@
 
 #include <iostream>
 
+
 Controller::Controller(Client& c)
 	: c_(c)
 	, loginWindow_(nullptr)

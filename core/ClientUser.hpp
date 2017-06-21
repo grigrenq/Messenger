@@ -16,6 +16,7 @@
 
 #include "ExtractWord.hpp"
 
+
 /**
 *  @brief ClientUser Class  
 */  
@@ -55,7 +56,7 @@ class ClientUser
                 *   @param  no parametrs 
                 *   @return String 
                 */  
-		String toStringLog();
+		String toStringLog() const;
 
                 /** 
                 *   @brief  getLogin return login

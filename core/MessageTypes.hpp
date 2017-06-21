@@ -1,6 +1,7 @@
 #ifndef MESSAGETYPES_HPP
 #define MESSAGETYPES_HPP
 
+
 using String = std::string;
 
 const String loginRequest = "loginRequest";

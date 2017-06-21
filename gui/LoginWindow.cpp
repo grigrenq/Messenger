@@ -5,6 +5,7 @@
 #include "LoginWindow.hpp"
 #include "../core/ValidationInfo.hpp"
 
+
 LoginWindow::LoginWindow(Controller& c)
 	: m_regWin(nullptr)
 	, controller(c)

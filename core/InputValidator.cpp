@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 using String = InputValidator::String;
 
 bool InputValidator::checkIsNotAlpha(const String& s) const
