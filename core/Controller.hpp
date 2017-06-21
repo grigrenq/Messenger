@@ -138,7 +138,7 @@ public:
 		ExtractWord extractWord_;
 		TransportLayer transportLayer_;
 		std::shared_ptr<InputReader> inReaderPtr;
-		DBController dbcontroller_;
+		DBController<Users> dbcontroller_;
 		InputValidator validator_;
 };
 

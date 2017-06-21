@@ -91,10 +91,10 @@ private:
 	QIcon* windowIcon;
 
 	Avatars avatars;
+	Controller& controller;
+	User* userPtr;
 	MessageBox *messageBox;
 	WriteBox *writeBox;
-	User* userPtr;
-	Controller& controller;
 };
 
 

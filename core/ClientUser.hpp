@@ -55,7 +55,7 @@ class ClientUser
                 *   @param  no parametrs 
                 *   @return String 
                 */  
-		String toString();
+		String toStringLog();
 
                 /** 
                 *   @brief  getLogin return login

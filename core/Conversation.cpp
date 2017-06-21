@@ -13,6 +13,14 @@ Conversation::Conversation(const String& u1, const String& u2)
 
 bool Conversation::equal(const String& u1, const String& u2) const
 {
+	if (u1 == u2) {
+		if (fileName_ == u1 + u2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	SizeType sz = fileName_.find(u1);
 	if (sz == String::npos) {
 		return false;

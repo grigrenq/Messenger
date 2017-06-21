@@ -22,7 +22,7 @@ Controller::Controller(Client& c)
 void Controller::run()
 {
 	c_.connectServer();
-	loginWindow_->showWindow();
+	//loginWindow_->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
@@ -131,7 +131,7 @@ String Controller::sendMessage(String& message, const String& msgType)
 
 void Controller::processMessage(String& message)
 {
-	dbcontroller_.logClient(message);	
+	dbcontroller_.log(message);	
 	String msgType = extractWord_(message);
 	if (msgType == plainMessage) {
 		processPlainMessage(message);
@@ -149,14 +149,15 @@ void Controller::processMessage(String& message)
 		processConvRespond(message);
 	} else {
 		String log = "Unknown type: " + msgType + " message: " + message;
-		dbcontroller_.logClient(log);
+		dbcontroller_.log(log);
 		throw Error(log);
 	}
 }
 
 void Controller::processPlainMessage(String& message)
 {
-	dbcontroller_.logClient(message);
+	dbcontroller_.log(message);
+	std::cout << message << std::endl;
 	String fromUser = extractWord_(message);
 	auto it = find(fromUser);
 	if (it == users_.end()) {
@@ -169,7 +170,8 @@ void Controller::processPlainMessage(String& message)
 
 void Controller::processLoginRespond(String& message)
 {
-	dbcontroller_.logClient(message);
+	dbcontroller_.log(message);
+	std::cout << message << std::endl;
 	String result = extractWord_(message);
 	if (result == error) {
 		popError_->setText(message);
@@ -183,9 +185,9 @@ void Controller::processLoginRespond(String& message)
 		}
 		sleep(1);
 		if (mainWindow_ != nullptr) {
-			mainWindow_->showWindow();
+			//mainWindow_->showWindow();
 		} else {
-			throw Error("MainWindow == nullptr");
+			//throw Error("Error: MainWindow == nullptr");
 		}
 		sendPendingMessagesRequest();
 	}
@@ -194,10 +196,11 @@ void Controller::processLoginRespond(String& message)
 void Controller::processLogoutRespond(String& message)
 {
 	String result = extractWord_(message);
-	dbcontroller_.logClient(message);
+	dbcontroller_.log(message);
+	std::cout << message << std::endl;
 	if (result == error) {
-		popError_->setText(message);
-		popError_->execute();
+		//popError_->setText(message);
+		//popError_->execute();
 	} else {
 		if (mainWindow_ != nullptr) {
 			delete mainWindow_;
@@ -211,10 +214,11 @@ void Controller::processLogoutRespond(String& message)
 void Controller::processRegistrationRespond(String& message)
 {
 	String result = extractWord_(message);
-	dbcontroller_.logClient(message);
+	dbcontroller_.log(message);
+	std::cout << message << std::endl;
 	if (result == error) {
-		popError_->setText(message);
-		popError_->execute();
+		//popError_->setText(message);
+		//popError_->execute();
 	} else {
 		if (loginWindow_ != nullptr) {
 			//loginWindow_->closeRegWindow();
@@ -226,7 +230,8 @@ void Controller::processRegistrationRespond(String& message)
 void Controller::processUserChangedRespond(String& userStr)
 {
 	User u;
-	String log = "UserChangedRespond: User: " + u.toString();
+	String log = "UserChangedRespond: User: " + u.toStringLog();
+	std::cout << log << std::endl;
 	UserIter it;
 	if (!u.fromString(userStr)) {
 		log += ". missing from the list.";
@@ -244,7 +249,7 @@ void Controller::processUserChangedRespond(String& userStr)
 			log += ". setting status to " + std::to_string(u.getStatus());
 		}
 	}
-	dbcontroller_.logClient(log);
+	dbcontroller_.log(log);
 	dbcontroller_.logUsers();
 	updateMainWindow(it);
 }
@@ -252,13 +257,14 @@ void Controller::processUserChangedRespond(String& userStr)
 void Controller::processUserListRespond(String& userList)
 {
 	User u;
-	String log = "processUserListResp...";
-	dbcontroller_.logClient(log);
+	String log = "processUserListResp..." + userList;
+	dbcontroller_.log(log);
+	std::cout << log << std::endl;
 	users_.erase(users_.begin(), users_.end());
 	while (u.fromString(userList)) {
 		users_.push_back(u);
-		log = " adding into the list of users_: " + u.toString();
-		dbcontroller_.logClient(log);
+		log = " adding into the list of users_: " + u.toStringLog();
+		dbcontroller_.log(log);
 	}
 	dbcontroller_.logUsers();
 	updateMainWindow();
@@ -300,13 +306,13 @@ Controller::UserIter Controller::find(Controller::User& u)
 
 void Controller::updateMainWindow(const UserIter& it)
 {
-	mainWindow_->updateMainWindow(*it);
+	//mainWindow_->updateMainWindow(*it);
 }
 
 
 void Controller::updateMainWindow()
 {
-	mainWindow_->updateMainWindow(users_);
+	//mainWindow_->updateMainWindow(users_);
 }
 
 

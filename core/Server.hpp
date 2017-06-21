@@ -67,7 +67,7 @@ private:
 
     std::mutex mutex_;
 	ExtractWord extractWord_;
-	DBController dbcontroller_;
+	DBController<Users> dbcontroller_;
 	TransportLayer transportLayer_;
 };
 

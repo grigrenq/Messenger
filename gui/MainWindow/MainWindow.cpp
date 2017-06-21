@@ -12,10 +12,10 @@
 const char delim = '%';
 
 MainWindow::MainWindow(Controller& c)
-	: messageBox(new MessageBox(*this))
-	, writeBox(new WriteBox(*this))
-	, controller(c)
+	: controller(c)
     , userPtr(nullptr)
+	, messageBox(new MessageBox(*this))
+	, writeBox(new WriteBox(*this))
 {
 	qRegisterMetaType<User>("User");
 	qRegisterMetaType<Users>("Users");

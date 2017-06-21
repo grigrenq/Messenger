@@ -46,7 +46,8 @@ void ClientUser::addMessage(const String& message)
 	++unreadMessages_;
 }
 
-String ClientUser::toString() {
+String ClientUser::toStringLog()
+{
 	String clientStr = login_ + delim + name_ + delim + surname_ + delim;
 	if (status_ == true)
 		clientStr = clientStr + online + delim;
