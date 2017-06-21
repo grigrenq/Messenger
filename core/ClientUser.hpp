@@ -37,16 +37,14 @@ class ClientUser
 		void operator=(const ClientUser&);
 		bool operator==(const ClientUser&);
 
-		String login;
-		String name;
-		String surname;
-		bool status;
-		size_t unreadMessages;
-		Messages messages;
+		String login_;
+		String name_;
+		String surname_;
+		bool status_;
+		size_t unreadMessages_;
+		Messages messages_;
 
-		ExtractWord extractWord;
-};//client
-
-
+		ExtractWord extractWord_;
+};
 
 #endif

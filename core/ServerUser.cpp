@@ -3,21 +3,21 @@
 
 
 ServerUser::ServerUser()
-: sock(INVALID_SOCKET), status(false)
+: sock_(INVALID_SOCKET), status_(false)
 {
 	//
 }
 
-ServerUser::ServerUser(const SOCKET sock_, const String& login_, const String& name_,
-		const String& surname_, const String& password_,  const bool st)
-: sock(sock_), login(login_), name(name_)
-, surname(surname_), password(password_), status(st)
+ServerUser::ServerUser(const SOCKET sock, const String& login, const String& name,
+		const String& surname, const String& password,  const bool st)
+: sock_(sock), login_(login), name_(name)
+, surname_(surname), password_(password), status_(st)
 {
 	//
 }
 
-ServerUser::ServerUser(const SOCKET sock_)
-: sock(sock_), status(false)
+ServerUser::ServerUser(const SOCKET sock)
+: sock_(sock), status_(false)
 {
 	//
 }
@@ -26,9 +26,9 @@ ServerUser::ServerUser(const SOCKET sock_)
 String ServerUser::toString() 
 {
 	String clientStr;
-	clientStr = login + delim + name + delim 
-		+ surname + delim;
-	if (status == true) {
+	clientStr = login_ + delim + name_ + delim 
+		+ surname_ + delim;
+	if (status_ == true) {
 		clientStr += online + delim;
 	} else {
 		clientStr += offline + delim;
@@ -39,27 +39,27 @@ String ServerUser::toString()
 String ServerUser::toStringLog()
 {
 	String clientStr = toString();
-	clientStr += password + delim;
-	clientStr += "Socket = " + std::to_string(sock) + delim;
+	clientStr += password_ + delim;
+	clientStr += "Socket = " + std::to_string(sock_) + delim;
 
 	return clientStr;
 }
 
 bool ServerUser::fromString(String& str)
 {
-	login = extractWord(str);
-	name = extractWord(str);
-	surname = extractWord(str);
-	String st = extractWord(str);
+	login_ = extractWord_(str);
+	name_ = extractWord_(str);
+	surname_ = extractWord_(str);
+	String st = extractWord_(str);
 	if (st == online) {
-		status = true;
+		status_ = true;
 	} else {
-		status = false;
+		status_ = false;
 	}
-	password = extractWord(str);
+	password_ = extractWord_(str);
 
-	if (login.empty() || name.empty()
-			|| surname.empty() || password.empty()) {
+	if (login_.empty() || name_.empty()
+			|| surname_.empty() || password_.empty()) {
 		throw std::logic_error("fromString(String&)...Failed to convert");
 	}
 	return true;
@@ -67,10 +67,9 @@ bool ServerUser::fromString(String& str)
 
 bool ServerUser::fromString(String& str, int) 
 {
-	login = extractWord(str);
-	password = extractWord(str);
-	std::cout << "...fromString()...login=" << login << ".password=" << password << ".\n";
-	if (login.empty() ||  password.empty()) {
+	login_ = extractWord_(str);
+	password_ = extractWord_(str);
+	if (login_.empty() ||  password_.empty()) {
 		throw std::logic_error("Failed to convert");
 	}
 	return true;
@@ -78,85 +77,85 @@ bool ServerUser::fromString(String& str, int)
 
 SOCKET ServerUser::getSocket() const
 {
-	return sock; 
+	return sock_; 
 }
 
 String ServerUser::getLogin() const 
 {
-	return login; 
+	return login_; 
 }
 
 String ServerUser::getName() const 
 { 
-	return name;
+	return name_;
 }
 
 String ServerUser::getSurname() const 
 {
-	return surname; 
+	return surname_;
 }
 
 String ServerUser::getPassword() const 
 {
-	return password; 
+	return password_; 
 }
 
 bool ServerUser::getStatus() const 
 { 
-	return status; 
+	return status_; 
 }
 
 void ServerUser::setSocket(const SOCKET s) const 
 {
-	sock = s; 
+	sock_ = s; 
 }
 
 void ServerUser::setStatus(const bool st) const 
 {
-	status = st; 
+	status_ = st; 
 }
 
 ServerUser::SizeType ServerUser::messagesCount() const 
 {
-	if (!pendingMessages) {
+	if (!pendingMessages_) {
 		return 0;
 	}
-	return pendingMessages->size(); 
+	return pendingMessages_->size(); 
 }
 
 void ServerUser::setPMessages(PMessagesPtr pm) const
 {
-	pendingMessages = pm;
+	pendingMessages_ = pm;
 }
 
 
 
 ServerUser::PMessagesPtr ServerUser::getPMessages() const
 { 
-	return pendingMessages; 
+	return pendingMessages_; 
 }
 
 
 void ServerUser::closeSocket() const
 { 
-	shutdown(sock,SHUT_RDWR);
-	close(sock);
+	shutdown(sock_,SHUT_RDWR);
+	close(sock_);
 }
 
 bool ServerUser::operator<(const ServerUser& rhs) const 
 {
-	return (sock < rhs.sock);
+	return (sock_ < rhs.sock_);
 }
 
 void ServerUser::operator=(const ServerUser& u)
 {
-	sock = u.sock;
-	login = u.login;
-	name = u.name;
-	surname = u.surname;
-	password = u.password;
-	status = u.status;
-	pendingMessages = u.pendingMessages;
+	sock_ = u.sock_;
+	login_ = u.login_;
+	name_ = u.name_;
+	surname_ = u.surname_;
+	password_ = u.password_;
+	status_ = u.status_;
+	pendingMessages_ = u.pendingMessages_;
 }
 
 ServerUser* ServerUser::getPointer() const

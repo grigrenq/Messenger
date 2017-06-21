@@ -37,4 +37,6 @@ const int ERROR = -1;
 const int SUCCESS = 1;
 const int SOCKET_CLOSED = 0;
 
+using Error = std::logic_error;
+
 #endif

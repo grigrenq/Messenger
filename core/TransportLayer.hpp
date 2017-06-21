@@ -50,14 +50,14 @@ public:
 		Iter  iter;
 	};
 
-	Iterator begin() { return Iterator(messages.begin()); }
-	Iterator end() { return Iterator(messages.end()); }
+	Iterator begin();
+	Iterator end();
 
 	void processMessage(char*);
 	void clear();
 private:
-	 Messages messages;
-	 ExtractWord extractWord;
+	 Messages messages_;
+	 ExtractWord extractWord_;
 };
 
 

@@ -1,5 +1,17 @@
 #include <cstring>
+
 #include "TransportLayer.hpp"
+
+
+TransportLayer::Iterator TransportLayer::begin()
+{
+	return Iterator(messages_.begin()); 
+}
+
+TransportLayer::Iterator TransportLayer::end()
+{ 
+	return Iterator(messages_.end()); 
+}
 
 void TransportLayer::processMessage(char* msg)
 {
@@ -8,18 +20,17 @@ void TransportLayer::processMessage(char* msg)
 		return;
 	}
 	int msgPos = -1;
-	int msgSize = std::stoi(extractWord(msg, msgPos));
+	int msgSize = std::stoi(extractWord_(msg, msgPos));
 
-	Message message(new String(&msg[msgPos], msgSize));
-	messages.push_back(message);
+	Message message_(new String(&msg[msgPos], msgSize));
+	messages_.push_back(message_);
 
 	if(msgPos+msgSize < size){
 		processMessage(&msg[msgPos + msgSize]);
 	}
 }
 
-
 void TransportLayer::clear()
 {
-	messages.clear();
+	messages_.clear();
 }

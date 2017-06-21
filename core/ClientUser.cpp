@@ -9,48 +9,46 @@ using String = ClientUser::String;
 
 
 ClientUser::ClientUser() 
-: status(false), unreadMessages(0)
+: status_(false), unreadMessages_(0)
 {
 
 }
 
 ClientUser::ClientUser(String& clientStr)
-: unreadMessages(0)
+: unreadMessages_(0)
 {
 	fromString(clientStr);
 }
 
 bool ClientUser::fromString(String& clientStr)
 {
-	//String clientStr(clientStr_);
-	login = extractWord(clientStr);
-	name = extractWord(clientStr);
-	surname = extractWord(clientStr);
-	String st = extractWord(clientStr);
+	login_ = extractWord_(clientStr);
+	name_ = extractWord_(clientStr);
+	surname_ = extractWord_(clientStr);
+	String st = extractWord_(clientStr);
 
-	if (login.empty() || name.empty() 
-			|| surname.empty() || st.empty()) {
-		//throw std::logic_error("Failed converting String to ClientUser.");
+	if (login_.empty() || name_.empty() 
+			|| surname_.empty() || st.empty()) {
 		return false;
 	}
 
 	if (st == online) {
-		status = true;
+		status_ = true;
 	} else {
-		status = false;
+		status_ = false;
 	}
 	return true;
 }
 
 void ClientUser::addMessage(const String& message)
 {
-	messages.push_back(message);
-	++unreadMessages;
+	messages_.push_back(message);
+	++unreadMessages_;
 }
 
 String ClientUser::toString() {
-	String clientStr = login + delim + name + delim + surname + delim;
-	if (status == true)
+	String clientStr = login_ + delim + name_ + delim + surname_ + delim;
+	if (status_ == true)
 		clientStr = clientStr + online + delim;
 	else
 		clientStr = clientStr + offline + delim;
@@ -62,42 +60,42 @@ String ClientUser::toString() {
 
 String ClientUser::getLogin() const 
 {
-	return login; 
+	return login_; 
 }
 
 String ClientUser::getName() const 
 {
-	return name; 
+	return name_; 
 }
 
 String ClientUser::getSurname() const 
 {
-	return surname; 
+	return surname_; 
 }
 
 bool ClientUser::getStatus() const
 {
-	return status; 
+	return status_; 
 }
 
 size_t ClientUser::getUnreadMessagesCount() const 
 {
-	return unreadMessages; 
+	return unreadMessages_; 
 }
 
 ClientUser::Messages& ClientUser::getMessages() 
 {
-	return messages; 
+	return messages_; 
 }
 
 void ClientUser::setStatus(const bool st) 
 {
-	status = st; 
+	status_ = st; 
 }
 
 void ClientUser::setUnreadMessages(const size_t um) 
 { 
-	unreadMessages = um;
+	unreadMessages_ = um;
 }
 
 ClientUser* ClientUser::getPointer() 

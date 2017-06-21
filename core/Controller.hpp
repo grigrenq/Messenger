@@ -84,18 +84,18 @@ public:
 			String sn = "surname";
 			String p = "pass";
 
-			String type = extractWord(str, true, ' ');
+			String type = extractWord_(str, true, ' ');
 			String l;
 
 			//std::cout << "type=" << type << "." << str << ".\n";
 
 			if (type == "log") {
-				l = extractWord(str);
-				userLogin = l;
+				l = extractWord_(str);
+				userLogin_ = l;
 				std::cout << sendLoginRequest(l, p) << std::endl;
 			} else if (type == "reg") {
-				l = extractWord(str);
-				userLogin = l;
+				l = extractWord_(str);
+				userLogin_ = l;
 				std::cout << sendRegistrationRequest(l, n, sn, p) << std::endl;
 			} else if (type == "logout") {
 				std::cout << sendLogoutRequest() << std::endl;
@@ -127,19 +127,19 @@ public:
 		void updateMainWindow(const UserIter&);
 		void updateMainWindow();
 
-		Client& c;
-		Users users;
-		String userLogin;
+		Client& c_;
+		Users users_;
+		String userLogin_;
 
-		LoginWindow* loginWindow;
-		MainWindow* mainWindow;
-		PopError* popError;
+		LoginWindow* loginWindow_;
+		MainWindow* mainWindow_;
+		PopError* popError_;
 
-		ExtractWord extractWord;
-		TransportLayer transportLayer;
+		ExtractWord extractWord_;
+		TransportLayer transportLayer_;
 		std::shared_ptr<InputReader> inReaderPtr;
-		DBController dbcontroller;
-		InputValidator validator;
+		DBController dbcontroller_;
+		InputValidator validator_;
 };
 
 #endif

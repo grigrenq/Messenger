@@ -21,13 +21,14 @@ public:
 
     Server();
 
-    void run(); 
+    void run();
     void handleSession(SOCKET);
 
 private:
     void createSocket();
     void setupAddress();
-    void bindListen();
+    void bindSocket();
+	void listenSocket();
     void acceptClient();
     void doAcceptClient();
 	void initializeUsers();
@@ -56,18 +57,18 @@ private:
 	void processPendingMessagesRequest(const SOCKET);
 	void processConvRequest(const SOCKET, String&);
 
-	Users users;
+	Users users_;
 
-    SOCKET socketD;
-    struct sockaddr_in server;
+    SOCKET socket_;
+    struct sockaddr_in server_;
 
-    Threads threads;
-    bool stopRequested;
+    Threads threads_;
+    bool stopRequested_;
 
-    std::mutex mutex;
-	ExtractWord extractWord;
-	DBController dbcontroller;
-	TransportLayer transportLayer;
+    std::mutex mutex_;
+	ExtractWord extractWord_;
+	DBController dbcontroller_;
+	TransportLayer transportLayer_;
 };
 
 

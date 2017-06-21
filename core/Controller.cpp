@@ -8,21 +8,21 @@
 
 #include <iostream>
 
-Controller::Controller(Client& c_)
-	: c(c_)
-	, loginWindow(nullptr)
-	, mainWindow(nullptr)
-	, popError(new PopError())
-	, dbcontroller(&users)
+Controller::Controller(Client& c)
+	: c_(c)
+	, loginWindow_(nullptr)
+	, mainWindow_(nullptr)
+	, popError_(new PopError())
+	, dbcontroller_(&users_)
 {
-	loginWindow = new LoginWindow(*this);
-	mainWindow = new MainWindow(*this);
+	loginWindow_ = new LoginWindow(*this);
+	mainWindow_ = new MainWindow(*this);
 }
 
 void Controller::run()
 {
-	c.connectServer();
-	loginWindow->showWindow();
+	c_.connectServer();
+	loginWindow_->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
@@ -33,12 +33,12 @@ void Controller::run()
 
 String Controller::getLogin() const
 {
-	return userLogin;
+	return userLogin_;
 }
 
 void Controller::closeConnection()
 {
-	c.closeConnection();
+	c_.closeConnection();
 }
 
 void Controller::handleSession()
@@ -46,19 +46,23 @@ void Controller::handleSession()
 	inReaderPtr.reset(new InputReader(*this));
 	inReaderPtr->startRead();
 	String message;
-	while (c.recvMessage(transportLayer) == SUCCESS) {
-		for (auto p : transportLayer) {
-			processMessage( *p);
+	try {
+		while (c_.recvMessage(transportLayer_) == SUCCESS) {
+			for (auto p : transportLayer_) {
+				processMessage(*p);
+			}
+			transportLayer_.clear();
 		}
-		transportLayer.clear();
+	} catch (const Error& err) {
+		std::cout << err.what() << std::endl;
 	}
 	inReaderPtr->stopRead();
-	c.closeConnection();
+	c_.closeConnection();
 }
 
 String Controller::sendLoginRequest(const String& login, const String& password)
 {
-	userLogin = login;
+	userLogin_ = login;
 	String msg = login + delim + password + delim;
 	return "Login request: " + sendMessage(msg, loginRequest);
 }
@@ -84,18 +88,18 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 		return emptyMessage;
 	}
 	auto it = find(toUser);
-	if (it == users.end()) {
-		throw std::logic_error("Attempting to send a message to an unknown user.");
+	if (it == users_.end()) {
+		throw Error("Attempting to send a message to an unknown user.");
 	}
 	msg = toUser + delim + msg;
-	msg = userLogin + delim + msg;
+	msg = userLogin_ + delim + msg;
 	return "Message to Client " + toUser + ": " + sendMessage(msg, plainMessage);
 }
 
 
 String Controller::sendConvRequest(const String& uLogin)
 {
-	String msg = userLogin + delim + uLogin + delim + "Conversation Request";
+	String msg = userLogin_ + delim + uLogin + delim + "Conversation Request";
 	return "Conversation Request: " + sendMessage(msg, convRequest);
 }
 
@@ -114,11 +118,10 @@ String Controller::sendPendingMessagesRequest()
 
 String Controller::sendMessage(String& message, const String& msgType)
 {
-	//usleep(50);
 	message = msgType + delim + message;
 	message = std::to_string(message.size()) + delim + message; 
 
-	if (c.sendMessage(message) == SUCCESS) {
+	if (c_.sendMessage(message) == SUCCESS) {
 		return success + "message to Server sent.";
 	}
 	else {
@@ -128,9 +131,8 @@ String Controller::sendMessage(String& message, const String& msgType)
 
 void Controller::processMessage(String& message)
 {
-	dbcontroller.logClient(message);	
-	String msgType = extractWord(message);
-	//std::cout << "Message Type: " << msgType << std::endl;
+	dbcontroller_.logClient(message);	
+	String msgType = extractWord_(message);
 	if (msgType == plainMessage) {
 		processPlainMessage(message);
 	} else if (msgType == loginRespond) {
@@ -146,17 +148,19 @@ void Controller::processMessage(String& message)
 	} else if (msgType == convRespond) {
 		processConvRespond(message);
 	} else {
-		std::cout << "Unknown type: " << msgType << " message: " << message << std::endl;
+		String log = "Unknown type: " + msgType + " message: " + message;
+		dbcontroller_.logClient(log);
+		throw Error(log);
 	}
 }
 
 void Controller::processPlainMessage(String& message)
 {
-	dbcontroller.logClient(message);
-	String fromUser = extractWord(message);
+	dbcontroller_.logClient(message);
+	String fromUser = extractWord_(message);
 	auto it = find(fromUser);
-	if (it == users.end()) {
-		throw std::logic_error("The message is from unknown user");
+	if (it == users_.end()) {
+		throw Error("The message is from unknown user");
 	} else {
 		it->addMessage(message);
 		updateMainWindow(it);
@@ -165,22 +169,22 @@ void Controller::processPlainMessage(String& message)
 
 void Controller::processLoginRespond(String& message)
 {
-	dbcontroller.logClient(message);
-	String result = extractWord(message);
+	dbcontroller_.logClient(message);
+	String result = extractWord_(message);
 	if (result == error) {
-		popError->setText(message);
-		popError->execute();
+		popError_->setText(message);
+		popError_->execute();
 	} else {
 		sendUserListRequest();
-		if (loginWindow != nullptr) {
-			delete loginWindow;
-			loginWindow = nullptr;
+		if (loginWindow_ != nullptr) {
+			delete loginWindow_;
+			loginWindow_ = nullptr;
 		}
 		sleep(1);
-		if (mainWindow != nullptr) {
-			mainWindow->showWindow();
+		if (mainWindow_ != nullptr) {
+			mainWindow_->showWindow();
 		} else {
-			throw std::logic_error("MainWindow == nullptr");
+			throw Error("MainWindow == nullptr");
 		}
 		sendPendingMessagesRequest();
 	}
@@ -188,27 +192,27 @@ void Controller::processLoginRespond(String& message)
 
 void Controller::processLogoutRespond(String& message)
 {
-	String result = extractWord(message);
-	dbcontroller.logClient(message);
+	String result = extractWord_(message);
+	dbcontroller_.logClient(message);
 	if (result == error) {
-		popError->setText(message);
-		popError->execute();
+		popError_->setText(message);
+		popError_->execute();
 	} else {
-		users.erase(users.begin(), users.end());
+		users_.erase(users_.begin(), users_.end());
 	}
-	dbcontroller.logUsers();
+	dbcontroller_.logUsers();
 }
 
 void Controller::processRegistrationRespond(String& message)
 {
-	String result = extractWord(message);
-	dbcontroller.logClient(message);
+	String result = extractWord_(message);
+	dbcontroller_.logClient(message);
 	if (result == error) {
-		popError->setText(message);
-		popError->execute();
+		popError_->setText(message);
+		popError_->execute();
 	} else {
-		if (loginWindow != nullptr) {
-			loginWindow->closeRegWindow();
+		if (loginWindow_ != nullptr) {
+			loginWindow_->closeRegWindow();
 		}
 	}
 }
@@ -221,12 +225,12 @@ void Controller::processUserChangedRespond(String& userStr)
 	UserIter it;
 	if (!u.fromString(userStr)) {
 		log += ". missing from the list.";
-		throw std::logic_error("Error occurred when processing user changed respond");
+		throw Error("Error occurred when processing user changed respond");
 	} else {
 		it = find(u);
-		if (it == users.end()) {
-			users.push_back(u);
-			it = users.end();
+		if (it == users_.end()) {
+			users_.push_back(u);
+			it = users_.end();
 			--it;
 			log += ". adding into the list.";
 		}
@@ -235,8 +239,8 @@ void Controller::processUserChangedRespond(String& userStr)
 			log += ". setting status to " + std::to_string(u.getStatus());
 		}
 	}
-	dbcontroller.logClient(log);
-	dbcontroller.logUsers();
+	dbcontroller_.logClient(log);
+	dbcontroller_.logUsers();
 	updateMainWindow(it);
 }
 
@@ -244,24 +248,24 @@ void Controller::processUserListRespond(String& userList)
 {
 	User u;
 	String log = "processUserListResp...";
-	dbcontroller.logClient(log);
-	users.erase(users.begin(), users.end());
+	dbcontroller_.logClient(log);
+	users_.erase(users_.begin(), users_.end());
 	while (u.fromString(userList)) {
-		users.push_back(u);
-		log = " adding into the list of users: " + u.toString();
-		dbcontroller.logClient(log);
+		users_.push_back(u);
+		log = " adding into the list of users_: " + u.toString();
+		dbcontroller_.logClient(log);
 	}
-	dbcontroller.logUsers();
+	dbcontroller_.logUsers();
 	updateMainWindow();
 }
 
 void Controller::processConvRespond(String& msg)
 {
-	String u = extractWord(msg);
+	String u = extractWord_(msg);
 	auto it = find(u);
-	if (it == users.end()) {
+	if (it == users_.end()) {
 		String msg("No user with login-" + u);
-		throw std::logic_error(msg);
+		throw Error(msg);
 	}
 	it->addMessage(msg);
 	updateMainWindow(it);
@@ -269,8 +273,8 @@ void Controller::processConvRespond(String& msg)
 
 Controller::UserIter Controller::find(const String& login)
 {
-	auto it = users.begin();
-	for (; it != users.end(); ++it) {
+	auto it = users_.begin();
+	for (; it != users_.end(); ++it) {
 		if (it->getLogin() == login) {
 			return it;
 		}
@@ -280,8 +284,8 @@ Controller::UserIter Controller::find(const String& login)
 
 Controller::UserIter Controller::find(Controller::User& u)
 {
-	auto it = users.begin();
-	for (; it != users.end(); ++it) {
+	auto it = users_.begin();
+	for (; it != users_.end(); ++it) {
 		if (it->getLogin() == u.getLogin())
 			return it;
 	}
@@ -291,13 +295,13 @@ Controller::UserIter Controller::find(Controller::User& u)
 
 void Controller::updateMainWindow(const UserIter& it)
 {
-	mainWindow->updateMainWindow(*it);
+	mainWindow_->updateMainWindow(*it);
 }
 
 
 void Controller::updateMainWindow()
 {
-	mainWindow->updateMainWindow(users);
+	mainWindow_->updateMainWindow(users_);
 }
 
 

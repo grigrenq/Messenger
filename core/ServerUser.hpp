@@ -46,15 +46,15 @@ public:
 	ServerUser* getPointer() const;
 
 private:
-	mutable SOCKET sock;
-	String login;
-	String name;
-	String surname;
-	String password;
-	mutable bool status;
-	mutable PMessagesPtr pendingMessages;
+	mutable SOCKET sock_;
+	String login_;
+	String name_;
+	String surname_;
+	String password_;
+	mutable bool status_;
 
-	ExtractWord extractWord;
+	mutable PMessagesPtr pendingMessages_;
+	ExtractWord extractWord_;
 };
 
 #endif

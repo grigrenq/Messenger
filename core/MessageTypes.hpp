@@ -17,14 +17,12 @@ const String plainMessage = "plainMessage";
 const String convRequest = "userConvReq";
 const String convRespond = "userConvResp";
 
-
 const String online = "online";
 const String offline = "offline";
 
 const String success = "Success";
 const String error = "Error";
 const String emptyMessage = "Error. Message cannot be empty";
-
 
 const char delim = '%';
 const char underscore = '_';

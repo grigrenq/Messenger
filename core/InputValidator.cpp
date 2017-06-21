@@ -1,5 +1,7 @@
 #include "InputValidator.hpp"
+
 #include <iostream>
+
 using String = InputValidator::String;
 
 bool InputValidator::checkIsNotAlpha(const String& s) const
@@ -22,7 +24,6 @@ bool InputValidator::checkIsAlNum(const String& s) const
         }
     }
     return true;
-
 }
 
 
