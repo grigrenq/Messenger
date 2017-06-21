@@ -177,8 +177,9 @@ void Controller::processLoginRespond(String& message)
 	} else {
 		sendUserListRequest();
 		if (loginWindow_ != nullptr) {
-			delete loginWindow_;
-			loginWindow_ = nullptr;
+			//delete loginWindow_;
+			//loginWindow_ = nullptr;
+			loginWindow_->hide();
 		}
 		sleep(1);
 		if (mainWindow_ != nullptr) {
@@ -212,7 +213,7 @@ void Controller::processRegistrationRespond(String& message)
 		popError_->execute();
 	} else {
 		if (loginWindow_ != nullptr) {
-			loginWindow_->closeRegWindow();
+			//loginWindow_->closeRegWindow();
 		}
 	}
 }

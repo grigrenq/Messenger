@@ -17,14 +17,9 @@ MainWindow::MainWindow(Controller& c)
 {
 	qRegisterMetaType<User>("User");
 	qRegisterMetaType<Users>("Users");
-	//qRegisterMetaTypeStreamOperators<User>();
-	//qRegisterMetaTypeStreamOperators<Users>();
 	setGeometry(10,10,1000,500);
 	setWindowTitle("GRI-System");
 	createLayout();
-//	addAvatars();
-//	addAvatars();
-//	addAvatars();
 
 	QObject::connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
 	QObject::connect(this, SIGNAL(updateSignal(User)), this, SLOT(updateSlot(User)));

@@ -134,8 +134,10 @@ void LoginWindow::setWindowIcon()
 
 void LoginWindow::openRegWin()
 {
-    m_regWin = new RegistrationWindow(controller);
-    m_regWin->show();
+	if (m_regWin == nullptr) {
+		m_regWin = new RegistrationWindow(controller);
+		m_regWin->show();
+	}
 }
 
 
@@ -196,9 +198,6 @@ void LoginWindow::sendLoginReq()
     } else if (validator.checkPassword(p) != ValidationInfo::validLog) {
 		return;
 	}
-
-
-
 	controller.sendLoginRequest(l, p);
 }
 
