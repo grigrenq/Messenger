@@ -63,6 +63,11 @@ void Avatar::setStatus(bool b)
 
 }
 
+void Avatar::mousePressEvent(QEvent*)
+{
+	emit clicked();
+}
+
 void Avatar::enterEvent(QEvent*)
 {
 	avName->show();

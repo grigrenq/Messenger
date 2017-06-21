@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <MainWindow.hpp>
+#include <QEvent>
 #include "../../core/ClientUser.hpp"
 
 class MainWindow;
@@ -26,6 +27,9 @@ public:
 	String getLogin() { return user.getLogin(); }
 
 
+signals:
+	void clicked();
+
 public slots:
 	void openConversation();
 
@@ -37,6 +41,7 @@ private:
 	QLabel* avCount;
 	User& user;
 	MainWindow& mainWindow;
+	void mousePressEvent(QEvent*);
 	void enterEvent(QEvent*);
 	void leaveEvent(QEvent*);
 };

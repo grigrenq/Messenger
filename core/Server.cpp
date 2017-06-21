@@ -78,7 +78,7 @@ void Server::doAcceptClient()
 
 	std::pair<Server*, SOCKET> *pairPtr = new std::pair<Server*, SOCKET>(this, sockAccepted);
 	std::shared_ptr<pthread_t> shptr(new pthread_t);
-	if (pthread_create(&(*shptr), NULL, ::handleServerSession, pairPtr)) {
+	if (pthread_create(&(*shptr), NULL, ::handleSession, pairPtr)) {
 		log = "An error occurred during thread creation process.";
 		std::cout << log << std::endl;
 		dbcontroller.logServer(log);
@@ -555,7 +555,7 @@ void Server::processConvRequest(const SOCKET s, String& msg)
 }
 
 
-void* handleServerSession(void *pairV) 
+void* handleSession(void *pairV) 
 {
 	std::pair<Server*, SOCKET>* p = (std::pair<Server*, SOCKET>*)pairV;
 	Server* server = p->first;

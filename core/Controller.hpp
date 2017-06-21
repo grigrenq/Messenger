@@ -8,13 +8,12 @@
 #include "TransportLayer.hpp"
 
 class LoginWindow;
-//class RegistrationWindow;
 class MainWindow;
-
+class PopError;
 
 
 void* readMessage(void*);
-void* handleContrSession(void*);
+void* handleSession(void*);
 
 class Controller
 {
@@ -68,7 +67,7 @@ public:
 		};//InputReader
 
 	
-		Controller(Client&, MainWindow*);
+		Controller(Client&);
 		void run();
 		void handleSession();
 
@@ -132,8 +131,9 @@ public:
 		Users users;
 		String userLogin;
 
-		LoginWindow *loginWindow;
-		MainWindow *mainWindow;
+		LoginWindow* loginWindow;
+		MainWindow* mainWindow;
+		PopError* popError;
 
 		ExtractWord extractWord;
 		TransportLayer transportLayer;

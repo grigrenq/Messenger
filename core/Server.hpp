@@ -8,7 +8,7 @@
 #include "ExtractWord.hpp"
 #include "TransportLayer.hpp"
 
-void* handleServerSession(void *);
+void* handleSession(void *);
 
 class Server
 {
