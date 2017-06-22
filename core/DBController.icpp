@@ -1,0 +1,183 @@
+#include "Files.hpp"
+
+
+template<typename Users>
+DBController<Users>::DBController()
+	: users_(nullptr) 
+{
+	setupFiles();
+}
+
+template<typename Users>
+DBController<Users>::DBController(Users* u)
+	: users_(u)
+{
+	setupFiles();
+}
+
+
+
+template<typename Users>
+typename DBController<Users>::ConvIter
+DBController<Users>::findConversation(const String& u1, const String& u2)
+{
+	auto it = conversations_.begin();
+	for (; it != conversations_.end(); ++it) {
+		if (it->equal(u1, u2)) {
+			return it;
+		}
+	}
+	return it;
+}
+
+template<typename Users>
+void DBController<Users>::addMessage(const String& u1, const String& u2, const String& msg)
+{
+	mutGuard mg(mutex_);
+	auto it = findConversation(u1, u2);
+	if (it == conversations_.end()) {
+		Conversation c(u1, u2);
+		c.addMessage(msg);
+		conversations_.push_back(c);
+	} else {
+		it->addMessage(msg);
+	}
+}
+
+template<typename Users>
+void DBController<Users>::addPendingMessage(const String& u, const String& msg)
+{
+	mutGuard mg(mutex_);
+	const String file = Files::PMsgDir + u + Files::fileType;
+	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
+	ofile.write(msg.c_str(), msg.size());
+	ofile.write("\n", 1);
+	ofile.close();
+}
+
+template<typename Users>
+void DBController<Users>::addPMsgsToConv(const String& u)
+{
+	//mutGuard mg(mutex_);
+	const String pMessages = Files::PMsgDir + u + Files::fileType;
+	std::ifstream ifile(pMessages, std::fstream::in);
+	String fromUser;
+	String msg;
+	if (!ifile.is_open()) {
+		return;
+	}
+	while (std::getline(ifile, msg)) {
+		fromUser = extractWord_(msg, false);
+		addMessage(u, fromUser, msg);
+	}
+	clearPMessages(u);
+}
+
+template<typename Users>
+void DBController<Users>::clearPMessages(const String& u)
+{
+	mutGuard mg(mutex_);
+	const String file = Files::PMsgDir + u + Files::fileType;
+	std::ofstream ofile(file, std::ofstream::trunc);
+	ofile.close();
+}
+
+template<typename Users>
+typename DBController<Users>::PMessagesPtr 
+DBController<Users>::getPMessages(const String& u)
+{
+	mutGuard mg(mutex_);
+	const String file = Files::PMsgDir + u + Files::fileType;
+	std::ifstream ifile(file, std::fstream::in);
+	PMessagesPtr pm(new PMessages);
+	if (ifile.is_open()) {
+		String msg;
+		while (std::getline(ifile, msg)) {
+			pm->push_back(msg);
+		}
+	}
+	return pm;
+}
+
+
+template<typename Users>
+typename DBController<Users>::ConvPtr 
+DBController<Users>::getConversation(const String& u1,const String& u2)
+{
+		auto it = findConversation(u1, u2);
+		if (it == conversations_.end()) {
+			return ConvPtr();
+		}
+		return it->getConversation();
+}
+
+
+template<typename Users>
+void DBController<Users>::addUser(const User& u)
+{
+	mutGuard mg(mutex_);
+	const String usersFile = Files::ServerUsersDir + Files::usersFile;
+	std::ofstream ofile(usersFile, std::fstream::out | std::fstream::app);
+	String s = u.toStringLog() + "\n";
+	ofile.write(s.c_str(), s.size());
+	ofile.close();
+}
+
+template<typename Users>
+void DBController<Users>::getUsers()
+{
+	mutGuard mg(mutex_);
+	const String usersFile = Files::ServerUsersDir + Files::usersFile;
+	std::ifstream ifile(usersFile, std::fstream::in);
+	if (!ifile.is_open()) {
+		return;
+	}
+	String s;
+	while (std::getline(ifile, s)) {
+		User u;
+		u.fromString(s);
+		users_->insert(u);
+	}
+	ifile.close();
+}
+
+
+template<typename Users>
+void DBController<Users>::log(const String& str)
+{
+	mutGuard mg(mutex_);
+	std::ofstream ofile(logFile_, std::fstream::out | std::fstream::app);
+	ofile.write(str.c_str(), str.size());
+	ofile.write("\n", 1);
+	ofile.close();
+}
+
+
+template<typename Users>
+void DBController<Users>::logUsers()
+{
+	mutGuard mg(mutex_);
+	String ps = ".........All clients are......\n...Number of clients: ";
+
+	if (users_ != nullptr)	{
+		std::ofstream ofile(usersLogFile_, std::fstream::out | std::fstream::app);
+		ps += std::to_string(users_->size()) + "........\n";
+		ofile.write(ps.c_str(), ps.size());
+		String s;
+		for (auto it = users_->begin(); it != users_->end(); ++it) {
+			auto* p = it->getPointer();
+			s = p->toStringLog() + '\n';
+			ofile.write(s.c_str(), s.size());
+		}
+		ps = "..............end of the list............\n\n";
+		ofile.write(ps.c_str(), ps.size());
+		ofile.close();
+	}
+}
+
+template<typename Users>
+void DBController<Users>::setupFiles()
+{
+	logFile_ = Files::LogDir + typeid(User).name() + Files::logFile;
+	usersLogFile_ = Files::LogDir + typeid(User).name() + Files::usersFile;
+}

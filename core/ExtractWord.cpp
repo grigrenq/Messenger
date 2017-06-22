@@ -3,6 +3,7 @@
 #include <sstream>
 #include <cstring>
 
+
 ExtractWord::String ExtractWord::operator()(String& str, const bool erase, const char d)
 {
 	std::stringstream ss(str);

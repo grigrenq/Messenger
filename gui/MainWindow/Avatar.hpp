@@ -12,6 +12,7 @@
 class MainWindow;
 class QEvent;
 
+
 class Avatar : public QLabel
 {
 	Q_OBJECT
@@ -37,15 +38,15 @@ public slots:
 	void openConversation();
 
 private:
+	User& user;
+	MainWindow& mainWindow;
 	QLabel* avName;
 	QLabel* avSurname;
 	QLabel* avLogin;
 	QLabel* avStatus;
 	QLabel* avCount;
     bool status;
-	//int unreadMessages;
-	User& user;
-	MainWindow& mainWindow;
+	int unreadMessages;
 	void mousePressEvent(QEvent*);
 	void enterEvent(QEvent*);
 	void leaveEvent(QEvent*);

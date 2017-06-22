@@ -1,15 +1,15 @@
-OFiles := Server.o DBController.o ServerUser.o ClientUser.o ExtractWord.o Conversation.o TransportLayer.o
-LogFiles := ./ClientLog/*.txt ./ServerLog/*.txt
-UsersFiles := ./Server/Users/users.txt ./Server/PendingMessages/*.txt ./Server/Conversations/*.txt
+OFiles := Server.o ServerUser.o ClientUser.o ExtractWord.o Conversation.o TransportLayer.o
+LogFiles := ./Log/*.txt
+UsersFiles := ./Server/Users/*.txt ./Server/PendingMessages/*.txt ./Server/Conversations/*.txt
 
 run:	Main.cpp $(OFiles) Includes.hpp
 	g++ -std=c++11 -Wall -pedantic Main.cpp $(OFiles) -o run -lpthread
 
-Server.o:   Server.hpp Server.cpp Includes.hpp MessageTypes.hpp TransportLayer.o
+Server.o:   Server.hpp Server.cpp Includes.hpp MessageTypes.hpp TransportLayer.o DBController.hpp DBController.icpp
 	g++ -c -std=c++11 -Wall -pedantic Server.cpp -o Server.o
 
-DBController.o:   DBController.hpp DBController.cpp ServerUser.o Conversation.o ExtractWord.o Files.hpp
-	g++ -c -std=c++11 -Wall -pedantic DBController.cpp -o DBController.o
+#DBController.o:   DBController.hpp Conversation.o ExtractWord.o Files.hpp
+#	g++ -c -std=c++11 -Wall -pedantic DBController.cpp -o DBController.o
 
 ServerUser.o:	ServerUser.hpp ServerUser.cpp Includes.hpp ExtractWord.o Files.hpp
 	g++ -c -std=c++11 -Wall -pedantic ServerUser.cpp -o ServerUser.o
@@ -33,3 +33,4 @@ clean:
 .PHONY:
 cleanUsers:
 	rm $(UsersFiles)
+

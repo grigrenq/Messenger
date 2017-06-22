@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 struct ExtractWord : std::binary_function<std::string&, const bool, std::string>
 {
 	using String = std::string;

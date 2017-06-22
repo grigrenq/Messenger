@@ -3,11 +3,6 @@
 
 using String = ClientUser::String;
 
-//extern const String online;
-//extern const String offline;
-//extern const char delim;
-
-
 ClientUser::ClientUser() 
 : status_(false), unreadMessages_(0)
 {
@@ -46,7 +41,8 @@ void ClientUser::addMessage(const String& message)
 	++unreadMessages_;
 }
 
-String ClientUser::toString() {
+String ClientUser::toStringLog() const
+{
 	String clientStr = login_ + delim + name_ + delim + surname_ + delim;
 	if (status_ == true)
 		clientStr = clientStr + online + delim;

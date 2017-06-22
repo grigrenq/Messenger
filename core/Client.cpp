@@ -9,6 +9,7 @@
 #include "Client.hpp"
 
 
+
 Client::Client()
 {
 	createSocket();
@@ -64,8 +65,6 @@ int Client::sendMessage(const String& message)
 	}
 	else
 	{
-		String log = "Message sent. Row message: " + message;
-		dbcontroller_.logClient(log);
 		return SUCCESS;
 	}
 }
@@ -90,10 +89,6 @@ int Client::recvMessage(TransportLayer& tl)
 	{
 		buffer[recvSize] = '\0';
 		tl.processMessage(buffer);
-		String log("\n...Row Message: ");
-		log += buffer;
-		std::cout << log << std::endl;
-		dbcontroller_.logClient(log);
 		return SUCCESS;
 	}
 }

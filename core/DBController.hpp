@@ -11,11 +11,11 @@
 #include "ExtractWord.hpp"
 
 
+template<typename Users>
 class DBController
 {
 public:
-	using ServerUsers = std::multiset<ServerUser>;
-	using ClientUsers = std::list<ClientUser>;
+	using User = typename Users::value_type;
 	using String = std::string;
 	using mutGuard = std::lock_guard<std::mutex>;
 	using Conversations = std::list<Conversation>;
@@ -25,8 +25,7 @@ public:
 	using PMessagesPtr = ServerUser::PMessagesPtr;
 
 	DBController();
-	DBController(ServerUsers*);
-	DBController(ClientUsers*);
+	DBController(Users*);
 
 	ConvIter findConversation(const String&, const String&);
 
@@ -37,21 +36,27 @@ public:
 	PMessagesPtr getPMessages(const String&);
 	ConvPtr getConversation(const String&, const String&);
 
-	void addUser(ServerUser&);
+	void addUser(const User&);
 	void getUsers();
 
-	void logServer(const String&);
-	void logClient(const String&);
+	void log(const String&);
 	void logUsers();
 
 private:
 	void clearPMessages(const String&);
+	void setupFiles();
 
-	ServerUsers* serverUsers_;
-	ClientUsers* clientUsers_;
+	Users* users_;
 	std::mutex mutex_;
 	Conversations conversations_;
 	ExtractWord extractWord_;
+
+	String logFile_;
+	String usersLogFile_;
 };
 
-#endif 
+#include "DBController.icpp"
+
+#endif
+
+

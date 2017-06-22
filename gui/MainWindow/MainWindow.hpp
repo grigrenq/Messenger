@@ -34,6 +34,7 @@ class Avatar;
 class Controller;
 #include "../../core/Controller.hpp"
 
+
 class MainWindow : public QWidget
 {
 	Q_OBJECT
@@ -91,10 +92,10 @@ private:
 	QIcon* windowIcon;
 
 	Avatars avatars;
+	Controller& controller;
+	User* userPtr;
 	MessageBox *messageBox;
 	WriteBox *writeBox;
-	User* userPtr;
-	Controller& controller;
 };
 
 

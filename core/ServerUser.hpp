@@ -1,6 +1,7 @@
 #ifndef SERVERUSER_HPP
 #define SERVERUSER_HPP
 
+
 #include "ExtractWord.hpp"
 #include "Includes.hpp"
 
@@ -19,8 +20,8 @@ public:
 			const String&, const String&,  const bool);
 	explicit ServerUser(const SOCKET);
 	
-	String toString();
-	String toStringLog();
+	String toString() const;
+	String toStringLog() const;
 	bool fromString(String&);
 	bool fromString(String&, int);
 

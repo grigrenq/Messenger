@@ -13,6 +13,7 @@
 #include "DBController.hpp"
 #include "TransportLayer.hpp"
 
+
 /**
 *  @brief Class Client ....  
 */  
@@ -67,8 +68,6 @@ if not errors,else asking about errore??
 
 		String host_;
 		String login_;
-
-		DBController dbcontroller_;
 };
 
 #endif

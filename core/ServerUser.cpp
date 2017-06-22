@@ -2,6 +2,7 @@
 #include "MessageTypes.hpp"
 
 
+
 ServerUser::ServerUser()
 : sock_(INVALID_SOCKET), status_(false)
 {
@@ -23,7 +24,7 @@ ServerUser::ServerUser(const SOCKET sock)
 }
 
 
-String ServerUser::toString() 
+String ServerUser::toString() const
 {
 	String clientStr;
 	clientStr = login_ + delim + name_ + delim 
@@ -36,7 +37,7 @@ String ServerUser::toString()
 	return clientStr;
 }
 
-String ServerUser::toStringLog()
+String ServerUser::toStringLog() const
 {
 	String clientStr = toString();
 	clientStr += password_ + delim;
