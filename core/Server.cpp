@@ -1,6 +1,6 @@
 #include "Server.hpp"
 #include "MessageTypes.hpp"
-
+#include <iostream>
 
 
 Server::Server() 

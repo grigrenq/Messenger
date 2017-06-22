@@ -7,7 +7,7 @@
 namespace ValidationInfo
 {
     using String = std::string;
-	using SizeType = String::size_type;
+    using SizeType = String::size_type;
     
     const SizeType minimalSymbols = 3;
     const SizeType maximumSymbols = 20;

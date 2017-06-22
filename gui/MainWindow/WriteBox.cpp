@@ -10,7 +10,7 @@
 
 
 WriteBox::WriteBox(MainWindow& mw)
-	: mainWindow(mw)
+	: mainWindow_(mw)
 {
 	createWriteBox();
 //`	mainWindow.rightSide->addLayout(writebox);
@@ -18,32 +18,32 @@ WriteBox::WriteBox(MainWindow& mw)
 
 void WriteBox::createWriteBox()
 {
-	writeBox = new QHBoxLayout();
-	textEdit = new QTextEdit();
-	textEdit->setMinimumSize(500,70);
-	textEdit->setMaximumHeight(70);
-	sendButton = new QPushButton();
-	sendButton->setMaximumSize(100,100);
+	writeBox_ = new QHBoxLayout();
+	textEdit_ = new QTextEdit();
+	textEdit_->setMinimumSize(500,70);
+	textEdit_->setMaximumHeight(70);
+	sendButton_ = new QPushButton();
+	sendButton_->setMaximumSize(100,100);
 	QPixmap sendPic("../resources/send.png");
-	sendButton->setIcon(sendPic);
-	QRegion* region = new QRegion(*(new QRect(sendButton->x()+10,sendButton->y()+10,50,50)),QRegion::Ellipse);
-	sendButton->setMask(*region);
+	sendButton_->setIcon(sendPic);
+	QRegion* region = new QRegion(*(new QRect(sendButton_->x()+10,sendButton_->y()+10,50,50)),QRegion::Ellipse);
+	sendButton_->setMask(*region);
 	QSize buttonSize(50,50);
-	sendButton->setIconSize(buttonSize);
-	writeBox->addWidget(textEdit);
-	writeBox->addWidget(sendButton);
-	writeBox->setAlignment(Qt::AlignLeft);
-	QObject::connect(sendButton,SIGNAL(clicked()),this,SLOT(sendMessage()));
+	sendButton_->setIconSize(buttonSize);
+	writeBox_->addWidget(textEdit_);
+	writeBox_->addWidget(sendButton_);
+	writeBox_->setAlignment(Qt::AlignLeft);
+	QObject::connect(sendButton_,SIGNAL(clicked()),this,SLOT(sendMessage()));
 
 }
 
 void WriteBox::sendMessage()
 {
-	std::string a=textEdit->toPlainText().toStdString();
-	mainWindow.sendMessage(a);
+	String a=textEdit_->toPlainText().toStdString();
+	mainWindow_.sendMessage(a);
 }
 
 QLayout* WriteBox::getWriteBox()
 {
-	return writeBox;
+	return writeBox_;
 }

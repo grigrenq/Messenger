@@ -21,15 +21,13 @@ public:
 	using User = MainWindow::User;
 	using String = MainWindow::String;
 
+	//Avatar(User&);
 	Avatar(User&, MainWindow&);
 	
 	void setStatus(bool);
-    bool getStatus() const { return status; }
-	void incrementCount() 
-	{
-	}
-	String getLogin() { return user.getLogin(); }
-
+    bool getStatus() const;
+	void incrementCount(); 
+	const char* getLogin();
 
 signals:
 	void clicked();
@@ -38,15 +36,15 @@ public slots:
 	void openConversation();
 
 private:
-	User& user;
-	MainWindow& mainWindow;
-	QLabel* avName;
-	QLabel* avSurname;
-	QLabel* avLogin;
-	QLabel* avStatus;
-	QLabel* avCount;
-    bool status;
-	int unreadMessages;
+	User& user_;
+	MainWindow& mainWindow_;
+	QLabel* avName_;
+	QLabel* avSurname_;
+	QLabel* avLogin_;
+	QLabel* avStatus_;
+	QLabel* avCount_;
+    bool status_;
+	int unreadMessages_;
 	void mousePressEvent(QEvent*);
 	void enterEvent(QEvent*);
 	void leaveEvent(QEvent*);

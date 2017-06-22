@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['loginwindow',['LoginWindow',['../classLoginWindow.html',1,'LoginWindow'],['../classLoginWindow.html#ad3f4ec97bdb1fd55e3e6f6f25112f9d8',1,'LoginWindow::LoginWindow()']]],
-  ['loginwindow_2ehpp',['LoginWindow.hpp',['../LoginWindow_8hpp.html',1,'']]]
+  ['handleconnection',['handleConnection',['../classPopError.html#ae3536ead1943613df02fe7a3c1a04848',1,'PopError']]]
 ];

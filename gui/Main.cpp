@@ -10,18 +10,13 @@ int main(int argc, char* argv[])
 {  
 	QApplication app(argc, argv);
 
-	std::string host;
-	if (argc > 1) {
-		host = argv[1];
-		std::cout << host << std::endl;
-	}
-	else {
-		std::cout << "host = " << DEFAULT_HOST << std::endl;
-	}
-
 	Client c;
 	Controller controller(c);
-	controller.run();
+	std::string login;
+	if (argc > 1) {
+		login = argv[1];
+	}
+	controller.run(login);
 
 	return app.exec();
 }

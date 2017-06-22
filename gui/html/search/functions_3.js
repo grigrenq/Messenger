@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['registrationwindow',['RegistrationWindow',['../classRegistrationWindow.html#ac8876ad29199208fc8b8bd25863c9318',1,'RegistrationWindow']]]
+  ['loginwindow',['LoginWindow',['../classLoginWindow.html#ad3f4ec97bdb1fd55e3e6f6f25112f9d8',1,'LoginWindow']]]
 ];

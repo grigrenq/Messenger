@@ -5,27 +5,24 @@
 #include <list>
 #include <QVBoxLayout>
 #include <QTextEdit>
-
-
 #include "../../core/ClientUser.hpp"
 
 class QLayout;
 class QTextEdit;
 
-//#include "MainWindow.hpp"
 class MainWindow;
 class MessageBox
 {
 public:
 	using User = ClientUser;
 	using Messages = std::list<std::string>;
+	using String = ClientUser::String;
 	//using User = MainWindow::User;
 	//using String = MainWindow::String;
 	//using Messages = MainWindow::Messages;
 	
 	MessageBox(MainWindow&);
 	
-	void createMessageBox();
 	void update(const std::string&, Messages&);
 	void writeLeft(const std::string& msg);
 	void writeRight(const std::string& msg);
@@ -33,9 +30,10 @@ public:
 	QLayout* getMessageBox();
 
 private:
-	MainWindow& mainWindow;
-	QVBoxLayout* messageBox;
-	QTextEdit* messageText;
+	MainWindow& mainWindow_;
+	QVBoxLayout* messageBox_;
+	QTextEdit* messageText_;
+	void createMessageBox();
 //	Conversation conversation;
 //	QVBoxLayout* messageTextLayout;
 };

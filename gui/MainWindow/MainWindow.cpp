@@ -10,13 +10,24 @@
 #include "Avatar.hpp"
 
 const char delim = '%';
-
+#include <iostream>
 
 MainWindow::MainWindow(Controller& c)
-	: controller(c)
-    , userPtr(nullptr)
-	, messageBox(new MessageBox(*this))
-	, writeBox(new WriteBox(*this))
+	: controller_(c)
+	, userPtr_(nullptr)
+	, messageBox_(new MessageBox(*this))
+	, writeBox_(new WriteBox(*this))
+	, mainLayout_(nullptr)
+	, leftSide_(nullptr)
+	, rightSide_(nullptr)
+	, avLay_(nullptr)
+	, leftLabel_(nullptr)
+	, messageLabel_(nullptr)
+	, scrollArea_(nullptr)
+	, scrollWidget_(nullptr)
+	, messageText_(nullptr)
+	, messageTextLayout_(nullptr)
+	, windowIcon_(nullptr)
 {
 	qRegisterMetaType<User>("User");
 	qRegisterMetaType<Users>("Users");
@@ -32,73 +43,77 @@ MainWindow::MainWindow(Controller& c)
 
 void MainWindow::addAvatars()
 {
-	avLay->setAlignment(Qt::AlignTop);
+	std::cout << __FUNCTION__ << std::endl;
+	avLay_->setAlignment(Qt::AlignTop);
 
-	scrollArea = new QScrollArea(this);
-	scrollArea->move(0,0);
-	scrollArea->setMaximumWidth(250);
-	scrollArea->setMinimumWidth(250);
+	if (scrollArea_ == nullptr) {
+		scrollArea_ = new QScrollArea(this);
+		scrollArea_->move(0,0);
+		scrollArea_->setMaximumWidth(250);
+		scrollArea_->setMinimumWidth(250);
+	} 
 
-	for (auto a : avatars) {
-		avLay->addWidget(&(*a));
+	for (auto a : avatars_) {
+		avLay_->addWidget(&(*a));
 	}
-	QWidget* scrollWidget = new QWidget;
-	scrollWidget->setLayout(avLay);
-	scrollArea->setWidget(scrollWidget);
-	leftSide->addWidget(scrollArea);
+
+	if (scrollWidget_ == nullptr) {
+		scrollWidget_ = new QWidget;
+		scrollWidget_->setLayout(avLay_);
+		scrollArea_->setWidget(scrollWidget_);
+		leftSide_->addWidget(scrollArea_);
+	}
 }
 
 void MainWindow::addAvatar(Avatar* a)
 {
-	avLay->addWidget(a);
+	avLay_->addWidget(a);
 }
-
 
 void MainWindow::createLayout(){
 	
-	mainLayout = new QGridLayout();
-	leftSide   = new QVBoxLayout();
-	rightSide  = new QVBoxLayout();
+	mainLayout_ = new QGridLayout();
+	leftSide_ = new QVBoxLayout();
+	rightSide_ = new QVBoxLayout();
 	
-	avLay = new QVBoxLayout();
+	avLay_ = new QVBoxLayout();
 
-	rightSide->addLayout(messageBox->getMessageBox());
-	rightSide->addLayout(writeBox->getWriteBox());
+	rightSide_->addLayout(messageBox_->getMessageBox());
+	rightSide_->addLayout(writeBox_->getWriteBox());
 	
-	mainLayout->addLayout(leftSide,0,0);
-	mainLayout->addLayout(rightSide,0,1);
+	mainLayout_->addLayout(leftSide_,0,0);
+	mainLayout_->addLayout(rightSide_,0,1);
 
-	setLayout(mainLayout);
+	setLayout(mainLayout_);
 }
-
-/*
-void MainWindow::createAvatar()
-{
-	Avatar* a = new Avatar();
-	avLay->addWidget(a);
-	avatars.push_back(a);
-}*/
 
 
 void MainWindow::updateMessageBox()
 {
-   	messageBox->update(userPtr->getLogin(), userPtr->getMessages()); 
+	if (messageBox_ == nullptr || userPtr_ == nullptr) {
+		throw std::logic_error("asdasdasd");
+	}
+   	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages()); 
 }
 
 void MainWindow::sendMessage(String& msg)
 {
-	if(userPtr == nullptr) {
+	if (messageBox_ == nullptr || userPtr_ == nullptr) {
+		throw std::logic_error("asdasdasd");
+	}
+	if(userPtr_ == nullptr) {
 		return;
 	}
-	messageBox->getMessageText()->verticalScrollBar()->setValue(messageBox->getMessageText()->verticalScrollBar()->maximum());
-	String toUser = userPtr->getLogin();
-	userPtr->addMessage(controller.getLogin() + delim + msg);
-	controller.sendMessageToUser(toUser, msg);
-	messageBox->update(userPtr->getLogin(), userPtr->getMessages());
+	messageBox_->getMessageText()->verticalScrollBar()->setValue(messageBox_->getMessageText()->verticalScrollBar()->maximum());
+	String toUser = (userPtr_->getLogin());
+	userPtr_->addMessage(controller_.getLogin() + delim + msg);
+	controller_.sendMessageToUser(toUser, msg);
+	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 }
 
 void MainWindow::updateMainWindow(User& u)
 {
+	std::cout << "emitting signal updateSignal()\n";
 	emit updateSignal(u);
 }
 
@@ -109,6 +124,7 @@ void MainWindow::updateMainWindow(Users& users)
 
 void MainWindow::updateSlot(User u)
 {
+	std::cout << "slot updateSlot()\n";
 	updateMainWindowHelper(u);
 }
 
@@ -117,31 +133,47 @@ void MainWindow::updateSlot(Users users)
 	updateMainWindowHelper(users);
 }
 
-
 void MainWindow::updateMainWindowHelper(User& u)
 {
-	auto it = find(u);
-	if (it == avatars.end()) {
-		avatars.push_back(AvatarPtr(new Avatar(u, *this)));
-		addAvatar(&(*avatars.back()));
+	AvatarsIter it = find(u);
+	if (it == avatars_.end()) {
+		avatars_.push_back(AvatarPtr(new Avatar(u, *this)));
+		addAvatar(&(*avatars_.back()));
 	} else {
-		it->reset(new Avatar(u, *this));
+		std::cout << "....else case:" << (*it)->getLogin() << "|...." << u.getLogin() << "|...." << std::endl;
+		//it->reset(new Avatar(u, *this));
+		(*it)->setStatus(u.getStatus());
+		std::cout << "after it->reset" << std::endl;
 
-		if (userPtr == nullptr) {
+		if (userPtr_ == nullptr) {
 			return;
 		}
-		if (userPtr->getLogin() == u.getLogin()) {
-			messageBox->update(u.getLogin(), u.getMessages());
+		if (userPtr_->getLogin() == u.getLogin()) {
+			messageBox_->update((u.getLogin()), u.getMessages());
 		} 
 	}
 }
 
-
 void MainWindow::updateMainWindowHelper(Users& users)
 {
-	avatars.clear();
+	std::cout << __FUNCTION__ << std::endl;
+	avatars_.clear();
+	if (avLay_ != nullptr) {
+		delete avLay_;
+		avLay_ = nullptr;
+	}
+	if (scrollArea_ != nullptr) {
+		//delete scrollArea_;
+		//scrollArea_ = nullptr;
+	}
+	if (scrollWidget_ != nullptr) {
+		delete scrollWidget_;
+		scrollWidget_ = nullptr;
+	}
+	std::cout << __FUNCTION__ << std::endl;
+	avLay_ = new QVBoxLayout();
 	for (auto it = users.begin(); it != users.end(); ++it) {
-		avatars.push_back(AvatarPtr(new Avatar(*it, *this)));
+		avatars_.push_back(AvatarPtr(new Avatar(*it, *this)));
 	}
 	addAvatars();
 	//show();
@@ -149,19 +181,22 @@ void MainWindow::updateMainWindowHelper(Users& users)
 
 void MainWindow::setUser(User& u)
 {
-   	userPtr = &u; 
+   	userPtr_ = &u; 
 }
 
 MainWindow::AvatarsIter MainWindow::find(const User& u)
 {
-	AvatarsIter it = avatars.begin();
-	for (; it != avatars.end(); ++it) {
-		if ((*it)->getLogin() == u.getLogin()) {
+	//std::cout << "MainWindow::find()\n";
+	AvatarsIter it = avatars_.begin();
+	for (; it != avatars_.end(); ++it) {
+		if ((*it)->getLogin() == (u.getLogin())) {
+			std::cout << "it->login() == u.login()" << std::endl;
 			return it;
 		}
 	}
-	return it;
-	//return avatars.end();
+	//std::cout << "after if-else in for....." << std::endl;
+	//return it;
+	return avatars_.end();
 }
 
 
@@ -177,6 +212,11 @@ void MainWindow::showSlot()
 
 void MainWindow::setWindowIcon()
 {
-	windowIcon = new QIcon("../resources/a.png");
-	QWidget::setWindowIcon(*windowIcon);
+	windowIcon_ = new QIcon("../resources/a.png");
+	QWidget::setWindowIcon(*windowIcon_);
+}
+
+void MainWindow::sendConvRequest(const String& login)
+{
+	controller_.sendConvRequest(login);
 }

@@ -23,6 +23,8 @@
 #include <QPalette>
 #include <QIcon>
 #include <QString>
+class QApplication;
+class QToolTip;
 
 #include "RegistrationWindow.hpp"
 #include "../core/InputValidator.hpp"
@@ -50,9 +52,6 @@ public:
         *   @return void
         */  
 	void closeRegWindow();
-
-
-
 	void showWindow();	//???
 
 public slots:
@@ -76,21 +75,22 @@ private:
     void setWindowIcon();
     void connectLines();
    
-    QLineEdit* m_login;
-    QLineEdit* m_password;
-    QPushButton* m_loginButton;
-    QPushButton* m_regisButton;
-    QVBoxLayout* m_vLayout;
-    QLabel* m_loginLabel;
-    QLabel* m_passwordLabel;
-    QLabel* m_logo;
-    QPalette* m_pal;
-    QPixmap* m_pix;
-    QIcon* m_icon;
-    RegistrationWindow* m_regWin;
+    QLineEdit* login_;
+    QLineEdit* password_;
+    QPushButton* loginButton_;
+    QPushButton* regisButton_;
+    QVBoxLayout* vLayout_;
+    QLabel* loginLabel_;
+    QLabel* passwordLabel_;
+    QLabel* logo_;
+    QPalette* pal_;
+    QPixmap* pix_;
+    QIcon* icon_;
+    RegistrationWindow* regWin_;
+	QApplication* app_;
 
-    Controller& controller;
-    InputValidator validator;
+    Controller& controller_;
+    InputValidator validator_;
 };
 
 #endif
