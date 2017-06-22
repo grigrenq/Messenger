@@ -1,3 +1,12 @@
+/** 
+*  @file    TransportLayer.hpp
+*  @author  GRI Team
+*  @date    06/22/2017  
+*  @version 1.0 
+*  @brief ...
+*/
+
+
 #ifndef TRANSPORTLAYER_HPP
 #define TRANSPORTLAYER_HPP
 
@@ -8,7 +17,9 @@
 
 #include "ExtractWord.hpp"
 
-
+/**
+*  @brief ....  
+*/
 class TransportLayer
 {
 public:
@@ -17,6 +28,9 @@ public:
 	using Messages = std::list<Message>;
 
 
+        /**
+        *  @brief .....
+        */
 	class Iterator
 	{
 	public:
