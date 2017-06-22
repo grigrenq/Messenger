@@ -7,7 +7,7 @@
 
 
 LoginWindow::LoginWindow(Controller& c)
-	: m_regWin(nullptr)
+	: regWin(nullptr)
 	, controller(c)
 {
     this->setGeometry(50,50,850,600);
@@ -23,7 +23,7 @@ LoginWindow::LoginWindow(Controller& c)
     createUsernameLabel();
     createPasswordLabel();
     createLayout();
-    this->setLayout(m_vLayout);
+    this->setLayout(vLayout);
     setWindowIcon();
 
 	connectLines();
@@ -31,16 +31,16 @@ LoginWindow::LoginWindow(Controller& c)
 
 void LoginWindow::createLayout()
 {
-    m_vLayout = new QVBoxLayout();
-    //m_vLayout->setContentsMargins(15, 5, 1300, 0);
-    m_vLayout->addSpacing(12);
-    m_vLayout->addWidget(m_loginLabel);
-    m_vLayout->addWidget(m_login);
-    m_vLayout->addWidget(m_passwordLabel);
-    m_vLayout->addWidget(m_password);
-    m_vLayout->addWidget(m_loginButton);
-    m_vLayout->addWidget(m_regisButton);
-    m_vLayout->addSpacerItem(new QSpacerItem(400, 400, 
+    vLayout = new QVBoxLayout();
+    //vLayout->setContentsMargins(15, 5, 1300, 0);
+    vLayout->addSpacing(12);
+    vLayout->addWidget(loginLabel);
+    vLayout->addWidget(loginField);
+    vLayout->addWidget(passwordLabel);
+    vLayout->addWidget(passwordField);
+    vLayout->addWidget(loginButton);
+    vLayout->addWidget(regisButton);
+    vLayout->addSpacerItem(new QSpacerItem(400, 400, 
                            QSizePolicy::Preferred, QSizePolicy::Expanding));
        
  //   m_vLayout->setMinimumSize(80);
@@ -58,94 +58,93 @@ void LoginWindow::createLayout()
 
 void LoginWindow::createButtons()
 {
-    m_loginButton = new QPushButton("LOG IN", this);
-    m_loginButton->setStyleSheet("QPushButton{background-color: #456ba8;color:white;}");
-    m_loginButton->setMinimumSize(80, 20);
-    m_loginButton->setMaximumSize(40, 40);
-    m_regisButton = new QPushButton("CREATE NEW ACCOUNT", this);
-    m_regisButton->setStyleSheet("QPushButton{background-color: #456ba8; color:white;}");
-    m_regisButton->setMinimumSize(200, 20);
-    m_regisButton->setMaximumSize(40, 40);
-	QObject::connect(m_loginButton, SIGNAL(clicked()), this, SLOT(sendLoginReq()));
-    QObject::connect(m_regisButton, SIGNAL(clicked()), this, SLOT(openRegWin()));
+    loginButton = new QPushButton("LOG IN", this);
+    loginButton->setStyleSheet("QPushButton{background-color: #456ba8;color:white;}");
+    loginButton->setMinimumSize(80, 20);
+    loginButton->setMaximumSize(40, 40);
+    regisButton = new QPushButton("CREATE NEW ACCOUNT", this);
+    regisButton->setStyleSheet("QPushButton{background-color: #456ba8; color:white;}");
+    regisButton->setMinimumSize(200, 20);
+    regisButton->setMaximumSize(40, 40);
+	QObject::connect(loginButton, SIGNAL(clicked()), this, SLOT(sendLoginReq()));
+    QObject::connect(regisButton, SIGNAL(clicked()), this, SLOT(openRegWin()));
 }
 
 void LoginWindow::createTextEdit()
 {
-    m_login = new QLineEdit(this);
-    m_password = new QLineEdit(this);
-    m_password->setEchoMode(QLineEdit::Password);
-    m_login->setMinimumHeight(30);
-    m_login->setMinimumWidth(200);
-    m_login->setMaximumHeight(40);
-    m_login->setMaximumWidth(300);
-    m_login->setPlaceholderText("asdasdasd");
-    m_password->setMinimumHeight(30);
-    m_password->setMinimumWidth(200);
-    m_password->setMaximumHeight(40);
-    m_password->setMaximumWidth(300);
-    m_password->setPlaceholderText("asdsdgdfgdgf");
+    loginField = new QLineEdit(this);
+    passwordField = new QLineEdit(this);
+    passwordField->setEchoMode(QLineEdit::Password);
+    loginField->setMinimumHeight(30);
+    loginField->setMinimumWidth(200);
+    loginField->setMaximumHeight(40);
+    loginField->setMaximumWidth(300);
+    loginField->setPlaceholderText("asdasdasd");
+    passwordField->setMinimumHeight(30);
+    passwordField->setMinimumWidth(200);
+    passwordField->setMaximumHeight(40);
+    passwordField->setMaximumWidth(300);
+    passwordField->setPlaceholderText("asdsdgdfgdgf");
 
 }
 
 void LoginWindow::createUsernameLabel()
 {
-    m_loginLabel = new QLabel("Login", this);
-    QPalette sample_palette;
-    sample_palette.setColor(QPalette::WindowText, Qt::white);
-    m_loginLabel->setPalette(sample_palette);
+    loginLabel = new QLabel("Login", this);
+    QPalette samplePalette;
+    samplePalette.setColor(QPalette::WindowText, Qt::white);
+    loginLabel->setPalette(samplePalette);
 }
 
 void LoginWindow::createPasswordLabel()
 {
-    m_passwordLabel = new QLabel("Password", this);
-    QPalette sample_palette;
-    sample_palette.setColor(QPalette::WindowText, Qt::white);
-    m_passwordLabel->setPalette(sample_palette);
+    passwordLabel = new QLabel("Password", this);
+    QPalette samplePalette;
+    samplePalette.setColor(QPalette::WindowText, Qt::white);
+    passwordLabel->setPalette(samplePalette);
 }
 
 void LoginWindow::setLogo()
 {
-    m_logo = new QLabel(this);
-    m_logo->setGeometry(350, 10, 450, 450);
+    logo = new QLabel(this);
+    logo->setGeometry(350, 10, 450, 450);
     QPixmap* p = new QPixmap("../resources/asd");
-    m_logo->setPixmap(*p);
-
+    logo->setPixmap(*p);
 }
 
 void LoginWindow::setBackground()
 {
     //m_pal = new QPalette();
-    m_pix = new QPixmap("../resources/b.jpeg");
+    pix = new QPixmap("../resources/b.jpeg");
     //*m_pix = m_pix->scaled(this->size(), Qt::IgnoreAspectRatio);
     QLabel *label1=new QLabel(this);
     label1->setGeometry(0,0,1700,1300);
     label1->setScaledContents(true);
     //m_pal->setBrush(QPalette::Background, *m_pix);
-    label1->setPixmap(*m_pix);
+    label1->setPixmap(*pix);
     label1->setScaledContents(true);
     //this->setPalette(*m_pal);
 }
 
 void LoginWindow::setWindowIcon()
 {
-    m_icon = new QIcon("../resources/a.png");
-    QWidget::setWindowIcon(*m_icon);
+    icon = new QIcon("../resources/a.png");
+    QWidget::setWindowIcon(*icon);
 }
 
 void LoginWindow::openRegWin()
 {
-	if (m_regWin == nullptr) {
-		m_regWin = new RegistrationWindow(controller);
-		m_regWin->show();
+	if (regWin == nullptr) {
+		regWin = new RegistrationWindow(controller);
+		regWin->show();
 	}
 }
 
 
 void LoginWindow::connectLines()
 {
-	connect(m_login, SIGNAL(textChanged(const QString&)), this, SLOT(checkLogin(const QString&)));
-	connect(m_password, SIGNAL(textChanged(const QString&)), this, SLOT(checkPassword(const QString&)));
+	connect(loginField, SIGNAL(textChanged(const QString&)), this, SLOT(checkLogin(const QString&)));
+	connect(passwordField, SIGNAL(textChanged(const QString&)), this, SLOT(checkPassword(const QString&)));
 	connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
 }
 
@@ -154,11 +153,11 @@ void LoginWindow::checkLogin(const QString& qs)
 	String s = qs.toStdString();
 	if (validator.checkLogin(s) == ValidationInfo::validLog) {
 		//????
-		m_login->setStyleSheet("border: 3px solid black");
+		loginField->setStyleSheet("border: 3px solid black");
 	} else {
 		//?????????
 		std::cout << "Wrong Login.\n";
-		m_login->setStyleSheet("border: 3px solid red");
+		loginField->setStyleSheet("border: 3px solid red");
 	}
 }
 
@@ -167,33 +166,33 @@ void LoginWindow::checkPassword(const QString& qs)
 	String s = qs.toStdString();
 	if (validator.checkPassword(s) == ValidationInfo::validLog) {
 		//????
-		m_password->setStyleSheet("border: 3px solid black");
+		passwordField->setStyleSheet("border: 3px solid black");
 	} else {
 		///????????
 		std::cout << "Wrong Password.\n";
-		m_password->setStyleSheet("border: 3px solid red");
+		passwordField->setStyleSheet("border: 3px solid red");
 	}
 }
 
 void LoginWindow::sendLoginReq()
 {
-	String l = m_login->text().toStdString();
-	String p = m_password->text().toStdString();
+	String l = loginField->text().toStdString();
+	String p = passwordField->text().toStdString();
 
     String logRes = validator.checkLogin(l);
     String passRes = validator.checkPassword(p);
     
     if (logRes == ValidationInfo::emptyField) {
-        m_login->setPlaceholderText("You can't leave this empty");
-        m_login->setStyleSheet("border: 3px solid red");
+        loginField->setPlaceholderText("You can't leave this empty");
+        loginField->setStyleSheet("border: 3px solid red");
 		return;
 	} else if(validator.checkLogin(l) != ValidationInfo::validLog ) {
         return;
     }
     
     if(passRes == ValidationInfo::emptyField){
-        m_password->setPlaceholderText("You can't leave this empty");
-        m_password->setStyleSheet("border: 3px solid red");
+        passwordField->setPlaceholderText("You can't leave this empty");
+        passwordField->setStyleSheet("border: 3px solid red");
         return;
 
     } else if (validator.checkPassword(p) != ValidationInfo::validLog) {
@@ -214,9 +213,9 @@ void LoginWindow::showSlot()
 
 void LoginWindow::closeRegWindow()
 {
-	if (m_regWin != nullptr) {
-		m_regWin->close();
-		delete m_regWin;
-		m_regWin = nullptr;
+	if (regWin != nullptr) {
+		regWin->close();
+		delete regWin;
+		regWin = nullptr;
 	}
 }
