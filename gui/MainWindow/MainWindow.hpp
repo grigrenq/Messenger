@@ -80,13 +80,14 @@ private:
 	void updateMainWindowHelper(Users&);
 	AvatarsIter find(const User& u);
 
-	QGridLayout *mainLayout_;
-    QLayout *leftSide_;
-    QVBoxLayout *rightSide_;
+	QGridLayout* mainLayout_;
+    QLayout* leftSide_;
+    QVBoxLayout* rightSide_;
 	QLayout* avLay_;
-    QLabel *leftLabel_;
-    QLabel *messageLabel_;
-	QScrollArea *scrollArea_;
+    QLabel* leftLabel_;
+    QLabel* messageLabel_;
+	QScrollArea* scrollArea_;
+	QWidget* scrollWidget_;
 	QTextEdit* messageText_;
 	QLayout* messageTextLayout_;
 	QIcon* windowIcon_;
@@ -94,8 +95,8 @@ private:
 	Avatars avatars_;
 	Controller& controller_;
 	User* userPtr_;
-	MessageBox *messageBox_;
-	WriteBox *writeBox_;
+	MessageBox* messageBox_;
+	WriteBox* writeBox_;
 };
 
 

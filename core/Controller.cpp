@@ -20,10 +20,12 @@ Controller::Controller(Client& c)
 	mainWindow_ = new MainWindow(*this);
 }
 
-void Controller::run()
+void Controller::run(const String& s)
 {
+	login = s;
+	std::cout << "login=" << login << ".\n";
 	c_.connectServer();
-	loginWindow_->showWindow();
+	//loginWindow_->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
@@ -48,6 +50,7 @@ void Controller::handleSession()
 	inReaderPtr->startRead();
 	String message;
 	try {
+
 		while (c_.recvMessage(transportLayer_) == SUCCESS) {
 			for (auto p : transportLayer_) {
 				processMessage(*p);
@@ -186,9 +189,9 @@ void Controller::processLoginRespond(String& message)
 		}
 		sleep(1);
 		if (mainWindow_ != nullptr) {
-			//mainWindow_->showWindow();
+			mainWindow_->showWindow();
 		} else {
-			//throw Error("Error: MainWindow == nullptr");
+			throw Error("Error: MainWindow == nullptr");
 		}
 		sendPendingMessagesRequest();
 	}
@@ -231,8 +234,7 @@ void Controller::processRegistrationRespond(String& message)
 void Controller::processUserChangedRespond(String& userStr)
 {
 	User u;
-	String log = "UserChangedRespond: User: " + u.toStringLog();
-	std::cout << log << std::endl;
+	String log = "UserChangedRespond: User: \n";
 	UserIter it;
 	if (!u.fromString(userStr)) {
 		log += ". missing from the list.";
@@ -250,6 +252,7 @@ void Controller::processUserChangedRespond(String& userStr)
 			log += ". setting status to " + std::to_string(u.getStatus());
 		}
 	}
+	std::cout << log << std::endl;
 	dbcontroller_.log(log);
 	dbcontroller_.logUsers();
 	updateMainWindow(it);
@@ -287,7 +290,7 @@ Controller::UserIter Controller::find(const String& login)
 {
 	auto it = users_.begin();
 	for (; it != users_.end(); ++it) {
-		if (it->getLogin() == login) {
+		if (((it->getLogin())) == login) {
 			return it;
 		}
 	}
@@ -298,7 +301,7 @@ Controller::UserIter Controller::find(Controller::User& u)
 {
 	auto it = users_.begin();
 	for (; it != users_.end(); ++it) {
-		if (it->getLogin() == u.getLogin())
+		if ((*(it->getLogin())) == (*(u.getLogin())))
 			return it;
 	}
 	return it;
@@ -307,13 +310,15 @@ Controller::UserIter Controller::find(Controller::User& u)
 
 void Controller::updateMainWindow(const UserIter& it)
 {
-	//mainWindow_->updateMainWindow(*it);
+	std::cout << "Controller::updateMainWindow(it)\n";
+	mainWindow_->updateMainWindow(users_);
 }
 
 
 void Controller::updateMainWindow()
 {
-	//mainWindow_->updateMainWindow(users_);
+	std::cout << "Controller::updateMainWindow()\n";
+	mainWindow_->updateMainWindow(users_);
 }
 
 

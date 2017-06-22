@@ -77,7 +77,7 @@ public:
 
 	
 		Controller(Client&);
-		void run();
+		void run(const String&);
 		void handleSession();
 
 		String sendLoginRequest(const String& login, const String& password);
@@ -149,6 +149,7 @@ public:
 		std::shared_ptr<InputReader> inReaderPtr;
 		DBController<Users> dbcontroller_;
 		InputValidator validator_;
+		String login;
 };
 
 #endif

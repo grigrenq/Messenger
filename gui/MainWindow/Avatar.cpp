@@ -8,12 +8,27 @@
 #include "MainWindow.hpp"
 #include "Avatar.hpp"
 
-
+/*
+Avatar::Avatar(User& u)
+	: user_(u)
+	, avName_(nullptr)
+	,avSurname_(nullptr)
+	, avLogin_(nullptr)
+	, avStatus_(nullptr)
+	  , avCount_(nullptr)
+{
+}
+*/
 
 Avatar::Avatar(User& u, MainWindow& mw)
 	: user_(u)
 	, mainWindow_(mw)
     , status_(false)
+	, avName_(nullptr)
+	, avSurname_(nullptr)
+	, avLogin_(nullptr)
+	, avStatus_(nullptr)
+	, avCount_(nullptr) 
 {
 	avName_ = new QLabel(this);
 	avSurname_ = new QLabel(this);
@@ -23,10 +38,12 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	setFixedSize(200,40);
 	QFont smallFont = font();
 	smallFont.setPointSize(10);
-	String name = user_.getName().c_str();
-	String surname = user_.getSurname().c_str();
+	//std::cout << __FUNCTION__ << std::endl;
+	String name = user_.getName();
+	String surname = user_.getSurname();
 	String nameSurname = name + " " + surname;
     status_ = user_.getStatus();
+	//std::cout << __FUNCTION__ << std::endl;
 	avName_->setText(QString::fromStdString(nameSurname));
 	avName_->setWordWrap(true);
 	avName_->setGeometry(12,23,100,20);
@@ -42,25 +59,26 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	} else {
 		avLogin_->setStyleSheet("border: 15px solid grey;border-radius:7px");
 	}
+	//std::cout << __FUNCTION__ << std::endl;
 
-	avLogin_->setText(user_.getLogin().c_str());
+	avLogin_->setText(QString::fromStdString(user_.getLogin()));
 	avLogin_->setGeometry(10,7,150,20);
-	avCount_->setText(std::to_string(user_.getUnreadMessagesCount()).c_str());
+	avCount_->setText(QString::fromStdString(std::to_string(user_.getUnreadMessagesCount())));
 	avCount_->setGeometry(170,7,20,20);
 	avCount_->setStyleSheet("border: 0.5px solid grey; border-radius:5px");
 	QGridLayout* lay=new QGridLayout;
 	lay->addWidget(avLogin_);
 	lay->addWidget(avCount_);
-	//setStyleSheet("border:1px solid black");
+	setStyleSheet("border:1px solid black");
 	
-	QObject::connect(this,SIGNAL(clicked()),this,SLOT(openConversation()));
+	//QObject::connect(this,SIGNAL(clicked()),this,SLOT(openConversation()));
 }
 
 void Avatar::openConversation()
 {
-	mainWindow_.setUser(user_);
-	mainWindow_.updateMessageBox();
-	user_.setUnreadMessages(0);
+	//mainWindow_.setUser(user_);
+	//mainWindow_.updateMessageBox();
+	//user_.setUnreadMessages(0);
 }
 
 void Avatar::setStatus(bool b)
@@ -99,7 +117,10 @@ void Avatar::incrementCount()
 {
 }
 
-Avatar::String Avatar::getLogin()
-{ 
-	return user_.getLogin(); 
+const char* Avatar::getLogin()
+{
+	//std::cout << __FUNCTION__ << std::endl;
+	//return "some string\n";
+	return user_.getLogin();
+	//std::cout << __FUNCTION__ << std::endl;	
 }

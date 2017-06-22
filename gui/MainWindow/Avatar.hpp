@@ -21,12 +21,13 @@ public:
 	using User = MainWindow::User;
 	using String = MainWindow::String;
 
+	//Avatar(User&);
 	Avatar(User&, MainWindow&);
 	
 	void setStatus(bool);
     bool getStatus() const;
 	void incrementCount(); 
-	String getLogin();
+	const char* getLogin();
 
 signals:
 	void clicked();
