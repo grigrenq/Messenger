@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['registrationwindow',['RegistrationWindow',['../classRegistrationWindow.html',1,'']]]
+  ['poperror',['PopError',['../classPopError.html',1,'']]]
 ];

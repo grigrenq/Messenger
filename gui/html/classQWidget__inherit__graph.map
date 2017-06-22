@@ -1,0 +1,5 @@
+<map id="QWidget" name="QWidget">
+<area shape="rect" id="node2" href="$classLoginWindow.html" title="LoginWindow class which creates the GUI for login window. " alt="" coords="5,131,149,311"/>
+<area shape="rect" id="node3" href="$classPopError.html" title="{PopError\n||+ PopError()\l+ handleConnection()\l+ setText()\l+ execute()\l+ setTextSlot()\l+ executeSlot()\l}" alt="" coords="173,145,320,296"/>
+<area shape="rect" id="node4" href="$classRegistrationWindow.html" title="RegistrationWindow class which creates the GUI for login window. " alt="" coords="345,138,509,303"/>
+</map>

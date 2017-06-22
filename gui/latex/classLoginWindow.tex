@@ -12,30 +12,45 @@
 
 
 Inheritance diagram for Login\+Window\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{classLoginWindow__inherit__graph}
+\end{center}
+\end{figure}
 
 
 Collaboration diagram for Login\+Window\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{classLoginWindow__coll__graph}
+\end{center}
+\end{figure}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-typedef std\+::string {\bfseries String}\hypertarget{classLoginWindow_a9d5191a38906ea9c5375c1029cfd9d4d}{}\label{classLoginWindow_a9d5191a38906ea9c5375c1029cfd9d4d}
-
+typedef std\+::string \hyperlink{classLoginWindow_a9d5191a38906ea9c5375c1029cfd9d4d}{String}
 \end{DoxyCompactItemize}
 \subsection*{Public Slots}
 \begin{DoxyCompactItemize}
 \item 
-void {\bfseries open\+Reg\+Win} ()\hypertarget{classLoginWindow_abe06ec97d678045c810e2ac6033ee9c0}{}\label{classLoginWindow_abe06ec97d678045c810e2ac6033ee9c0}
-
+void \hyperlink{classLoginWindow_abe06ec97d678045c810e2ac6033ee9c0}{open\+Reg\+Win} ()
 \item 
-void {\bfseries check\+Login} (const Q\+String \&)\hypertarget{classLoginWindow_a01edb22f1bf6dfdf3bd0811f6c878330}{}\label{classLoginWindow_a01edb22f1bf6dfdf3bd0811f6c878330}
-
+void \hyperlink{classLoginWindow_a01edb22f1bf6dfdf3bd0811f6c878330}{check\+Login} (const Q\+String \&)
 \item 
 void \hyperlink{classLoginWindow_ad5a16b9244af77d36f98a4f48d3d423d}{check\+Password} (const Q\+String \&)
 \item 
-void {\bfseries send\+Login\+Req} ()\hypertarget{classLoginWindow_ac6dc94a63017e4e500b7ec0cbd4cac33}{}\label{classLoginWindow_ac6dc94a63017e4e500b7ec0cbd4cac33}
-
+void \hyperlink{classLoginWindow_ac6dc94a63017e4e500b7ec0cbd4cac33}{send\+Login\+Req} ()
+\item 
+void \hyperlink{classLoginWindow_a8e8dfb5d47f4771d469be1d764aa8509}{show\+Slot} ()
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classLoginWindow_a27cf306a0fd680afd528c016f2df8926}{show\+Signal} ()
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -43,11 +58,19 @@ void {\bfseries send\+Login\+Req} ()\hypertarget{classLoginWindow_ac6dc94a63017e
 \hyperlink{classLoginWindow_ad3f4ec97bdb1fd55e3e6f6f25112f9d8}{Login\+Window} (Controller \&)
 \begin{DoxyCompactList}\small\item\em \hyperlink{classLoginWindow}{Login\+Window} constructor for class \hyperlink{classLoginWindow}{Login\+Window} which creates G\+UI for login window. \end{DoxyCompactList}\item 
 void \hyperlink{classLoginWindow_a1d429ebfb0f2ebb21591b209da5d4ecb}{close\+Reg\+Window} ()
-\begin{DoxyCompactList}\small\item\em close\+Reg\+Window closing registration window \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em close\+Reg\+Window closing registration window \end{DoxyCompactList}\item 
+void \hyperlink{classLoginWindow_aea3395f2cf27b324b226af426f84514f}{show\+Window} ()
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 \hyperlink{classLoginWindow}{Login\+Window} class which creates the G\+UI for login window. 
+
+\subsection{Member Typedef Documentation}
+\index{Login\+Window@{Login\+Window}!String@{String}}
+\index{String@{String}!Login\+Window@{Login\+Window}}
+\subsubsection[{\texorpdfstring{String}{String}}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::string {\bf Login\+Window\+::\+String}}\hypertarget{classLoginWindow_a9d5191a38906ea9c5375c1029cfd9d4d}{}\label{classLoginWindow_a9d5191a38906ea9c5375c1029cfd9d4d}
+
 
 \subsection{Constructor \& Destructor Documentation}
 \index{Login\+Window@{Login\+Window}!Login\+Window@{Login\+Window}}
@@ -69,6 +92,13 @@ void \hyperlink{classLoginWindow_a1d429ebfb0f2ebb21591b209da5d4ecb}{close\+Reg\+
 
 
 \subsection{Member Function Documentation}
+\index{Login\+Window@{Login\+Window}!check\+Login@{check\+Login}}
+\index{check\+Login@{check\+Login}!Login\+Window@{Login\+Window}}
+\subsubsection[{\texorpdfstring{check\+Login}{checkLogin}}]{\setlength{\rightskip}{0pt plus 5cm}void Login\+Window\+::check\+Login (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{qs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classLoginWindow_a01edb22f1bf6dfdf3bd0811f6c878330}{}\label{classLoginWindow_a01edb22f1bf6dfdf3bd0811f6c878330}
 \index{Login\+Window@{Login\+Window}!check\+Password@{check\+Password}}
 \index{check\+Password@{check\+Password}!Login\+Window@{Login\+Window}}
 \subsubsection[{\texorpdfstring{check\+Password}{checkPassword}}]{\setlength{\rightskip}{0pt plus 5cm}void Login\+Window\+::check\+Password (
@@ -95,9 +125,45 @@ close\+Reg\+Window closing registration window
 \begin{DoxyReturn}{Returns}
 void 
 \end{DoxyReturn}
+\index{Login\+Window@{Login\+Window}!open\+Reg\+Win@{open\+Reg\+Win}}
+\index{open\+Reg\+Win@{open\+Reg\+Win}!Login\+Window@{Login\+Window}}
+\subsubsection[{\texorpdfstring{open\+Reg\+Win}{openRegWin}}]{\setlength{\rightskip}{0pt plus 5cm}void Login\+Window\+::open\+Reg\+Win (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classLoginWindow_abe06ec97d678045c810e2ac6033ee9c0}{}\label{classLoginWindow_abe06ec97d678045c810e2ac6033ee9c0}
+\index{Login\+Window@{Login\+Window}!send\+Login\+Req@{send\+Login\+Req}}
+\index{send\+Login\+Req@{send\+Login\+Req}!Login\+Window@{Login\+Window}}
+\subsubsection[{\texorpdfstring{send\+Login\+Req}{sendLoginReq}}]{\setlength{\rightskip}{0pt plus 5cm}void Login\+Window\+::send\+Login\+Req (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classLoginWindow_ac6dc94a63017e4e500b7ec0cbd4cac33}{}\label{classLoginWindow_ac6dc94a63017e4e500b7ec0cbd4cac33}
+\index{Login\+Window@{Login\+Window}!show\+Signal@{show\+Signal}}
+\index{show\+Signal@{show\+Signal}!Login\+Window@{Login\+Window}}
+\subsubsection[{\texorpdfstring{show\+Signal}{showSignal}}]{\setlength{\rightskip}{0pt plus 5cm}void Login\+Window\+::show\+Signal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\hypertarget{classLoginWindow_a27cf306a0fd680afd528c016f2df8926}{}\label{classLoginWindow_a27cf306a0fd680afd528c016f2df8926}
+\index{Login\+Window@{Login\+Window}!show\+Slot@{show\+Slot}}
+\index{show\+Slot@{show\+Slot}!Login\+Window@{Login\+Window}}
+\subsubsection[{\texorpdfstring{show\+Slot}{showSlot}}]{\setlength{\rightskip}{0pt plus 5cm}void Login\+Window\+::show\+Slot (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classLoginWindow_a8e8dfb5d47f4771d469be1d764aa8509}{}\label{classLoginWindow_a8e8dfb5d47f4771d469be1d764aa8509}
+\index{Login\+Window@{Login\+Window}!show\+Window@{show\+Window}}
+\index{show\+Window@{show\+Window}!Login\+Window@{Login\+Window}}
+\subsubsection[{\texorpdfstring{show\+Window()}{showWindow()}}]{\setlength{\rightskip}{0pt plus 5cm}void Login\+Window\+::show\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classLoginWindow_aea3395f2cf27b324b226af426f84514f}{}\label{classLoginWindow_aea3395f2cf27b324b226af426f84514f}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
 \hyperlink{LoginWindow_8hpp}{Login\+Window.\+hpp}\item 
-Login\+Window.\+cpp\end{DoxyCompactItemize}
+\hyperlink{LoginWindow_8cpp}{Login\+Window.\+cpp}\item 
+\hyperlink{moc__LoginWindow_8cpp}{moc\+\_\+\+Login\+Window.\+cpp}\end{DoxyCompactItemize}

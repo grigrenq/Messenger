@@ -55,7 +55,7 @@ public:
 	void setUser(User& u);	
 	void updateMessageBox();
 	void sendMessage(String& msg);
-
+	void sendConvRequest(const String&);
 	void showWindow();	//???
 
 
@@ -80,22 +80,22 @@ private:
 	void updateMainWindowHelper(Users&);
 	AvatarsIter find(const User& u);
 
-	QGridLayout *mainLayout;
-    QLayout *leftSide;
-    QVBoxLayout *rightSide;
-	QLayout* avLay;
-    QLabel *leftLabel;
-    QLabel *messageLabel;
-	QScrollArea *scrollArea;
-	QTextEdit* messageText;
-	QLayout* messageTextLayout;
-	QIcon* windowIcon;
+	QGridLayout *mainLayout_;
+    QLayout *leftSide_;
+    QVBoxLayout *rightSide_;
+	QLayout* avLay_;
+    QLabel *leftLabel_;
+    QLabel *messageLabel_;
+	QScrollArea *scrollArea_;
+	QTextEdit* messageText_;
+	QLayout* messageTextLayout_;
+	QIcon* windowIcon_;
 
-	Avatars avatars;
-	Controller& controller;
-	User* userPtr;
-	MessageBox *messageBox;
-	WriteBox *writeBox;
+	Avatars avatars_;
+	Controller& controller_;
+	User* userPtr_;
+	MessageBox *messageBox_;
+	WriteBox *writeBox_;
 };
 
 

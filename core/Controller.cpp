@@ -23,7 +23,7 @@ Controller::Controller(Client& c)
 void Controller::run()
 {
 	c_.connectServer();
-	//loginWindow_->showWindow();
+	loginWindow_->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {

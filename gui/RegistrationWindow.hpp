@@ -12,6 +12,7 @@
 
 class QLineEdit;
 class QPushButton;
+class QApplication;
 
 #include <QMainWindow>
 #include <QLayout>
@@ -111,19 +112,20 @@ private:
 	void addIcon();
 	void connectLines();
 */	
-    QVBoxLayout* m_mainLayout;
-	QPushButton* signUp;
-	QLineEdit* login;
-	QLineEdit* name;
-	QLineEdit* surname;
-	QLineEdit* password1;
-	QLineEdit* password2;
-    QPixmap* m_pix;
+    QVBoxLayout* mainLayout_;
+	QPushButton* signUp_;
+	QLineEdit* login_;
+	QLineEdit* name_;
+	QLineEdit* surname_;
+	QLineEdit* password1_;
+	QLineEdit* password2_;
+    QPixmap* pix_;
+	QApplication* app_;
 
-    QPalette palette;
+    QPalette palette_;
 
-	Controller& controller;
-	InputValidator validator;
+	Controller& controller_;
+	InputValidator validator_;
 };
 
 #endif
