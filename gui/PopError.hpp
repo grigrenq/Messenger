@@ -1,3 +1,10 @@
+/** 
+ *  @file    PopError.hpp
+ *  @author  GRI Team
+ *  @date    06/23/2017  
+ *  @version 1.0   
+ *  @brief ....
+ */
 #ifndef POPERROR_HPP
 #define POPERROR_HPP
 
@@ -8,6 +15,11 @@
 
 class QPushButton;
 
+
+
+ /**
+ *  @brief ....  
+ */  
 class PopError : public QWidget
 {
     Q_OBJECT
@@ -15,9 +27,32 @@ class PopError : public QWidget
     public:
         using String = std::string;
 
-        PopError();
+	   
+        /** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*/       
+	PopError();
+
+	/** 
+        *   @brief  ....    
+        *   @param  ... 
+  	*   @return void
+  	*/  
         void handleConnection();
-        void setText(const String&);
+        
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*   @return void
+  	*/  
+	void setText(const String&);
+
+	/** 
+        *   @brief  .....    
+        *   @param  no parametrs 
+  	*   @return void
+  	*/  
         void execute();
    
     public slots:

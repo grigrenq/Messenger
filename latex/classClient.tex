@@ -1,0 +1,137 @@
+\hypertarget{classClient}{}\section{Client Class Reference}
+\label{classClient}\index{Client@{Client}}
+
+
+Class \hyperlink{classClient}{Client} ....  
+
+
+
+
+{\ttfamily \#include $<$Client.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries String} = std\+::string\hypertarget{classClient_a2a46192658d9ba7bb6f9cfa41ce56d11}{}\label{classClient_a2a46192658d9ba7bb6f9cfa41ce56d11}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classClient_ae51af7aa6b8f591496a8f6a4a87a14bf}{Client} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classClient}{Client} constructor for class \hyperlink{classClient}{Client}. \end{DoxyCompactList}\item 
+void \hyperlink{classClient_a1e032189cc8d340550a1a8db868609b2}{connect\+Server} ()
+\begin{DoxyCompactList}\small\item\em setup\+And\+Connect calling function create\+Socket, setup\+Address and connect\+Server \end{DoxyCompactList}\item 
+void \hyperlink{classClient_a450bc799e79d4a2ef239341b323d38a2}{close\+Connection} ()
+\begin{DoxyCompactList}\small\item\em close\+Connection closing socket that comunicated with server? \end{DoxyCompactList}\item 
+int \hyperlink{classClient_af4f39b4303028f1e46357f94060ebc2b}{send\+Message} (const String \&)
+\begin{DoxyCompactList}\small\item\em send\+Message controling process of sending message if not errors, else asking about errore?? \end{DoxyCompactList}\item 
+int \hyperlink{classClient_a81f551d0d21e211e8769adb25a071797}{recv\+Message} (\hyperlink{classTransportLayer}{Transport\+Layer} \&)
+\begin{DoxyCompactList}\small\item\em recv\+Message controling process of receiveing message if not errors,else asking about errore?? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{classClient}{Client} .... 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Client@{Client}!Client@{Client}}
+\index{Client@{Client}!Client@{Client}}
+\subsubsection[{\texorpdfstring{Client()}{Client()}}]{\setlength{\rightskip}{0pt plus 5cm}Client\+::\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classClient_ae51af7aa6b8f591496a8f6a4a87a14bf}{}\label{classClient_ae51af7aa6b8f591496a8f6a4a87a14bf}
+
+
+\hyperlink{classClient}{Client} constructor for class \hyperlink{classClient}{Client}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em No} & parametrs \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Client@{Client}!close\+Connection@{close\+Connection}}
+\index{close\+Connection@{close\+Connection}!Client@{Client}}
+\subsubsection[{\texorpdfstring{close\+Connection()}{closeConnection()}}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::close\+Connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classClient_a450bc799e79d4a2ef239341b323d38a2}{}\label{classClient_a450bc799e79d4a2ef239341b323d38a2}
+
+
+close\+Connection closing socket that comunicated with server? 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Client@{Client}!connect\+Server@{connect\+Server}}
+\index{connect\+Server@{connect\+Server}!Client@{Client}}
+\subsubsection[{\texorpdfstring{connect\+Server()}{connectServer()}}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::connect\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classClient_a1e032189cc8d340550a1a8db868609b2}{}\label{classClient_a1e032189cc8d340550a1a8db868609b2}
+
+
+setup\+And\+Connect calling function create\+Socket, setup\+Address and connect\+Server 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Client@{Client}!recv\+Message@{recv\+Message}}
+\index{recv\+Message@{recv\+Message}!Client@{Client}}
+\subsubsection[{\texorpdfstring{recv\+Message(\+Transport\+Layer \&)}{recvMessage(TransportLayer &)}}]{\setlength{\rightskip}{0pt plus 5cm}int Client\+::recv\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Transport\+Layer} \&}]{tl}
+\end{DoxyParamCaption}
+)}\hypertarget{classClient_a81f551d0d21e211e8769adb25a071797}{}\label{classClient_a81f551d0d21e211e8769adb25a071797}
+
+
+recv\+Message controling process of receiveing message if not errors,else asking about errore?? 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Message} & is an initialized string variable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Integer 
+\end{DoxyReturn}
+\index{Client@{Client}!send\+Message@{send\+Message}}
+\index{send\+Message@{send\+Message}!Client@{Client}}
+\subsubsection[{\texorpdfstring{send\+Message(const String \&)}{sendMessage(const String &)}}]{\setlength{\rightskip}{0pt plus 5cm}int Client\+::send\+Message (
+\begin{DoxyParamCaption}
+\item[{const String \&}]{message}
+\end{DoxyParamCaption}
+)}\hypertarget{classClient_af4f39b4303028f1e46357f94060ebc2b}{}\label{classClient_af4f39b4303028f1e46357f94060ebc2b}
+
+
+send\+Message controling process of sending message if not errors, else asking about errore?? 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Message} & is an initialized string variable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Integer 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/\hyperlink{Client_8hpp}{Client.\+hpp}\item 
+core/Client.\+cpp\end{DoxyCompactItemize}

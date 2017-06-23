@@ -1,0 +1,61 @@
+\hypertarget{classController}{}\section{Controller Class Reference}
+\label{classController}\index{Controller@{Controller}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classController_1_1InputReader}{Input\+Reader}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries User} = \hyperlink{classClientUser}{Client\+User}\hypertarget{classController_ae8e4814b1b057df2b338500d286a6dd3}{}\label{classController_ae8e4814b1b057df2b338500d286a6dd3}
+
+\item 
+using {\bfseries Users} = std\+::list$<$ \hyperlink{classClientUser}{User} $>$\hypertarget{classController_ac0c64a258282568b1fe458447b58cdec}{}\label{classController_ac0c64a258282568b1fe458447b58cdec}
+
+\item 
+using {\bfseries User\+Iter} = Users\+::iterator\hypertarget{classController_ac9e8c85fbff11efe305273c65e51cb0f}{}\label{classController_ac9e8c85fbff11efe305273c65e51cb0f}
+
+\item 
+using {\bfseries String} = User\+::\+String\hypertarget{classController_a544a3f0a0e5bfb251cfdd457b62374f0}{}\label{classController_a544a3f0a0e5bfb251cfdd457b62374f0}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Controller} (\hyperlink{classClient}{Client} \&)\hypertarget{classController_abdfa33e6687675dbcece03f3b71f7ad0}{}\label{classController_abdfa33e6687675dbcece03f3b71f7ad0}
+
+\item 
+void {\bfseries run} (const String \&)\hypertarget{classController_a8dc70c84e6d5c77b6801073f17a09c9f}{}\label{classController_a8dc70c84e6d5c77b6801073f17a09c9f}
+
+\item 
+void {\bfseries handle\+Session} ()\hypertarget{classController_a55b91f599170dc6e7b0dc01c6560c474}{}\label{classController_a55b91f599170dc6e7b0dc01c6560c474}
+
+\item 
+String {\bfseries send\+Login\+Request} (const String \&login, const String \&password)\hypertarget{classController_a554f7fefaf160170986f4b916aeb4ffd}{}\label{classController_a554f7fefaf160170986f4b916aeb4ffd}
+
+\item 
+String {\bfseries send\+Logout\+Request} ()\hypertarget{classController_a6919677cbe8e89171c99544860c07ce6}{}\label{classController_a6919677cbe8e89171c99544860c07ce6}
+
+\item 
+String {\bfseries send\+Registration\+Request} (const String \&login, const String \&name, const String \&surname, const String \&password)\hypertarget{classController_a1b3e4b042a20b1f94010eb6625e3ac20}{}\label{classController_a1b3e4b042a20b1f94010eb6625e3ac20}
+
+\item 
+String {\bfseries send\+Message\+To\+User} (const String \&to\+User, String \&msg)\hypertarget{classController_a3663c7529e007675c1e94ead6d5aafc9}{}\label{classController_a3663c7529e007675c1e94ead6d5aafc9}
+
+\item 
+String {\bfseries send\+Conv\+Request} (const String \&)\hypertarget{classController_a774bfb89454e8ae116c1ba51395d6392}{}\label{classController_a774bfb89454e8ae116c1ba51395d6392}
+
+\item 
+void {\bfseries f} (String \&str)\hypertarget{classController_a95e98a70661457e6d3d08a0985ebe72d}{}\label{classController_a95e98a70661457e6d3d08a0985ebe72d}
+
+\item 
+String {\bfseries get\+Login} () const \hypertarget{classController_aad5de5df0deb5c552c0b6c57acabee26}{}\label{classController_aad5de5df0deb5c552c0b6c57acabee26}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/\hyperlink{Controller_8hpp}{Controller.\+hpp}\item 
+core/Controller.\+cpp\end{DoxyCompactItemize}

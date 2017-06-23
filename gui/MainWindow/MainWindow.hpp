@@ -1,3 +1,13 @@
+/** 
+ *  @file    MainWindow.hpp
+ *  @author  GRI Team
+ *  @date    06/23/2017  
+ *  @version 1.0  
+ *  @brief ....
+ */
+
+
+
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
@@ -35,6 +45,10 @@ class Controller;
 #include "../../core/Controller.hpp"
 
 
+
+/**
+*  @brief ....  
+*/ 
 class MainWindow : public QWidget
 {
 	Q_OBJECT
@@ -48,14 +62,62 @@ public:
 	using Avatars = std::list<AvatarPtr>;
 	using AvatarsIter = Avatars::iterator;
 
-    MainWindow(Controller&);
+	
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*/  
+	MainWindow(Controller&);
 
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*   @return void
+  	*/  
 	void updateMainWindow(User& u);
+
+	/** 
+        *   @brief  ....  
+        *   @param  ....
+	*   @param  .... 
+  	*   @return void
+  	*/  
 	void updateMainWindow(Users& users);
+	
+	
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*   @return void
+  	*/  
 	void setUser(User& u);	
+
+	/** 
+        *   @brief  .....    
+        *   @param  no parametrs  
+  	*   @return void
+  	*/  
 	void updateMessageBox();
+
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*   @return void
+  	*/  
 	void sendMessage(String& msg);
+
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*   @return void
+  	*/  
 	void sendConvRequest(const String&);
+
+	/** 
+        *   @brief  ....    
+        *   @param  no parametrs  
+  	*   @return void
+  	*/  
 	void showWindow();	//???
 
 

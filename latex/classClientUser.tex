@@ -1,0 +1,317 @@
+\hypertarget{classClientUser}{}\section{Client\+User Class Reference}
+\label{classClientUser}\index{Client\+User@{Client\+User}}
+
+
+\hyperlink{classClientUser}{Client\+User} Class.  
+
+
+
+
+{\ttfamily \#include $<$Client\+User.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries String} = std\+::string\hypertarget{classClientUser_aef53757bf901527ea25271dcb6bb6f07}{}\label{classClientUser_aef53757bf901527ea25271dcb6bb6f07}
+
+\item 
+using {\bfseries Size\+Type} = String\+::size\+\_\+type\hypertarget{classClientUser_a7ae0fc0af4762d5ac0d62b2b74733d63}{}\label{classClientUser_a7ae0fc0af4762d5ac0d62b2b74733d63}
+
+\item 
+using {\bfseries Messages} = std\+::list$<$ String $>$\hypertarget{classClientUser_a7edc55abad1cbdfd2eb8ad58ca5a50b1}{}\label{classClientUser_a7edc55abad1cbdfd2eb8ad58ca5a50b1}
+
+\item 
+using {\bfseries String\+Ptr} = std\+::shared\+\_\+ptr$<$ String $>$\hypertarget{classClientUser_aa108f0bcb6ad6fa328b18e03e72acef5}{}\label{classClientUser_aa108f0bcb6ad6fa328b18e03e72acef5}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classClientUser_a0c60cdac1feb0952d3b1c1170b1a69bc}{Client\+User} ()\hypertarget{classClientUser_a0c60cdac1feb0952d3b1c1170b1a69bc}{}\label{classClientUser_a0c60cdac1feb0952d3b1c1170b1a69bc}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{classClientUser}{Client\+User} is constructor for Class \hyperlink{classClientUser}{Client\+User}. \end{DoxyCompactList}\item 
+\hyperlink{classClientUser_a0e9c1c34ca28ab22bd0f960ab1ee88f9}{Client\+User} (String \&)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classClientUser}{Client\+User} is constructor for Class \hyperlink{classClientUser}{Client\+User}. \end{DoxyCompactList}\item 
+bool \hyperlink{classClientUser_aa1fbbd82131fbbab5b468ff12ad7ccaf}{from\+String} (String \&)
+\begin{DoxyCompactList}\small\item\em set parametrs login, name, surname, string and check if this empty \end{DoxyCompactList}\item 
+void \hyperlink{classClientUser_a34a1353a6b7c4b0c53e621944efc8137}{add\+Message} (const String \&)
+\begin{DoxyCompactList}\small\item\em add\+Message asign new message in old mesages and increase by one \end{DoxyCompactList}\item 
+String \hyperlink{classClientUser_a73a3633182af0f7ea8cd6534e0d1bbce}{to\+String\+Log} () const 
+\begin{DoxyCompactList}\small\item\em to\+String add login name and surname in string \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{classClientUser_a54826c29f4420a811f65dd7babbf7ad0}{get\+Login} () const 
+\begin{DoxyCompactList}\small\item\em get\+Login return login \end{DoxyCompactList}\item 
+String \hyperlink{classClientUser_a42db3fc8470f3701f724b47e2d63dc8d}{get\+Name} () const 
+\begin{DoxyCompactList}\small\item\em get\+Name return name \end{DoxyCompactList}\item 
+String \hyperlink{classClientUser_a9654ca77ca24fa01949feec8d5dc762c}{get\+Surname} () const 
+\begin{DoxyCompactList}\small\item\em get\+Surname return surname \end{DoxyCompactList}\item 
+bool \hyperlink{classClientUser_ae091b81e5e1ac86a11d3de8135cc36aa}{get\+Status} () const 
+\begin{DoxyCompactList}\small\item\em get\+Status return status \end{DoxyCompactList}\item 
+Size\+Type \hyperlink{classClientUser_aad8dc8d49e94f68a8bbbe324a55e68d9}{get\+Unread\+Messages\+Count} () const 
+\begin{DoxyCompactList}\small\item\em get\+Unread\+Messages\+Count return unread messages count \end{DoxyCompactList}\item 
+Messages \& \hyperlink{classClientUser_a1cb9cc387ca7e6fb374f9745409ad552}{get\+Messages} ()
+\begin{DoxyCompactList}\small\item\em get\+Messages return messages \end{DoxyCompactList}\item 
+void \hyperlink{classClientUser_a9fc92b13a43c208773ea25aade33ba54}{set\+Status} (const bool)
+\begin{DoxyCompactList}\small\item\em asigne the value to status \end{DoxyCompactList}\item 
+void \hyperlink{classClientUser_afa0747fa782b945e0f1430605dde5f4e}{set\+Unread\+Messages} (const Size\+Type)
+\begin{DoxyCompactList}\small\item\em asign the value to unread messages \end{DoxyCompactList}\item 
+\hyperlink{classClientUser}{Client\+User} $\ast$ \hyperlink{classClientUser_a8144e58927e95bff49485c3a81c40893}{get\+Pointer} ()
+\begin{DoxyCompactList}\small\item\em ... \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classClientUser}{Client\+User} Class. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Client\+User@{Client\+User}!Client\+User@{Client\+User}}
+\index{Client\+User@{Client\+User}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{Client\+User(\+String \&)}{ClientUser(String &)}}]{\setlength{\rightskip}{0pt plus 5cm}Client\+User\+::\+Client\+User (
+\begin{DoxyParamCaption}
+\item[{String \&}]{client\+Str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classClientUser_a0e9c1c34ca28ab22bd0f960ab1ee88f9}{}\label{classClientUser_a0e9c1c34ca28ab22bd0f960ab1ee88f9}
+
+
+\hyperlink{classClientUser}{Client\+User} is constructor for Class \hyperlink{classClientUser}{Client\+User}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Reference} & of String \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Client\+User@{Client\+User}!add\+Message@{add\+Message}}
+\index{add\+Message@{add\+Message}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{add\+Message(const String \&)}{addMessage(const String &)}}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+User\+::add\+Message (
+\begin{DoxyParamCaption}
+\item[{const String \&}]{message}
+\end{DoxyParamCaption}
+)}\hypertarget{classClientUser_a34a1353a6b7c4b0c53e621944efc8137}{}\label{classClientUser_a34a1353a6b7c4b0c53e621944efc8137}
+
+
+add\+Message asign new message in old mesages and increase by one 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & reference of String?? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!from\+String@{from\+String}}
+\index{from\+String@{from\+String}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{from\+String(\+String \&)}{fromString(String &)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Client\+User\+::from\+String (
+\begin{DoxyParamCaption}
+\item[{String \&}]{client\+Str}
+\end{DoxyParamCaption}
+)}\hypertarget{classClientUser_aa1fbbd82131fbbab5b468ff12ad7ccaf}{}\label{classClientUser_aa1fbbd82131fbbab5b468ff12ad7ccaf}
+
+
+set parametrs login, name, surname, string and check if this empty 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Reference} & of String \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool parametr 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!get\+Login@{get\+Login}}
+\index{get\+Login@{get\+Login}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{get\+Login() const }{getLogin() const }}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ Client\+User\+::get\+Login (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classClientUser_a54826c29f4420a811f65dd7babbf7ad0}{}\label{classClientUser_a54826c29f4420a811f65dd7babbf7ad0}
+
+
+get\+Login return login 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!get\+Messages@{get\+Messages}}
+\index{get\+Messages@{get\+Messages}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{get\+Messages()}{getMessages()}}]{\setlength{\rightskip}{0pt plus 5cm}Client\+User\+::\+Messages \& Client\+User\+::get\+Messages (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classClientUser_a1cb9cc387ca7e6fb374f9745409ad552}{}\label{classClientUser_a1cb9cc387ca7e6fb374f9745409ad552}
+
+
+get\+Messages return messages 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+???... 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{get\+Name() const }{getName() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Client\+User\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classClientUser_a42db3fc8470f3701f724b47e2d63dc8d}{}\label{classClientUser_a42db3fc8470f3701f724b47e2d63dc8d}
+
+
+get\+Name return name 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!get\+Pointer@{get\+Pointer}}
+\index{get\+Pointer@{get\+Pointer}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{get\+Pointer()}{getPointer()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Client\+User} $\ast$ Client\+User\+::get\+Pointer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classClientUser_a8144e58927e95bff49485c3a81c40893}{}\label{classClientUser_a8144e58927e95bff49485c3a81c40893}
+
+
+... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+... 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!get\+Status@{get\+Status}}
+\index{get\+Status@{get\+Status}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{get\+Status() const }{getStatus() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Client\+User\+::get\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classClientUser_ae091b81e5e1ac86a11d3de8135cc36aa}{}\label{classClientUser_ae091b81e5e1ac86a11d3de8135cc36aa}
+
+
+get\+Status return status 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!get\+Surname@{get\+Surname}}
+\index{get\+Surname@{get\+Surname}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{get\+Surname() const }{getSurname() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Client\+User\+::get\+Surname (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classClientUser_a9654ca77ca24fa01949feec8d5dc762c}{}\label{classClientUser_a9654ca77ca24fa01949feec8d5dc762c}
+
+
+get\+Surname return surname 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!get\+Unread\+Messages\+Count@{get\+Unread\+Messages\+Count}}
+\index{get\+Unread\+Messages\+Count@{get\+Unread\+Messages\+Count}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{get\+Unread\+Messages\+Count() const }{getUnreadMessagesCount() const }}]{\setlength{\rightskip}{0pt plus 5cm}Client\+User\+::\+Size\+Type Client\+User\+::get\+Unread\+Messages\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classClientUser_aad8dc8d49e94f68a8bbbe324a55e68d9}{}\label{classClientUser_aad8dc8d49e94f68a8bbbe324a55e68d9}
+
+
+get\+Unread\+Messages\+Count return unread messages count 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Size\+Type,it\textquotesingle{}s size of string 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!set\+Status@{set\+Status}}
+\index{set\+Status@{set\+Status}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{set\+Status(const bool)}{setStatus(const bool)}}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+User\+::set\+Status (
+\begin{DoxyParamCaption}
+\item[{const bool}]{st}
+\end{DoxyParamCaption}
+)}\hypertarget{classClientUser_a9fc92b13a43c208773ea25aade33ba54}{}\label{classClientUser_a9fc92b13a43c208773ea25aade33ba54}
+
+
+asigne the value to status 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & bool parametr? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!set\+Unread\+Messages@{set\+Unread\+Messages}}
+\index{set\+Unread\+Messages@{set\+Unread\+Messages}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{set\+Unread\+Messages(const Size\+Type)}{setUnreadMessages(const SizeType)}}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+User\+::set\+Unread\+Messages (
+\begin{DoxyParamCaption}
+\item[{const Size\+Type}]{um}
+\end{DoxyParamCaption}
+)}\hypertarget{classClientUser_afa0747fa782b945e0f1430605dde5f4e}{}\label{classClientUser_afa0747fa782b945e0f1430605dde5f4e}
+
+
+asign the value to unread messages 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & of string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Client\+User@{Client\+User}!to\+String\+Log@{to\+String\+Log}}
+\index{to\+String\+Log@{to\+String\+Log}!Client\+User@{Client\+User}}
+\subsubsection[{\texorpdfstring{to\+String\+Log() const }{toStringLog() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Client\+User\+::to\+String\+Log (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classClientUser_a73a3633182af0f7ea8cd6534e0d1bbce}{}\label{classClientUser_a73a3633182af0f7ea8cd6534e0d1bbce}
+
+
+to\+String add login name and surname in string 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/\hyperlink{ClientUser_8hpp}{Client\+User.\+hpp}\item 
+core/Client\+User.\+cpp\end{DoxyCompactItemize}

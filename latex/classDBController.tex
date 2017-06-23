@@ -1,0 +1,70 @@
+\hypertarget{classDBController}{}\section{D\+B\+Controller$<$ Users $>$ Class Template Reference}
+\label{classDBController}\index{D\+B\+Controller$<$ Users $>$@{D\+B\+Controller$<$ Users $>$}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries User} = typename Users\+::value\+\_\+type\hypertarget{classDBController_ab621e56636010ffa790768031b6e1f58}{}\label{classDBController_ab621e56636010ffa790768031b6e1f58}
+
+\item 
+using {\bfseries String} = std\+::string\hypertarget{classDBController_afc05cf46913445cad521510401ba915c}{}\label{classDBController_afc05cf46913445cad521510401ba915c}
+
+\item 
+using {\bfseries mut\+Guard} = std\+::lock\+\_\+guard$<$ std\+::mutex $>$\hypertarget{classDBController_a2cc84030c82e94f79cd6f0da5a49a4ee}{}\label{classDBController_a2cc84030c82e94f79cd6f0da5a49a4ee}
+
+\item 
+using {\bfseries Conversations} = std\+::list$<$ \hyperlink{classConversation}{Conversation} $>$\hypertarget{classDBController_a72de5ce4988f74484b295dd24b699f55}{}\label{classDBController_a72de5ce4988f74484b295dd24b699f55}
+
+\item 
+using {\bfseries Conv\+Iter} = Conversations\+::iterator\hypertarget{classDBController_aede4241d22b2ab7a23a9311efc45b9c3}{}\label{classDBController_aede4241d22b2ab7a23a9311efc45b9c3}
+
+\item 
+using {\bfseries Conv\+Ptr} = Conversation\+::\+Conv\+Ptr\hypertarget{classDBController_ab3f8ef368bebfd895073943f20b4b302}{}\label{classDBController_ab3f8ef368bebfd895073943f20b4b302}
+
+\item 
+using {\bfseries P\+Messages} = Server\+User\+::\+Pending\+Messages\hypertarget{classDBController_a54f4ce4e32b7f1e2cfe5f0108e4e118b}{}\label{classDBController_a54f4ce4e32b7f1e2cfe5f0108e4e118b}
+
+\item 
+using {\bfseries P\+Messages\+Ptr} = Server\+User\+::\+P\+Messages\+Ptr\hypertarget{classDBController_ae2dd2067bcc0998090de4ddc1edd6be2}{}\label{classDBController_ae2dd2067bcc0998090de4ddc1edd6be2}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries D\+B\+Controller} (Users $\ast$)\hypertarget{classDBController_a96ee1afe79accb438be3c8c7d6153e48}{}\label{classDBController_a96ee1afe79accb438be3c8c7d6153e48}
+
+\item 
+Conv\+Iter {\bfseries find\+Conversation} (const String \&, const String \&)\hypertarget{classDBController_a440d0822dc8783d0bd1e0c9abaa9dda3}{}\label{classDBController_a440d0822dc8783d0bd1e0c9abaa9dda3}
+
+\item 
+void {\bfseries add\+Message} (const String \&, const String \&, const String \&)\hypertarget{classDBController_a7cabcbb8b0929fb216ce578c92ba60d6}{}\label{classDBController_a7cabcbb8b0929fb216ce578c92ba60d6}
+
+\item 
+void {\bfseries add\+Pending\+Message} (const String \&, const String \&)\hypertarget{classDBController_a53d1d7eb7bec56a9c8947d3d3933a2dd}{}\label{classDBController_a53d1d7eb7bec56a9c8947d3d3933a2dd}
+
+\item 
+void {\bfseries add\+P\+Msgs\+To\+Conv} (const String \&)\hypertarget{classDBController_a50e7d50c550c5a99e2fbe16dbbd663cb}{}\label{classDBController_a50e7d50c550c5a99e2fbe16dbbd663cb}
+
+\item 
+P\+Messages\+Ptr {\bfseries get\+P\+Messages} (const String \&)\hypertarget{classDBController_ac714342c2231148d74a38d6ffbf3bc6c}{}\label{classDBController_ac714342c2231148d74a38d6ffbf3bc6c}
+
+\item 
+Conv\+Ptr {\bfseries get\+Conversation} (const String \&, const String \&)\hypertarget{classDBController_ae470582ad606464b6bfa1e083e636331}{}\label{classDBController_ae470582ad606464b6bfa1e083e636331}
+
+\item 
+void {\bfseries add\+User} (const User \&)\hypertarget{classDBController_ab58344200efef52f4af29ba0719d6a04}{}\label{classDBController_ab58344200efef52f4af29ba0719d6a04}
+
+\item 
+void {\bfseries get\+Users} ()\hypertarget{classDBController_a8f20b4a461adf6112d8c18d4525d212a}{}\label{classDBController_a8f20b4a461adf6112d8c18d4525d212a}
+
+\item 
+void {\bfseries log} (const String \&)\hypertarget{classDBController_a4c6877eb395a74ced68d336a461209f5}{}\label{classDBController_a4c6877eb395a74ced68d336a461209f5}
+
+\item 
+void {\bfseries log\+Users} ()\hypertarget{classDBController_aa6fb5d37c63368f79193bb548f8823b9}{}\label{classDBController_aa6fb5d37c63368f79193bb548f8823b9}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+core/D\+B\+Controller.\+hpp\end{DoxyCompactItemize}
