@@ -66,11 +66,8 @@ void Controller::handleSession()
 
 String Controller::sendLoginRequest(const String& login, const String& password)
 {
-    std::cout << __LINE__ << std::endl;
 	userLogin_ = login;
-    std::cout << __LINE__ << std::endl;
 	String msg = login + delim + password + delim;
-    std::cout << __LINE__ << std::endl;
 	return "Login request: " + sendMessage(msg, loginRequest);
 }
 

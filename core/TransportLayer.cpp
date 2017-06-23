@@ -14,7 +14,14 @@ TransportLayer::Iterator TransportLayer::end()
 	return Iterator(messages_.end()); 
 }
 
-void TransportLayer::processMessage(char* msg)
+
+void TransportLayer::processMessage()
+{
+	processMessageHelper(buffer);
+}
+
+
+void TransportLayer::processMessageHelper(char* msg)
 {
 	int size = strlen(msg);
 	if(size <= 0){
@@ -27,11 +34,26 @@ void TransportLayer::processMessage(char* msg)
 	messages_.push_back(message_);
 
 	if(msgPos+msgSize < size){
-		processMessage(&msg[msgPos + msgSize]);
+		processMessageHelper(&msg[msgPos + msgSize]);
 	}
 }
 
 void TransportLayer::clear()
 {
 	messages_.clear();
+}
+
+size_t TransportLayer::getBufferSize() const
+{
+	return bufferSize; 
+}
+
+char* TransportLayer::getBuffer() 
+{
+	return buffer; 
+}
+
+void TransportLayer::setEnd(const int sz, const char c) 
+{
+	buffer[sz] = c; 
 }

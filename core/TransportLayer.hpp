@@ -14,6 +14,7 @@
 #include <list>
 #include <memory>
 #include <iterator>
+#include <mutex>
 
 #include "WordExtractor.hpp"
 
@@ -68,11 +69,23 @@ public:
 	Iterator begin();
 	Iterator end();
 
-	void processMessage(char*);
+	void processMessage();
 	void clear();
+
+	size_t getBufferSize() const; 
+	char* getBuffer();
+
+	void setEnd(const int, const char);
+
 private:
-	 Messages messages_;
-	 WordExtractor wordExtractor_;
+	void processMessageHelper(char*);
+
+	Messages messages_;
+	WordExtractor wordExtractor_;
+	static const size_t bufferSize = 2048;
+	char buffer[bufferSize];
+
+	std::mutex mutex;
 };
 
 
