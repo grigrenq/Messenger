@@ -3,7 +3,7 @@
  *  @author  GRI Team
  *  @date    06/23/2017  
  *  @version 1.0   
- *  @brief ....
+ *  @brief show about errors
  */
 #ifndef POPERROR_HPP
 #define POPERROR_HPP

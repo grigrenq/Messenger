@@ -1,10 +1,10 @@
 /** 
- *  @file    Avatar.hpp
- *  @author  GRI Team
- *  @date    06/23/2018  
- *  @version 1.0  
- *  @brief ....
- */
+*  @file    Avatar.hpp
+*  @author  GRI Team
+*  @date    06/23/2018  
+*  @version 1.0  
+*  @brief creating GUI where show all users who registred in GRI and there status
+*/
 #ifndef AVATAR_HPP
 #define AVATAR_HPP
 
@@ -22,7 +22,7 @@ class QEvent;
 
 
 /**
-*  @brief ....  
+*  @brief Avatar creating GUI where show all users who registred in GRI and there status
 */  
 class Avatar : public QLabel
 {
@@ -35,37 +35,30 @@ public:
 	//Avatar(User&);
 	
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
-	*   @param  ....
+        *   @brief  Avatar constructor for class Avatar,thats created all avatar's labels and added style 
+        *   @param  reference of User  
+	*   @param  reference of MainWindow
   	*/  
 	Avatar(User&, MainWindow&);
 	
 	/** 
-        *   @brief  ....    
+        *   @brief  setStatus about status users if user online or ofline    
         *   @param  bool 
   	*   @return void
   	*/  
 	void setStatus(bool);
 	
 	/** 
-        *   @brief  ....    
+        *   @brief  getStatus show status users   
         *   @param  no parametrs 
   	*   @return bool
   	*/  
 	bool getStatus() const;
-
-	/** 
-        *   @brief  ....    
-        *   @param  no parametrs  
-  	*   @return void
-  	*/  
-	void incrementCount(); 
 	
 	/** 
-        *   @brief  ....   
+        *   @brief  getLogin  returned  parametrs user who log in this moment    
         *   @param  no parametrs  
-  	*   @return ....
+  	*   @return const char*
   	*/  
 	const char* getLogin();
 
