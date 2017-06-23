@@ -1,6 +1,9 @@
 #include "ClientUser.hpp"
 #include "MessageTypes.hpp"
 
+
+#include <cstring>
+
 using String = ClientUser::String;
 
 ClientUser::ClientUser() 
@@ -17,12 +20,15 @@ ClientUser::ClientUser(String& clientStr)
 
 bool ClientUser::fromString(String& clientStr)
 {
+	//login_.store( wordExtractor_(clientStr).c_str());
+	//const char* c = login_.load();
 	login_ = wordExtractor_(clientStr);
 	name_ = wordExtractor_(clientStr);
 	surname_ = wordExtractor_(clientStr);
 	String st = wordExtractor_(clientStr);
 
-	if (login_.empty() || name_.empty() 
+
+	if (name_.empty() 
 			|| surname_.empty() || st.empty()) {
 		return false;
 	}
@@ -43,7 +49,7 @@ void ClientUser::addMessage(const String& message)
 
 String ClientUser::toStringLog() const
 {
-	String clientStr = (login_) + delim + name_ + delim + surname_ + delim;
+	String clientStr = /*(login_.load())*/login_ + delim + name_ + delim + surname_ + delim;
 	if (status_ == true)
 		clientStr = clientStr + online + delim;
 	else
@@ -58,7 +64,16 @@ String ClientUser::toStringLog() const
 const char* ClientUser::getLogin() const 
 {
 	//return login_; //cause of the problem.
-	return login_.c_str();
+	//return login_.c_str();
+	//return "asdasd";
+	
+	//std::cout << "login.size()=" << strlen(login_.load()) << std::endl;
+	std::cout << "login.size()=" << login_.size() << std::endl;
+	//char* c = new char[login_.size() + 100];
+	//memcpy(c, login_.c_str(), login_.size());
+	//c[login_.size()] = '\0';
+	std::cout << __FUNCTION__ << std::endl;
+	return "asd";
 }
 
 String ClientUser::getName() const 

@@ -44,7 +44,7 @@ class Avatar;
 class Controller;
 #include "../../core/Controller.hpp"
 
-
+#include "../../core/CCC.hpp"
 
 /**
 *  @brief ....  

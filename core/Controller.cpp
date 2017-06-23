@@ -153,28 +153,28 @@ void Controller::processMessage(String& message)
 		processConvRespond(message);
 	} else {
 		String log = "Unknown type: " + msgType + " message: " + message;
-		dbcontroller_.log(log);
-		throw Error(log);
+		//dbcontroller_.log(log);
+		//throw Error(log);
 	}
 }
 
 void Controller::processPlainMessage(String& message)
 {
-	dbcontroller_.log(message);
+	//dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	String fromUser = wordExtractor_(message);
 	auto it = find(fromUser);
 	if (it == users_.end()) {
 		throw Error("The message is from unknown user");
 	} else {
-		it->addMessage(message);
+		(*it)->addMessage(message);
 		updateMainWindow(it);
 	}
 }
 
 void Controller::processLoginRespond(String& message)
 {
-	dbcontroller_.log(message);
+	//dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	String result = wordExtractor_(message);
 	if (result == error) {
@@ -200,7 +200,7 @@ void Controller::processLoginRespond(String& message)
 void Controller::processLogoutRespond(String& message)
 {
 	String result = wordExtractor_(message);
-	dbcontroller_.log(message);
+	//dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
 		popError_->setText(message);
@@ -212,13 +212,13 @@ void Controller::processLogoutRespond(String& message)
 		}
 		users_.erase(users_.begin(), users_.end());
 	}
-	dbcontroller_.logUsers();
+	//dbcontroller_.logUsers();
 }
 
 void Controller::processRegistrationRespond(String& message)
 {
 	String result = wordExtractor_(message);
-	dbcontroller_.log(message);
+	//dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
 		popError_->setText(message);
@@ -233,14 +233,14 @@ void Controller::processRegistrationRespond(String& message)
 
 void Controller::processUserChangedRespond(String& userStr)
 {
-	User u;
+	UserPtr u(new User());
 	String log = "UserChangedRespond: User: \n";
 	UserIter it;
-	if (!u.fromString(userStr)) {
+	if (!(u->fromString(userStr))) {
 		log += ". missing from the list.";
 		throw Error("Error occurred when processing user changed respond");
 	} else {
-		it = find(u);
+		it = find(*u);
 		if (it == users_.end()) {
 			users_.push_back(u);
 			it = users_.end();
@@ -248,29 +248,30 @@ void Controller::processUserChangedRespond(String& userStr)
 			log += ". adding into the list.";
 		}
 		else {
-			it->setStatus(u.getStatus());
-			log += ". setting status to " + std::to_string(u.getStatus());
+			(*it)->setStatus(u->getStatus());
+			log += ". setting status to " + std::to_string(u->getStatus());
 		}
 	}
 	std::cout << log << std::endl;
-	dbcontroller_.log(log);
-	dbcontroller_.logUsers();
+	//dbcontroller_.log(log);
+	//dbcontroller_.logUsers();
 	updateMainWindow(it);
 }
 
 void Controller::processUserListRespond(String& userList)
 {
-	User u;
 	String log = "processUserListResp..." + userList;
-	dbcontroller_.log(log);
+	//dbcontroller_.log(log);
 	std::cout << log << std::endl;
 	users_.erase(users_.begin(), users_.end());
-	while (u.fromString(userList)) {
+	UserPtr u(new User());
+	while (u->fromString(userList)) {
 		users_.push_back(u);
-		log = " adding into the list of users_: " + u.toStringLog();
-		dbcontroller_.log(log);
+		u.reset(new User());
+		log = " adding into the list of users_: " + u->toStringLog();
+		//dbcontroller_.log(log);
 	}
-	dbcontroller_.logUsers();
+	//dbcontroller_.logUsers();
 	updateMainWindow();
 }
 
@@ -282,15 +283,15 @@ void Controller::processConvRespond(String& msg)
 		String msg("No user with login-" + u);
 		throw Error(msg);
 	}
-	it->addMessage(msg);
-	updateMainWindow(it);
+	(*it)->addMessage(msg);
+	updateMainWindow();
 }
 
 Controller::UserIter Controller::find(const String& login)
 {
 	auto it = users_.begin();
 	for (; it != users_.end(); ++it) {
-		if (((it->getLogin())) == login) {
+		if ((*it)->getLogin() == login) {
 			return it;
 		}
 	}
@@ -301,8 +302,9 @@ Controller::UserIter Controller::find(Controller::User& u)
 {
 	auto it = users_.begin();
 	for (; it != users_.end(); ++it) {
-		if ((*(it->getLogin())) == (*(u.getLogin())))
+		if ((*it)->getLogin() == u.getLogin()) {
 			return it;
+		}
 	}
 	return it;
 }

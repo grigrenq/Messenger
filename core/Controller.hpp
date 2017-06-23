@@ -11,9 +11,11 @@
 
 #include "Client.hpp"
 #include "ClientUser.hpp"
-#include "DBController.hpp"
 #include "InputValidator.hpp"
+#include "DBController.hpp"
 #include "TransportLayer.hpp"
+
+#include <memory>
 
 class LoginWindow;
 class MainWindow;
@@ -28,7 +30,8 @@ class Controller
 {
 public:
 	using User = ClientUser;
-	using Users = std::list<User>;
+	using UserPtr = std::shared_ptr<User>;
+	using Users = std::list<UserPtr>;
 	using UserIter = Users::iterator;
 	using String = User::String;
 

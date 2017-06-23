@@ -14,9 +14,12 @@
 #include <string>
 #include <list>
 #include <memory>
+#include <atomic>
+#include <iostream>
 
 #include "WordExtractor.hpp"
-
+using std::string;
+//thread_local int iii = 10;
 
 /**
 *  @brief ClientUser Class  
@@ -38,6 +41,7 @@ class ClientUser
                 *   @param  Reference of String
                 */  
 		explicit ClientUser(String&);
+
 
 		/** 
                 *   @brief  set parametrs login, name, surname, string and check if this empty
@@ -126,12 +130,25 @@ class ClientUser
 		void operator=(const ClientUser&);
 		bool operator==(const ClientUser&);
 
-		String login_;
+	public:
+		ClientUser(const ClientUser& c)
+			: name_(c.name_), surname_(c.surname_)
+			, status_(c.status_), unreadMessages_(c.unreadMessages_)
+			, messages_(c.messages_)
+			, login_(c.login_)
+		{
+			std::cout << ".......copy constructor..........\n";
+			//login_.store(c.login_.load());
+		}
+
+	private:
 		String name_;
 		String surname_;
 		bool status_;
 		size_t unreadMessages_;
 		Messages messages_;
+		//std::atomic<const char*> login_;
+		String login_;
 
 		WordExtractor wordExtractor_;
 };

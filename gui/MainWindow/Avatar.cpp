@@ -3,22 +3,9 @@
 #include <QGridLayout>
 #include <QString>
 #include <QFont>
-#include <QEvent>
 
 #include "MainWindow.hpp"
 #include "Avatar.hpp"
-
-/*
-Avatar::Avatar(User& u)
-	: user_(u)
-	, avName_(nullptr)
-	,avSurname_(nullptr)
-	, avLogin_(nullptr)
-	, avStatus_(nullptr)
-	  , avCount_(nullptr)
-{
-}
-*/
 
 Avatar::Avatar(User& u, MainWindow& mw)
 	: user_(u)
@@ -71,14 +58,22 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	lay->addWidget(avCount_);
 	setStyleSheet("border:1px solid black");
 	
-	//QObject::connect(this,SIGNAL(clicked()),this,SLOT(openConversation()));
+	QObject::connect(this,SIGNAL(clicked()),this,SLOT(openConversation()));
 }
 
 void Avatar::openConversation()
 {
-	//mainWindow_.setUser(user_);
-	//mainWindow_.updateMessageBox();
-	//user_.setUnreadMessages(0);
+	std::cout << __FUNCTION__ << std::endl;
+	std::cout << "before setUser-";
+	std::cout <<  user_.getLogin() << std::endl;
+	/*mainWindow_.setUser(user_);
+	std::cout << "after setUser.\n";
+	std::cout << __FUNCTION__ << std::endl;
+	mainWindow_.updateMessageBox();
+	std::cout << __FUNCTION__ << std::endl;
+	user_.setUnreadMessages(0);
+	std::cout << __FUNCTION__ << std::endl;
+	*/
 }
 
 void Avatar::setStatus(bool b)
@@ -91,7 +86,7 @@ void Avatar::setStatus(bool b)
     }
 }
 
-void Avatar::mousePressEvent(QEvent*)
+void Avatar::mousePressEvent(QMouseEvent*)
 {
 	emit clicked();
 }

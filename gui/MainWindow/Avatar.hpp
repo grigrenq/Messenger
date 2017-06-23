@@ -13,7 +13,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <MainWindow.hpp>
-#include <QEvent>
+#include <QMouseEvent>
 #include "../../core/ClientUser.hpp"
 
 class MainWindow;
@@ -85,7 +85,7 @@ private:
 	QLabel* avCount_;
     bool status_;
 	int unreadMessages_;
-	void mousePressEvent(QEvent*);
+	void mousePressEvent(QMouseEvent*);
 	void enterEvent(QEvent*);
 	void leaveEvent(QEvent*);
 };

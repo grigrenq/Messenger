@@ -31,6 +31,9 @@ MainWindow::MainWindow(Controller& c)
 {
 	qRegisterMetaType<User>("User");
 	qRegisterMetaType<Users>("Users");
+
+	qRegisterMetaType<UserPtr>("UserPtr");
+
 	setGeometry(10,10,1000,500);
 	setWindowIcon();
 	setWindowTitle("GRI-System");
@@ -43,7 +46,6 @@ MainWindow::MainWindow(Controller& c)
 
 void MainWindow::addAvatars()
 {
-	std::cout << __FUNCTION__ << std::endl;
 	avLay_->setAlignment(Qt::AlignTop);
 
 	if (scrollArea_ == nullptr) {
@@ -91,9 +93,14 @@ void MainWindow::createLayout(){
 void MainWindow::updateMessageBox()
 {
 	if (messageBox_ == nullptr || userPtr_ == nullptr) {
+		std::cout << __FUNCTION__ << " nullptr case." << std::endl;
 		throw std::logic_error("asdasdasd");
 	}
-   	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages()); 
+
+	std::cout << __FUNCTION__ << std::endl;
+	std::cout << userPtr_->getLogin();
+	//userPtr_->getMessages();
+   	//messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages()); 
 }
 
 void MainWindow::sendMessage(String& msg)
@@ -114,6 +121,7 @@ void MainWindow::sendMessage(String& msg)
 void MainWindow::updateMainWindow(User& u)
 {
 	std::cout << "emitting signal updateSignal()\n";
+	//UserPtr up(&u);
 	emit updateSignal(u);
 }
 
@@ -133,7 +141,7 @@ void MainWindow::updateSlot(Users users)
 	updateMainWindowHelper(users);
 }
 
-void MainWindow::updateMainWindowHelper(User& u)
+void MainWindow::updateMainWindowHelper(ClientUser& u)
 {
 	AvatarsIter it = find(u);
 	if (it == avatars_.end()) {
@@ -170,10 +178,10 @@ void MainWindow::updateMainWindowHelper(Users& users)
 		delete scrollWidget_;
 		scrollWidget_ = nullptr;
 	}
-	std::cout << __FUNCTION__ << std::endl;
+	//std::cout << __FUNCTION__ << std::endl;
 	avLay_ = new QVBoxLayout();
 	for (auto it = users.begin(); it != users.end(); ++it) {
-		avatars_.push_back(AvatarPtr(new Avatar(*it, *this)));
+		avatars_.push_back(AvatarPtr(new Avatar(*(*it), *this)));
 	}
 	addAvatars();
 	//show();
@@ -181,6 +189,7 @@ void MainWindow::updateMainWindowHelper(Users& users)
 
 void MainWindow::setUser(User& u)
 {
+	std::cout << __FUNCTION__ << std::endl;
    	userPtr_ = &u; 
 }
 
@@ -190,7 +199,7 @@ MainWindow::AvatarsIter MainWindow::find(const User& u)
 	AvatarsIter it = avatars_.begin();
 	for (; it != avatars_.end(); ++it) {
 		if ((*it)->getLogin() == (u.getLogin())) {
-			std::cout << "it->login() == u.login()" << std::endl;
+			//std::cout << "it->login() == u.login()" << std::endl;
 			return it;
 		}
 	}
