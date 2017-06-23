@@ -13,11 +13,7 @@ const char delim = '%';
 #include <iostream>
 
 MainWindow::MainWindow(Controller& c)
-	: controller_(c)
-	, userPtr_(nullptr)
-	, messageBox_(new MessageBox(*this))
-	, writeBox_(new WriteBox(*this))
-	, mainLayout_(nullptr)
+	: mainLayout_(nullptr)
 	, leftSide_(nullptr)
 	, rightSide_(nullptr)
 	, avLay_(nullptr)
@@ -28,6 +24,10 @@ MainWindow::MainWindow(Controller& c)
 	, messageText_(nullptr)
 	, messageTextLayout_(nullptr)
 	, windowIcon_(nullptr)
+	, controller_(c)
+	, userPtr_(nullptr)
+	, messageBox_(new MessageBox(*this))
+	, writeBox_(new WriteBox(*this))
 {
 	qRegisterMetaType<User>("User");
 	qRegisterMetaType<Users>("Users");

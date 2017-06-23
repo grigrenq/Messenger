@@ -177,14 +177,14 @@ void LoginWindow::checkPassword(const QString& qs)
         QToolTip::showText(passwordField->mapToGlobal(QPoint(300, -15)), "You can't use more than 20 characters");
 		passwordField->setStyleSheet("border: 3px solid red");
 	} else if(validator.checkPassword(s) == ValidationInfo::validMinLength) {
-        QToolTip::showText(passwordField->mapToGlobal(QPoint(300, -15)), "Use at least 5 characters");
+        QToolTip::showText(passwordField->mapToGlobal(QPoint(300, -15)), "Use at least 3 characters");
 		passwordField->setStyleSheet("border: 3px solid red");
     } else if(validator.checkSurName(s) == ValidationInfo::invalidSymbol) {
         QToolTip::showText(passwordField->mapToGlobal(QPoint(300, -15)), "You can use only letters, numbers and underscore symbols");
 		passwordField->setStyleSheet("border: 3px solid red");
     }
 }
-
+#include <iostream>
 void LoginWindow::sendLoginReq()
 {
 	String l = loginField->text().toStdString();
@@ -194,19 +194,23 @@ void LoginWindow::sendLoginReq()
     String passRes = validator.checkPassword(p);
     
     if (logRes == ValidationInfo::emptyField) {
+        std::cout  <<__LINE__ << std::endl;
         loginField->setPlaceholderText("You can't leave this empty");
         loginField->setStyleSheet("border: 3px solid red");
 		return;
 	} else if(validator.checkLogin(l) != ValidationInfo::validLog ) {
+        std::cout <<  __LINE__ << std::endl;
         return;
     }
-    
+
     if(passRes == ValidationInfo::emptyField){
+        std::cout << __LINE__ << std::endl;
         passwordField->setPlaceholderText("You can't leave this empty");
         passwordField->setStyleSheet("border: 3px solid red");
         return;
 
     } else if (validator.checkPassword(p) != ValidationInfo::validLog) {
+        std::cout << __LINE__ << std::endl;
 		return;
 	}
 	controller.sendLoginRequest(l, p);
