@@ -66,8 +66,11 @@ void Controller::handleSession()
 
 String Controller::sendLoginRequest(const String& login, const String& password)
 {
+    std::cout << __LINE__ << std::endl;
 	userLogin_ = login;
+    std::cout << __LINE__ << std::endl;
 	String msg = login + delim + password + delim;
+    std::cout << __LINE__ << std::endl;
 	return "Login request: " + sendMessage(msg, loginRequest);
 }
 
@@ -122,14 +125,21 @@ String Controller::sendPendingMessagesRequest()
 
 String Controller::sendMessage(String& message, const String& msgType)
 {
+    std::cout << __LINE__ << std::endl;
 	message = msgType + delim + message;
+    std::cout << __LINE__ << std::endl;
 	message = std::to_string(message.size()) + delim + message; 
+    std::cout << __LINE__ << std::endl;
 
 	if (c_.sendMessage(message) == SUCCESS) {
+    std::cout << __LINE__ << std::endl;
 		return success + "message to Server sent.";
+    std::cout << __LINE__ << std::endl;
 	}
 	else {
+    std::cout << __LINE__ << std::endl;
 		return error + " occurred when sending message to Server.\n";
+    std::cout << __LINE__ << std::endl;
 	}
 }
 
@@ -185,7 +195,7 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow_ != nullptr) {
 			//delete loginWindow_;
 			//loginWindow_ = nullptr;
-			loginWindow_->hide();
+			//loginWindow_->hide();
 		}
 		sleep(1);
 		if (mainWindow_ != nullptr) {
@@ -308,7 +318,7 @@ Controller::UserIter Controller::find(Controller::User& u)
 }
 
 
-void Controller::updateMainWindow(const UserIter& it)
+void Controller::updateMainWindow(const UserIter&)
 {
 	//std::cout << "Controller::updateMainWindow(it)\n";
 	mainWindow_->updateMainWindow(users_);

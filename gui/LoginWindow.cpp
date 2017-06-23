@@ -185,7 +185,7 @@ void LoginWindow::checkPassword(const QString& qs)
 		password_->setStyleSheet("border: 3px solid red");
     }
 }
-
+#include <iostream>
 void LoginWindow::sendLoginReq()
 {
 	String l = login_->text().toStdString();
@@ -195,21 +195,26 @@ void LoginWindow::sendLoginReq()
     String passRes = validator_.checkPassword(p);
     
     if (logRes == ValidationInfo::emptyField) {
+        std::cout  <<__LINE__ << std::endl;
         login_->setPlaceholderText("You can't leave this empty");
         login_->setStyleSheet("border: 3px solid red");
-		return;
-	} else if(validator_.checkLogin(l) != ValidationInfo::validLog ) {
+        return;
+    } else if(validator_.checkLogin(l) != ValidationInfo::validLog ) {
+        std::cout <<  __LINE__ << std::endl;
         return;
     }
-    
+
     if(passRes == ValidationInfo::emptyField){
+        std::cout << __LINE__ << std::endl;
         password_->setPlaceholderText("You can't leave this empty");
         password_->setStyleSheet("border: 3px solid red");
         return;
 
     } else if (validator_.checkPassword(p) != ValidationInfo::validLog) {
+        std::cout <<  __LINE__ << std::endl;
 		return;
 	}
+        std::cout << __LINE__ << std::endl;
 	controller_.sendLoginRequest(l, p);
 }
 
