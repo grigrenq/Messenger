@@ -10,7 +10,7 @@
 #define SERVERUSER_HPP
 
 
-#include "ExtractWord.hpp"
+#include "WordExtractor.hpp"
 #include "Includes.hpp"
 
 /**
@@ -180,7 +180,7 @@ private:
 	mutable bool status_;
 
 	mutable PMessagesPtr pendingMessages_;
-	ExtractWord extractWord_;
+	WordExtractor wordExtractor_;
 };
 
 #endif

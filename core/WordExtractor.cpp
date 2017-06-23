@@ -1,10 +1,10 @@
-#include "ExtractWord.hpp"
+#include "WordExtractor.hpp"
 
 #include <sstream>
 #include <cstring>
 
 
-ExtractWord::String ExtractWord::operator()(String& str, const bool erase, const char d)
+WordExtractor::String WordExtractor::operator()(String& str, const bool erase, const char d)
 {
 	std::stringstream ss(str);
 	String word;
@@ -15,7 +15,7 @@ ExtractWord::String ExtractWord::operator()(String& str, const bool erase, const
 	return word;
 }
 
-ExtractWord::String ExtractWord::operator()(char* msg,int &divPos)
+WordExtractor::String WordExtractor::operator()(char* msg,int &divPos)
 {
 	divPos = static_cast<char*>(memchr(msg, delim, std::strlen(msg))) - msg + 1;
 	

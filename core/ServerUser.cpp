@@ -48,16 +48,16 @@ String ServerUser::toStringLog() const
 
 bool ServerUser::fromString(String& str)
 {
-	login_ = extractWord_(str);
-	name_ = extractWord_(str);
-	surname_ = extractWord_(str);
-	String st = extractWord_(str);
+	login_ = wordExtractor_(str);
+	name_ = wordExtractor_(str);
+	surname_ = wordExtractor_(str);
+	String st = wordExtractor_(str);
 	if (st == online) {
 		status_ = true;
 	} else {
 		status_ = false;
 	}
-	password_ = extractWord_(str);
+	password_ = wordExtractor_(str);
 
 	if (login_.empty() || name_.empty()
 			|| surname_.empty() || password_.empty()) {
@@ -68,8 +68,8 @@ bool ServerUser::fromString(String& str)
 
 bool ServerUser::fromString(String& str, int) 
 {
-	login_ = extractWord_(str);
-	password_ = extractWord_(str);
+	login_ = wordExtractor_(str);
+	password_ = wordExtractor_(str);
 	if (login_.empty() ||  password_.empty()) {
 		throw std::logic_error("Failed to convert");
 	}

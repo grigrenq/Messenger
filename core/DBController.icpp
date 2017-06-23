@@ -67,7 +67,7 @@ void DBController<Users>::addPMsgsToConv(const String& u)
 		return;
 	}
 	while (std::getline(ifile, msg)) {
-		fromUser = extractWord_(msg, false);
+		fromUser = wordExtractor_(msg, false);
 		addMessage(u, fromUser, msg);
 	}
 	clearPMessages(u);

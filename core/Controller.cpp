@@ -125,28 +125,21 @@ String Controller::sendPendingMessagesRequest()
 
 String Controller::sendMessage(String& message, const String& msgType)
 {
-    std::cout << __LINE__ << std::endl;
 	message = msgType + delim + message;
-    std::cout << __LINE__ << std::endl;
 	message = std::to_string(message.size()) + delim + message; 
-    std::cout << __LINE__ << std::endl;
 
 	if (c_.sendMessage(message) == SUCCESS) {
-    std::cout << __LINE__ << std::endl;
 		return success + "message to Server sent.";
-    std::cout << __LINE__ << std::endl;
 	}
 	else {
-    std::cout << __LINE__ << std::endl;
-		return error + " occurred when sending message to Server.\n";
-    std::cout << __LINE__ << std::endl;
+		return error + " occurred during sending message to Server.\n";
 	}
 }
 
 void Controller::processMessage(String& message)
 {
 	dbcontroller_.log(message);	
-	String msgType = extractWord_(message);
+	String msgType = wordExtractor_(message);
 	if (msgType == plainMessage) {
 		processPlainMessage(message);
 	} else if (msgType == loginRespond) {
@@ -172,7 +165,7 @@ void Controller::processPlainMessage(String& message)
 {
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
-	String fromUser = extractWord_(message);
+	String fromUser = wordExtractor_(message);
 	auto it = find(fromUser);
 	if (it == users_.end()) {
 		throw Error("The message is from unknown user");
@@ -186,7 +179,7 @@ void Controller::processLoginRespond(String& message)
 {
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
-	String result = extractWord_(message);
+	String result = wordExtractor_(message);
 	if (result == error) {
 		popError_->setText(message);
 		popError_->execute();
@@ -209,7 +202,7 @@ void Controller::processLoginRespond(String& message)
 
 void Controller::processLogoutRespond(String& message)
 {
-	String result = extractWord_(message);
+	String result = wordExtractor_(message);
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
@@ -227,7 +220,7 @@ void Controller::processLogoutRespond(String& message)
 
 void Controller::processRegistrationRespond(String& message)
 {
-	String result = extractWord_(message);
+	String result = wordExtractor_(message);
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
@@ -286,7 +279,7 @@ void Controller::processUserListRespond(String& userList)
 
 void Controller::processConvRespond(String& msg)
 {
-	String u = extractWord_(msg);
+	String u = wordExtractor_(msg);
 	auto it = find(u);
 	if (it == users_.end()) {
 		String msg("No user with login-" + u);

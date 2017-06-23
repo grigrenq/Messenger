@@ -17,10 +17,10 @@ ClientUser::ClientUser(String& clientStr)
 
 bool ClientUser::fromString(String& clientStr)
 {
-	login_ = extractWord_(clientStr);
-	name_ = extractWord_(clientStr);
-	surname_ = extractWord_(clientStr);
-	String st = extractWord_(clientStr);
+	login_ = wordExtractor_(clientStr);
+	name_ = wordExtractor_(clientStr);
+	surname_ = wordExtractor_(clientStr);
+	String st = wordExtractor_(clientStr);
 
 	if (login_.empty() || name_.empty() 
 			|| surname_.empty() || st.empty()) {

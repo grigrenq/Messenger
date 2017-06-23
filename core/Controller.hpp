@@ -93,17 +93,17 @@ public:
 			String sn = "surname";
 			String p = "pass";
 
-			String type = extractWord_(str, true, ' ');
+			String type = wordExtractor_(str, true, ' ');
 			String l;
 
 			//std::cout << "type=" << type << "." << str << ".\n";
 
 			if (type == "log") {
-				l = extractWord_(str);
+				l = wordExtractor_(str);
 				userLogin_ = l;
 				std::cout << sendLoginRequest(l, p) << std::endl;
 			} else if (type == "reg") {
-				l = extractWord_(str);
+				l = wordExtractor_(str);
 				userLogin_ = l;
 				std::cout << sendRegistrationRequest(l, n, sn, p) << std::endl;
 			} else if (type == "logout") {
@@ -144,7 +144,7 @@ public:
 		MainWindow* mainWindow_;
 		PopError* popError_;
 
-		ExtractWord extractWord_;
+		WordExtractor wordExtractor_;
 		TransportLayer transportLayer_;
 		std::shared_ptr<InputReader> inReaderPtr;
 		DBController<Users> dbcontroller_;

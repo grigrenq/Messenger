@@ -8,7 +8,7 @@
 #include "ServerUser.hpp"
 #include "ClientUser.hpp"
 #include "Conversation.hpp"
-#include "ExtractWord.hpp"
+#include "WordExtractor.hpp"
 
 
 template<typename Users>
@@ -49,7 +49,7 @@ private:
 	Users* users_;
 	std::mutex mutex_;
 	Conversations conversations_;
-	ExtractWord extractWord_;
+	WordExtractor wordExtractor_;
 
 	String logFile_;
 	String usersLogFile_;

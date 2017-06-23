@@ -260,7 +260,6 @@ void RegistrationWindow::sendRegistrationReq()
         password1_->setPlaceholderText("You can't leave this empty");
         password1_->setStyleSheet("border: 3px solid red");
         return;
-
     } else if (validator_.checkPassword(p1) != ValidationInfo::validLog) {
 		return;
 	}
@@ -269,11 +268,9 @@ void RegistrationWindow::sendRegistrationReq()
         password2_->setPlaceholderText("You can't leave this empty");
         password2_->setStyleSheet("border: 3px solid red");
         return;
-
     } else if (validator_.checkPassword(p2) != ValidationInfo::validLog) {
 		return;
 	}
-    
 
 	if (!validator_.checkPasswords(p1, p2)) {
 		return;

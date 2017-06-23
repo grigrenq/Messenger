@@ -355,7 +355,7 @@ void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
 
 void Server::processMessage(const SOCKET sock, String& message)
 {
-	String msgType = extractWord_(message);
+	String msgType = wordExtractor_(message);
 	if (msgType == plainMessage) {
 		processPlainMessage(message);
 	} else if (msgType == loginRequest) {
@@ -389,8 +389,8 @@ void Server::processPlainMessage(String& message)
 		throw Error("processPlainMessage: there is no such socket in the multiset.");
 		fromClient = "Unknown Client.";
 	}*/
-	String fromClient = extractWord_(message);
-	String toClient = extractWord_(message);
+	String fromClient = wordExtractor_(message);
+	String toClient = wordExtractor_(message);
 
 	message = fromClient + delim + message;
 	String log =  "....attempting to send message: " + message;
@@ -409,7 +409,7 @@ void Server::processPlainMessage(String& message)
 		}
 	} else {
 		//mutex_.unlock();
-		log + "From-" + extractWord_(message) + ". To-" 
+		log + "From-" + wordExtractor_(message) + ". To-" 
 			+ toClient + ". Message-" + message;
 		dbcontroller_.log(log);
 		throw Error(log);
@@ -533,8 +533,8 @@ void Server::processPendingMessagesRequest(const SOCKET s)
 
 void Server::processConvRequest(const SOCKET s, String& msg)
 {
-	String u1 = extractWord_(msg);
-	String u2 = extractWord_(msg);
+	String u1 = wordExtractor_(msg);
+	String u2 = wordExtractor_(msg);
 	sendConvRespond(s, u1, u2);
 }
 

@@ -15,7 +15,7 @@
 #include <list>
 #include <memory>
 
-#include "ExtractWord.hpp"
+#include "WordExtractor.hpp"
 
 
 /**
@@ -133,7 +133,7 @@ class ClientUser
 		size_t unreadMessages_;
 		Messages messages_;
 
-		ExtractWord extractWord_;
+		WordExtractor wordExtractor_;
 };
 
 #endif

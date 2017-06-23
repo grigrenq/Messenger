@@ -21,7 +21,7 @@ void TransportLayer::processMessage(char* msg)
 		return;
 	}
 	int msgPos = -1;
-	int msgSize = std::stoi(extractWord_(msg, msgPos));
+	int msgSize = std::stoi(wordExtractor_(msg, msgPos));
 
 	Message message_(new String(&msg[msgPos], msgSize));
 	messages_.push_back(message_);

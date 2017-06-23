@@ -1,5 +1,5 @@
 #include "MessageBox.hpp"
-#include "../../core/ExtractWord.hpp"
+#include "../../core/WordExtractor.hpp"
 
 
 MessageBox::MessageBox(MainWindow& mw)
@@ -19,9 +19,9 @@ void MessageBox::createMessageBox()
 
 void MessageBox::update(const MessageBox::String& mylogin, Messages& msgs)
 {
-	ExtractWord extractWord;
+	WordExtractor we;
 	for(auto msg : msgs) {
-		MessageBox::String currentLogin = extractWord(msg);
+		MessageBox::String currentLogin = we(msg);
 		if(mylogin == currentLogin) {
 			writeLeft(msg);
 		}

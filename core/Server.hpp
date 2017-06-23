@@ -5,7 +5,7 @@
 
 #include "ServerUser.hpp"
 #include "DBController.hpp"
-#include "ExtractWord.hpp"
+#include "WordExtractor.hpp"
 #include "TransportLayer.hpp"
 
 
@@ -67,7 +67,7 @@ private:
     bool stopRequested_;
 
     std::mutex mutex_;
-	ExtractWord extractWord_;
+	WordExtractor wordExtractor_;
 	DBController<Users> dbcontroller_;
 	TransportLayer transportLayer_;
 };

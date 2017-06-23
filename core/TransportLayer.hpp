@@ -15,7 +15,7 @@
 #include <memory>
 #include <iterator>
 
-#include "ExtractWord.hpp"
+#include "WordExtractor.hpp"
 
 /**
 *  @brief ....  
@@ -72,7 +72,7 @@ public:
 	void clear();
 private:
 	 Messages messages_;
-	 ExtractWord extractWord_;
+	 WordExtractor wordExtractor_;
 };
 
 
