@@ -308,7 +308,7 @@ Controller::UserIter Controller::find(Controller::User& u)
 }
 
 
-void Controller::updateMainWindow(const UserIter& it)
+void Controller::updateMainWindow(const UserIter&)
 {
 	//std::cout << "Controller::updateMainWindow(it)\n";
 	mainWindow_->updateMainWindow(users_);

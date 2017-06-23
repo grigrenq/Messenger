@@ -23,12 +23,12 @@ Avatar::Avatar(User& u)
 Avatar::Avatar(User& u, MainWindow& mw)
 	: user_(u)
 	, mainWindow_(mw)
-    , status_(false)
 	, avName_(nullptr)
 	, avSurname_(nullptr)
 	, avLogin_(nullptr)
 	, avStatus_(nullptr)
 	, avCount_(nullptr) 
+    , status_(false)
 {
 	avName_ = new QLabel(this);
 	avSurname_ = new QLabel(this);
