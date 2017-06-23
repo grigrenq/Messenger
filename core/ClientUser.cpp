@@ -57,7 +57,7 @@ String ClientUser::toStringLog() const
 
 const char* ClientUser::getLogin() const 
 {
-	//std::cout << "ClientUser::" << __FUNCTION__ << std::endl;
+	//return login_; //cause of the problem.
 	return login_.c_str();
 }
 

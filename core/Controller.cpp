@@ -23,9 +23,9 @@ Controller::Controller(Client& c)
 void Controller::run(const String& s)
 {
 	login = s;
-	std::cout << "login=" << login << ".\n";
+	//std::cout << "login=" << login << ".\n";
 	c_.connectServer();
-	//loginWindow_->showWindow();
+	loginWindow_->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
@@ -203,8 +203,8 @@ void Controller::processLogoutRespond(String& message)
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
-		//popError_->setText(message);
-		//popError_->execute();
+		popError_->setText(message);
+		popError_->execute();
 	} else {
 		if (mainWindow_ != nullptr) {
 			delete mainWindow_;
@@ -221,8 +221,8 @@ void Controller::processRegistrationRespond(String& message)
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
-		//popError_->setText(message);
-		//popError_->execute();
+		popError_->setText(message);
+		popError_->execute();
 	} else {
 		if (loginWindow_ != nullptr) {
 			//loginWindow_->closeRegWindow();
@@ -310,14 +310,14 @@ Controller::UserIter Controller::find(Controller::User& u)
 
 void Controller::updateMainWindow(const UserIter& it)
 {
-	std::cout << "Controller::updateMainWindow(it)\n";
+	//std::cout << "Controller::updateMainWindow(it)\n";
 	mainWindow_->updateMainWindow(users_);
 }
 
 
 void Controller::updateMainWindow()
 {
-	std::cout << "Controller::updateMainWindow()\n";
+	//std::cout << "Controller::updateMainWindow()\n";
 	mainWindow_->updateMainWindow(users_);
 }
 
