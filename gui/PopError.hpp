@@ -1,3 +1,10 @@
+/** 
+ *  @file    PopError.hpp
+ *  @author  GRI Team
+ *  @date    06/23/2017  
+ *  @version 1.0   
+ *  @brief ....
+ */
 #ifndef POPERROR_HPP
 #define POPERROR_HPP
 
@@ -8,6 +15,11 @@
 
 class QPushButton;
 
+
+
+ /**
+ *  @brief class for creating message box, thats show kind of errors
+ */  
 class PopError : public QWidget
 {
     Q_OBJECT
@@ -15,9 +27,32 @@ class PopError : public QWidget
     public:
         using String = std::string;
 
-        PopError();
+	   
+        /** 
+        *   @brief  PopError constructor for class PopError, thats create message box   
+        *   @param  no parametrs 
+  	*/       
+	PopError();
+
+	/** 
+        *   @brief  handleConnection to merge the mesagebox and the type of the error with the slots
+        *   @param  no parametrs
+  	*   @return void
+  	*/  
         void handleConnection();
-        void setText(const String&);
+        
+	/** 
+        *   @brief  setText added kind of error in string and  emited signal for adding message in message box
+        *   @param  const String&  ???
+  	*   @return void
+  	*/  
+	void setText(const String&);
+
+	/** 
+        *   @brief  execute showed message box
+        *   @param  no parametrs 
+  	*   @return void
+  	*/  
         void execute();
    
     public slots:

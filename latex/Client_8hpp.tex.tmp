@@ -1,0 +1,33 @@
+\hypertarget{Client_8hpp}{}\section{core/\+Client.hpp File Reference}
+\label{Client_8hpp}\index{core/\+Client.\+hpp@{core/\+Client.\+hpp}}
+
+
+....  
+
+
+{\ttfamily \#include \char`\"{}Includes.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}D\+B\+Controller.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Transport\+Layer.\+hpp\char`\"{}}\\*
+Include dependency graph for Client.\+hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classClient}{Client}
+\begin{DoxyCompactList}\small\item\em Class \hyperlink{classClient}{Client} .... \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+.... 
+
+\begin{DoxyAuthor}{Author}
+G\+RI Team 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+06/15/2017 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}

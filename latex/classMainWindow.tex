@@ -1,0 +1,252 @@
+\hypertarget{classMainWindow}{}\section{Main\+Window Class Reference}
+\label{classMainWindow}\index{Main\+Window@{Main\+Window}}
+
+
+....  
+
+
+
+
+{\ttfamily \#include $<$Main\+Window.\+hpp$>$}
+
+
+
+Inheritance diagram for Main\+Window\+:
+% FIG 0
+
+
+Collaboration diagram for Main\+Window\+:
+% FIG 1
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries String} = Controller\+::\+String\hypertarget{classMainWindow_af416d8047630dd82f6cfa634bb915327}{}\label{classMainWindow_af416d8047630dd82f6cfa634bb915327}
+
+\item 
+using {\bfseries User} = \hyperlink{classClientUser}{Controller\+::\+User}\hypertarget{classMainWindow_aa7582c1e62b59932c1c6f68fa06eef75}{}\label{classMainWindow_aa7582c1e62b59932c1c6f68fa06eef75}
+
+\item 
+using {\bfseries Users} = Controller\+::\+Users\hypertarget{classMainWindow_ac314ed3adac0e81b970d173c80127916}{}\label{classMainWindow_ac314ed3adac0e81b970d173c80127916}
+
+\item 
+using {\bfseries Messages} = Controller\+::\+User\+::\+Messages\hypertarget{classMainWindow_acea644f5ab53aaf3641e1275e1bd4b2a}{}\label{classMainWindow_acea644f5ab53aaf3641e1275e1bd4b2a}
+
+\item 
+using {\bfseries Avatar\+Ptr} = std\+::shared\+\_\+ptr$<$ \hyperlink{classAvatar}{Avatar} $>$\hypertarget{classMainWindow_a1b9689e38b2fb2820a00db6a245b893f}{}\label{classMainWindow_a1b9689e38b2fb2820a00db6a245b893f}
+
+\item 
+using {\bfseries Avatars} = std\+::list$<$ Avatar\+Ptr $>$\hypertarget{classMainWindow_a19aa9ffd2cced790cb38f4cad7bc53cf}{}\label{classMainWindow_a19aa9ffd2cced790cb38f4cad7bc53cf}
+
+\item 
+using {\bfseries Avatars\+Iter} = Avatars\+::iterator\hypertarget{classMainWindow_a3608af39e78dc29962f4acb11209c653}{}\label{classMainWindow_a3608af39e78dc29962f4acb11209c653}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries show\+Slot} ()\hypertarget{classMainWindow_a59682437403b73ea56d90cfcaba3079c}{}\label{classMainWindow_a59682437403b73ea56d90cfcaba3079c}
+
+\item 
+void {\bfseries update\+Slot} (\hyperlink{classClientUser}{User})\hypertarget{classMainWindow_ab03281f8ed7c382f0075d20466bee55a}{}\label{classMainWindow_ab03281f8ed7c382f0075d20466bee55a}
+
+\item 
+void {\bfseries update\+Slot} (Users)\hypertarget{classMainWindow_afb6f1a705117fc5042649b9c71d08578}{}\label{classMainWindow_afb6f1a705117fc5042649b9c71d08578}
+
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries show\+Signal} ()\hypertarget{classMainWindow_a5ac95a2aff20f52c0700928b5a777f68}{}\label{classMainWindow_a5ac95a2aff20f52c0700928b5a777f68}
+
+\item 
+void {\bfseries update\+Signal} (\hyperlink{classClientUser}{User})\hypertarget{classMainWindow_a0246be12c47e5e0b86c5d0d7ffac85ec}{}\label{classMainWindow_a0246be12c47e5e0b86c5d0d7ffac85ec}
+
+\item 
+void {\bfseries update\+Signal} (Users)\hypertarget{classMainWindow_ab9e75fbd96dd1fcd3fcb8cde3b3cddcb}{}\label{classMainWindow_ab9e75fbd96dd1fcd3fcb8cde3b3cddcb}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMainWindow_aa98e6a2272758a64bdd6d542fdda6e06}{Main\+Window} (\hyperlink{classController}{Controller} \&)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_aca46fe420046167912fae19de334358a}{update\+Main\+Window} (\hyperlink{classClientUser}{User} \&u)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a078a7cb45c33d3bbc55ef3e3ccd2eba0}{update\+Main\+Window} (Users \&users)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a77d55fc27823e7ca899419fcc359932b}{set\+User} (\hyperlink{classClientUser}{User} \&u)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_aee2da13588e4e64b36b6c991ef8c54cf}{update\+Message\+Box} ()
+\begin{DoxyCompactList}\small\item\em ..... \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_ae956965b401009f87e56be9ccb3d139f}{send\+Message} (String \&msg)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_ae587df0a90fbf2bc94075e27076e7ad3}{send\+Conv\+Request} (const String \&)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a04d901dec193f723d5ab3c4a3231b6b8}{show\+Window} ()
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+.... 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{Main\+Window(\+Controller \&)}{MainWindow(Controller &)}}]{\setlength{\rightskip}{0pt plus 5cm}Main\+Window\+::\+Main\+Window (
+\begin{DoxyParamCaption}
+\item[{{\bf Controller} \&}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_aa98e6a2272758a64bdd6d542fdda6e06}{}\label{classMainWindow_aa98e6a2272758a64bdd6d542fdda6e06}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ....} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Main\+Window@{Main\+Window}!send\+Conv\+Request@{send\+Conv\+Request}}
+\index{send\+Conv\+Request@{send\+Conv\+Request}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{send\+Conv\+Request(const String \&)}{sendConvRequest(const String &)}}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::send\+Conv\+Request (
+\begin{DoxyParamCaption}
+\item[{const String \&}]{login}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_ae587df0a90fbf2bc94075e27076e7ad3}{}\label{classMainWindow_ae587df0a90fbf2bc94075e27076e7ad3}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ....} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Main\+Window@{Main\+Window}!send\+Message@{send\+Message}}
+\index{send\+Message@{send\+Message}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{send\+Message(\+String \&msg)}{sendMessage(String &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::send\+Message (
+\begin{DoxyParamCaption}
+\item[{String \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_ae956965b401009f87e56be9ccb3d139f}{}\label{classMainWindow_ae956965b401009f87e56be9ccb3d139f}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ....} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Main\+Window@{Main\+Window}!set\+User@{set\+User}}
+\index{set\+User@{set\+User}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{set\+User(\+User \&u)}{setUser(User &u)}}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::set\+User (
+\begin{DoxyParamCaption}
+\item[{{\bf User} \&}]{u}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_a77d55fc27823e7ca899419fcc359932b}{}\label{classMainWindow_a77d55fc27823e7ca899419fcc359932b}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ....} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Main\+Window@{Main\+Window}!show\+Window@{show\+Window}}
+\index{show\+Window@{show\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{show\+Window()}{showWindow()}}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::show\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_a04d901dec193f723d5ab3c4a3231b6b8}{}\label{classMainWindow_a04d901dec193f723d5ab3c4a3231b6b8}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Main\+Window@{Main\+Window}!update\+Main\+Window@{update\+Main\+Window}}
+\index{update\+Main\+Window@{update\+Main\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{update\+Main\+Window(\+User \&u)}{updateMainWindow(User &u)}}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::update\+Main\+Window (
+\begin{DoxyParamCaption}
+\item[{{\bf User} \&}]{u}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_aca46fe420046167912fae19de334358a}{}\label{classMainWindow_aca46fe420046167912fae19de334358a}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ....} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Main\+Window@{Main\+Window}!update\+Main\+Window@{update\+Main\+Window}}
+\index{update\+Main\+Window@{update\+Main\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{update\+Main\+Window(\+Users \&users)}{updateMainWindow(Users &users)}}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::update\+Main\+Window (
+\begin{DoxyParamCaption}
+\item[{Users \&}]{users}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_a078a7cb45c33d3bbc55ef3e3ccd2eba0}{}\label{classMainWindow_a078a7cb45c33d3bbc55ef3e3ccd2eba0}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ....} & \\
+\hline
+{\em ....} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Main\+Window@{Main\+Window}!update\+Message\+Box@{update\+Message\+Box}}
+\index{update\+Message\+Box@{update\+Message\+Box}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{update\+Message\+Box()}{updateMessageBox()}}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::update\+Message\+Box (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMainWindow_aee2da13588e4e64b36b6c991ef8c54cf}{}\label{classMainWindow_aee2da13588e4e64b36b6c991ef8c54cf}
+
+
+..... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+gui/\+Main\+Window/\hyperlink{MainWindow_8hpp}{Main\+Window.\+hpp}\item 
+gui/\+Main\+Window/Main\+Window.\+cpp\end{DoxyCompactItemize}

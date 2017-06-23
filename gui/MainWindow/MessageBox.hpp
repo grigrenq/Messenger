@@ -1,3 +1,11 @@
+/** 
+ *  @file    MessageBox.hpp
+ *  @author  GRI Team
+ *  @date    06/23/2017  
+ *  @version 1.0  
+ *  @brief ....
+ */
+
 #ifndef MESSAGEBOX_HPP
 #define MESSAGEBOX_HPP
 
@@ -11,6 +19,12 @@ class QLayout;
 class QTextEdit;
 
 class MainWindow;
+
+
+
+/**
+*  @brief ....  
+*/ 
 class MessageBox
 {
 public:
@@ -21,12 +35,47 @@ public:
 	//using String = MainWindow::String;
 	//using Messages = MainWindow::Messages;
 	
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*/  
 	MessageBox(MainWindow&);
 	
+
+	/** 
+        *   @brief  ....    
+        *   @param  ....
+	*   @param  .... 
+  	*   @return void
+  	*/  
 	void update(const std::string&, Messages&);
+
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*   @return void
+  	*/  
 	void writeLeft(const std::string& msg);
+
+	/** 
+        *   @brief  ....    
+        *   @param  .... 
+  	*   @return void
+  	*/  
 	void writeRight(const std::string& msg);
+
+	/** 
+        *   @brief  ....    
+        *   @param  no parametrs  
+  	*   @return ....
+  	*/  
 	QTextEdit* getMessageText();
+
+	/** 
+        *   @brief  ....    
+        *   @param  no parametrs  
+  	*   @return ....
+  	*/  
 	QLayout* getMessageBox();
 
 private:

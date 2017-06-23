@@ -1,0 +1,467 @@
+\hypertarget{classServerUser}{}\section{Server\+User Class Reference}
+\label{classServerUser}\index{Server\+User@{Server\+User}}
+
+
+.....  
+
+
+
+
+{\ttfamily \#include $<$Server\+User.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries String} = std\+::string\hypertarget{classServerUser_ad65781586abf71dbc8ceae3d0588f5a7}{}\label{classServerUser_ad65781586abf71dbc8ceae3d0588f5a7}
+
+\item 
+using {\bfseries Pending\+Messages} = std\+::list$<$ String $>$\hypertarget{classServerUser_a201c7266309a8f25e375f9560a3fc56b}{}\label{classServerUser_a201c7266309a8f25e375f9560a3fc56b}
+
+\item 
+using {\bfseries Size\+Type} = Pending\+Messages\+::size\+\_\+type\hypertarget{classServerUser_ab9bdd9958601b08bed543287a8869f3d}{}\label{classServerUser_ab9bdd9958601b08bed543287a8869f3d}
+
+\item 
+using {\bfseries P\+Messages\+Ptr} = std\+::shared\+\_\+ptr$<$ Pending\+Messages $>$\hypertarget{classServerUser_ab4b74b95dcdcd0d2be56c2becd825a90}{}\label{classServerUser_ab4b74b95dcdcd0d2be56c2becd825a90}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classServerUser_aabd76de5124914eb323ea964b50595c5}{Server\+User} ()
+\begin{DoxyCompactList}\small\item\em ... \end{DoxyCompactList}\item 
+\hyperlink{classServerUser_a3cca664c936634392a5246c422442a49}{Server\+User} (const S\+O\+C\+K\+ET, const String \&, const String \&, const String \&, const String \&, const bool)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+\hyperlink{classServerUser_a01a83ba512b3aabbfd47dd4b72531255}{Server\+User} (const S\+O\+C\+K\+ET)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+String \hyperlink{classServerUser_a7b0aa031af58d004834d15212e439ef1}{to\+String} () const 
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+String \hyperlink{classServerUser_a7822915335144b12ad6793002a978c85}{to\+String\+Log} () const 
+\begin{DoxyCompactList}\small\item\em ..... \end{DoxyCompactList}\item 
+bool \hyperlink{classServerUser_aeed52246e162281d7a1c38cd9fe2eb93}{from\+String} (String \&)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+bool \hyperlink{classServerUser_a0bc2c243319fe618849f8c4842c820c0}{from\+String} (String \&, int)
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+S\+O\+C\+K\+ET \hyperlink{classServerUser_aa260c021d44bce338061b2ffe187c260}{get\+Socket} () const 
+\begin{DoxyCompactList}\small\item\em ... \end{DoxyCompactList}\item 
+String \hyperlink{classServerUser_a4ace9b03d2dcde07b616468608bc1ae0}{get\+Login} () const 
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+String \hyperlink{classServerUser_a763e23bc60062a9f216af69cc003a6d8}{get\+Name} () const 
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+String \hyperlink{classServerUser_a65791cc9ca96585bde4483fb11d97adb}{get\+Surname} () const 
+\begin{DoxyCompactList}\small\item\em ... \end{DoxyCompactList}\item 
+String \hyperlink{classServerUser_a46ee509027d923a27e644f4fb891231b}{get\+Password} () const 
+\begin{DoxyCompactList}\small\item\em ... \end{DoxyCompactList}\item 
+bool \hyperlink{classServerUser_a2ec1eff8b6b0d16b71ac0bae8953af22}{get\+Status} () const 
+\begin{DoxyCompactList}\small\item\em ... \end{DoxyCompactList}\item 
+void \hyperlink{classServerUser_a50305db89103b56b3205be2e8fd328cc}{set\+Socket} (const S\+O\+C\+K\+ET) const 
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+void \hyperlink{classServerUser_a29f0ed0f022e7051aaf429dfe6ce42b3}{set\+Status} (const bool) const 
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+Size\+Type \hyperlink{classServerUser_aaa586562b5a35b39c187728f32c36dae}{messages\+Count} () const 
+\begin{DoxyCompactList}\small\item\em ... \end{DoxyCompactList}\item 
+void \hyperlink{classServerUser_ae6cf777a460e07d563b4e14ef9baf131}{set\+P\+Messages} (P\+Messages\+Ptr) const 
+\begin{DoxyCompactList}\small\item\em ..... \end{DoxyCompactList}\item 
+P\+Messages\+Ptr \hyperlink{classServerUser_ac6a83ceae296cebeba44b83e93050a53}{get\+P\+Messages} () const 
+\begin{DoxyCompactList}\small\item\em ...... \end{DoxyCompactList}\item 
+void \hyperlink{classServerUser_a922bc75b62a9eeeab0c5bb4433f8a34e}{close\+Socket} () const 
+\begin{DoxyCompactList}\small\item\em .... \end{DoxyCompactList}\item 
+bool {\bfseries operator$<$} (const \hyperlink{classServerUser}{Server\+User} \&) const \hypertarget{classServerUser_adb3605ca08c5cf0ffe6dcfb3d108f744}{}\label{classServerUser_adb3605ca08c5cf0ffe6dcfb3d108f744}
+
+\item 
+void {\bfseries operator=} (const \hyperlink{classServerUser}{Server\+User} \&)\hypertarget{classServerUser_a2a52373517ea958408232ab06ff8610f}{}\label{classServerUser_a2a52373517ea958408232ab06ff8610f}
+
+\item 
+\hyperlink{classServerUser}{Server\+User} $\ast$ \hyperlink{classServerUser_ae6eb28131e727129e8797117a1a4421d}{get\+Pointer} () const 
+\begin{DoxyCompactList}\small\item\em ..... \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+..... 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Server\+User@{Server\+User}!Server\+User@{Server\+User}}
+\index{Server\+User@{Server\+User}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{Server\+User()}{ServerUser()}}]{\setlength{\rightskip}{0pt plus 5cm}Server\+User\+::\+Server\+User (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classServerUser_aabd76de5124914eb323ea964b50595c5}{}\label{classServerUser_aabd76de5124914eb323ea964b50595c5}
+
+
+... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\index{Server\+User@{Server\+User}!Server\+User@{Server\+User}}
+\index{Server\+User@{Server\+User}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{Server\+User(const S\+O\+C\+K\+E\+T, const String \&, const String \&, const String \&, const String \&, const bool)}{ServerUser(const SOCKET, const String &, const String &, const String &, const String &, const bool)}}]{\setlength{\rightskip}{0pt plus 5cm}Server\+User\+::\+Server\+User (
+\begin{DoxyParamCaption}
+\item[{const S\+O\+C\+K\+ET}]{sock, }
+\item[{const String \&}]{login, }
+\item[{const String \&}]{name, }
+\item[{const String \&}]{surname, }
+\item[{const String \&}]{password, }
+\item[{const bool}]{st}
+\end{DoxyParamCaption}
+)}\hypertarget{classServerUser_a3cca664c936634392a5246c422442a49}{}\label{classServerUser_a3cca664c936634392a5246c422442a49}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & an initialized.... ?? \\
+\hline
+\end{DoxyParams}
+\index{Server\+User@{Server\+User}!Server\+User@{Server\+User}}
+\index{Server\+User@{Server\+User}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{Server\+User(const S\+O\+C\+K\+E\+T)}{ServerUser(const SOCKET)}}]{\setlength{\rightskip}{0pt plus 5cm}Server\+User\+::\+Server\+User (
+\begin{DoxyParamCaption}
+\item[{const S\+O\+C\+K\+ET}]{sock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classServerUser_a01a83ba512b3aabbfd47dd4b72531255}{}\label{classServerUser_a01a83ba512b3aabbfd47dd4b72531255}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & an initialized.... ?? \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Server\+User@{Server\+User}!close\+Socket@{close\+Socket}}
+\index{close\+Socket@{close\+Socket}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{close\+Socket() const }{closeSocket() const }}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+User\+::close\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a922bc75b62a9eeeab0c5bb4433f8a34e}{}\label{classServerUser_a922bc75b62a9eeeab0c5bb4433f8a34e}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!from\+String@{from\+String}}
+\index{from\+String@{from\+String}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{from\+String(\+String \&)}{fromString(String &)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+User\+::from\+String (
+\begin{DoxyParamCaption}
+\item[{String \&}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{classServerUser_aeed52246e162281d7a1c38cd9fe2eb93}{}\label{classServerUser_aeed52246e162281d7a1c38cd9fe2eb93}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & an initialized.... ?? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!from\+String@{from\+String}}
+\index{from\+String@{from\+String}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{from\+String(\+String \&, int)}{fromString(String &, int)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+User\+::from\+String (
+\begin{DoxyParamCaption}
+\item[{String \&}]{str, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{classServerUser_a0bc2c243319fe618849f8c4842c820c0}{}\label{classServerUser_a0bc2c243319fe618849f8c4842c820c0}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & an initialized.... ?? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+Login@{get\+Login}}
+\index{get\+Login@{get\+Login}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+Login() const }{getLogin() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Server\+User\+::get\+Login (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a4ace9b03d2dcde07b616468608bc1ae0}{}\label{classServerUser_a4ace9b03d2dcde07b616468608bc1ae0}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+Name() const }{getName() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Server\+User\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a763e23bc60062a9f216af69cc003a6d8}{}\label{classServerUser_a763e23bc60062a9f216af69cc003a6d8}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+Password@{get\+Password}}
+\index{get\+Password@{get\+Password}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+Password() const }{getPassword() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Server\+User\+::get\+Password (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a46ee509027d923a27e644f4fb891231b}{}\label{classServerUser_a46ee509027d923a27e644f4fb891231b}
+
+
+... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+P\+Messages@{get\+P\+Messages}}
+\index{get\+P\+Messages@{get\+P\+Messages}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+P\+Messages() const }{getPMessages() const }}]{\setlength{\rightskip}{0pt plus 5cm}Server\+User\+::\+P\+Messages\+Ptr Server\+User\+::get\+P\+Messages (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_ac6a83ceae296cebeba44b83e93050a53}{}\label{classServerUser_ac6a83ceae296cebeba44b83e93050a53}
+
+
+...... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+.... 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+Pointer@{get\+Pointer}}
+\index{get\+Pointer@{get\+Pointer}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+Pointer() const }{getPointer() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Server\+User} $\ast$ Server\+User\+::get\+Pointer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_ae6eb28131e727129e8797117a1a4421d}{}\label{classServerUser_ae6eb28131e727129e8797117a1a4421d}
+
+
+..... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+.... 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+Socket@{get\+Socket}}
+\index{get\+Socket@{get\+Socket}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+Socket() const }{getSocket() const }}]{\setlength{\rightskip}{0pt plus 5cm}S\+O\+C\+K\+ET Server\+User\+::get\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_aa260c021d44bce338061b2ffe187c260}{}\label{classServerUser_aa260c021d44bce338061b2ffe187c260}
+
+
+... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+... 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+Status@{get\+Status}}
+\index{get\+Status@{get\+Status}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+Status() const }{getStatus() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+User\+::get\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a2ec1eff8b6b0d16b71ac0bae8953af22}{}\label{classServerUser_a2ec1eff8b6b0d16b71ac0bae8953af22}
+
+
+... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!get\+Surname@{get\+Surname}}
+\index{get\+Surname@{get\+Surname}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{get\+Surname() const }{getSurname() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Server\+User\+::get\+Surname (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a65791cc9ca96585bde4483fb11d97adb}{}\label{classServerUser_a65791cc9ca96585bde4483fb11d97adb}
+
+
+... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!messages\+Count@{messages\+Count}}
+\index{messages\+Count@{messages\+Count}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{messages\+Count() const }{messagesCount() const }}]{\setlength{\rightskip}{0pt plus 5cm}Server\+User\+::\+Size\+Type Server\+User\+::messages\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_aaa586562b5a35b39c187728f32c36dae}{}\label{classServerUser_aaa586562b5a35b39c187728f32c36dae}
+
+
+... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+.... 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!set\+P\+Messages@{set\+P\+Messages}}
+\index{set\+P\+Messages@{set\+P\+Messages}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{set\+P\+Messages(\+P\+Messages\+Ptr) const }{setPMessages(PMessagesPtr) const }}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+User\+::set\+P\+Messages (
+\begin{DoxyParamCaption}
+\item[{P\+Messages\+Ptr}]{pm}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_ae6cf777a460e07d563b4e14ef9baf131}{}\label{classServerUser_ae6cf777a460e07d563b4e14ef9baf131}
+
+
+..... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & an initialized.... ?? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!set\+Socket@{set\+Socket}}
+\index{set\+Socket@{set\+Socket}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{set\+Socket(const S\+O\+C\+K\+E\+T) const }{setSocket(const SOCKET) const }}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+User\+::set\+Socket (
+\begin{DoxyParamCaption}
+\item[{const S\+O\+C\+K\+ET}]{s}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a50305db89103b56b3205be2e8fd328cc}{}\label{classServerUser_a50305db89103b56b3205be2e8fd328cc}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & an initialized.... ?? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!set\+Status@{set\+Status}}
+\index{set\+Status@{set\+Status}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{set\+Status(const bool) const }{setStatus(const bool) const }}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+User\+::set\+Status (
+\begin{DoxyParamCaption}
+\item[{const bool}]{st}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a29f0ed0f022e7051aaf429dfe6ce42b3}{}\label{classServerUser_a29f0ed0f022e7051aaf429dfe6ce42b3}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & an initialized.... ?? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!to\+String@{to\+String}}
+\index{to\+String@{to\+String}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{to\+String() const }{toString() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Server\+User\+::to\+String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a7b0aa031af58d004834d15212e439ef1}{}\label{classServerUser_a7b0aa031af58d004834d15212e439ef1}
+
+
+.... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+\index{Server\+User@{Server\+User}!to\+String\+Log@{to\+String\+Log}}
+\index{to\+String\+Log@{to\+String\+Log}!Server\+User@{Server\+User}}
+\subsubsection[{\texorpdfstring{to\+String\+Log() const }{toStringLog() const }}]{\setlength{\rightskip}{0pt plus 5cm}String Server\+User\+::to\+String\+Log (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classServerUser_a7822915335144b12ad6793002a978c85}{}\label{classServerUser_a7822915335144b12ad6793002a978c85}
+
+
+..... 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parametrs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/\hyperlink{ServerUser_8hpp}{Server\+User.\+hpp}\item 
+core/Server\+User.\+cpp\end{DoxyCompactItemize}
