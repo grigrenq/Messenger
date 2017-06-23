@@ -71,8 +71,7 @@ int Client::sendMessage(const String& message)
 
 int Client::recvMessage(TransportLayer& tl)
 {
-	char buffer[DEFAULT_BUFFER];
-	int recvSize = recv(socket_, buffer, DEFAULT_BUFFER, 0);
+	int recvSize = recv(socket_, tl.getBuffer(), tl.getBufferSize(), 0);
 	if (recvSize < 0)
 	{
 		std::cout << "Receive failed\n";
@@ -87,8 +86,8 @@ int Client::recvMessage(TransportLayer& tl)
 	}
 	else
 	{
-		buffer[recvSize] = '\0';
-		tl.processMessage(buffer);
+		tl.setEnd(recvSize, '\0');
+		tl.processMessage();
 		return SUCCESS;
 	}
 }

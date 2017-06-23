@@ -107,11 +107,12 @@ void Server::initializeUsers()
 void Server::handleSession(const SOCKET sock)
 {
 	try {
-		while (recvMessage(sock) == SUCCESS) {
-			for (auto p : transportLayer_) {
+		TransportLayer tl;
+		while (recvMessage(sock, tl) == SUCCESS) {
+			for (auto p : tl) {
 				processMessage(sock, *p);
 			}
-			transportLayer_.clear();
+			tl.clear();
 		}
 	} catch (const Error& err) {
 		std::cout << err.what() << std::endl;
@@ -231,10 +232,9 @@ void Server::closeSocket(const SOCKET sock)
 }
 
 
-int Server::recvMessage(const SOCKET sock)
+int Server::recvMessage(const SOCKET sock, TransportLayer& tl)
 {
-	char buffer[DEFAULT_BUFFER];
-	int recvSize = recv(sock, buffer, DEFAULT_BUFFER, 0);
+	int recvSize = recv(sock, tl.getBuffer(), tl.getBufferSize(), 0);
 	if (recvSize < 0) {
 		String log = "Receive failed.Error occurred.";
 		auto it = find(sock);
@@ -263,10 +263,10 @@ int Server::recvMessage(const SOCKET sock)
 		return SOCKET_CLOSED;
 	}
 	else {
-		buffer[recvSize] = '\0';
-		transportLayer_.processMessage(buffer);
+		tl.setEnd(recvSize, '\0');
+		tl.processMessage();
 		String log("\n...Row Message: ");
-		log += buffer;
+		log += tl.getBuffer();
 		std::cout << log << std::endl;
 		dbcontroller_.log(log);
 		return SUCCESS;

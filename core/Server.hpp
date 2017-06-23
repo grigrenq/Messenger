@@ -43,7 +43,7 @@ private:
 	bool setOffline(UserIter&);
 
     void closeSocket(const SOCKET);
-    int recvMessage(const SOCKET);
+    int recvMessage(const SOCKET, TransportLayer&);
     int sendMessage(const SOCKET, String&, const String&);
 
 	void sendUserChangedRespond(User&);
@@ -69,7 +69,6 @@ private:
     std::mutex mutex_;
 	WordExtractor wordExtractor_;
 	DBController<Users> dbcontroller_;
-	TransportLayer transportLayer_;
 };
 
 
