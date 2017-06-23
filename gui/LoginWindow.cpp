@@ -178,7 +178,7 @@ void LoginWindow::checkPassword(const QString& qs)
         QToolTip::showText(password_->mapToGlobal(QPoint(300, -15)), "You can't use more than 20 characters");
 		password_->setStyleSheet("border: 3px solid red");
 	} else if(validator_.checkPassword(s) == ValidationInfo::validMinLength) {
-        QToolTip::showText(password_->mapToGlobal(QPoint(300, -15)), "Use at least 5 characters");
+        QToolTip::showText(password_->mapToGlobal(QPoint(300, -15)), "Use at least 3 characters");
 		password_->setStyleSheet("border: 3px solid red");
     } else if(validator_.checkSurName(s) == ValidationInfo::invalidSymbol) {
         QToolTip::showText(password_->mapToGlobal(QPoint(300, -15)), "You can use only letters, numbers and underscore symbols");
