@@ -75,22 +75,22 @@ private:
     void setWindowIcon();
     void connectLines();
    
-    QLineEdit* login_;
-    QLineEdit* password_;
-    QPushButton* loginButton_;
-    QPushButton* regisButton_;
-    QVBoxLayout* vLayout_;
-    QLabel* loginLabel_;
-    QLabel* passwordLabel_;
-    QLabel* logo_;
-    QPalette* pal_;
-    QPixmap* pix_;
-    QIcon* icon_;
-    RegistrationWindow* regWin_;
-	QApplication* app_;
+    QLineEdit* loginField;
+    QLineEdit* passwordField;
+    QPushButton* loginButton;
+    QPushButton* regisButton;
+    QVBoxLayout* vLayout;
+    QLabel* loginLabel;
+    QLabel* passwordLabel;
+    QLabel* logo;
+    QPalette* pal;
+    QPixmap* pix;
+    QIcon* icon;
+    RegistrationWindow* regWin;
+    QApplication* app;
 
-    Controller& controller_;
-    InputValidator validator_;
+    Controller& controller;
+    InputValidator validator;
 };
 
 #endif
