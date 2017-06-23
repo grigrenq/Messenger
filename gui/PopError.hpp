@@ -18,7 +18,7 @@ class QPushButton;
 
 
  /**
- *  @brief ....  
+ *  @brief class for creating message box, thats show kind of errors
  */  
 class PopError : public QWidget
 {
@@ -29,27 +29,27 @@ class PopError : public QWidget
 
 	   
         /** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  PopError constructor for class PopError, thats create message box   
+        *   @param  no parametrs 
   	*/       
 	PopError();
 
 	/** 
-        *   @brief  ....    
-        *   @param  ... 
+        *   @brief  handleConnection to merge the mesagebox and the type of the error with the slots
+        *   @param  no parametrs
   	*   @return void
   	*/  
         void handleConnection();
         
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  setText added kind of error in string and  emited signal for adding message in message box
+        *   @param  const String&  ???
   	*   @return void
   	*/  
 	void setText(const String&);
 
 	/** 
-        *   @brief  .....    
+        *   @brief  execute showed message box
         *   @param  no parametrs 
   	*   @return void
   	*/  

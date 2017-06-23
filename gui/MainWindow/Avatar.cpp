@@ -55,9 +55,9 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	avLogin_->setPalette(*sample_palette);
     status_ = user_.getStatus();
 	if(user_.getStatus() == true) {
-		avLogin_->setStyleSheet("border: 15px solid green;border-radius:7px");
+		avLogin_->setStyleSheet("border: 15px solid green;border-radius:7px; color: white");
 	} else {
-		avLogin_->setStyleSheet("border: 15px solid grey;border-radius:7px");
+		avLogin_->setStyleSheet("border: 15px solid grey;border-radius:7px; color: white");
 	}
 	//std::cout << __FUNCTION__ << std::endl;
 
