@@ -27,10 +27,10 @@ public slots:
 private:
 	void createWriteBox();
 	
-	MainWindow& mainWindow;
-	QLayout* writeBox;
-	QTextEdit* textEdit;
-	QPushButton* sendButton;
+	MainWindow& mainWindow_;
+	QLayout* writeBox_;
+	QTextEdit* textEdit_;
+	QPushButton* sendButton_;
 };
 
 #endif

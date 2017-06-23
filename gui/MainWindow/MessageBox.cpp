@@ -1,28 +1,27 @@
 #include "MessageBox.hpp"
 #include "../../core/ExtractWord.hpp"
 
-//#include "MainWindow.hpp"
 
 MessageBox::MessageBox(MainWindow& mw)
-	: mainWindow(mw)
+	: mainWindow_(mw)
 {
 	createMessageBox();
 //	mainWindow.rightSide->addLayout(messageBox);
 }
 void MessageBox::createMessageBox()
 {
-	messageBox = new QVBoxLayout();
-	messageText = new QTextEdit();
-	messageText->setReadOnly(true);
-	messageBox->addWidget(messageText);
+	messageBox_ = new QVBoxLayout();
+	messageText_ = new QTextEdit();
+	messageText_->setReadOnly(true);
+	messageBox_->addWidget(messageText_);
 //	messageTextLayout = new QVBoxLayout();
 }		
 
-void MessageBox::update(const std::string& mylogin, Messages& msgs)
+void MessageBox::update(const MessageBox::String& mylogin, Messages& msgs)
 {
 	ExtractWord extractWord;
 	for(auto msg : msgs) {
-		std::string currentLogin = extractWord(msg);
+		MessageBox::String currentLogin = extractWord(msg);
 		if(mylogin == currentLogin) {
 			writeLeft(msg);
 		}
@@ -32,13 +31,13 @@ void MessageBox::update(const std::string& mylogin, Messages& msgs)
 	}
 }
 
-void MessageBox::writeLeft(const std::string& msg)
+void MessageBox::writeLeft(const MessageBox::String& msg)
 {
 	//conversation.push_back(">>>>>>>>>\n");
 	//conversation.push_back(msg);
 }
 
-void MessageBox::writeRight(const std::string& msg)
+void MessageBox::writeRight(const MessageBox::String& msg)
 {
 	//conversation.push_back("<<<<<<<<<\n");
 	//conversation.push_back(msg);
@@ -46,10 +45,10 @@ void MessageBox::writeRight(const std::string& msg)
 
 QTextEdit* MessageBox::getMessageText()
 {
-	    return messageText;
+	    return messageText_;
 }
 
 QLayout* MessageBox::getMessageBox()
 {
-	    return messageBox;
+	    return messageBox_;
 }

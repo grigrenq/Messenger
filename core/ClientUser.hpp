@@ -13,6 +13,7 @@
 
 #include <string>
 #include <list>
+#include <memory>
 
 #include "ExtractWord.hpp"
 
@@ -24,8 +25,9 @@ class ClientUser
 {
 	public:
 		using String = std::string;
-                using SizeType = String::size_type;
+        using SizeType = String::size_type;
 		using Messages = std::list<String>;
+		using StringPtr = std::shared_ptr<String>;
 
                 /** 
                 *   @brief ClientUser is constructor for Class ClientUser   
@@ -63,7 +65,7 @@ class ClientUser
                 *   @param  no parametrs 
                 *   @return String
                 */  
-		String getLogin() const;
+		const char* getLogin() const;
 
                 /** 
                 *   @brief  getName return name

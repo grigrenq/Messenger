@@ -1,6 +1,8 @@
 #include <iostream>
 #include <QLabel>
 #include <QPalette>
+#include <QApplication>
+#include <QToolTip>
 
 #include "LoginWindow.hpp"
 #include "../core/ValidationInfo.hpp"
@@ -10,7 +12,7 @@ LoginWindow::LoginWindow(Controller& c)
 	: regWin(nullptr)
 	, controller(c)
 {
-    this->setGeometry(50,50,850,600);
+    this->setGeometry(50,50,830,500);
     this->setMinimumHeight(300);
     this->setMinimumWidth(350);
     this->setMaximumHeight(1700);
@@ -27,6 +29,7 @@ LoginWindow::LoginWindow(Controller& c)
     setWindowIcon();
 
 	connectLines();
+    app->setStyleSheet("QToolTip{color: #ffffff; background-color: #990000; border: none;}");
 }
 
 void LoginWindow::createLayout()
@@ -40,11 +43,10 @@ void LoginWindow::createLayout()
     vLayout->addWidget(passwordField);
     vLayout->addWidget(loginButton);
     vLayout->addWidget(regisButton);
-    vLayout->addSpacerItem(new QSpacerItem(400, 400, 
-                           QSizePolicy::Preferred, QSizePolicy::Expanding));
+    vLayout->addSpacerItem(new QSpacerItem(400, 400, QSizePolicy::Preferred, QSizePolicy::Expanding));
        
- //   m_vLayout->setMinimumSize(80);
-//   m_vLayout->setMaximumSize(80);
+ //   vLayout_->setMinimumSize(80);
+//   vLayout_->setMaximumSize(80);
     QLabel *label1 = new QLabel(this);
     QLabel *label2 = new QLabel(this);
     label1->setGeometry(15,5,50,50);
@@ -79,13 +81,12 @@ void LoginWindow::createTextEdit()
     loginField->setMinimumWidth(200);
     loginField->setMaximumHeight(40);
     loginField->setMaximumWidth(300);
-    loginField->setPlaceholderText("asdasdasd");
+    loginField->setPlaceholderText("Your login here");
     passwordField->setMinimumHeight(30);
     passwordField->setMinimumWidth(200);
     passwordField->setMaximumHeight(40);
     passwordField->setMaximumWidth(300);
-    passwordField->setPlaceholderText("asdsdgdfgdgf");
-
+    passwordField->setPlaceholderText("Your Password here");
 }
 
 void LoginWindow::createUsernameLabel()
@@ -152,26 +153,36 @@ void LoginWindow::checkLogin(const QString& qs)
 {
 	String s = qs.toStdString();
 	if (validator.checkLogin(s) == ValidationInfo::validLog) {
-		//????
 		loginField->setStyleSheet("border: 3px solid black");
-	} else {
-		//?????????
-		std::cout << "Wrong Login.\n";
+		QToolTip::hideText();
+	} else if(validator.checkLogin(s) == ValidationInfo::validMaxLength) {
+        QToolTip::showText(loginField->mapToGlobal(QPoint(300, -15)), "You can't use more than 20 characters");
 		loginField->setStyleSheet("border: 3px solid red");
-	}
+	} else if(validator.checkLogin(s) == ValidationInfo::validMinLength) {
+        QToolTip::showText(loginField->mapToGlobal(QPoint(300, -15)), "Use at least 3 characters");
+		loginField->setStyleSheet("border: 3px solid red");
+    } else if(validator.checkLogin(s) == ValidationInfo::invalidSymbol) {
+        QToolTip::showText(loginField->mapToGlobal(QPoint(300, -15)), "You can use only letters, numbers and underscore symbols");
+		loginField->setStyleSheet("border: 3px solid red");
+    }
 }
 
 void LoginWindow::checkPassword(const QString& qs)
 {
 	String s = qs.toStdString();
 	if (validator.checkPassword(s) == ValidationInfo::validLog) {
-		//????
 		passwordField->setStyleSheet("border: 3px solid black");
-	} else {
-		///????????
-		std::cout << "Wrong Password.\n";
+		QToolTip::hideText();
+	} else if(validator.checkPassword(s) == ValidationInfo::validMaxLength) {
+        QToolTip::showText(passwordField->mapToGlobal(QPoint(300, -15)), "You can't use more than 20 characters");
 		passwordField->setStyleSheet("border: 3px solid red");
-	}
+	} else if(validator.checkPassword(s) == ValidationInfo::validMinLength) {
+        QToolTip::showText(passwordField->mapToGlobal(QPoint(300, -15)), "Use at least 5 characters");
+		passwordField->setStyleSheet("border: 3px solid red");
+    } else if(validator.checkSurName(s) == ValidationInfo::invalidSymbol) {
+        QToolTip::showText(passwordField->mapToGlobal(QPoint(300, -15)), "You can use only letters, numbers and underscore symbols");
+		passwordField->setStyleSheet("border: 3px solid red");
+    }
 }
 
 void LoginWindow::sendLoginReq()

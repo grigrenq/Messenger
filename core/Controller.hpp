@@ -1,3 +1,11 @@
+/** 
+*  @file    Controller.hpp
+*  @author  GRI Team
+*  @date    06/22/2017  
+*  @version 1.0   
+*  @brief
+*/
+
 #ifndef CONTROLLER_HPP
 #define CONTROLLER_HPP
 
@@ -69,7 +77,7 @@ public:
 
 	
 		Controller(Client&);
-		void run();
+		void run(const String&);
 		void handleSession();
 
 		String sendLoginRequest(const String& login, const String& password);
@@ -141,6 +149,7 @@ public:
 		std::shared_ptr<InputReader> inReaderPtr;
 		DBController<Users> dbcontroller_;
 		InputValidator validator_;
+		String login;
 };
 
 #endif

@@ -1,5 +1,6 @@
 #ifndef INCLUDES_HPP
 #define INCLUDES_HPP
+#define DEFAULT_PORT 5923
 
 #include <cstdlib>
 
@@ -23,10 +24,9 @@ using mutGuard = std::lock_guard<std::mutex>;
 #include "arpa/inet.h"
 
 #define DEFAULT_BUFFER 1024
-#define DEFAULT_HOST "192.168.68.135"
-//#define DEFAULT_HOST "127.0.0.1"
+//#define DEFAULT_HOST "192.168.68.135"
+#define DEFAULT_HOST "127.0.0.1"
 //#define LOCAL_HOST "127.0.0.1"
-#define DEFAULT_PORT 4859
 
 using Error = std::logic_error;
 using SOCKET = int;

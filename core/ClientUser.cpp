@@ -43,7 +43,7 @@ void ClientUser::addMessage(const String& message)
 
 String ClientUser::toStringLog() const
 {
-	String clientStr = login_ + delim + name_ + delim + surname_ + delim;
+	String clientStr = (login_) + delim + name_ + delim + surname_ + delim;
 	if (status_ == true)
 		clientStr = clientStr + online + delim;
 	else
@@ -53,10 +53,12 @@ String ClientUser::toStringLog() const
 }
 
 
+#include <iostream>
 
-String ClientUser::getLogin() const 
+const char* ClientUser::getLogin() const 
 {
-	return login_; 
+	//return login_; //cause of the problem.
+	return login_.c_str();
 }
 
 String ClientUser::getName() const 
