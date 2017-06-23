@@ -108,10 +108,6 @@ bool Avatar::getStatus() const
 	return status_;
 }
 
-void Avatar::incrementCount()
-{
-}
-
 const char* Avatar::getLogin()
 {
 	//std::cout << __FUNCTION__ << std::endl;
