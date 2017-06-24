@@ -8,6 +8,8 @@
 
 #include "MainWindow.hpp"
 #include "Avatar.hpp"
+#include "MessageBox.hpp"
+#include "WriteBox.hpp"
 
 const char delim = '%';
 #include <iostream>
@@ -94,13 +96,15 @@ void MainWindow::updateMessageBox()
 {
 	if (messageBox_ == nullptr || userPtr_ == nullptr) {
 		std::cout << __FUNCTION__ << " nullptr case." << std::endl;
-		throw std::logic_error("asdasdasd");
+		throw std::logic_error("userPtr_ after click still is nullptr");
 	}
 
-	std::cout << __FUNCTION__ << std::endl;
-	std::cout << userPtr_->getLogin();
-	//userPtr_->getMessages();
-   	//messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages()); 
+	//std::cout << __FUNCTION__ << std::endl;
+	for (auto i : userPtr_->getMessages()) {
+		//std::cout << "Message: " << i << std::endl;
+	}
+	//std::cout << "\nend of messages.\n";
+   	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 }
 
 void MainWindow::sendMessage(String& msg)
@@ -164,7 +168,7 @@ void MainWindow::updateMainWindowHelper(ClientUser& u)
 
 void MainWindow::updateMainWindowHelper(Users& users)
 {
-	std::cout << __FUNCTION__ << std::endl;
+	//std::cout << __FUNCTION__ << std::endl;
 	avatars_.clear();
 	if (avLay_ != nullptr) {
 		delete avLay_;
@@ -184,13 +188,12 @@ void MainWindow::updateMainWindowHelper(Users& users)
 		avatars_.push_back(AvatarPtr(new Avatar(*(*it), *this)));
 	}
 	addAvatars();
-	//show();
 }
 
 void MainWindow::setUser(User& u)
 {
 	std::cout << __FUNCTION__ << std::endl;
-   	userPtr_ = &u; 
+   	userPtr_ = &u;
 }
 
 MainWindow::AvatarsIter MainWindow::find(const User& u)
@@ -204,8 +207,8 @@ MainWindow::AvatarsIter MainWindow::find(const User& u)
 		}
 	}
 	//std::cout << "after if-else in for....." << std::endl;
-	//return it;
-	return avatars_.end();
+	return it;
+	//return avatars_.end();
 }
 
 

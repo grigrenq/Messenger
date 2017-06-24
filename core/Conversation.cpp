@@ -27,11 +27,11 @@ bool Conversation::equal(const String& u1, const String& u2) const
 		return false;
 	} else {
 		sz = fileName_.find(u2);
-	}
-	if (sz == String::npos) {
-		return false;
-	} else {
-		return true;
+		if (sz == String::npos) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
 
@@ -44,8 +44,11 @@ void Conversation::addMessage(const String& msg)
 	ofile.close();
 }
 
+#include <iostream>
+
 Conversation::ConvPtr Conversation::getConversation()
 {
+	std::cout << "Conversation::getConversation()\n";
 	ConvPtr p(new Conv);
 	String file = Files::ConvDir + fileName_ + Files::fileType;
 	std::ifstream ifile(file, std::fstream::in);

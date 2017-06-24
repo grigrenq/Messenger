@@ -11,16 +11,12 @@
 
 #include <string>
 #include <list>
-#include <QVBoxLayout>
-#include <QTextEdit>
-#include "../../core/ClientUser.hpp"
 
-class QLayout;
+#include "MainWindow.hpp"
+
 class QTextEdit;
-
-class MainWindow;
-
-
+class QLayout;
+class QVBoxLayout;
 
 /**
 *  @brief ....  
@@ -28,19 +24,15 @@ class MainWindow;
 class MessageBox
 {
 public:
-	using User = ClientUser;
-	using Messages = std::list<std::string>;
-	using String = ClientUser::String;
-	//using User = MainWindow::User;
-	//using String = MainWindow::String;
-	//using Messages = MainWindow::Messages;
+	using User = MainWindow::User;
+	using String = MainWindow::String;
+	using Messages = MainWindow::Messages;
 	
 	/** 
         *   @brief  ....    
         *   @param  .... 
   	*/  
 	MessageBox(MainWindow&);
-	
 
 	/** 
         *   @brief  ....    
@@ -79,12 +71,13 @@ public:
 	QLayout* getMessageBox();
 
 private:
+	void createMessageBox();
+
 	MainWindow& mainWindow_;
 	QVBoxLayout* messageBox_;
 	QTextEdit* messageText_;
-	void createMessageBox();
+	QVBoxLayout* messageTextLayout;
 //	Conversation conversation;
-//	QVBoxLayout* messageTextLayout;
 };
 
 #endif

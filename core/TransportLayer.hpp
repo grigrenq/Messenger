@@ -75,7 +75,7 @@ public:
 	size_t getBufferSize() const; 
 	char* getBuffer();
 
-	void setEnd(const int, const char);
+	void setEnd(const int, const char = '\0');
 
 private:
 	void processMessageHelper(char*);

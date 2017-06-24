@@ -6,7 +6,7 @@ MessageBox::MessageBox(MainWindow& mw)
 	: mainWindow_(mw)
 {
 	createMessageBox();
-//	mainWindow.rightSide->addLayout(messageBox);
+	//mainWindow_.rightSide_->addLayout(messageBox_);	//??????????
 }
 void MessageBox::createMessageBox()
 {
@@ -17,11 +17,11 @@ void MessageBox::createMessageBox()
 //	messageTextLayout = new QVBoxLayout();
 }		
 
-void MessageBox::update(const MessageBox::String& mylogin, Messages& msgs)
+void MessageBox::update(const String& mylogin, Messages& msgs)
 {
 	WordExtractor we;
 	for(auto msg : msgs) {
-		MessageBox::String currentLogin = we(msg);
+		String currentLogin = we(msg);
 		if(mylogin == currentLogin) {
 			writeLeft(msg);
 		}
@@ -31,13 +31,13 @@ void MessageBox::update(const MessageBox::String& mylogin, Messages& msgs)
 	}
 }
 
-void MessageBox::writeLeft(const MessageBox::String& msg)
+void MessageBox::writeLeft(const MessageBox::String&)
 {
 	//conversation.push_back(">>>>>>>>>\n");
 	//conversation.push_back(msg);
 }
 
-void MessageBox::writeRight(const MessageBox::String& msg)
+void MessageBox::writeRight(const MessageBox::String&)
 {
 	//conversation.push_back("<<<<<<<<<\n");
 	//conversation.push_back(msg);

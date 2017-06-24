@@ -27,8 +27,7 @@ bool ClientUser::fromString(String& clientStr)
 	surname_ = wordExtractor_(clientStr);
 	String st = wordExtractor_(clientStr);
 
-
-	if (name_.empty() 
+	if (login_.empty() || name_.empty() 
 			|| surname_.empty() || st.empty()) {
 		return false;
 	}
@@ -61,19 +60,16 @@ String ClientUser::toStringLog() const
 
 #include <iostream>
 
-const char* ClientUser::getLogin() const 
+String ClientUser::getLogin() const 
 {
 	//return login_; //cause of the problem.
-	//return login_.c_str();
-	//return "asdasd";
 	
 	//std::cout << "login.size()=" << strlen(login_.load()) << std::endl;
-	std::cout << "login.size()=" << login_.size() << std::endl;
+	//std::cout << "login.size()=" << login_.size() << std::endl;
 	//char* c = new char[login_.size() + 100];
 	//memcpy(c, login_.c_str(), login_.size());
 	//c[login_.size()] = '\0';
-	std::cout << __FUNCTION__ << std::endl;
-	return "asd";
+	return login_;
 }
 
 String ClientUser::getName() const 

@@ -247,8 +247,7 @@ int Server::recvMessage(const SOCKET sock, TransportLayer& tl)
 		dbcontroller_.log(log);
 		closeSocket(sock);
 		return ERROR;
-	}
-	else if (recvSize == SOCKET_CLOSED) {
+	} else if (recvSize == SOCKET_CLOSED) {
 		String log = "Receive failed. Socket is closed.";
 		dbcontroller_.log(log);
 		auto it = find(sock);
@@ -261,9 +260,8 @@ int Server::recvMessage(const SOCKET sock, TransportLayer& tl)
 		dbcontroller_.log(log);
 		closeSocket(sock);
 		return SOCKET_CLOSED;
-	}
-	else {
-		tl.setEnd(recvSize, '\0');
+	} else {
+		tl.setEnd(recvSize);
 		tl.processMessage();
 		String log("\n...Row Message: ");
 		log += tl.getBuffer();
@@ -331,7 +329,7 @@ void Server::sendUserChangedRespond(User& user)
 
 void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
 {
-	std::cout << s << " , " << u1 << ", " << u2 << std::endl;
+	std::cout << s << " ," << u1 << "," << u2 << std::endl;
 	auto it = find(s);
 	if (it == users_.end()) {
 		String msg("sendConvRespond: could not find user with socket-");
@@ -342,11 +340,13 @@ void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
 	auto c = dbcontroller_.getConversation(u1,u2);
 	if (!c) {
 		String log("No conversation for user-" + u1 + ", and user-" + u2);
+		std::cout << log << std::endl;
 		dbcontroller_.log(log);
 		return;
 	}
 	for (auto it = c->begin(); it != c->end(); ++it) {
 		*it = u2 + delim + (*it);
+		std::cout << "sending conversation: " << *it << std::endl;
 		sendMessage(s, *it, convRespond);
 	}
 }

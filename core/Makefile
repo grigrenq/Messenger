@@ -1,5 +1,5 @@
 OFiles := Server.o ServerUser.o ClientUser.o WordExtractor.o Conversation.o TransportLayer.o
-LogFiles := ./Log/*.txt
+LogFiles := ./Log/*.txt ../gui/Log/*.txt
 UsersFiles := ./Server/Users/*.txt ./Server/PendingMessages/*.txt ./Server/Conversations/*.txt
 
 run:	Main.cpp $(OFiles) Includes.hpp

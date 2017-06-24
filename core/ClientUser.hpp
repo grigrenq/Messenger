@@ -69,7 +69,7 @@ class ClientUser
                 *   @param  no parametrs 
                 *   @return String
                 */  
-		const char* getLogin() const;
+		String getLogin() const;
 
                 /** 
                 *   @brief  getName return name

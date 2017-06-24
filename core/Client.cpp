@@ -86,7 +86,7 @@ int Client::recvMessage(TransportLayer& tl)
 	}
 	else
 	{
-		tl.setEnd(recvSize, '\0');
+		tl.setEnd(recvSize);
 		tl.processMessage();
 		return SUCCESS;
 	}

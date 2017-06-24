@@ -31,20 +31,14 @@
 #include <string>
 #include <memory>
 
-#include "../../core/ClientUser.hpp"
-
-//#include "Avatar.hpp"
-
-#include "MessageBox.hpp"
-#include "WriteBox.hpp"
-
+#include "../../core/Controller.hpp"
 
 class QIcon;
 class Avatar;
 class Controller;
-#include "../../core/Controller.hpp"
+class MessageBox;
+class WriteBox;
 
-#include "../../core/CCC.hpp"
 
 /**
 *  @brief ....  
@@ -56,6 +50,7 @@ class MainWindow : public QWidget
 public:
 	using String = Controller::String;
 	using User = Controller::User;
+	using UserPtr = User*;
 	using Users = Controller::Users;
 	using Messages = Controller::User::Messages;
 	using AvatarPtr = std::shared_ptr<Avatar>;
@@ -156,7 +151,7 @@ private:
 
 	Avatars avatars_;
 	Controller& controller_;
-	User* userPtr_;
+	UserPtr userPtr_;
 	MessageBox* messageBox_;
 	WriteBox* writeBox_;
 };

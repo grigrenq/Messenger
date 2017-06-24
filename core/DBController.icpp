@@ -1,6 +1,8 @@
 #include "Files.hpp"
 
 
+#include <sys/stat.h>
+
 template<typename Users>
 DBController<Users>::DBController()
 	: users_(nullptr) 
@@ -36,10 +38,12 @@ void DBController<Users>::addMessage(const String& u1, const String& u2, const S
 	mutGuard mg(mutex_);
 	auto it = findConversation(u1, u2);
 	if (it == conversations_.end()) {
+		std::cout << "creating conversation for " << u1 << " and " << u2 << std::endl;
 		Conversation c(u1, u2);
 		c.addMessage(msg);
 		conversations_.push_back(c);
 	} else {
+		std::cout << "adding conversation " << u1 << " and " << u2 << std::endl;
 		it->addMessage(msg);
 	}
 }
@@ -104,8 +108,15 @@ template<typename Users>
 typename DBController<Users>::ConvPtr 
 DBController<Users>::getConversation(const String& u1,const String& u2)
 {
-		auto it = findConversation(u1, u2);
+	std::cout << "DBController<Users>::getConversation(" << u1 << ", " << u2 << ")\n";
+	auto it = findConversation(u1, u2);
 		if (it == conversations_.end()) {
+			std::cout << "could not find conversation for " << u1 << " and " << u2 << std::endl;
+			std::cout << "All conversations are:\n";
+			for (auto i : conversations_) {
+				std::cout << i.fileName_ << ", ";
+			}
+			std::cout << std::endl;
 			return ConvPtr();
 		}
 		return it->getConversation();
@@ -178,6 +189,9 @@ void DBController<Users>::logUsers()
 template<typename Users>
 void DBController<Users>::setupFiles()
 {
+	if (mkdir("Log", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == - 1) {
+		 std::cout << "Could not create directory. It possibly already exists.\n";
+	}
 	logFile_ = Files::LogDir + typeid(User).name() + Files::logFile;
 	usersLogFile_ = Files::LogDir + typeid(User).name() + Files::usersFile;
 }

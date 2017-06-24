@@ -25,7 +25,7 @@ void Controller::run(const String& s)
 	login = s;
 	//std::cout << "login=" << login << ".\n";
 	c_.connectServer();
-	loginWindow_->showWindow();
+	//loginWindow_->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
@@ -153,16 +153,16 @@ void Controller::processMessage(String& message)
 		processConvRespond(message);
 	} else {
 		String log = "Unknown type: " + msgType + " message: " + message;
-		//dbcontroller_.log(log);
-		//throw Error(log);
+		dbcontroller_.log(log);
+		throw Error(log);
 	}
 }
 
 void Controller::processPlainMessage(String& message)
 {
-	//dbcontroller_.log(message);
+	dbcontroller_.log(message);
 	std::cout << message << std::endl;
-	String fromUser = wordExtractor_(message);
+	String fromUser = wordExtractor_(message, false);
 	auto it = find(fromUser);
 	if (it == users_.end()) {
 		throw Error("The message is from unknown user");
@@ -174,7 +174,7 @@ void Controller::processPlainMessage(String& message)
 
 void Controller::processLoginRespond(String& message)
 {
-	//dbcontroller_.log(message);
+	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	String result = wordExtractor_(message);
 	if (result == error) {
@@ -218,7 +218,7 @@ void Controller::processLogoutRespond(String& message)
 void Controller::processRegistrationRespond(String& message)
 {
 	String result = wordExtractor_(message);
-	//dbcontroller_.log(message);
+	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
 		popError_->setText(message);
@@ -234,7 +234,7 @@ void Controller::processRegistrationRespond(String& message)
 void Controller::processUserChangedRespond(String& userStr)
 {
 	UserPtr u(new User());
-	String log = "UserChangedRespond: User: \n";
+	String log = "UserChangedRespond: User: ";
 	UserIter it;
 	if (!(u->fromString(userStr))) {
 		log += ". missing from the list.";
@@ -249,11 +249,11 @@ void Controller::processUserChangedRespond(String& userStr)
 		}
 		else {
 			(*it)->setStatus(u->getStatus());
-			log += ". setting status to " + std::to_string(u->getStatus());
+			log += u->getLogin() + ". setting status to " + std::to_string(u->getStatus());
 		}
 	}
 	std::cout << log << std::endl;
-	//dbcontroller_.log(log);
+	dbcontroller_.log(log);
 	//dbcontroller_.logUsers();
 	updateMainWindow(it);
 }
@@ -269,7 +269,7 @@ void Controller::processUserListRespond(String& userList)
 		users_.push_back(u);
 		u.reset(new User());
 		log = " adding into the list of users_: " + u->toStringLog();
-		//dbcontroller_.log(log);
+		dbcontroller_.log(log);
 	}
 	//dbcontroller_.logUsers();
 	updateMainWindow();
@@ -277,14 +277,17 @@ void Controller::processUserListRespond(String& userList)
 
 void Controller::processConvRespond(String& msg)
 {
+	dbcontroller_.log(msg);
+	std::cout << msg << std::endl;
 	String u = wordExtractor_(msg);
 	auto it = find(u);
 	if (it == users_.end()) {
 		String msg("No user with login-" + u);
 		throw Error(msg);
+	} else {
+		(*it)->addMessage(msg);
+		updateMainWindow();
 	}
-	(*it)->addMessage(msg);
-	updateMainWindow();
 }
 
 Controller::UserIter Controller::find(const String& login)

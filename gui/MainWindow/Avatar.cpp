@@ -25,12 +25,10 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	setFixedSize(200,40);
 	QFont smallFont = font();
 	smallFont.setPointSize(10);
-	//std::cout << __FUNCTION__ << std::endl;
 	String name = user_.getName();
 	String surname = user_.getSurname();
 	String nameSurname = name + " " + surname;
     status_ = user_.getStatus();
-	//std::cout << __FUNCTION__ << std::endl;
 	avName_->setText(QString::fromStdString(nameSurname));
 	avName_->setWordWrap(true);
 	avName_->setGeometry(12,23,100,20);
@@ -46,7 +44,6 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	} else {
 		avLogin_->setStyleSheet("border: 15px solid grey;border-radius:7px; color: white");
 	}
-	//std::cout << __FUNCTION__ << std::endl;
 
 	avLogin_->setText(QString::fromStdString(user_.getLogin()));
 	avLogin_->setGeometry(10,7,150,20);
@@ -64,16 +61,13 @@ Avatar::Avatar(User& u, MainWindow& mw)
 void Avatar::openConversation()
 {
 	std::cout << __FUNCTION__ << std::endl;
-	std::cout << "before setUser-";
+	//std::cout << "before setUser-";
 	std::cout <<  user_.getLogin() << std::endl;
-	/*mainWindow_.setUser(user_);
-	std::cout << "after setUser.\n";
-	std::cout << __FUNCTION__ << std::endl;
+	std::cout << "Setting user to " << user_.getLogin() << ".\n";
+	mainWindow_.setUser(user_);
+	mainWindow_.sendConvRequest(user_.getLogin());
 	mainWindow_.updateMessageBox();
-	std::cout << __FUNCTION__ << std::endl;
-	user_.setUnreadMessages(0);
-	std::cout << __FUNCTION__ << std::endl;
-	*/
+	//user_.setUnreadMessages(0);
 }
 
 void Avatar::setStatus(bool b)
@@ -108,10 +102,16 @@ bool Avatar::getStatus() const
 	return status_;
 }
 
-const char* Avatar::getLogin()
+const char* Avatar::getLogin(int)
 {
 	//std::cout << __FUNCTION__ << std::endl;
 	//return "some string\n";
-	return user_.getLogin();
+	return user_.getLogin().c_str();
 	//std::cout << __FUNCTION__ << std::endl;	
 }
+
+Avatar::String Avatar::getLogin()
+{
+	return user_.getLogin();
+}
+

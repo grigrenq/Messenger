@@ -60,7 +60,8 @@ public:
         *   @param  no parametrs  
   	*   @return const char*
   	*/  
-	const char* getLogin();
+	const char* getLogin(int);
+	String getLogin();
 
 signals:
 	void clicked();
