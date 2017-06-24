@@ -1,7 +1,7 @@
 /** 
 *  @file    Avatar.hpp
 *  @author  GRI Team
-*  @date    06/23/2018  
+*  @date    06/23/2017  
 *  @version 1.0  
 *  @brief creating GUI where show all users who registred in GRI and there status
 */
