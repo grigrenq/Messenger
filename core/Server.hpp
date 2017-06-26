@@ -15,7 +15,7 @@ class Server
 {
 public:
 	using User = ServerUser;
-	using Users = std::multiset<User>;
+	using Users = std::vector<User>;
 	using UserIter = Users::iterator;
 	using Threads = std::map<SOCKET, std::shared_ptr<pthread_t>>;
 	using String = std::string;
@@ -65,8 +65,9 @@ private:
 
     Threads threads_;
     bool stopRequested_;
-
-    std::mutex mutex_;
+	
+	std::mutex mutexThreads_;
+    std::recursive_mutex mutex_;
 	WordExtractor wordExtractor_;
 	DBController<Users> dbcontroller_;
 };

@@ -62,7 +62,7 @@ void DBController<Users>::addPendingMessage(const String& u, const String& msg)
 template<typename Users>
 void DBController<Users>::addPMsgsToConv(const String& u)
 {
-	//mutGuard mg(mutex_);
+	mutGuard mg(mutex_);
 	const String pMessages = Files::PMsgDir + u + Files::fileType;
 	std::ifstream ifile(pMessages, std::fstream::binary | std::fstream::in);
 	String fromUser;
@@ -147,7 +147,7 @@ void DBController<Users>::getUsers()
 	while (std::getline(ifile, s)) {
 		User u;
 		u.fromString(s);
-		users_->insert(u);
+		users_->push_back(u);
 	}
 	ifile.close();
 }
