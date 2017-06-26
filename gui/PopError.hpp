@@ -3,7 +3,7 @@
  *  @author  GRI Team
  *  @date    06/23/2017  
  *  @version 1.0   
- *  @brief show about errors
+ *  @brief Contains PopError class which is inherited from QWidget class.
  */
 #ifndef POPERROR_HPP
 #define POPERROR_HPP
@@ -18,7 +18,7 @@ class QPushButton;
 
 
  /**
- *  @brief class for creating message box, thats show kind of errors
+ *  @brief Class for creating popup window for some errors.
  */  
 class PopError : public QWidget
 {
@@ -29,7 +29,7 @@ class PopError : public QWidget
 
 	   
         /** 
-        *   @brief  PopError constructor for class PopError, thats create message box   
+        *   @brief  Function for creating objects of type PopError.   
         *   @param  no parametrs 
   	*/       
 	PopError();
@@ -42,14 +42,14 @@ class PopError : public QWidget
         void handleConnection();
         
 	/** 
-        *   @brief  setText added kind of error in string and  emited signal for adding message in message box
-        *   @param  const String&  ???
+        *   @brief  Function for calling function that emits signal for setting text to message box.
+        *   @param  The only parameter is const String&.
   	*   @return void
   	*/  
 	void setText(const String&);
 
 	/** 
-        *   @brief  execute showed message box
+        *   @brief  Function for executing(i.e showing) message box.
         *   @param  no parametrs 
   	*   @return void
   	*/  

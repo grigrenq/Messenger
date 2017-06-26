@@ -3,7 +3,7 @@
 *  @author  GRI Team
 *  @date    06/14/2017  
 *  @version 1.0 
-*  @brief LoginWindow.hpp creating a GUI for login window and connection for checking the login password 
+*  @brief Contains LoginWindow class which is inherited from QWidget class.  
 */
 
 
@@ -31,7 +31,7 @@ class QToolTip;
 #include "../core/Controller.hpp"
 
 /**
-*  @brief LoginWindow class which creates the GUI for login window.  
+*  @brief Class which creates a GUI for login window and checks if login and password are valid.  
 */  
 class LoginWindow : public QWidget
 {
@@ -41,14 +41,14 @@ public:
 	typedef std::string String;
 
         /** 
-        *   @brief LoginWindow constructor for class LoginWindow which creates GUI for login window
-        *   @param  is an initialized....  ??
+        *   @brief Function for creating objects of type LoginWindow.
+        *   @param The only parameter is Controller&.
         */  
         LoginWindow(Controller&);
 	
         /** 
-        *   @brief closeRegWindow closing registration window    
-        *   @param no parametrs 
+        *   @brief Function for closing registration window    
+        *   @param no parameters 
         *   @return void
         */  
 	void closeRegWindow();
