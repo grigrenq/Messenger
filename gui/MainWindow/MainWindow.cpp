@@ -99,12 +99,11 @@ void MainWindow::updateMessageBox()
 		throw std::logic_error("userPtr_ after click still is nullptr");
 	}
 
-	//std::cout << __FUNCTION__ << std::endl;
-	for (auto i : userPtr_->getMessages()) {
-		//std::cout << "Message: " << i << std::endl;
-	}
+	std::cout << __FUNCTION__ << std::endl;
+	//for (auto i : userPtr_->getMessages()) {
+    //}
+   	    messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 	//std::cout << "\nend of messages.\n";
-   	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 }
 
 void MainWindow::sendMessage(String& msg)

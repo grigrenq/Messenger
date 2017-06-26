@@ -113,3 +113,8 @@ ClientUser* ClientUser::getPointer()
 {
 	return this; 
 }
+
+void ClientUser::clearMessages()
+{
+    messages_.clear();
+}

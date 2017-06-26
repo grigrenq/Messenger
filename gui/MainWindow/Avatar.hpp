@@ -78,6 +78,7 @@ private:
 	QLabel* avStatus_;
 	QLabel* avCount_;
     bool status_;
+    bool conRec;
 	int unreadMessages_;
 	void mousePressEvent(QMouseEvent*);
 	void enterEvent(QEvent*);

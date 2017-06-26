@@ -23,7 +23,7 @@ Controller::Controller(Client& c)
 void Controller::run()
 {
 	c_.connectServer();
-	//loginWindow_->showWindow();
+//	loginWindow_->showWindow();
 
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
@@ -93,6 +93,7 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	}
 	msg = toUser + delim + msg;
 	msg = userLogin_ + delim + msg;
+    std::cout << __FUNCTION__ <<std::endl;
 	return "Message to Client " + toUser + ": " + sendMessage(msg, plainMessage);
 }
 
@@ -181,7 +182,7 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow_ != nullptr) {
 			//delete loginWindow_;
 			//loginWindow_ = nullptr;
-			loginWindow_->hide();
+			//loginWindow_->hide();
 		}
 		sleep(1);
 		if (mainWindow_ != nullptr) {

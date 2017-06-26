@@ -16,6 +16,7 @@ Avatar::Avatar(User& u, MainWindow& mw)
 	, avStatus_(nullptr)
 	, avCount_(nullptr) 
     , status_(false)
+    , conRec(false)
 {
 	avName_ = new QLabel(this);
 	avSurname_ = new QLabel(this);
@@ -64,10 +65,14 @@ void Avatar::openConversation()
 	//std::cout << "before setUser-";
 	std::cout <<  user_.getLogin() << std::endl;
 	std::cout << "Setting user to " << user_.getLogin() << ".\n";
-	mainWindow_.setUser(user_);
-	mainWindow_.sendConvRequest(user_.getLogin());
-	mainWindow_.updateMessageBox();
-	user_.setUnreadMessages(0);
+    if(conRec == false) {
+        mainWindow_.clearMessages(user_);
+        mainWindow_.sendConvRequest(user_.getLogin());
+        conRec = true;
+    }
+    mainWindow_.setUser(user_);
+    user_.setUnreadMessages(0);
+    mainWindow_.updateMessageBox();
 }
 
 void Avatar::setStatus(bool b)

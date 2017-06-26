@@ -51,6 +51,7 @@ public slots:
 
 private:
 	void createWriteBox();
+    bool isEmptyWriteBox();
 	
 	MainWindow& mainWindow_;
 	QLayout* writeBox_;

@@ -20,21 +20,27 @@ void MessageBox::createMessageBox()
 void MessageBox::update(const String& mylogin, Messages& msgs)
 {
 	WordExtractor we;
-	for(auto msg : msgs) {
-		String currentLogin = we(msg);
-		if(mylogin == currentLogin) {
-			writeLeft(msg);
-		}
-		else {
-			writeRight(msg);
-		}
-	}
+    delete messageText_;
+    messageText_ = nullptr;
+    messageText_ = new QTextEdit();
+	messageText_->setReadOnly(true);
+	messageBox_->addWidget(messageText_);
+    for(auto msg : msgs) { 
+        String currentLogin = we(msg);
+        if(mylogin == currentLogin) {
+           messageText_->setText( messageText_->toPlainText() + ">>>>>>>>>\n" + (QString::fromStdString(msg)) + "\n");
+        }
+        else if(msg != "") {
+            messageText_->setText(  messageText_->toPlainText() + "<<<<<<<<\n" +  (QString::fromStdString(msg)) + "\n");
+        }
+    }
 }
 
-void MessageBox::writeLeft(const MessageBox::String&)
+void MessageBox::writeLeft(const MessageBox::String& )
 {
-	//conversation.push_back(">>>>>>>>>\n");
-	//conversation.push_back(msg);
+//    std::cout << __FUNCTION__ <<std::endl;
+//	messageText_->setPlainText(">>>>>>>>>\n");
+//	messageText_->setPlainText(QString::fromStdString(msg));
 }
 
 void MessageBox::writeRight(const MessageBox::String&)

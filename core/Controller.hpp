@@ -78,7 +78,11 @@ public:
 				bool stopReading;
 		};//InputReader
 
-	
+        void clearMessages(User& u)
+        {
+            auto it = find(u);
+            (*it)->clearMessages();
+        }
 		Controller(Client&);
 		void run();
 		void handleSession();
@@ -86,7 +90,7 @@ public:
 		String sendLoginRequest(const String& login, const String& password);
 		String sendLogoutRequest();
 		String sendRegistrationRequest(const String& login, const String& name,
-				const String& surname, const String& password);
+		const String& surname, const String& password);
 		String sendMessageToUser(const String& toUser, String& msg);
 		String sendConvRequest(const String&);
 

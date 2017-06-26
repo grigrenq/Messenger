@@ -70,7 +70,10 @@ public:
   	*   @return void
   	*/  
 	void updateMainWindow(User& u);
-
+    void clearMessages(User& u)
+    {
+        controller_.clearMessages(u);
+    }
 	/** 
         *   @brief  ....  
         *   @param  ....

@@ -37,10 +37,18 @@ void WriteBox::createWriteBox()
 
 }
 
+bool WriteBox::isEmptyWriteBox()
+{
+    return textEdit_->toPlainText().isEmpty();
+}
+
 void WriteBox::sendMessage()
 {
-	String a=textEdit_->toPlainText().toStdString();
-	mainWindow_.sendMessage(a);
+    if(!isEmptyWriteBox()) {
+        String a=textEdit_->toPlainText().toStdString();
+        mainWindow_.sendMessage(a);
+        textEdit_->setText("");
+    }
 }
 
 QLayout* WriteBox::getWriteBox()

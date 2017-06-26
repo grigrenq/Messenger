@@ -126,6 +126,7 @@ class ClientUser
                 *   @return ...
                 */      
                 ClientUser* getPointer();
+        void clearMessages();
 	private:
 		void operator=(const ClientUser&);
 		bool operator==(const ClientUser&);
