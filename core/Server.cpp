@@ -245,7 +245,7 @@ int Server::recvMessage(const SOCKET sock, TransportLayer& tl)
 			log += "Unknown socket.";
 		}
 		dbcontroller_.log(log);
-		closeSocket(sock);
+		//closeSocket(sock);
 		return ERROR;
 	} else if (recvSize == SOCKET_CLOSED) {
 		String log = "Receive failed. Socket is closed.";
@@ -430,6 +430,7 @@ void Server::processLoginRequest(const SOCKET sock, String& message)
 	auto it = find(u.getLogin());
 	if (it ==  users_.end()) {
 		respond = error + delim + "Client with login: "	+ u.getLogin() + " is not registered.";
+		std::cout << respond << std::endl;
 		mutex_.unlock();
 	} else {
 		if (it->getPassword() != u.getPassword()) {

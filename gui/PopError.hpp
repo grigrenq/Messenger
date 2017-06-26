@@ -39,7 +39,6 @@ class PopError : public QWidget
         *   @param  no parametrs
   	*   @return void
   	*/  
-        void handleConnection();
         
 	/** 
         *   @brief  setText added kind of error in string and  emited signal for adding message in message box
@@ -64,7 +63,9 @@ class PopError : public QWidget
         void executeSignal();
     
     private:
+		void handleConnection();
         void createMessageBox();
+
         QMessageBox* messageBox;
 };
 #endif

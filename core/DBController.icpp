@@ -53,7 +53,7 @@ void DBController<Users>::addPendingMessage(const String& u, const String& msg)
 {
 	mutGuard mg(mutex_);
 	const String file = Files::PMsgDir + u + Files::fileType;
-	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
+	std::ofstream ofile(file, std::fstream::binary | std::fstream::out | std::fstream::app);
 	ofile.write(msg.c_str(), msg.size());
 	ofile.write("\n", 1);
 	ofile.close();
@@ -64,7 +64,7 @@ void DBController<Users>::addPMsgsToConv(const String& u)
 {
 	//mutGuard mg(mutex_);
 	const String pMessages = Files::PMsgDir + u + Files::fileType;
-	std::ifstream ifile(pMessages, std::fstream::in);
+	std::ifstream ifile(pMessages, std::fstream::binary | std::fstream::in);
 	String fromUser;
 	String msg;
 	if (!ifile.is_open()) {
@@ -82,7 +82,7 @@ void DBController<Users>::clearPMessages(const String& u)
 {
 	mutGuard mg(mutex_);
 	const String file = Files::PMsgDir + u + Files::fileType;
-	std::ofstream ofile(file, std::ofstream::trunc);
+	std::ofstream ofile(file, std::fstream::binary | std::ofstream::trunc);
 	ofile.close();
 }
 
@@ -92,7 +92,7 @@ DBController<Users>::getPMessages(const String& u)
 {
 	mutGuard mg(mutex_);
 	const String file = Files::PMsgDir + u + Files::fileType;
-	std::ifstream ifile(file, std::fstream::in);
+	std::ifstream ifile(file, std::fstream::binary | std::fstream::in);
 	PMessagesPtr pm(new PMessages);
 	if (ifile.is_open()) {
 		String msg;
@@ -128,7 +128,7 @@ void DBController<Users>::addUser(const User& u)
 {
 	mutGuard mg(mutex_);
 	const String usersFile = Files::ServerUsersDir + Files::usersFile;
-	std::ofstream ofile(usersFile, std::fstream::out | std::fstream::app);
+	std::ofstream ofile(usersFile, std::fstream::binary | std::fstream::out | std::fstream::app);
 	String s = u.toStringLog() + "\n";
 	ofile.write(s.c_str(), s.size());
 	ofile.close();
@@ -157,7 +157,7 @@ template<typename Users>
 void DBController<Users>::log(const String& str)
 {
 	mutGuard mg(mutex_);
-	std::ofstream ofile(logFile_, std::fstream::out | std::fstream::app);
+	std::ofstream ofile(logFile_, std::fstream::binary | std::fstream::out | std::fstream::app);
 	ofile.write(str.c_str(), str.size());
 	ofile.write("\n", 1);
 	ofile.close();

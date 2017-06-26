@@ -6,7 +6,7 @@
 
 #include "MessageTypes.hpp"
 
-#include <iostream>
+//#include <iostream>
 
 
 Controller::Controller(Client& c)
@@ -84,7 +84,7 @@ String Controller::sendRegistrationRequest(const String& login, const String& na
 
 String Controller::sendMessageToUser(const String& toUser, String& msg)
 {
-	if (msg.size() == 0) {
+	if (msg.empty()) {
 		return emptyMessage;
 	}
 	auto it = find(toUser);
@@ -93,7 +93,14 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	}
 	msg = toUser + delim + msg;
 	msg = userLogin_ + delim + msg;
-	return "Message to Client " + toUser + ": " + sendMessage(msg, plainMessage);
+	String res = sendMessage(msg, plainMessage);
+	if (res == success) {
+		wordExtractor_(msg);
+		(*it)->addMessage(msg, false);
+	}
+	res = "Message to Client " + toUser + ": " + res;
+	dbcontroller_.log(res);
+	return res;
 }
 
 
@@ -164,7 +171,7 @@ void Controller::processPlainMessage(String& message)
 		throw Error("The message is from unknown user");
 	} else {
 		(*it)->addMessage(message, true);
-		updateMainWindow(it);
+		updateMainWindow();
 	}
 }
 
@@ -174,13 +181,12 @@ void Controller::processLoginRespond(String& message)
 	std::cout << message << std::endl;
 	String result = wordExtractor_(message);
 	if (result == error) {
+		return;
 		popError_->setText(message);
 		popError_->execute();
 	} else {
 		sendUserListRequest();
 		if (loginWindow_ != nullptr) {
-			//delete loginWindow_;
-			//loginWindow_ = nullptr;
 			loginWindow_->hide();
 		}
 		sleep(1);
@@ -240,11 +246,8 @@ void Controller::processUserChangedRespond(String& userStr)
 		it = find(*u);
 		if (it == users_.end()) {
 			users_.push_back(u);
-			it = users_.end();
-			--it;
 			log += ". adding into the list.";
-		}
-		else {
+		} else {
 			(*it)->setStatus(u->getStatus());
 			log += u->getLogin() + ". setting status to " + std::to_string(u->getStatus());
 		}
@@ -252,7 +255,7 @@ void Controller::processUserChangedRespond(String& userStr)
 	std::cout << log << std::endl;
 	dbcontroller_.log(log);
 	//dbcontroller_.logUsers();
-	updateMainWindow(it);
+	updateMainWindow();
 }
 
 void Controller::processUserListRespond(String& userList)
@@ -282,7 +285,7 @@ void Controller::processConvRespond(String& msg)
 		String msg("No user with login-" + u);
 		throw Error(msg);
 	} else {
-		(*it)->addMessage(msg);
+		(*it)->addMessage(msg, false);
 		updateMainWindow();
 	}
 }
@@ -308,14 +311,6 @@ Controller::UserIter Controller::find(Controller::User& u)
 	}
 	return it;
 }
-
-
-void Controller::updateMainWindow(const UserIter&)
-{
-	//std::cout << "Controller::updateMainWindow(it)\n";
-	mainWindow_->updateMainWindow(users_);
-}
-
 
 void Controller::updateMainWindow()
 {
