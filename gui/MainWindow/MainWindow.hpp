@@ -3,10 +3,8 @@
  *  @author  GRI Team
  *  @date    06/23/2017  
  *  @version 1.0  
- *  @brief ....
+ *  @brief Contains MainWindow class which is inherited from QWidget class.
  */
-
-
 
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
@@ -14,25 +12,24 @@
 #include <QObject>
 #include <QWidget>
 #include <QLineEdit>
-#include <QTextEdit>
 #include <QPushButton>
-#include <QVBoxLayout>
 #include <QSpacerItem>
 #include <QHBoxLayout>
-#include <QGridLayout>
 #include <QFormLayout>
-#include <QLabel>
 #include <QPixmap>
 #include <QPalette>
-//#include <QIcon>
 #include <QScrollBar>
-#include <QScrollArea>
 #include <list>
 #include <string>
 #include <memory>
 
 #include "../../core/Controller.hpp"
 
+class QTextEdit;
+class QScrollArea;
+class QLabel;
+class QVBoxLayout;
+class QGridLayout;
 class QIcon;
 class Avatar;
 class Controller;
@@ -41,7 +38,8 @@ class WriteBox;
 
 
 /**
-*  @brief ....  
+*  @brief Class for creating MainWindow, i.e window that contains list of
+*  avatars, writing box and message box.  
 */ 
 class MainWindow : public QWidget
 {
@@ -59,14 +57,15 @@ public:
 
 	
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  Function for creating objects of type MainWindow.    
+        *   @param  The only parameter is Controller&. 
   	*/  
 	MainWindow(Controller&);
 
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  Function for updating MainWindow after such cases as
+        *   registration of a new user, logging out of a user...e.t.c.    
+        *   @param  The only paramter is User& u. 
   	*   @return void
   	*/  
 	void updateMainWindow(User& u);
@@ -75,44 +74,42 @@ public:
         controller_.clearMessages(u);
     }
 	/** 
-        *   @brief  ....  
-        *   @param  ....
-	*   @param  .... 
+        *   @brief  Function for updating MainWindow after such cases as registration of a new user, logging out of a user...e.t.c.     
+        *   @param  The only parameter is Users& users.
   	*   @return void
   	*/  
 	void updateMainWindow(Users& users);
 	
-	
-	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        /** 
+        *   @brief  Function for setting address to user.    
+        *   @param  The only parameter is User& u. 
   	*   @return void
   	*/  
 	void setUser(User& u);	
 
 	/** 
-        *   @brief  .....    
+        *   @brief  Function for updating MessageBox.    
         *   @param  no parametrs  
   	*   @return void
   	*/  
 	void updateMessageBox();
 
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  Function for sending message to a user.    
+        *   @param  The only parameter is std::string& msg. 
   	*   @return void
   	*/  
 	void sendMessage(String& msg);
 
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  Function for sending conversation request to server.    
+        *   @param  The only parameter is const std::string&. 
   	*   @return void
   	*/  
 	void sendConvRequest(const String&);
 
 	/** 
-        *   @brief  ....    
+        *   @brief  Function for showing the MainWindow.    
         *   @param  no parametrs  
   	*   @return void
   	*/  

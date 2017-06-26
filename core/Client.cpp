@@ -21,7 +21,7 @@ void Client::createSocket()
 {
 	socket_ = socket(AF_INET, SOCK_STREAM, 0);
 
-	if (socket_ == INVALID_SOCKET){
+	if (socket_ == INVALID_SOCKET) {
 		std::cout << "Could not create socket\n";
 		exit(1);
 	}
@@ -37,8 +37,7 @@ void Client::setupAddress()
 void Client::connectServer()
 {
 	int error = connect(socket_, (struct sockaddr*)&server_, sizeof(server_));
-	if (error < 0)
-	{
+	if (error < 0) {
 		std::cout << "Connect Error - " << error << std::endl;
 		exit(1);
 	}
@@ -49,22 +48,17 @@ int Client::sendMessage(const String& message)
 {
 
 	int sendSize = send(socket_, message.c_str(), message.size(), 0);
-	if (sendSize < 0) 
-	{
+	if (sendSize < 0) {
 		std::cout << "Send failed\n";
 		//inReaderPtr->stopRead();
 		//closeConnection();
 		//exit(1);
 		return ERROR;
-	}
-	else if (sendSize == SOCKET_CLOSED)
-	{
+	} else if (sendSize == SOCKET_CLOSED) {
 		closeConnection();
 		//inReaderPtr->stopRead();
 		return SOCKET_CLOSED;
-	}
-	else
-	{
+	} else {
 		return SUCCESS;
 	}
 }
@@ -72,20 +66,15 @@ int Client::sendMessage(const String& message)
 int Client::recvMessage(TransportLayer& tl)
 {
 	int recvSize = recv(socket_, tl.getBuffer(), tl.getBufferSize(), 0);
-	if (recvSize < 0)
-	{
+	if (recvSize < 0) {
 		std::cout << "Receive failed\n";
-		closeConnection();
+		//closeConnection();
 		return ERROR;
-	}
-	else if (recvSize == SOCKET_CLOSED)
-	{
+	} else if (recvSize == SOCKET_CLOSED) {
 		std::cout << "Socket closed.\n";
 		closeConnection();
 		return SOCKET_CLOSED;
-	}
-	else
-	{
+	} else {
 		tl.setEnd(recvSize);
 		tl.processMessage();
 		return SUCCESS;

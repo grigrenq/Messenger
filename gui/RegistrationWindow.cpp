@@ -5,17 +5,17 @@
 #include <QLabel>
 #include <QColor>
 #include <QPalette>
-#include <QLabel>
 #include <QPixmap>
 #include <QObject>
 #include <QSize>
+#include <QString>
+#include <QVBoxLayout>
 #include <QIcon>
 #include <iostream>
 #include <QToolTip>
 #include <QApplication>
 #include "RegistrationWindow.hpp"
 #include "../core/ValidationInfo.hpp"
-
 
 RegistrationWindow::RegistrationWindow(Controller& c)
 	: controller_(c)

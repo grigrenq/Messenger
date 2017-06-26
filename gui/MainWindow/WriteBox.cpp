@@ -8,6 +8,8 @@
 #include "MainWindow.hpp"
 #include "WriteBox.hpp"
 
+#include <cmath>
+
 
 WriteBox::WriteBox(MainWindow& mw)
 	: mainWindow_(mw)
@@ -44,11 +46,19 @@ bool WriteBox::isEmptyWriteBox()
 
 void WriteBox::sendMessage()
 {
-    if(!isEmptyWriteBox()) {
-        String a=textEdit_->toPlainText().toStdString();
-        mainWindow_.sendMessage(a);
+	String msg = textEdit_->toPlainText().toStdString();
+	if (msg.size() < maxMessageSize) {
+		mainWindow_.sendMessage(msg);
+	} else {
+		int c = ceil(msg.size() / static_cast<float>(maxMessageSize));
+		size_t begin = 0;
+		for (int i = 0; i < c; ++i) {
+			String s(msg.substr(begin, maxMessageSize));
+			mainWindow_.sendMessage(s);
+			begin += maxMessageSize;
+		}
+	}
         textEdit_->setText("");
-    }
 }
 
 QLayout* WriteBox::getWriteBox()

@@ -86,6 +86,7 @@ public:
 		Controller(Client&);
 		void run();
 		void handleSession();
+		void closeConnection();
 
 		String sendLoginRequest(const String& login, const String& password);
 		String sendLogoutRequest();
@@ -116,13 +117,12 @@ public:
 			} else if (type == "logout") {
 				std::cout << sendLogoutRequest() << std::endl;
 			} else {
-				std::cout << sendMessageToUser(type, str) << std::endl;
+				sendMessageToUser(type, str);
 			}
 		}
 
 		String getLogin() const;
 	private:
-		void closeConnection();
 
 		String sendUserListRequest();
 		String sendPendingMessagesRequest();
@@ -140,7 +140,6 @@ public:
 		UserIter find(const String&);
 		UserIter find(User&);
 
-		void updateMainWindow(const UserIter&);
 		void updateMainWindow();
 
 		Client& c_;

@@ -82,7 +82,7 @@ private:
 
 	Messages messages_;
 	WordExtractor wordExtractor_;
-	static const size_t bufferSize = 2048;
+	static const size_t bufferSize = 4096;
 	char buffer[bufferSize];
 
 	std::mutex mutex;

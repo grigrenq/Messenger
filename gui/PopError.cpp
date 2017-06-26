@@ -1,5 +1,6 @@
 #include <QPushButton>
 #include <QString>
+#include <QMessageBox>
 #include "PopError.hpp"
 
 PopError::PopError()

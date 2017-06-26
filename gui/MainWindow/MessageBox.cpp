@@ -1,3 +1,7 @@
+#include <QTextEdit>
+#include <QLayout>
+#include <QVBoxLayout>
+
 #include "MessageBox.hpp"
 #include "../../core/WordExtractor.hpp"
 

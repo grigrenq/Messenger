@@ -3,7 +3,7 @@
 *  @author  GRI Team
 *  @date    06/14/2017  
 *  @version 1.0
-*  @brief RegistrationWindow.hpp creating a GUI for registration window and connection   for checking params for registration
+*  @brief Contains the RegistrationWindow class which is inherited from QWidget class.
 */
 
 
@@ -13,18 +13,18 @@
 class QLineEdit;
 class QPushButton;
 class QApplication;
+class QPalette;
+class QVBoxLayout;
+class QString;
+class QMainWindow;
 
-#include <QMainWindow>
-#include <QLayout>
-#include <QString>
-#include <QPalette>
 #include <QWidget>
 
 #include "../core/InputValidator.hpp"
 #include "../core/Controller.hpp"
 
 /**
-*  @brief RegistrationWindow class which creates the GUI for login window.  
+*  @brief Class for creating a GUI for registration window and checking if login, name, surname and password are valid.  
 */
 
 class RegistrationWindow : public QWidget
@@ -34,8 +34,8 @@ class RegistrationWindow : public QWidget
 public:
 	using String = std::string;
         /** 
-        *   @brief RegistrationWindow constructor for class RegistrationWindow which     creates GUI for registration window 
-        *   @param  is an initialized......???  
+        *   @brief Function for creating objects of type RegistrationWindow 
+        *   @param  The only parameter is Controller&.  
         */
 	RegistrationWindow(Controller&);
 
