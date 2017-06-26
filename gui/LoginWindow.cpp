@@ -3,6 +3,12 @@
 #include <QPalette>
 #include <QApplication>
 #include <QToolTip>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QPixmap>
+#include <QIcon>
 
 #include "LoginWindow.hpp"
 #include "../core/ValidationInfo.hpp"
@@ -146,7 +152,10 @@ void LoginWindow::connectLines()
 {
 	connect(loginField, SIGNAL(textChanged(const QString&)), this, SLOT(checkLogin(const QString&)));
 	connect(passwordField, SIGNAL(textChanged(const QString&)), this, SLOT(checkPassword(const QString&)));
-	connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
+	connect(this, SIGNAL(showLogSignal()), this, SLOT(showLogSlot()));
+	connect(this, SIGNAL(hideLogSignal()), this, SLOT(hideLogSlot()));
+	connect(this, SIGNAL(showRegSignal()), this, SLOT(showRegSlot()));
+	connect(this, SIGNAL(hideRegSignal()), this, SLOT(hideRegSlot()));
 }
 
 void LoginWindow::checkLogin(const QString& qs)
@@ -216,14 +225,44 @@ void LoginWindow::sendLoginReq()
 	controller.sendLoginRequest(l, p);
 }
 
-void LoginWindow::showWindow()
+void LoginWindow::showLogWindow()
 {
-	emit showSignal();
+	emit showLogSignal();
 }
 
-void LoginWindow::showSlot()
+void LoginWindow::hideLogWindow()
+{
+    emit hideLogSignal();
+}
+
+void LoginWindow::showRegWindow()
+{
+    emit showRegSignal();
+}
+
+void LoginWindow::hideRegWindow()
+{
+    emit hideRegSignal();
+}
+
+void LoginWindow::showRegSlot()
+{
+    regWin->show();
+}
+
+void LoginWindow::hideRegSlot()
+{
+    regWin->hide();
+}
+
+void LoginWindow::showLogSlot()
 {
 	this->show();
+}
+
+void LoginWindow::hideLogSlot()
+{
+    this->hide();
 }
 
 void LoginWindow::closeRegWindow()

@@ -3,7 +3,7 @@
 *  @author  GRI Team
 *  @date    06/14/2017  
 *  @version 1.0 
-*  @brief LoginWindow.hpp creating a GUI for login window and connection for checking the login password 
+*  @brief Contains LoginWindow class which is inherited from QWidget class.  
 */
 
 
@@ -13,16 +13,15 @@
 
 #include <QObject>
 #include <QWidget>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QPixmap>
-#include <QPalette>
-#include <QIcon>
 #include <QString>
+class QLineEdit;
+class QPushButton;
+class QVBoxLayout;
+class QSpacerItem;
+class QLabel;
+class QPixmap;
+class QPalette;
+class QIcon;
 class QApplication;
 class QToolTip;
 
@@ -31,38 +30,47 @@ class QToolTip;
 #include "../core/Controller.hpp"
 
 /**
-*  @brief LoginWindow class which creates the GUI for login window.  
+*  @brief Class which creates a GUI for login window and checks if login and password are valid.  
 */  
 class LoginWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-	typedef std::string String;
+	using Stringi = std::string;
 
         /** 
-        *   @brief LoginWindow constructor for class LoginWindow which creates GUI for login window
-        *   @param  is an initialized....  ??
+        *   @brief Function for creating objects of type LoginWindow.
+        *   @param The only parameter is Controller&.
         */  
         LoginWindow(Controller&);
 	
         /** 
-        *   @brief closeRegWindow closing registration window    
-        *   @param no parametrs 
+        *   @brief Function for closing registration window    
+        *   @param no parameters 
         *   @return void
         */  
 	void closeRegWindow();
-	void showWindow();	//???
+	void showLogWindow();	//???
+    void hideLogWindow();
+    void showRegWindow();
+    void hideRegWindow();
 
 public slots:
     void openRegWin();
 	void checkLogin(const QString&);
 	void checkPassword(const QString&);
 	void sendLoginReq();
-	void showSlot();
+	void showLogSlot();
+    void hideLogSlot();
+    void showRegSlot();
+    void hideRegSlot();
 
 signals:
-	void showSignal();
+	void showLogSignal();
+    void hideLogSignal();
+    void showRegSignal();
+    void hideRegSignal();
 
 private:
     void createLayout();

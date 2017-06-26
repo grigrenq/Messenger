@@ -3,7 +3,7 @@
  *  @author  GRI Team
  *  @date    06/23/2017  
  *  @version 1.0  
- *  @brief ....
+ *  @brief Contains WriteBox class which is inherited from QObject class.
  */
 
 
@@ -22,7 +22,7 @@ class MainWindow;
 
 
 /**
-*  @brief ....  
+*  @brief Class for creating messaging area, i.e area containing text field for writing messages and a button for sending them.
 */ 
 class WriteBox: public  QObject
 {
@@ -34,15 +34,15 @@ public:
 
 
 	/** 
-        *   @brief  ....    
-        *   @param  ....
+        *   @brief  Function for creating objects of type WriteBox.
+        *   @param  The only parameter is MainWindow&.
   	*/  
 	WriteBox(MainWindow&);
 
 	/** 
-        *   @brief  ....    
+        *   @brief  Function for getting layout on which corresponding text field and button are located.    
         *   @param  no parametrs  
-  	*   @return ....
+  	*   @return QLayout*.
   	*/  
 	QLayout* getWriteBox();
 

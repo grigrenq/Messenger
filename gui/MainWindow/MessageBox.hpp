@@ -3,7 +3,7 @@
  *  @author  GRI Team
  *  @date    06/23/2017  
  *  @version 1.0  
- *  @brief ....
+ *  @brief Contains MessageBox class.
  */
 
 #ifndef MESSAGEBOX_HPP
@@ -19,7 +19,7 @@ class QLayout;
 class QVBoxLayout;
 
 /**
-*  @brief ....  
+*  @brief Class for creating area where all sent messages to concrete user and received ones from him will be shown.  
 */ 
 class MessageBox
 {
@@ -29,44 +29,44 @@ public:
 	using Messages = MainWindow::Messages;
 	
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  Function for creating objects of type MessageBox.    
+        *   @param  The only parameter is MainWindow&. 
   	*/  
 	MessageBox(MainWindow&);
 
 	/** 
-        *   @brief  ....    
-        *   @param  ....
-	*   @param  .... 
+        *   @brief  Function for updating MessageWindow for every user.    
+        *   @param  First parameter - const std::string&.
+	*   @param  Second parameter - Messages&.
   	*   @return void
   	*/  
 	void update(const std::string&, Messages&);
 
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  Function for showing received messages on the MessageBox.    
+        *   @param  The only parameter is const std::string& msg. 
   	*   @return void
   	*/  
 	void writeLeft(const std::string& msg);
 
 	/** 
-        *   @brief  ....    
-        *   @param  .... 
+        *   @brief  Function for showing sent messages on the MessageBox.    
+        *   @param  The only parameter is const std::string& msg. 
   	*   @return void
   	*/  
 	void writeRight(const std::string& msg);
 
 	/** 
-        *   @brief  ....    
+        *   @brief  Function for getting QTextEdit containing sent or recieved message. 
         *   @param  no parametrs  
-  	*   @return ....
+  	*   @return QTextEdit*
   	*/  
 	QTextEdit* getMessageText();
 
 	/** 
-        *   @brief  ....    
+        *   @brief  Function for getting layout containing MessageBox.    
         *   @param  no parametrs  
-  	*   @return ....
+  	*   @return QLayout*.
   	*/  
 	QLayout* getMessageBox();
 
