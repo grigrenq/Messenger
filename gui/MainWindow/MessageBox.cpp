@@ -29,6 +29,7 @@ void MessageBox::update(const String& mylogin, Messages& msgs)
     messageText_ = new QTextEdit();
 	messageText_->setReadOnly(true);
 	messageBox_->addWidget(messageText_);
+	std::cout << "MessageBox::update()\n";
     for(auto msg : msgs) { 
         String currentLogin = we(msg);
         if(mylogin == currentLogin) {

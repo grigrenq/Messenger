@@ -15,13 +15,16 @@ public:
 	using ConvPtr = std::shared_ptr<Conv>;
 
 	Conversation() = delete;
+	Conversation(const String&);
 	Conversation(const String&, const String&);
+	Conversation(const Conversation&);
 
-	bool equal(const String& u1, const String& u2) const;
+	bool equal(const String&, const String&) const;
 
-	void addMessage(const String& msg);
+	void addMessage(const String&);
 
 	ConvPtr getConversation();
+	String getFileName() const;
 	
 public:
 	String fileName_;

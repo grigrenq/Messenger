@@ -8,6 +8,7 @@ DBController<Users>::DBController()
 	: users_(nullptr) 
 {
 	setupFiles();
+	setupConv();
 }
 
 template<typename Users>
@@ -15,6 +16,7 @@ DBController<Users>::DBController(Users* u)
 	: users_(u)
 {
 	setupFiles();
+	setupConv();
 }
 
 
@@ -35,11 +37,12 @@ DBController<Users>::findConversation(const String& u1, const String& u2)
 template<typename Users>
 void DBController<Users>::addMessage(const String& u1, const String& u2, const String& msg)
 {
-	mutGuard mg(mutex_);
+	//mutGuard mg(mutex_);
 	auto it = findConversation(u1, u2);
 	if (it == conversations_.end()) {
 		std::cout << "creating conversation for " << u1 << " and " << u2 << std::endl;
 		Conversation c(u1, u2);
+		registerConv(c);
 		c.addMessage(msg);
 		conversations_.push_back(c);
 	} else {
@@ -51,8 +54,8 @@ void DBController<Users>::addMessage(const String& u1, const String& u2, const S
 template<typename Users>
 void DBController<Users>::addPendingMessage(const String& u, const String& msg)
 {
-	mutGuard mg(mutex_);
-	const String file = Files::PMsgDir + u + Files::fileType;
+	//mutGuard mg(mutex_);
+	const String file = Files::pMsgDir + u + Files::fileType;
 	std::ofstream ofile(file, std::fstream::binary | std::fstream::out | std::fstream::app);
 	ofile.write(msg.c_str(), msg.size());
 	ofile.write("\n", 1);
@@ -62,8 +65,8 @@ void DBController<Users>::addPendingMessage(const String& u, const String& msg)
 template<typename Users>
 void DBController<Users>::addPMsgsToConv(const String& u)
 {
-	mutGuard mg(mutex_);
-	const String pMessages = Files::PMsgDir + u + Files::fileType;
+	//mutGuard mg(mutex_);
+	const String pMessages = Files::pMsgDir + u + Files::fileType;
 	std::ifstream ifile(pMessages, std::fstream::binary | std::fstream::in);
 	String fromUser;
 	String msg;
@@ -80,8 +83,8 @@ void DBController<Users>::addPMsgsToConv(const String& u)
 template<typename Users>
 void DBController<Users>::clearPMessages(const String& u)
 {
-	mutGuard mg(mutex_);
-	const String file = Files::PMsgDir + u + Files::fileType;
+	//mutGuard mg(mutex_);
+	const String file = Files::pMsgDir + u + Files::fileType;
 	std::ofstream ofile(file, std::fstream::binary | std::ofstream::trunc);
 	ofile.close();
 }
@@ -90,8 +93,8 @@ template<typename Users>
 typename DBController<Users>::PMessagesPtr 
 DBController<Users>::getPMessages(const String& u)
 {
-	mutGuard mg(mutex_);
-	const String file = Files::PMsgDir + u + Files::fileType;
+	//mutGuard mg(mutex_);
+	const String file = Files::pMsgDir + u + Files::fileType;
 	std::ifstream ifile(file, std::fstream::binary | std::fstream::in);
 	PMessagesPtr pm(new PMessages);
 	if (ifile.is_open()) {
@@ -126,8 +129,8 @@ DBController<Users>::getConversation(const String& u1,const String& u2)
 template<typename Users>
 void DBController<Users>::addUser(const User& u)
 {
-	mutGuard mg(mutex_);
-	const String usersFile = Files::ServerUsersDir + Files::usersFile;
+	//mutGuard mg(mutex_);
+	const String usersFile = Files::serverUsersDir + Files::usersFile;
 	std::ofstream ofile(usersFile, std::fstream::binary | std::fstream::out | std::fstream::app);
 	String s = u.toStringLog() + "\n";
 	ofile.write(s.c_str(), s.size());
@@ -137,8 +140,8 @@ void DBController<Users>::addUser(const User& u)
 template<typename Users>
 void DBController<Users>::getUsers()
 {
-	mutGuard mg(mutex_);
-	const String usersFile = Files::ServerUsersDir + Files::usersFile;
+	//mutGuard mg(mutex_);
+	const String usersFile = Files::serverUsersDir + Files::usersFile;
 	std::ifstream ifile(usersFile, std::fstream::in);
 	if (!ifile.is_open()) {
 		return;
@@ -156,7 +159,7 @@ void DBController<Users>::getUsers()
 template<typename Users>
 void DBController<Users>::log(const String& str)
 {
-	mutGuard mg(mutex_);
+	//mutGuard mg(mutex_);
 	std::ofstream ofile(logFile_, std::fstream::binary | std::fstream::out | std::fstream::app);
 	ofile.write(str.c_str(), str.size());
 	ofile.write("\n", 1);
@@ -167,7 +170,7 @@ void DBController<Users>::log(const String& str)
 template<typename Users>
 void DBController<Users>::logUsers()
 {
-	mutGuard mg(mutex_);
+	//mutGuard mg(mutex_);
 	String ps = ".........All clients are......\n...Number of clients: ";
 
 	if (users_ != nullptr)	{
@@ -192,6 +195,49 @@ void DBController<Users>::setupFiles()
 	if (mkdir("Log", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == - 1) {
 		 std::cout << "Could not create directory. It possibly already exists.\n";
 	}
-	logFile_ = Files::LogDir + typeid(User).name() + Files::logFile;
-	usersLogFile_ = Files::LogDir + typeid(User).name() + Files::usersFile;
+	logFile_ = Files::logDir + typeid(User).name() + Files::logFile;
+	usersLogFile_ = Files::logDir + typeid(User).name() + Files::usersFile;
+}
+
+template<typename Users>
+void DBController<Users>::registerConv(const Conversation& c)
+{
+	const String file = Files::convDir + Files::convFile;
+	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
+	if (!ofile.is_open()) {
+		throw Error("Could not open Conversation file.");
+	}
+	String s = c.getFileName();
+	s += s + ',';
+	ofile.write(s.c_str(), s.size());
+	ofile.close();
+}
+
+template<typename Users>
+void DBController<Users>::setupConv()
+{
+	registerConv(Conversation("222", "111"));
+	//registerConv(Conversation("111", "333"));
+	//registerConv(Conversation("333", "111"));
+	//registerConv(Conversation("222", "333"));
+	//registerConv(Conversation("333", "222"));
+
+	const String file = Files::convDir + Files::convFile;
+	std::ifstream ofile(file, std::fstream::in);
+	if (!ofile.is_open()) {
+		return;
+	}
+	String s;
+	while (std::getline(ofile, s)) {
+		if (s.size() < 6) {
+			continue;
+		}
+		conversations_.push_back(Conversation(s));
+	}
+	ofile.close();
+	std::cout << "All conversations...: " << std::cout;
+	for (auto c : conversations_) {
+		std::cout << c.getFileName() << ", ";
+	}
+	std::cout << std::endl;
 }

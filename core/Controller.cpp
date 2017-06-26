@@ -100,6 +100,7 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	}
 	res = "Message to Client " + toUser + ": " + res;
 	dbcontroller_.log(res);
+	updateMainWindow();
 	return res;
 }
 
@@ -273,7 +274,6 @@ void Controller::processUserListRespond(String& userList)
 		log = " adding into the list of users_: " + u->toStringLog();
 		dbcontroller_.log(log);
 	}
-	//dbcontroller_.logUsers();
 	updateMainWindow();
 }
 

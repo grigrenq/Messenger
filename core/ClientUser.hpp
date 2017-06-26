@@ -113,6 +113,18 @@ class ClientUser
                 */  
 		void setStatus(const bool);
 
+
+
+		bool getReqSent() const 
+		{
+			return reqSent;
+		}
+		void setReqSent(const bool b)
+		{
+			reqSent = b;
+		}
+
+
                 /** 
                 *   @brief  asign the value to unread messages
                 *   @param  size of string
@@ -146,6 +158,7 @@ class ClientUser
 		String name_;
 		String surname_;
 		bool status_;
+		bool reqSent;
 		size_t unreadMessages_;
 		Messages messages_;
 		//std::atomic<const char*> login_;

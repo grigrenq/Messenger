@@ -37,7 +37,7 @@ class LoginWindow : public QWidget
     Q_OBJECT
 
 public:
-	using Stringi = std::string;
+	using String = std::string;
 
         /** 
         *   @brief Function for creating objects of type LoginWindow.

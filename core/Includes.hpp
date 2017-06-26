@@ -18,8 +18,8 @@
 #include <vector>
 
 #include <mutex>
-//using mutGuard = std::lock_guard<std::mutex>;
-using mutGuard = std::unique_lock<std::mutex>;
+using mutGuard = std::lock_guard<std::mutex>;
+//using mutGuard = std::unique_lock<std::mutex>;
 
 #include <sys/socket.h>
 #include "arpa/inet.h"

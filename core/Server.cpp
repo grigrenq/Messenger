@@ -87,7 +87,7 @@ void Server::doAcceptClient()
 		dbcontroller_.log(log);
 		return;
 	}
-	mutGuard mg(mutexThreads_);
+	//mutGuard mg(mutexThreads_);
 	if (threads_.find(sockAccepted) == threads_.end()) {
 		threads_[sockAccepted] = shptr;
 		log = "Thread - " + std::to_string(*(threads_.at(sockAccepted))) + " inserted in the map.\n";
@@ -120,7 +120,7 @@ void Server::handleSession(const SOCKET sock)
 	}
 	
 	closeSocket(sock);
-	mutGuard mg(mutexThreads_);
+	//mutGuard mg(mutexThreads_);
 	if (threads_.find(sock) != threads_.end()) {
 		pthread_detach(*(threads_.at(sock)));
 		String log = "Thread - " + std::to_string(*(threads_.at(sock))) + " deleted.";
@@ -305,7 +305,6 @@ void Server::sendUserChangedRespond(User& user)
 	String userStr = user.toString();
 	String log = "sendUserChangedResp......userchanged: " + userStr;
 	dbcontroller_.log(log);
-	mutex_.lock();
 	for (auto it = users_.begin(); it != users_.end(); ++it) {
 		if (it->getStatus() == true) {
 			if (it->getLogin() == user.getLogin()) {
@@ -314,14 +313,13 @@ void Server::sendUserChangedRespond(User& user)
 			sendMessage(it->getSocket(), userStr, userChangedRespond);
 		}
 	}
-	mutex_.unlock();
 }
 
 void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
 {
 	std::cout << s << " ," << u1 << "," << u2 << std::endl;
 	//mutGuard mg(mutex_);
-	mutex_.lock();
+	//mutex_.lock();
 	auto it = find(s);
 	if (it == users_.end()) {
 		String msg("sendConvRespond: could not find user with socket-");
@@ -341,7 +339,7 @@ void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
 		std::cout << "sending conversation: " << *it << std::endl;
 		sendMessage(s, *it, convRespond);
 	}
-	mutex_.unlock();
+	//mutex_.unlock();
 }
 
 
@@ -388,10 +386,10 @@ void Server::processPlainMessage(String& message)
 	String log =  "....attempting to send message: " + message;
 	dbcontroller_.log(log);
 
-	mutex_.lock();
+	//mutex_.lock();
 	auto itToClient = find(toClient);
 	if (itToClient != users_.end()) {
-		mutex_.unlock();
+		//mutex_.unlock();
 		if (itToClient->getStatus() == true) {
 			dbcontroller_.addMessage(fromClient, toClient, message);
 			sendMessage((itToClient->getSocket()), message, plainMessage);
@@ -401,7 +399,7 @@ void Server::processPlainMessage(String& message)
 			dbcontroller_.log(log);
 		}
 	} else {
-		mutex_.unlock();
+		//mutex_.unlock();
 		log + "From-" + wordExtractor_(message) + ". To-" 
 			+ toClient + ". Message-" + message;
 		dbcontroller_.log(log);
@@ -419,7 +417,7 @@ void Server::processLoginRequest(const SOCKET sock, String& message)
 	dbcontroller_.log(log);
 
 	String respond;
-	mutex_.lock();
+	//mutex_.lock();
 	auto it = find(u.getLogin());
 	if (it ==  users_.end()) {
 		respond = error + delim + "Client with login: "	+ u.getLogin() + " is not registered.";
@@ -439,7 +437,7 @@ void Server::processLoginRequest(const SOCKET sock, String& message)
 			}
 		}
 	}
-	mutex_.unlock();
+	//mutex_.unlock();
 	dbcontroller_.log(respond);
 	sendMessage(sock, respond, loginRespond);
 }
@@ -450,7 +448,7 @@ void Server::processLogoutRequest(const SOCKET sock)
 	String respond;
 	String log = "processLogoutRequest from socket:" + std::to_string(sock) + "......:";
 	dbcontroller_.log(log);
-	mutex_.lock();
+	//mutex_.lock();
 	auto it = find(sock);
 	if (it == users_.end()) {
 		respond = error + delim + "Client with socket:" + std::to_string(sock) + " is not registered.";
@@ -463,7 +461,7 @@ void Server::processLogoutRequest(const SOCKET sock)
 			dbcontroller_.logUsers();
 		}
 	}
-	mutex_.unlock();
+	//mutex_.unlock();
 	dbcontroller_.log(respond);
 	sendMessage(sock, respond, logoutRespond);
 }
@@ -478,19 +476,21 @@ void Server::processRegistrationRequest(const SOCKET sock, String& message)
 	dbcontroller_.log(log);
 
 	String respond;
-	mutex_.lock();
+	//mutex_.lock();
 	auto it = find(u.getLogin());
+	std::cout << __FUNCTION__ << std::endl;
 	if (it != users_.end()) {
 		respond = error + delim + "Client with login: " + u.getLogin() + " is already registered.";
 	} else {
 		users_.push_back(u);
 		respond = success + delim + "You are registered.";
 		dbcontroller_.logUsers();
-		User *p = it->getPointer();
+		User *p = users_.back().getPointer();
 		dbcontroller_.addUser(*p);
 		sendUserChangedRespond(*p);
 	}
-	mutex_.unlock();
+	std::cout << __FUNCTION__ << std::endl;
+	//mutex_.unlock();
 	dbcontroller_.log(respond);
 	sendMessage(sock, respond, registrationRespond);
 }

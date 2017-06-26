@@ -45,6 +45,8 @@ public:
 private:
 	void clearPMessages(const String&);
 	void setupFiles();
+	void registerConv(const Conversation&);
+	void setupConv();
 
 	Users* users_;
 	std::mutex mutex_;

@@ -69,10 +69,7 @@ public:
   	*   @return void
   	*/  
 	void updateMainWindow(User& u);
-    void clearMessages(User& u)
-    {
-        controller_.clearMessages(u);
-    }
+
 	/** 
         *   @brief  Function for updating MainWindow after such cases as registration of a new user, logging out of a user...e.t.c.     
         *   @param  The only parameter is Users& users.
@@ -80,6 +77,10 @@ public:
   	*/  
 	void updateMainWindow(Users& users);
 	
+    void clearMessages(User& u)
+    {
+        controller_.clearMessages(u);
+    }
         /** 
         *   @brief  Function for setting address to user.    
         *   @param  The only parameter is User& u. 

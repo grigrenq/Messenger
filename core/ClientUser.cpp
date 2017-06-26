@@ -7,13 +7,13 @@
 using String = ClientUser::String;
 
 ClientUser::ClientUser() 
-: status_(false), unreadMessages_(0)
+: status_(false), reqSent(false), unreadMessages_(0)
 {
 
 }
 
 ClientUser::ClientUser(String& clientStr)
-: unreadMessages_(0)
+: reqSent(false), unreadMessages_(0)
 {
 	fromString(clientStr);
 }

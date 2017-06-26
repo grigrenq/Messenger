@@ -99,16 +99,13 @@ void MainWindow::createLayout(){
 
 void MainWindow::updateMessageBox()
 {
-	if (messageBox_ == nullptr || userPtr_ == nullptr) {
-		std::cout << __FUNCTION__ << " nullptr case." << std::endl;
-		throw std::logic_error("userPtr_ after click still is nullptr");
+	if (messageBox_ == nullptr) {
+		throw std::logic_error("messageBox  is nullptr");
 	}
-
-	std::cout << __FUNCTION__ << std::endl;
-	//for (auto i : userPtr_->getMessages()) {
-    //}
-   	    messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
-	//std::cout << "\nend of messages.\n";
+	if (userPtr_ != nullptr) {
+		std::cout << "MainWindow->updateMessageBox()\n";
+	   	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
+	}
 }
 
 void MainWindow::sendMessage(String& msg)
@@ -121,15 +118,11 @@ void MainWindow::sendMessage(String& msg)
 	}
 	messageBox_->getMessageText()->verticalScrollBar()->setValue(messageBox_->getMessageText()->verticalScrollBar()->maximum());
 	String toUser = (userPtr_->getLogin());
-	userPtr_->addMessage(controller_.getLogin() + delim + msg);
 	controller_.sendMessageToUser(toUser, msg);
-	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 }
 
 void MainWindow::updateMainWindow(User& u)
 {
-	std::cout << "emitting signal updateSignal()\n";
-	//UserPtr up(&u);
 	emit updateSignal(u);
 }
 
@@ -140,7 +133,6 @@ void MainWindow::updateMainWindow(Users& users)
 
 void MainWindow::updateSlot(User u)
 {
-	std::cout << "slot updateSlot()\n";
 	updateMainWindowHelper(u);
 }
 
@@ -165,6 +157,7 @@ void MainWindow::updateMainWindowHelper(ClientUser& u)
 			return;
 		}
 		if (userPtr_->getLogin() == u.getLogin()) {
+			userPtr_->setUnreadMessages(0);
 			messageBox_->update((u.getLogin()), u.getMessages());
 		} 
 	}
@@ -172,24 +165,23 @@ void MainWindow::updateMainWindowHelper(ClientUser& u)
 
 void MainWindow::updateMainWindowHelper(Users& users)
 {
-	//std::cout << __FUNCTION__ << std::endl;
 	avatars_.clear();
 	if (avLay_ != nullptr) {
 		delete avLay_;
 		avLay_ = nullptr;
 	}
-	if (scrollArea_ != nullptr) {
-		//delete scrollArea_;
-		//scrollArea_ = nullptr;
-	}
 	if (scrollWidget_ != nullptr) {
 		delete scrollWidget_;
 		scrollWidget_ = nullptr;
 	}
-	//std::cout << __FUNCTION__ << std::endl;
 	avLay_ = new QVBoxLayout();
 	for (auto it = users.begin(); it != users.end(); ++it) {
 		avatars_.push_back(AvatarPtr(new Avatar(*(*it), *this)));
+	}
+	if (userPtr_ != nullptr) {
+		std::cout << "updateMainWindowHelper(users)\n";
+		userPtr_->setUnreadMessages(0);
+		messageBox_->update((userPtr_->getLogin()), userPtr_->getMessages());
 	}
 	addAvatars();
 }
@@ -202,17 +194,13 @@ void MainWindow::setUser(User& u)
 
 MainWindow::AvatarsIter MainWindow::find(const User& u)
 {
-	//std::cout << "MainWindow::find()\n";
 	AvatarsIter it = avatars_.begin();
 	for (; it != avatars_.end(); ++it) {
 		if ((*it)->getLogin() == (u.getLogin())) {
-			//std::cout << "it->login() == u.login()" << std::endl;
 			return it;
 		}
 	}
-	//std::cout << "after if-else in for....." << std::endl;
 	return it;
-	//return avatars_.end();
 }
 
 

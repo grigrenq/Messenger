@@ -9,11 +9,11 @@
 #define AVATAR_HPP
 
 #include <Qt>
+#include <QLabel>
 #include <QMainWindow>
 #include "../../core/ClientUser.hpp"
 #include "MainWindow.hpp"
 
-class QLabel;
 class QEvent;
 class QMouseEvent;
 
@@ -67,6 +67,10 @@ public slots:
 	void openConversation();
 
 private:
+	void mousePressEvent(QMouseEvent*);
+	void enterEvent(QEvent*);
+	void leaveEvent(QEvent*);
+
 	User& user_;
 	MainWindow& mainWindow_;
 	QLabel* avName_;
@@ -74,12 +78,9 @@ private:
 	QLabel* avLogin_;
 	QLabel* avStatus_;
 	QLabel* avCount_;
+
     bool status_;
-    bool conRec;
 	int unreadMessages_;
-	void mousePressEvent(QMouseEvent*);
-	void enterEvent(QEvent*);
-	void leaveEvent(QEvent*);
 };
 
 #endif
