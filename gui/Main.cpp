@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 	if (argc > 1) {
 		login = argv[1];
 	}
-	controller.run(login);
+	controller.run();
 
 	return app.exec();
 }

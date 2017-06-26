@@ -55,7 +55,7 @@ class ClientUser
                 *   @param  const reference of String??
                 *   @return void
                 */  
-		void addMessage(const String&);
+		void addMessage(const String&, const bool = false);
 
                 /** 
                 *   @brief toString add login name and surname in string 

@@ -80,7 +80,7 @@ public:
 
 	
 		Controller(Client&);
-		void run(const String&);
+		void run();
 		void handleSession();
 
 		String sendLoginRequest(const String& login, const String& password);

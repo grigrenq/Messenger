@@ -1,0 +1,1204 @@
+Waiting for incoming connections...
+
+Accepted - 4
+Thread - 3074472768 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 22%loginRequest%111%pass%
+Login request.......(login=111).(password=pass)....
+Error%Client with login: 111 is not registered.
+Sent Row Message: 60%loginRespond%Error%Client with login: 111 is not registered.
+
+...Row Message: 43%regRequest%user1%name%surname%offline%pass%
+Registration request....(login=user1).(name=name).(surname=surname).(password=pass).(status=0)...
+sendUserChangedResp......userchanged: user1%name%surname%offline%
+Success%You are registered.
+Sent Row Message: 38%regRespond%Success%You are registered.
+Receive failed. Socket is closed.
+Receive failed. Socket is closed.Unknown socket.
+Thread - 3074472768 deleted.
+Accepted - 5
+Thread - 3074472768 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 43%regRequest%user2%name%surname%offline%pass%
+Registration request....(login=user2).(name=name).(surname=surname).(password=pass).(status=0)...
+sendUserChangedResp......userchanged: user2%name%surname%offline%
+Success%You are registered.
+Sent Row Message: 38%regRespond%Success%You are registered.
+
+...Row Message: 43%regRequest%user3%name%surname%offline%pass%
+Registration request....(login=user3).(name=name).(surname=surname).(password=pass).(status=0)...
+sendUserChangedResp......userchanged: user3%name%surname%offline%
+Success%You are registered.
+Sent Row Message: 38%regRespond%Success%You are registered.
+Receive failed. Socket is closed.
+Receive failed. Socket is closed.Unknown socket.
+Thread - 3074472768 deleted.
+Accepted - 4
+Thread - 3074472768 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user1%pass%
+Login request.......(login=user1).(password=pass)....
+Setting online user with login: user1
+sendUserChangedResp......userchanged: user1%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%....
+Sent Row Message: 96%userListRespond%user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user1.
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+No conversation for user-user1, and user-user3
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+No conversation for user-user1, and user-user2
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+No conversation for user-user1, and user-user3
+
+...Row Message: 44%userConvReq%user1%user1%Conversation Request
+No conversation for user-user1, and user-user1
+
+...Row Message: 39%logoutRequest%This is a logout request.
+processLogoutRequest from socket:4......:
+Setting Offline user: user1
+sendUserChangedResp......userchanged: user1%name%surname%offline%
+Success%You are logged out.
+Sent Row Message: 41%logoutRespond%Success%You are logged out.
+Receive failed. Socket is closed.
+Receive failed. Socket is closed.Unknown socket.
+Thread - 3074472768 deleted.
+Waiting for incoming connections...
+
+Accepted - 4
+Thread - 3074325312 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user1%pass%
+Login request.......(login=user1).(password=pass)....
+Setting online user with login: user1
+sendUserChangedResp......userchanged: user1%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%....
+Sent Row Message: 96%userListRespond%user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user1.
+
+...Row Message: 39%logoutRequest%This is a logout request.
+processLogoutRequest from socket:4......:
+Setting Offline user: user1
+sendUserChangedResp......userchanged: user1%name%surname%offline%
+Success%You are logged out.
+Sent Row Message: 41%logoutRespond%Success%You are logged out.
+
+...Row Message: 24%loginRequest%user2%pass%
+Login request.......(login=user2).(password=pass)....
+Setting online user with login: user2
+sendUserChangedResp......userchanged: user2%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user3%name%surname%offline%user1%name%surname%offline%user2%name%surname%online%....
+Sent Row Message: 96%userListRespond%user3%name%surname%offline%user1%name%surname%offline%user2%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user2.
+
+...Row Message: 39%logoutRequest%This is a logout request.
+processLogoutRequest from socket:4......:
+Setting Offline user: user2
+sendUserChangedResp......userchanged: user2%name%surname%offline%
+Success%You are logged out.
+Sent Row Message: 41%logoutRespond%Success%You are logged out.
+Receive failed. Socket is closed.
+Receive failed. Socket is closed.Unknown socket.
+Thread - 3074325312 deleted.
+Waiting for incoming connections...
+
+Accepted - 4
+Thread - 3074206528 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user1%pass%
+Login request.......(login=user1).(password=pass)....
+Setting online user with login: user1
+sendUserChangedResp......userchanged: user1%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%....
+Sent Row Message: 96%userListRespond%user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user1.
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+No conversation for user-user1, and user-user3
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+No conversation for user-user1, and user-user3
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+No conversation for user-user1, and user-user2
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+No conversation for user-user1, and user-user3
+Accepted - 5
+Thread - 3063937856 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user3%pass%
+Login request.......(login=user3).(password=pass)....
+Setting online user with login: user3
+sendUserChangedResp......userchanged: user3%name%surname%online%
+Sent Row Message: 38%userChanged%user3%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user2%name%surname%offline%user3%name%surname%online%user1%name%surname%online%....
+Sent Row Message: 95%userListRespond%user2%name%surname%offline%user3%name%surname%online%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user3.
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+No conversation for user-user3, and user-user1
+
+...Row Message: 37%plainMessage%user3%user1%sadasdasdasd
+....attempting to send message: user3%sadasdasdasd
+Sent Row Message: 31%plainMessage%user3%sadasdasdasd
+
+...Row Message: 37%plainMessage%user3%user1%sadasdasdasd
+....attempting to send message: user3%sadasdasdasd
+Sent Row Message: 31%plainMessage%user3%sadasdasdasd
+
+...Row Message: 37%plainMessage%user3%user1%sadasdasdasd
+....attempting to send message: user3%sadasdasdasd
+Sent Row Message: 31%plainMessage%user3%sadasdasdasd
+
+...Row Message: 37%plainMessage%user3%user1%sadasdasdasd
+....attempting to send message: user3%sadasdasdasd
+Sent Row Message: 31%plainMessage%user3%sadasdasdasd
+
+...Row Message: 37%plainMessage%user3%user1%sadasdasdasd
+....attempting to send message: user3%sadasdasdasd
+Sent Row Message: 31%plainMessage%user3%sadasdasdasd
+
+...Row Message: 37%plainMessage%user3%user1%sadasdasdasd
+....attempting to send message: user3%sadasdasdasd
+Sent Row Message: 31%plainMessage%user3%sadasdasdasd
+
+...Row Message: 37%plainMessage%user3%user1%sadasdasdasd
+....attempting to send message: user3%sadasdasdasd
+Sent Row Message: 31%plainMessage%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user1%user1%Conversation Request
+No conversation for user-user1, and user-user1
+
+...Row Message: 44%userConvReq%user3%user3%Conversation Request
+No conversation for user-user3, and user-user3
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user3%Conversation Request
+No conversation for user-user3, and user-user3
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user3%Conversation Request
+No conversation for user-user3, and user-user3
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user3%Conversation Request
+No conversation for user-user3, and user-user3
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user3%user1%Conversation Request
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user1%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user1%user1%Conversation Request
+No conversation for user-user1, and user-user1
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+No conversation for user-user1, and user-user2
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+Sent Row Message: 37%userConvResp%user3%user3%sadasdasdasd
+
+...Row Message: 39%logoutRequest%This is a logout request.
+processLogoutRequest from socket:5......:
+Setting Offline user: user3
+sendUserChangedResp......userchanged: user3%name%surname%offline%
+Sent Row Message: 39%userChanged%user3%name%surname%offline%
+Success%You are logged out.
+Sent Row Message: 41%logoutRespond%Success%You are logged out.
+
+...Row Message: 39%logoutRequest%This is a logout request.
+processLogoutRequest from socket:4......:
+Setting Offline user: user1
+sendUserChangedResp......userchanged: user1%name%surname%offline%
+Success%You are logged out.
+Sent Row Message: 41%logoutRespond%Success%You are logged out.
+Receive failed. Socket is closed.
+Receive failed. Socket is closed.Unknown socket.
+Thread - 3074206528 deleted.
+Receive failed. Socket is closed.
+Receive failed. Socket is closed.Unknown socket.
+Thread - 3063937856 deleted.
+Waiting for incoming connections...
+
+Accepted - 4
+Thread - 3074526016 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user1%pass%
+Login request.......(login=user1).(password=pass)....
+Setting online user with login: user1
+sendUserChangedResp......userchanged: user1%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%....
+Sent Row Message: 96%userListRespond%user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user1.
+Accepted - 5
+Thread - 3064986432 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user2%pass%
+Login request.......(login=user2).(password=pass)....
+Setting online user with login: user2
+sendUserChangedResp......userchanged: user2%name%surname%online%
+Sent Row Message: 38%userChanged%user2%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user3%name%surname%offline%user2%name%surname%online%user1%name%surname%online%....
+Sent Row Message: 95%userListRespond%user3%name%surname%offline%user2%name%surname%online%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user2.
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+No conversation for user-user2, and user-user1
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 31%plainMessage%user2%user1%asdasd
+....attempting to send message: user2%asdasd
+Sent Row Message: 25%plainMessage%user2%asdasd
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+
+...Row Message: 44%userConvReq%user1%user1%Conversation Request
+No conversation for user-user1, and user-user1
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user1%user1%Conversation Request
+No conversation for user-user1, and user-user1
+
+...Row Message: 44%userConvReq%user1%user3%Conversation Request
+No conversation for user-user1, and user-user3
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+Sent Row Message: 31%userConvResp%user2%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user2%Conversation Request
+No conversation for user-user2, and user-user2
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+
+...Row Message: 44%userConvReq%user2%user1%Conversation Request
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Sent Row Message: 31%userConvResp%user1%user2%asdasd
+Receive failed. Socket is closed.
+Setting Offline user: user1
+sendUserChangedResp......userchanged: user1%name%surname%offline%
+Sent Row Message: 39%userChanged%user1%name%surname%offline%
+Receive failed. Socket is closed.User-user1 disconnected.
+Thread - 3074526016 deleted.
+Receive failed. Socket is closed.
+Setting Offline user: user2
+sendUserChangedResp......userchanged: user2%name%surname%offline%
+Receive failed. Socket is closed.User-user2 disconnected.
+Thread - 3064986432 deleted.
+Waiting for incoming connections...
+
+Accepted - 4
+Thread - 3075005248 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user1%pass%
+Login request.......(login=user1).(password=pass)....
+Setting online user with login: user1
+sendUserChangedResp......userchanged: user1%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%....
+Sent Row Message: 96%userListRespond%user2%name%surname%offline%user3%name%surname%offline%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user1.
+Accepted - 5
+Thread - 3064986432 inserted in the map.
+
+Waiting for incoming connections...
+
+
+...Row Message: 24%loginRequest%user2%pass%
+Login request.......(login=user2).(password=pass)....
+Setting online user with login: user2
+sendUserChangedResp......userchanged: user2%name%surname%online%
+Sent Row Message: 38%userChanged%user2%name%surname%online%
+Success%You are logged in.
+Sent Row Message: 39%loginRespond%Success%You are logged in.
+
+...Row Message: 44%userListRequest%This is a user list request.
+...Client list request....sent string =user3%name%surname%offline%user2%name%surname%online%user1%name%surname%online%....
+Sent Row Message: 95%userListRespond%user3%name%surname%offline%user2%name%surname%online%user1%name%surname%online%
+
+...Row Message: 50%pendMsgRequest%This is a pending messages request.
+...Attempting to send 0 pending messages to user: - user2.
+
+...Row Message: 44%userConvReq%user1%user2%Conversation Request
+No conversation for user-user1, and user-user2
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+
+...Row Message: 34%plainMessage%user1%user2%asdasdasd
+....attempting to send message: user1%asdasdasd
+Sent Row Message: 28%plainMessage%user1%asdasdasd
+Receive failed. Socket is closed.
+Setting Offline user: user2
+sendUserChangedResp......userchanged: user2%name%surname%offline%
+Sent Row Message: 39%userChanged%user2%name%surname%offline%
+Receive failed. Socket is closed.User-user2 disconnected.
+Thread - 3064986432 deleted.
+Receive failed. Socket is closed.
+Setting Offline user: user1
+sendUserChangedResp......userchanged: user1%name%surname%offline%
+Receive failed. Socket is closed.User-user1 disconnected.
+Thread - 3075005248 deleted.

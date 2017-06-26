@@ -40,10 +40,12 @@ bool ClientUser::fromString(String& clientStr)
 	return true;
 }
 
-void ClientUser::addMessage(const String& message)
+void ClientUser::addMessage(const String& message, const bool b)
 {
 	messages_.push_back(message);
-	++unreadMessages_;
+	if (b == true) {
+		++unreadMessages_;
+	}
 }
 
 String ClientUser::toStringLog() const

@@ -20,10 +20,8 @@ Controller::Controller(Client& c)
 	mainWindow_ = new MainWindow(*this);
 }
 
-void Controller::run(const String& s)
+void Controller::run()
 {
-	login = s;
-	//std::cout << "login=" << login << ".\n";
 	c_.connectServer();
 	//loginWindow_->showWindow();
 
@@ -48,9 +46,7 @@ void Controller::handleSession()
 {
 	inReaderPtr.reset(new InputReader(*this));
 	inReaderPtr->startRead();
-	String message;
 	try {
-
 		while (c_.recvMessage(transportLayer_) == SUCCESS) {
 			for (auto p : transportLayer_) {
 				processMessage(*p);
@@ -167,7 +163,7 @@ void Controller::processPlainMessage(String& message)
 	if (it == users_.end()) {
 		throw Error("The message is from unknown user");
 	} else {
-		(*it)->addMessage(message);
+		(*it)->addMessage(message, true);
 		updateMainWindow(it);
 	}
 }
@@ -185,7 +181,7 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow_ != nullptr) {
 			//delete loginWindow_;
 			//loginWindow_ = nullptr;
-			//loginWindow_->hide();
+			loginWindow_->hide();
 		}
 		sleep(1);
 		if (mainWindow_ != nullptr) {
@@ -200,15 +196,16 @@ void Controller::processLoginRespond(String& message)
 void Controller::processLogoutRespond(String& message)
 {
 	String result = wordExtractor_(message);
-	//dbcontroller_.log(message);
+	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
 		popError_->setText(message);
 		popError_->execute();
 	} else {
 		if (mainWindow_ != nullptr) {
-			delete mainWindow_;
-			mainWindow_ = nullptr;
+			//delete mainWindow_;
+			//mainWindow_ = nullptr;
+			mainWindow_->hide();
 		}
 		users_.erase(users_.begin(), users_.end());
 	}
@@ -225,7 +222,7 @@ void Controller::processRegistrationRespond(String& message)
 		popError_->execute();
 	} else {
 		if (loginWindow_ != nullptr) {
-			//loginWindow_->closeRegWindow();
+			loginWindow_->closeRegWindow();
 		}
 	}
 }
@@ -261,7 +258,7 @@ void Controller::processUserChangedRespond(String& userStr)
 void Controller::processUserListRespond(String& userList)
 {
 	String log = "processUserListResp..." + userList;
-	//dbcontroller_.log(log);
+	dbcontroller_.log(log);
 	std::cout << log << std::endl;
 	users_.erase(users_.begin(), users_.end());
 	UserPtr u(new User());
