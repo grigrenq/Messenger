@@ -13,16 +13,15 @@
 
 #include <QObject>
 #include <QWidget>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QPixmap>
-#include <QPalette>
-#include <QIcon>
 #include <QString>
+class QLineEdit;
+class QPushButton;
+class QVBoxLayout;
+class QSpacerItem;
+class QLabel;
+class QPixmap;
+class QPalette;
+class QIcon;
 class QApplication;
 class QToolTip;
 
@@ -38,7 +37,7 @@ class LoginWindow : public QWidget
     Q_OBJECT
 
 public:
-	typedef std::string String;
+	using Stringi = std::string;
 
         /** 
         *   @brief Function for creating objects of type LoginWindow.
@@ -52,17 +51,26 @@ public:
         *   @return void
         */  
 	void closeRegWindow();
-	void showWindow();	//???
+	void showLogWindow();	//???
+    void hideLogWindow();
+    void showRegWindow();
+    void hideRegWindow();
 
 public slots:
     void openRegWin();
 	void checkLogin(const QString&);
 	void checkPassword(const QString&);
 	void sendLoginReq();
-	void showSlot();
+	void showLogSlot();
+    void hideLogSlot();
+    void showRegSlot();
+    void hideRegSlot();
 
 signals:
-	void showSignal();
+	void showLogSignal();
+    void hideLogSignal();
+    void showRegSignal();
+    void hideRegSignal();
 
 private:
     void createLayout();

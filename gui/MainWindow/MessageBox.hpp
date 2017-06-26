@@ -77,7 +77,6 @@ private:
 	QVBoxLayout* messageBox_;
 	QTextEdit* messageText_;
 	QVBoxLayout* messageTextLayout;
-//	Conversation conversation;
 };
 
 #endif

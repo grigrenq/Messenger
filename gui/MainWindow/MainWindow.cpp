@@ -109,7 +109,7 @@ void MainWindow::updateMessageBox()
 
 void MainWindow::sendMessage(String& msg)
 {
-	if (messageBox_ == nullptr || userPtr_ == nullptr) {
+	if (messageBox_ == nullptr) {
 		throw std::logic_error("asdasdasd");
 	}
 	if(userPtr_ == nullptr) {

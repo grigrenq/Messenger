@@ -56,6 +56,8 @@ private:
 	QLayout* writeBox_;
 	QTextEdit* textEdit_;
 	QPushButton* sendButton_;
+
+	static const size_t maxMessageSize = 4000;
 };
 
 #endif
