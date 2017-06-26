@@ -10,7 +10,7 @@
 
 #include <string>
 #include <QWidget>
-#include <QMessageBox>
+class QMessageBox;
 #include <QObject>
 
 class QPushButton;

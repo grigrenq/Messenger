@@ -13,11 +13,11 @@
 class QLineEdit;
 class QPushButton;
 class QApplication;
+class QPalette;
+class QVBoxLayout;
+class QString;
+class QMainWindow;
 
-#include <QMainWindow>
-#include <QLayout>
-#include <QString>
-#include <QPalette>
 #include <QWidget>
 
 #include "../core/InputValidator.hpp"

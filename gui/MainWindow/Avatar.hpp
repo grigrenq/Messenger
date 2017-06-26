@@ -10,16 +10,12 @@
 
 #include <Qt>
 #include <QMainWindow>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <MainWindow.hpp>
-#include <QMouseEvent>
 #include "../../core/ClientUser.hpp"
+#include "MainWindow.hpp"
 
-class MainWindow;
+class QLabel;
 class QEvent;
-
-
+class QMouseEvent;
 
 /**
 *  @brief Class for creating GUI for Avatar, that contains all registered users' logins and their statuses.

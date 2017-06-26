@@ -5,6 +5,11 @@
 #include <QFontMetrics>
 #include <QMetaType>
 #include <QIcon>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QScrollArea>
+#include <QTextEdit>
 
 #include "MainWindow.hpp"
 #include "Avatar.hpp"

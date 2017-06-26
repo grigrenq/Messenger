@@ -12,25 +12,24 @@
 #include <QObject>
 #include <QWidget>
 #include <QLineEdit>
-#include <QTextEdit>
 #include <QPushButton>
-#include <QVBoxLayout>
 #include <QSpacerItem>
 #include <QHBoxLayout>
-#include <QGridLayout>
 #include <QFormLayout>
-#include <QLabel>
 #include <QPixmap>
 #include <QPalette>
-//#include <QIcon>
 #include <QScrollBar>
-#include <QScrollArea>
 #include <list>
 #include <string>
 #include <memory>
 
 #include "../../core/Controller.hpp"
 
+class QTextEdit;
+class QScrollArea;
+class QLabel;
+class QVBoxLayout;
+class QGridLayout;
 class QIcon;
 class Avatar;
 class Controller;

@@ -3,8 +3,10 @@
 #include <QGridLayout>
 #include <QString>
 #include <QFont>
+#include <QLabel>
+#include <QEvent>
+#include <QMouseEvent>
 
-#include "MainWindow.hpp"
 #include "Avatar.hpp"
 
 Avatar::Avatar(User& u, MainWindow& mw)
