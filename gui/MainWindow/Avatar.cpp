@@ -49,9 +49,14 @@ Avatar::Avatar(User& u, MainWindow& mw)
 
 	avLogin_->setText(QString::fromStdString(user_.getLogin()));
 	avLogin_->setGeometry(10,7,150,20);
-	avCount_->setText(QString::fromStdString(std::to_string(user_.getUnreadMessagesCount())));
-	avCount_->setGeometry(170,7,20,20);
-	avCount_->setStyleSheet("border: 0.5px solid grey; border-radius:5px");
+	avCount_->setGeometry(170,7,23,20);
+	avCount_->setStyleSheet("border: 0px");
+	auto c = user_.getUnreadMessagesCount();
+	if (c != 0) {
+		avCount_->setText(QString::fromStdString(std::to_string(c)));
+		//avCount_->setStyleSheet("border: 0.5px solid grey; border-radius:6px");
+	} else {
+	}
 	QGridLayout* lay=new QGridLayout;
 	lay->addWidget(avLogin_);
 	lay->addWidget(avCount_);
@@ -70,8 +75,8 @@ void Avatar::openConversation()
     }
     mainWindow_.setUser(user_);
     user_.setUnreadMessages(0);
+	avCount_->setText("");
 	mainWindow_.updateMessageBox();
-	//mainWindow_.updateMainWindow();
 }
 
 void Avatar::setStatus(bool b)

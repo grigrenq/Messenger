@@ -103,8 +103,6 @@ void MainWindow::updateMessageBox()
 		throw std::logic_error("messageBox  is nullptr");
 	}
 	if (userPtr_ != nullptr) {
-		//sleep(1);
-		//std::cout << "MainWindow->updateMessageBox()\n";
 	   	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 	}
 }
@@ -117,8 +115,8 @@ void MainWindow::sendMessage(String& msg)
 	if(userPtr_ == nullptr) {
 		return;
 	}
-	messageBox_->getMessageText()->verticalScrollBar()->setValue(messageBox_->getMessageText()->verticalScrollBar()->maximum());
-	String toUser = (userPtr_->getLogin());
+
+	String toUser = userPtr_->getLogin();
 	controller_.sendMessageToUser(toUser, msg);
 }
 
@@ -176,19 +174,18 @@ void MainWindow::updateMainWindowHelper(Users& users)
 		scrollWidget_ = nullptr;
 	}
 	avLay_ = new QVBoxLayout();
+	if (userPtr_ != nullptr) {
+		userPtr_->setUnreadMessages(0);
+	}
 	for (auto it = users.begin(); it != users.end(); ++it) {
 		avatars_.push_back(AvatarPtr(new Avatar(*(*it), *this)));
 	}
-	if (userPtr_ != nullptr) {
-		userPtr_->setUnreadMessages(0);
-		updateMessageBox();
-	}
 	addAvatars();
+	updateMessageBox();
 }
 
 void MainWindow::setUser(User& u)
 {
-	std::cout << __FUNCTION__ << std::endl;
    	userPtr_ = &u;
 }
 

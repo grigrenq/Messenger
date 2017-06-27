@@ -29,18 +29,19 @@ void MessageBox::update(const String& mylogin, Messages& msgs)
     messageText_ = new QTextEdit();
 	messageText_->setReadOnly(true);
 	messageBox_->addWidget(messageText_);
-	//std::cout << "MessageBox::update()\n";
+	messageText_->verticalScrollBar()->setValue(messageText_->verticalScrollBar()->maximum());
     for(auto msg : msgs) { 
         String currentLogin = we(msg);
         if(mylogin == currentLogin) {
-			//std::cout << "mylogin == currentLogin\n";
-           messageText_->setText( messageText_->toPlainText() + ">>>>>>>>>\n" + (QString::fromStdString(msg)) + "\n");
-        }
-        else {
-			//std::cout << "mylogin != currentLogin\n";
-            messageText_->setText(  messageText_->toPlainText() + "<<<<<<<<\n" +  (QString::fromStdString(msg)) + "\n");
+           messageText_->setText(messageText_->toPlainText() + ">>>>>>>>>\n" + (QString::fromStdString(msg)) + "\n");
+			//std::cout<<"messege \n";
+        } else {
+            messageText_->setText(messageText_->toPlainText() + "<<<<<<<<\n" +  (QString::fromStdString(msg)) + "\n");
+			//std::cout<<"messege else\n";
         }
     }
+	std::cout<<"vertical\n";
+	messageText_->verticalScrollBar()->setValue(messageText_->verticalScrollBar()->maximum());
 }
 
 void MessageBox::writeLeft(const MessageBox::String& )
