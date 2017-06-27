@@ -43,7 +43,7 @@ MainWindow::MainWindow(Controller& c)
 
 	setGeometry(10,10,1000,500);
 	setWindowIcon();
-	setWindowTitle("GRI-System");
+	setWindowTitle("GRI-Messenger");
 	createLayout();
 
 	QObject::connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));

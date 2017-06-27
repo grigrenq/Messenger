@@ -32,6 +32,7 @@ RegistrationWindow::RegistrationWindow(Controller& c)
 	addIcon();
 	connectLines();
     setTipColor();
+    setWindowTitle("GRI-Registration");
     app_->setStyleSheet("QToolTip{color: #ffffff; background-color: #990000; border: none;}");
 }
 
