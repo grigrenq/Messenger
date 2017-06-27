@@ -91,14 +91,13 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	msg = toUser + delim + msg;
 	msg = userLogin_ + delim + msg;
 	String res = sendMessage(msg, plainMessage);
-	std::cout << "res=" << res << ". success=" << success << ".\n";
 	if (res == success) {
-		std::cout << __FUNCTION__ << " message added." << std::endl;
 		wordExtractor_(msg);
 		wordExtractor_(msg);
 		wordExtractor_(msg);
-		std::cout << "msg = " << msg << std::endl;
-		(*it)->addMessage(msg, true);
+		if (wordExtractor_(msg, false) != userLogin_) {
+			(*it)->addMessage(msg, false);
+		}
 	}
 	res = "Message to Client " + toUser + ": " + res;
 	dbcontroller_.log(res);

@@ -180,9 +180,7 @@ void MainWindow::updateMainWindowHelper(Users& users)
 		avatars_.push_back(AvatarPtr(new Avatar(*(*it), *this)));
 	}
 	if (userPtr_ != nullptr) {
-		std::cout << "updateMainWindowHelper(users)\n";
 		userPtr_->setUnreadMessages(0);
-		//messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 		updateMessageBox();
 	}
 	addAvatars();

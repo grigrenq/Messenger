@@ -226,13 +226,7 @@ void DBController<Users>::setupConv()
 	}
 	String s;
 	while (ofile >> s) {
-		std::cout << "setupConv s=" << s << ".\n";
 		conversations_.push_back(Conversation(s));
 	}
 	ofile.close();
-	std::cout << "All conversations...: ";
-	for (auto c : conversations_) {
-		std::cout << "," << c.getFileName() << ",";
-	}
-	std::cout << std::endl;
 }
