@@ -1,9 +1,9 @@
-                               GRI Systems
+                               GRI Messenger
 
-Project consists of following directories, each of which has its’ own Makefile.
-To run projects’ server , make Makefile in core directory,  run the generated executable file using following command: ./run. 
+Project consists of following directories, each of which has it's own Makefile.
+To run project's server , make Makefile in core directory,  run the generated executable file using following command: ./run. 
 
-Next, to run projects’ user, make Makefile in gui directory, run the generated executable file using following command: ./gui.
+Next, to run project's user, make Makefile in gui directory, run the generated executable file using following command: ./gui.
 
 Testing can be accomplished either via GUI or terminal.
  

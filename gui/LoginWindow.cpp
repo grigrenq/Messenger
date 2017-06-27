@@ -33,6 +33,7 @@ LoginWindow::LoginWindow(Controller& c)
     createLayout();
     this->setLayout(vLayout);
     setWindowIcon();
+    setWindowTitle("GRI-LogIn");
 
 	connectLines();
     app->setStyleSheet("QToolTip{color: #ffffff; background-color: #990000; border: none;}");
