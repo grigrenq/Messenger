@@ -20,9 +20,9 @@ class ServerUser
 {
 public:
 	using String = std::string;	
-	using PendingMessages = std::list<String>;
-	using SizeType = PendingMessages::size_type;
-	using PMessagesPtr = std::shared_ptr<PendingMessages>;
+	using PMessages = std::list<String>;
+	using PMessagesPtr = std::shared_ptr<PMessages>;
+	using SizeType = PMessages::size_type;
 
         /** 
         *   @brief ...

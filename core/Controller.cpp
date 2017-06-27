@@ -6,9 +6,6 @@
 
 #include "MessageTypes.hpp"
 
-//#include <iostream>
-
-
 Controller::Controller(Client& c)
 	: c_(c)
 	, loginWindow_(nullptr)
@@ -218,7 +215,7 @@ void Controller::processLogoutRespond(String& message)
 		}
 		users_.erase(users_.begin(), users_.end());
 	}
-	//dbcontroller_.logUsers();
+	dbcontroller_.logUsers();
 }
 
 void Controller::processRegistrationRespond(String& message)
@@ -257,7 +254,7 @@ void Controller::processUserChangedRespond(String& userStr)
 	}
 	std::cout << log << std::endl;
 	dbcontroller_.log(log);
-	//dbcontroller_.logUsers();
+	dbcontroller_.logUsers();
 	updateMainWindow();
 }
 
@@ -274,6 +271,7 @@ void Controller::processUserListRespond(String& userList)
 		log = " adding into the list of users_: " + u->toStringLog();
 		dbcontroller_.log(log);
 	}
+	dbcontroller_.logUsers();
 	updateMainWindow();
 }
 

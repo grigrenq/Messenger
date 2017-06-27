@@ -158,7 +158,7 @@ void MainWindow::updateMainWindowHelper(ClientUser& u)
 		}
 		if (userPtr_->getLogin() == u.getLogin()) {
 			userPtr_->setUnreadMessages(0);
-			messageBox_->update((u.getLogin()), u.getMessages());
+			messageBox_->update(u.getLogin(), u.getMessages());
 		} 
 	}
 }
@@ -181,7 +181,8 @@ void MainWindow::updateMainWindowHelper(Users& users)
 	if (userPtr_ != nullptr) {
 		std::cout << "updateMainWindowHelper(users)\n";
 		userPtr_->setUnreadMessages(0);
-		messageBox_->update((userPtr_->getLogin()), userPtr_->getMessages());
+		//messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
+		updateMessageBox();
 	}
 	addAvatars();
 }

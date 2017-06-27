@@ -15,7 +15,7 @@
 #include "DBController.hpp"
 #include "TransportLayer.hpp"
 
-#include <memory>
+//#include <memory>
 
 class LoginWindow;
 class MainWindow;

@@ -33,17 +33,6 @@ bool Conversation::equal(const String& u1, const String& u2) const
 		}
 	}
 
-	/*SizeType sz = fileName_.find(u1);
-	if (sz == String::npos) {
-		return false;
-	} else {
-		sz = fileName_.find(u2);
-		if (sz == String::npos) {
-			return false;
-		} else {
-			return true;
-		}
-	}*/
 	String s1 = u1 + u2;
 	String s2 = u2 + u1;
 	if (fileName_ == s1 || fileName_ == s2) {

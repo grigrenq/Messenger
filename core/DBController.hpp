@@ -6,23 +6,23 @@
 #include <string>
 
 #include "ServerUser.hpp"
-#include "ClientUser.hpp"
+//#include "ClientUser.hpp"
 #include "Conversation.hpp"
 #include "WordExtractor.hpp"
-
 
 template<typename Users>
 class DBController
 {
 public:
-	using User = typename Users::value_type;
+	using User = typename Users::value_type::element_type;
+	using UserPtr = typename Users::value_type;
 	using String = std::string;
 	using mutGuard = std::lock_guard<std::mutex>;
 	using Conversations = std::list<Conversation>;
 	using ConvIter = Conversations::iterator;
 	using ConvPtr = Conversation::ConvPtr;
-	using PMessages = ServerUser::PendingMessages;
-	using PMessagesPtr = ServerUser::PMessagesPtr;
+	using PMessages = typename User::PMessages;
+	using PMessagesPtr = typename User::PMessagesPtr;
 
 	DBController();
 	DBController(Users*);
@@ -41,6 +41,7 @@ public:
 
 	void log(const String&);
 	void logUsers();
+	
 
 private:
 	void clearPMessages(const String&);
@@ -56,6 +57,16 @@ private:
 	String logFile_;
 	String usersLogFile_;
 };
+
+//using ContrUsers = std::list<ClientUser>;
+
+/*
+template<>
+template<>
+void DBController<ContrUsers>::logUsers() {
+}
+*/
+
 
 #include "DBController.icpp"
 

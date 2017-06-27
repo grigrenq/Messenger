@@ -15,7 +15,8 @@ class Server
 {
 public:
 	using User = ServerUser;
-	using Users = std::vector<User>;
+	using UserPtr = std::shared_ptr<User>;
+	using Users = std::vector<UserPtr>;
 	using UserIter = Users::iterator;
 	using Threads = std::map<SOCKET, std::shared_ptr<pthread_t>>;
 	using String = std::string;

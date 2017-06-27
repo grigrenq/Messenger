@@ -30,7 +30,8 @@ class ClientUser
 		using String = std::string;
         using SizeType = String::size_type;
 		using Messages = std::list<String>;
-		using StringPtr = std::shared_ptr<String>;
+		using PMessages = void;
+		using PMessagesPtr = void;	//?????
 
                 /** 
                 *   @brief ClientUser is constructor for Class ClientUser   
