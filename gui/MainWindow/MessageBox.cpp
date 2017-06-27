@@ -29,13 +29,15 @@ void MessageBox::update(const String& mylogin, Messages& msgs)
     messageText_ = new QTextEdit();
 	messageText_->setReadOnly(true);
 	messageBox_->addWidget(messageText_);
-	std::cout << "MessageBox::update()\n";
+	//std::cout << "MessageBox::update()\n";
     for(auto msg : msgs) { 
         String currentLogin = we(msg);
         if(mylogin == currentLogin) {
+			//std::cout << "mylogin == currentLogin\n";
            messageText_->setText( messageText_->toPlainText() + ">>>>>>>>>\n" + (QString::fromStdString(msg)) + "\n");
         }
-        else if(msg != "") {
+        else {
+			//std::cout << "mylogin != currentLogin\n";
             messageText_->setText(  messageText_->toPlainText() + "<<<<<<<<\n" +  (QString::fromStdString(msg)) + "\n");
         }
     }

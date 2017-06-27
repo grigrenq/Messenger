@@ -103,7 +103,8 @@ void MainWindow::updateMessageBox()
 		throw std::logic_error("messageBox  is nullptr");
 	}
 	if (userPtr_ != nullptr) {
-		std::cout << "MainWindow->updateMessageBox()\n";
+		//sleep(1);
+		//std::cout << "MainWindow->updateMessageBox()\n";
 	   	messageBox_->update(userPtr_->getLogin(), userPtr_->getMessages());
 	}
 }

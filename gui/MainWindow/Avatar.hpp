@@ -52,7 +52,6 @@ public:
 	bool getStatus() const;
 	
 	 
-	const char* getLogin(int);
         /** 
         *   @brief  Function for obtaining login of registered user.    
         *   @param  no parametrs  

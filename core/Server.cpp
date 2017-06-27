@@ -88,7 +88,7 @@ void Server::doAcceptClient()
 		dbcontroller_.log(log);
 		return;
 	}
-	//mutGuard mg(mutexThreads_);
+	mutGuard mg(mutexThreads_);
 	if (threads_.find(sockAccepted) == threads_.end()) {
 		threads_[sockAccepted] = shptr;
 		log = "Thread - " + std::to_string(*(threads_.at(sockAccepted))) + " inserted in the map.\n";
@@ -121,7 +121,7 @@ void Server::handleSession(const SOCKET sock)
 	}
 	
 	closeSocket(sock);
-	//mutGuard mg(mutexThreads_);
+	mutGuard mg(mutexThreads_);
 	if (threads_.find(sock) != threads_.end()) {
 		pthread_detach(*(threads_.at(sock)));
 		String log = "Thread - " + std::to_string(*(threads_.at(sock))) + " deleted.";
@@ -161,6 +161,7 @@ Server::UserIter Server::find(const String& login)
 
 void Server::sendPendingMessages(UserIter it)
 {
+	//mutGuard mg(mutex_);
 	//mutex_.lock();
 	(*it)->setPMessages(dbcontroller_.getPMessages((*it)->getLogin()));
 	String log("...Attempting to send " + std::to_string((*it)->messagesCount())

@@ -106,14 +106,6 @@ bool Avatar::getStatus() const
 	return status_;
 }
 
-const char* Avatar::getLogin(int)
-{
-	//std::cout << __FUNCTION__ << std::endl;
-	//return "some string\n";
-	return user_.getLogin().c_str();
-	//std::cout << __FUNCTION__ << std::endl;	
-}
-
 Avatar::String Avatar::getLogin()
 {
 	return user_.getLogin();

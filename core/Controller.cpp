@@ -91,9 +91,14 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	msg = toUser + delim + msg;
 	msg = userLogin_ + delim + msg;
 	String res = sendMessage(msg, plainMessage);
+	std::cout << "res=" << res << ". success=" << success << ".\n";
 	if (res == success) {
+		std::cout << __FUNCTION__ << " message added." << std::endl;
 		wordExtractor_(msg);
-		(*it)->addMessage(msg, false);
+		wordExtractor_(msg);
+		wordExtractor_(msg);
+		std::cout << "msg = " << msg << std::endl;
+		(*it)->addMessage(msg, true);
 	}
 	res = "Message to Client " + toUser + ": " + res;
 	dbcontroller_.log(res);
@@ -127,10 +132,9 @@ String Controller::sendMessage(String& message, const String& msgType)
 	message = std::to_string(message.size()) + delim + message; 
 
 	if (c_.sendMessage(message) == SUCCESS) {
-		return success + "message to Server sent.";
-	}
-	else {
-		return error + " occurred during sending message to Server.\n";
+		return success;
+	} else {
+		return error;
 	}
 }
 
@@ -285,6 +289,8 @@ void Controller::processConvRespond(String& msg)
 		String msg("No user with login-" + u);
 		throw Error(msg);
 	} else {
+		std::cout << __FUNCTION__ << std::endl;
+		std::cout << "msg = " << msg << std::endl;
 		(*it)->addMessage(msg, false);
 		updateMainWindow();
 	}
