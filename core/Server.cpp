@@ -28,7 +28,6 @@ void Server::createSocket()
 	if (socket_ == INVALID_SOCKET) {
 		String log("Could not create socket - " + std::to_string(socket_));
 		dbcontroller_.log(log);
-		std::cout << log << std::endl;
 		exit(1);
 	}
 }
@@ -45,7 +44,6 @@ void Server::bindSocket()
 	int error = bind(socket_, (sockaddr*)&server_, sizeof(server_));
 	if (error < 0) {
 		String log("Bind failed with error code - " + std::to_string(error));
-		std::cout << log << std::endl;
 		dbcontroller_.log(log);
 		exit(1);
 	}
@@ -58,8 +56,10 @@ void Server::listenSocket()
 
 void Server::acceptClient() 
 {	
-	while (!stopRequested_)
+	while (!stopRequested_) {
 		doAcceptClient();
+		sleep(5);
+	}
 }
 
 void Server::doAcceptClient() 
@@ -69,7 +69,6 @@ void Server::doAcceptClient()
 	struct sockaddr_in ServerClient;
 
 	String log("Waiting for incoming connections...\n");
-	std::cout << log << std::endl;
 	dbcontroller_.log(log);
 	sockAccepted = accept(socket_, (sockaddr*)&ServerClient, (socklen_t*)&c);
 	if (sockAccepted == INVALID_SOCKET) {
@@ -78,7 +77,6 @@ void Server::doAcceptClient()
 		return;
 	}
 	log = "Accepted - " + std::to_string(sockAccepted);
-	std::cout << log << std::endl;
 	dbcontroller_.log(log);
 
 	std::pair<Server*, SOCKET> *pairPtr = new std::pair<Server*, SOCKET>(this, sockAccepted);
@@ -105,7 +103,7 @@ void Server::initializeUsers()
 }
 
 
-void Server::handleSession(const SOCKET sock)
+void Server::handleSession(const SOCKET& sock)
 {
 	try {
 		TransportLayer tl;
@@ -132,16 +130,18 @@ void Server::handleSession(const SOCKET sock)
 }
 
 
-Server::UserIter Server::find(const SOCKET sock) 
+Server::UserIter Server::find(const SOCKET& sock) 
 {
 	if (sock == INVALID_SOCKET) {
-		String msg("Cannot find user in the multiset with INVALID_SOCKET");
+		String msg("Cannot find user with INVALID_SOCKET ");
+		msg += std::to_string(sock);
+		dbcontroller_.log(msg);
 		throw Error(msg);
 	}
 	User u;
 	u.setSocket(sock);	
-	UserIter it;
-	for (it = users_.begin(); it != users_.end(); ++it) {
+	UserIter it = users_.begin();
+	for (; it != users_.end(); ++it) {
 		if ((*it)->getSocket() == sock) {
 			return it;
 		}
@@ -151,18 +151,18 @@ Server::UserIter Server::find(const SOCKET sock)
 
 Server::UserIter Server::find(const String& login)
 {	
-	for (auto it = users_.begin(); it != users_.end(); ++it) {
+	auto it = users_.begin();
+	for (; it != users_.end(); ++it) {
 		if ((*it)->getLogin() == login) {
 			return it;
 		}
 	}
-	return users_.end();
+	return it;
 }
 
 void Server::sendPendingMessages(UserIter it)
 {
-	//mutGuard mg(mutex_);
-	//mutex_.lock();
+	recMutGuard mg(mutexUsers_);
 	(*it)->setPMessages(dbcontroller_.getPMessages((*it)->getLogin()));
 	String log("...Attempting to send " + std::to_string((*it)->messagesCount())
 			+ " pending messages to user: - "	+ (*it)->getLogin() + ".");
@@ -177,7 +177,6 @@ void Server::sendPendingMessages(UserIter it)
 		dbcontroller_.log(log);
 		messages->pop_front();
 	}
-	//mutex_.unlock();
 	dbcontroller_.addPMsgsToConv((*it)->getLogin());
 }
 
@@ -197,6 +196,16 @@ bool Server::setOnline(UserIter& it)
 	return false;
 }
 
+bool Server::setOnline(const SOCKET& sock)
+{
+	auto it = find(sock);
+	if (it == users_.end()) {
+		String log("Unknown socket.");
+		dbcontroller_.log(log);
+		throw Error(log);
+	}
+	return setOnline(it);
+}
 
 bool Server::setOffline(UserIter& it)
 {	
@@ -215,39 +224,40 @@ bool Server::setOffline(UserIter& it)
 	return false;
 }
 
+bool Server::setOffline(const SOCKET& sock)
+{
+	auto it = find(sock);
+	if (it == users_.end()) {
+		String log("Unknown socket.");
+		dbcontroller_.log(log);
+		throw Error(log);
+	}
+	return setOffline(it);
+}
 
-void Server::closeSocket(const SOCKET sock)
+
+void Server::closeSocket(const SOCKET& sock)
 {
 	shutdown(sock,SHUT_RDWR);
 	close(sock);
 }
 
 
-int Server::recvMessage(const SOCKET sock, TransportLayer& tl)
+int Server::recvMessage(const SOCKET& sock, TransportLayer& tl)
 {
 	int recvSize = recv(sock, tl.getBuffer(), tl.getBufferSize(), 0);
+	String log;
 	if (recvSize < 0) {
-		String log = "Receive failed.Error occurred.";
-		auto it = find(sock);
-		if (it != users_.end()) {
-			setOffline(it);
-			log += "User-" + ((*it)->getLogin()) + " disconnected.";
-		} else {
-			log += "Unknown socket.";
-		}
+		setOffline(sock);
+		log = "Receive failed.Error occurred.";
+		log += "User disconnected.";
 		dbcontroller_.log(log);
 		//closeSocket(sock);
 		return ERROR;
 	} else if (recvSize == SOCKET_CLOSED) {
-		String log = "Receive failed. Socket is closed.";
-		dbcontroller_.log(log);
-		auto it = find(sock);
-		if (it != users_.end()) {
-			setOffline(it);
-			log += "User-" + ((*it)->getLogin()) + " disconnected.";
-		} else {
-			log += "Unknown socket.";
-		}
+		setOffline(sock);
+		log = "Receive failed. Socket is closed.";
+		log += "User disconnected.";
 		dbcontroller_.log(log);
 		closeSocket(sock);
 		return SOCKET_CLOSED;
@@ -262,91 +272,74 @@ int Server::recvMessage(const SOCKET sock, TransportLayer& tl)
 	}
 }
 
-int Server::sendMessage(const SOCKET sock, String& msg, const String& msgType) 
+int Server::sendMessage(const SOCKET& sock, String& msg, const String& msgType) 
 {
 	msg = msgType + delim + msg;
 	msg = std::to_string(msg.size()) + delim + msg;
-
 	std::cout << "function sendMessage-" << msg << std::endl;
+	String log;
 	int sendSize = send(sock, msg.c_str(), msg.size(), 0);
 	if (sendSize < 0) {
-		String log = "Send failed.Error occurred.";
-		auto it = find(sock);
-		if (it != users_.end()) {
-			setOffline(it);
-			log += "User-" + ((*it)->getLogin()) + " disconnected.";
-		} else {
-			log += "Unknown socket.";
-		}
+		log = "Send failed.Error occurred." + log;
+		log += "User disconnected.";	
 		std::cout << log << std::endl;
 		dbcontroller_.log(log);
+		setOffline(sock);
 		return ERROR;
-	}
-	else if (sendSize == SOCKET_CLOSED) {
-		closeSocket(sock);
-		String log = "Send failed.Socket closed.";
-		auto it = find(sock);
-		if (it != users_.end()) {
-			setOffline(it);
-			log += "User- " + ((*it)->getLogin()) + " disconnected.";
-		} else {
-			log += "Unknown socket.";
-		}
+	} else if (sendSize == SOCKET_CLOSED) {
+		log = "Send failed.Socket closed." + log;
+		log += "User disconnected.";
 		std::cout << log << std::endl;
 		dbcontroller_.log(log);
+		setOffline(sock);
+		closeSocket(sock);
 		return SOCKET_CLOSED;
-	}
-	else {
+	} else {
 		String log = "Sent Row Message: " + msg;
 		dbcontroller_.log(log);
 		return SUCCESS;
 	}
 }
-void Server::sendUserChangedRespond(User& user)
+
+void Server::sendUserChangedRespond(const User& user)
 {
-	String userStr = user.toString();
-	String log = "sendUserChangedResp......userchanged: " + userStr;
+	String log = "sendUserChangedResp......userchanged: " + user.toString();
 	dbcontroller_.log(log);
+	recMutGuard mg(mutexUsers_);
 	for (auto it = users_.begin(); it != users_.end(); ++it) {
-		if ((*it)->getStatus() == true) {
-			if ((*it)->getLogin() == user.getLogin()) {
-				continue;
-			}
+		if ((*it)->getStatus() == true && (*it)->getLogin() != user.getLogin()) {
+			String userStr = user.toString();
 			sendMessage((*it)->getSocket(), userStr, userChangedRespond);
-		}
+		} 
 	}
 }
 
-void Server::sendConvRespond(const SOCKET s, const String& u1, const String& u2)
+
+void Server::sendConvRespond(const SOCKET& sock, const String& u1, const String& u2)
 {
-	std::cout << s << " ," << u1 << "," << u2 << std::endl;
-	//mutGuard mg(mutex_);
-	//mutex_.lock();
-	auto it = find(s);
+	recMutGuard mg(mutexUsers_);
+	auto it = find(sock);
 	if (it == users_.end()) {
 		String msg("sendConvRespond: could not find user with socket-");
-		msg +=  std::to_string(s);
+		msg +=  std::to_string(sock);
 		dbcontroller_.log(msg);
 		throw Error(msg);
 	}
 	auto c = dbcontroller_.getConversation(u1,u2);
 	if (!c) {
 		String log("No conversation for user-" + u1 + ", and user-" + u2);
-		std::cout << log << std::endl;
 		dbcontroller_.log(log);
 		return;
 	}
 	for (auto it = c->begin(); it != c->end(); ++it) {
 		*it = u2 + delim + (*it);
-		std::cout << "sending conversation: " << *it << std::endl;
-		sendMessage(s, *it, convRespond);
+		sendMessage(sock, *it, convRespond);
 	}
-	//mutex_.unlock();
 }
 
 
 
-void Server::processMessage(const SOCKET sock, String& message)
+void Server::processMessage(const SOCKET& sock, String& message)
 {
 	String msgType = wordExtractor_(message);
 	if (msgType == plainMessage) {
@@ -374,13 +367,6 @@ void Server::processMessage(const SOCKET sock, String& message)
 
 void Server::processPlainMessage(String& message)
 {
-	/*auto itFrom = find(sock);
-	if (itFrom != users_.end())
-		fromClient = itFrom->getLogin();
-	else {
-		throw Error("processPlainMessage: there is no such socket in the multiset.");
-		fromClient = "Unknown Client.";
-	}*/
 	String fromClient = wordExtractor_(message);
 	String toClient = wordExtractor_(message);
 
@@ -388,10 +374,8 @@ void Server::processPlainMessage(String& message)
 	String log =  "....attempting to send message: " + message;
 	dbcontroller_.log(log);
 
-	//mutex_.lock();
 	auto itToClient = find(toClient);
 	if (itToClient != users_.end()) {
-		//mutex_.unlock();
 		if ((*itToClient)->getStatus() == true) {
 			dbcontroller_.addMessage(fromClient, toClient, message);
 			sendMessage((*itToClient)->getSocket(), message, plainMessage);
@@ -401,7 +385,6 @@ void Server::processPlainMessage(String& message)
 			dbcontroller_.log(log);
 		}
 	} else {
-		//mutex_.unlock();
 		log + "From-" + wordExtractor_(message) + ". To-" 
 			+ toClient + ". Message-" + message;
 		dbcontroller_.log(log);
@@ -410,7 +393,7 @@ void Server::processPlainMessage(String& message)
 }
 
 
-void Server::processLoginRequest(const SOCKET sock, String& message)
+void Server::processLoginRequest(const SOCKET& sock, String& message)
 {
 	User u;
 	u.fromString(message, 0);
@@ -419,7 +402,6 @@ void Server::processLoginRequest(const SOCKET sock, String& message)
 	dbcontroller_.log(log);
 
 	String respond;
-	//mutex_.lock();
 	auto it = find(u.getLogin());
 	if (it ==  users_.end()) {
 		respond = error + delim + "Client with login: "	+ u.getLogin() + " is not registered.";
@@ -433,24 +415,23 @@ void Server::processLoginRequest(const SOCKET sock, String& message)
 			} else {
 				setOnline(it);
 				(*it)->setSocket(sock);
+				std::cout << "After setting socket-" << (*it)->getSocket() << std::endl;
 
 				respond = success + delim + "You are logged in.";
 				dbcontroller_.logUsers();
 			}
 		}
 	}
-	//mutex_.unlock();
 	dbcontroller_.log(respond);
 	sendMessage(sock, respond, loginRespond);
 }
 
 
-void Server::processLogoutRequest(const SOCKET sock)
+void Server::processLogoutRequest(const SOCKET& sock)
 {
 	String respond;
 	String log = "processLogoutRequest from socket:" + std::to_string(sock) + "......:";
 	dbcontroller_.log(log);
-	//mutex_.lock();
 	auto it = find(sock);
 	if (it == users_.end()) {
 		respond = error + delim + "Client with socket:" + std::to_string(sock) + " is not registered.";
@@ -463,12 +444,11 @@ void Server::processLogoutRequest(const SOCKET sock)
 			dbcontroller_.logUsers();
 		}
 	}
-	//mutex_.unlock();
 	dbcontroller_.log(respond);
 	sendMessage(sock, respond, logoutRespond);
 }
 
-void Server::processRegistrationRequest(const SOCKET sock, String& message)
+void Server::processRegistrationRequest(const SOCKET& sock, String& message)
 {
 	UserPtr u(new User());
 	u->fromString(message);
@@ -478,9 +458,8 @@ void Server::processRegistrationRequest(const SOCKET sock, String& message)
 	dbcontroller_.log(log);
 
 	String respond;
-	//mutex_.lock();
+	recMutGuard mg(mutexUsers_);
 	auto it = find(u->getLogin());
-	std::cout << __FUNCTION__ << std::endl;
 	if (it != users_.end()) {
 		respond = error + delim + "Client with login: " + u->getLogin() + " is already registered.";
 	} else {
@@ -491,21 +470,18 @@ void Server::processRegistrationRequest(const SOCKET sock, String& message)
 		dbcontroller_.addUser(*p);
 		sendUserChangedRespond(*p);
 	}
-	std::cout << __FUNCTION__ << std::endl;
-	//mutex_.unlock();
 	dbcontroller_.log(respond);
 	sendMessage(sock, respond, registrationRespond);
 }
 
-void Server::processUserListRequest(const SOCKET sock)
+void Server::processUserListRequest(const SOCKET& sock)
 {
 	String respond;
-	//mutex_.lock();
+	recMutGuard mg(mutexUsers_);
 	for (auto it = users_.begin(); it != users_.end(); ++it) {
 		User *p = (*it)->getPointer();
 		respond += p->toString();
 	}
-	//mutex_.unlock();
 	if ((respond.size() + userListRespond.size()) < DEFAULT_BUFFER) {
 		String log("...Client list request....sent string =" + respond + "....");
 		dbcontroller_.log(log);
@@ -513,24 +489,17 @@ void Server::processUserListRequest(const SOCKET sock)
 	}
 }
 
-void Server::processPendingMessagesRequest(const SOCKET s)
+void Server::processPendingMessagesRequest(const SOCKET& sock)
 {
-	//mutex_.lock();
-	auto it = find(s);
-	if (it == users_.end()) {
-		String msg("processPendingMessagesRequest: could not find user with socket-");
-		msg +=  std::to_string(s);
-		throw Error(msg);
-	}
-	//mutex_.unlock();
+	auto it = find(sock);
 	sendPendingMessages(it);
 }
 
-void Server::processConvRequest(const SOCKET s, String& msg)
+void Server::processConvRequest(const SOCKET& sock, String& msg)
 {
 	String u1 = wordExtractor_(msg);
 	String u2 = wordExtractor_(msg);
-	sendConvRespond(s, u1, u2);
+	sendConvRespond(sock, u1, u2);
 }
 
 

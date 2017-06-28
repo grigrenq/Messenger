@@ -20,11 +20,13 @@ public:
 	using UserIter = Users::iterator;
 	using Threads = std::map<SOCKET, std::shared_ptr<pthread_t>>;
 	using String = std::string;
+	using mutGuard = std::lock_guard<std::mutex>;
+	using recMutGuard = std::lock_guard<std::recursive_mutex>;
 
     Server();
 
     void run();
-    void handleSession(SOCKET);
+    void handleSession(const SOCKET&);
 
 private:
     void createSocket();
@@ -35,29 +37,31 @@ private:
     void doAcceptClient();
 	void initializeUsers();
 
-	UserIter find(const SOCKET);
+	UserIter find(const SOCKET&);
 	UserIter find(const String&);
 
 	void sendPendingMessages(UserIter);
 
 	bool setOnline(UserIter&);
+	bool setOnline(const SOCKET&);
 	bool setOffline(UserIter&);
+	bool setOffline(const SOCKET&);
 
-    void closeSocket(const SOCKET);
-    int recvMessage(const SOCKET, TransportLayer&);
-    int sendMessage(const SOCKET, String&, const String&);
+    void closeSocket(const SOCKET&);
+    int recvMessage(const SOCKET&, TransportLayer&);
+    int sendMessage(const SOCKET&, String&, const String&);
 
-	void sendUserChangedRespond(User&);
-	void sendConvRespond(const SOCKET, const String&, const String&);
+	void sendUserChangedRespond(const User&);
+	void sendConvRespond(const SOCKET&, const String&, const String&);
 
-	void processMessage(const SOCKET, String&);
+	void processMessage(const SOCKET&, String&);
 	void processPlainMessage(String&);
-	void processLoginRequest(const SOCKET, String&);
-	void processLogoutRequest(const SOCKET);
-	void processRegistrationRequest(const SOCKET, String&);
-	void processUserListRequest(const SOCKET);
-	void processPendingMessagesRequest(const SOCKET);
-	void processConvRequest(const SOCKET, String&);
+	void processLoginRequest(const SOCKET&, String&);
+	void processLogoutRequest(const SOCKET&);
+	void processRegistrationRequest(const SOCKET&, String&);
+	void processUserListRequest(const SOCKET&);
+	void processPendingMessagesRequest(const SOCKET&);
+	void processConvRequest(const SOCKET&, String&);
 
 	Users users_;
 
@@ -68,7 +72,7 @@ private:
     bool stopRequested_;
 	
 	std::mutex mutexThreads_;
-    std::recursive_mutex mutex_;
+    std::recursive_mutex mutexUsers_;
 	WordExtractor wordExtractor_;
 	DBController<Users> dbcontroller_;
 };

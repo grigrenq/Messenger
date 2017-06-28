@@ -114,16 +114,18 @@ public:
         *   @param  no parametrs  
   	*   @return void
   	*/  
-	void showWindow();	//???
-
+	void showWindow();
+	void hideWindow();
 
 public slots:
 	void showSlot();
+	void hideSlot();
 	void updateSlot(User);
 	void updateSlot(Users);
 
 signals:
 	void showSignal();
+	void hideSignal();
 	void updateSignal(User);
 	void updateSignal(Users);
 

@@ -42,7 +42,6 @@ LoginWindow::LoginWindow(Controller& c)
 void LoginWindow::createLayout()
 {
     vLayout = new QVBoxLayout();
-    //vLayout->setContentsMargins(15, 5, 1300, 0);
     vLayout->addSpacing(12);
     vLayout->addWidget(loginLabel);
     vLayout->addWidget(loginField);
@@ -52,8 +51,6 @@ void LoginWindow::createLayout()
     vLayout->addWidget(regisButton);
     vLayout->addSpacerItem(new QSpacerItem(400, 400, QSizePolicy::Preferred, QSizePolicy::Expanding));
        
- //   vLayout_->setMinimumSize(80);
-//   vLayout_->setMaximumSize(80);
     QLabel *label1 = new QLabel(this);
     QLabel *label2 = new QLabel(this);
     label1->setGeometry(15,5,50,50);
@@ -122,16 +119,12 @@ void LoginWindow::setLogo()
 
 void LoginWindow::setBackground()
 {
-    //m_pal = new QPalette();
     pix = new QPixmap("../resources/b.jpeg");
-    //*m_pix = m_pix->scaled(this->size(), Qt::IgnoreAspectRatio);
     QLabel *label1=new QLabel(this);
     label1->setGeometry(0,0,1700,1300);
     label1->setScaledContents(true);
-    //m_pal->setBrush(QPalette::Background, *m_pix);
     label1->setPixmap(*pix);
     label1->setScaledContents(true);
-    //this->setPalette(*m_pal);
 }
 
 void LoginWindow::setWindowIcon()
@@ -194,7 +187,6 @@ void LoginWindow::checkPassword(const QString& qs)
 		passwordField->setStyleSheet("border: 3px solid red");
     }
 }
-#include <iostream>
 void LoginWindow::sendLoginReq()
 {
 	String l = loginField->text().toStdString();
@@ -204,23 +196,19 @@ void LoginWindow::sendLoginReq()
     String passRes = validator.checkPassword(p);
     
     if (logRes == ValidationInfo::emptyField) {
-        std::cout  <<__LINE__ << std::endl;
         loginField->setPlaceholderText("You can't leave this empty");
         loginField->setStyleSheet("border: 3px solid red");
 		return;
 	} else if(validator.checkLogin(l) != ValidationInfo::validLog ) {
-        std::cout <<  __LINE__ << std::endl;
         return;
     }
 
     if(passRes == ValidationInfo::emptyField){
-        std::cout << __LINE__ << std::endl;
         passwordField->setPlaceholderText("You can't leave this empty");
         passwordField->setStyleSheet("border: 3px solid red");
         return;
 
     } else if (validator.checkPassword(p) != ValidationInfo::validLog) {
-        std::cout << __LINE__ << std::endl;
 		return;
 	}
 	controller.sendLoginRequest(l, p);
@@ -239,11 +227,6 @@ void LoginWindow::hideLogWindow()
 void LoginWindow::showRegWindow()
 {
     emit showRegSignal();
-}
-
-void LoginWindow::hideRegWindow()
-{
-    emit hideRegSignal();
 }
 
 void LoginWindow::showRegSlot()

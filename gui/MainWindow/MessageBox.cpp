@@ -7,18 +7,17 @@
 
 
 MessageBox::MessageBox(MainWindow& mw)
-	: mainWindow_(mw)
+: mainWindow_(mw)
 {
 	createMessageBox();
-	//mainWindow_.rightSide_->addLayout(messageBox_);	//??????????
 }
+
 void MessageBox::createMessageBox()
 {
 	messageBox_ = new QVBoxLayout();
 	messageText_ = new QTextEdit();
 	messageText_->setReadOnly(true);
 	messageBox_->addWidget(messageText_);
-//	messageTextLayout = new QVBoxLayout();
 }		
 
 void MessageBox::update(const String& mylogin, Messages& msgs)
@@ -33,29 +32,14 @@ void MessageBox::update(const String& mylogin, Messages& msgs)
     for(auto msg : msgs) { 
         String currentLogin = we(msg);
         if(mylogin == currentLogin) {
-           messageText_->setText(messageText_->toPlainText() + ">>>>>>>>>\n" + (QString::fromStdString(msg)) + "\n");
-			//std::cout<<"messege \n";
+           messageText_->textCursor().insertText("\n>>>>>>>>>\n" + QString::fromStdString(msg) + "\n");
         } else {
-            messageText_->setText(messageText_->toPlainText() + "<<<<<<<<\n" +  (QString::fromStdString(msg)) + "\n");
-			//std::cout<<"messege else\n";
+           messageText_->textCursor().insertText("\n<<<<<<<<\n" + QString::fromStdString(msg) + "\n");
         }
     }
-	std::cout<<"vertical\n";
 	messageText_->verticalScrollBar()->setValue(messageText_->verticalScrollBar()->maximum());
 }
 
-void MessageBox::writeLeft(const MessageBox::String& )
-{
-//    std::cout << __FUNCTION__ <<std::endl;
-//	messageText_->setPlainText(">>>>>>>>>\n");
-//	messageText_->setPlainText(QString::fromStdString(msg));
-}
-
-void MessageBox::writeRight(const MessageBox::String&)
-{
-	//conversation.push_back("<<<<<<<<<\n");
-	//conversation.push_back(msg);
-}
 
 QTextEdit* MessageBox::getMessageText()
 {

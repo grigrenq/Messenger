@@ -20,8 +20,7 @@ Controller::Controller(Client& c)
 void Controller::run()
 {
 	c_.connectServer();
-//	loginWindow_->showWindow();
-
+	loginWindow_->showLogWindow();
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
 		std::cout << "An error occurred during thread creation process.";
@@ -182,18 +181,17 @@ void Controller::processLoginRespond(String& message)
 	std::cout << message << std::endl;
 	String result = wordExtractor_(message);
 	if (result == error) {
-		return;
 		popError_->setText(message);
 		popError_->execute();
+		return;
 	} else {
 		sendUserListRequest();
 		if (loginWindow_ != nullptr) {
-			//delete loginWindow_;
-			//loginWindow_ = nullptr;
-			//loginWindow_->hide();
+			loginWindow_->hideLogWindow();
 		}
-		sleep(1);
+		//sleep(1);
 		if (mainWindow_ != nullptr) {
+			std::cout << "mainWindow != nullptr\n";
 			mainWindow_->showWindow();
 		} else {
 			throw Error("Error: MainWindow == nullptr");
@@ -212,9 +210,8 @@ void Controller::processLogoutRespond(String& message)
 		popError_->execute();
 	} else {
 		if (mainWindow_ != nullptr) {
-			//delete mainWindow_;
-			//mainWindow_ = nullptr;
 			mainWindow_->hide();
+			loginWindow_->showLogWindow();
 		}
 		users_.erase(users_.begin(), users_.end());
 	}
@@ -230,9 +227,7 @@ void Controller::processRegistrationRespond(String& message)
 		popError_->setText(message);
 		popError_->execute();
 	} else {
-		if (loginWindow_ != nullptr) {
-			loginWindow_->closeRegWindow();
-		}
+		closeRegWindow();
 	}
 }
 
@@ -245,7 +240,8 @@ void Controller::processUserChangedRespond(String& userStr)
 	if (!(u->fromString(userStr))) {
 		log += ". missing from the list.";
 		throw Error("Error occurred when processing user changed respond");
-	} else {
+	}
+
 		it = find(*u);
 		if (it == users_.end()) {
 			users_.push_back(u);
@@ -254,7 +250,6 @@ void Controller::processUserChangedRespond(String& userStr)
 			(*it)->setStatus(u->getStatus());
 			log += u->getLogin() + ". setting status to " + std::to_string(u->getStatus());
 		}
-	}
 	std::cout << log << std::endl;
 	dbcontroller_.log(log);
 	dbcontroller_.logUsers();
@@ -336,4 +331,12 @@ void* handleSession(void *p)
 	Controller* ptr = static_cast<Controller*>(p);
 	ptr->handleSession();
 	return nullptr;
+}
+
+
+void Controller::closeRegWindow()
+{
+	if (loginWindow_ != nullptr) {
+		loginWindow_->closeRegWindow();
+	}
 }

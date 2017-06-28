@@ -122,6 +122,8 @@ public:
 		}
 
 		String getLogin() const;
+
+		void closeRegWindow();
 	private:
 
 		String sendUserListRequest();

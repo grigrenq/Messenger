@@ -72,10 +72,9 @@ private:
 
 	User& user_;
 	MainWindow& mainWindow_;
+
 	QLabel* avName_;
-	QLabel* avSurname_;
 	QLabel* avLogin_;
-	QLabel* avStatus_;
 	QLabel* avCount_;
 
     bool status_;

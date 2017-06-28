@@ -23,7 +23,6 @@ RegistrationWindow::RegistrationWindow(Controller& c)
 	const QSize windowSize(450,380);
 	setMaximumSize(windowSize);
 	setGeometry(600,400,450,380);
-	//this->setStyleSheet("background-image: url(../resources/background.jpg)");
     setBackground();
 	setWindowTitle("Registration");	
 	addLayout();
@@ -34,6 +33,11 @@ RegistrationWindow::RegistrationWindow(Controller& c)
     setTipColor();
     setWindowTitle("GRI-Registration");
     app_->setStyleSheet("QToolTip{color: #ffffff; background-color: #990000; border: none;}");
+}
+
+void RegistrationWindow::closeEvent(QCloseEvent*)
+{
+	controller_.closeRegWindow();
 }
 
 void RegistrationWindow::setBackground()
@@ -79,7 +83,6 @@ void RegistrationWindow::addLineEdit()
 	login_->setPlaceholderText("Your login here...");
 	QPalette p;
 	p.setColor(QPalette::Background,Qt::red);
-	//login->setPalette(p);
 
 	name_ = new QLineEdit(this);
 	name_->setGeometry(100,100,250,30);
@@ -105,13 +108,6 @@ void RegistrationWindow::addLineEdit()
 	mainLayout_->addWidget(password1_);
 	mainLayout_->addWidget(password2_);
 }
-
-/*void RegistrationWindow::addStatusBar()
-{
-	QStatusBar* sb = new QStatusBar(this);
-	sb=statusBar();
-	QLabel ql(sb);
-}*/
 
 void RegistrationWindow::connectLines()
 {

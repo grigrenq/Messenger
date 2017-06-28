@@ -43,20 +43,6 @@ public:
 	void update(const std::string&, Messages&);
 
 	/** 
-        *   @brief  Function for showing received messages on the MessageBox.    
-        *   @param  The only parameter is const std::string& msg. 
-  	*   @return void
-  	*/  
-	void writeLeft(const std::string& msg);
-
-	/** 
-        *   @brief  Function for showing sent messages on the MessageBox.    
-        *   @param  The only parameter is const std::string& msg. 
-  	*   @return void
-  	*/  
-	void writeRight(const std::string& msg);
-
-	/** 
         *   @brief  Function for getting QTextEdit containing sent or recieved message. 
         *   @param  no parametrs  
   	*   @return QTextEdit*

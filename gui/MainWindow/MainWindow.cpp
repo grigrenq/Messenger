@@ -17,7 +17,6 @@
 #include "WriteBox.hpp"
 
 const char delim = '%';
-#include <iostream>
 
 MainWindow::MainWindow(Controller& c)
 	: mainLayout_(nullptr)
@@ -47,6 +46,7 @@ MainWindow::MainWindow(Controller& c)
 	createLayout();
 
 	QObject::connect(this, SIGNAL(showSignal()), this, SLOT(showSlot()));
+	QObject::connect(this, SIGNAL(hideSignal()), this, SLOT(hideSlot()));
 	QObject::connect(this, SIGNAL(updateSignal(User)), this, SLOT(updateSlot(User)));
 	QObject::connect(this, SIGNAL(updateSignal(Users)), this, SLOT(updateSlot(Users)));
 }
@@ -147,11 +147,7 @@ void MainWindow::updateMainWindowHelper(ClientUser& u)
 		avatars_.push_back(AvatarPtr(new Avatar(u, *this)));
 		addAvatar(&(*avatars_.back()));
 	} else {
-		std::cout << "....else case:" << (*it)->getLogin() << "|...." << u.getLogin() << "|...." << std::endl;
-		//it->reset(new Avatar(u, *this));
 		(*it)->setStatus(u.getStatus());
-		std::cout << "after it->reset" << std::endl;
-
 		if (userPtr_ == nullptr) {
 			return;
 		}
@@ -209,6 +205,17 @@ void MainWindow::showWindow()
 void MainWindow::showSlot()
 {
 	this->show();
+}
+
+
+void MainWindow::hideWindow()
+{
+	emit hideSignal();
+}
+
+void MainWindow::hideSlot()
+{
+	this->hide();
 }
 
 void MainWindow::setWindowIcon()

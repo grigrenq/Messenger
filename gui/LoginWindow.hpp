@@ -51,7 +51,7 @@ public:
         *   @return void
         */  
 	void closeRegWindow();
-	void showLogWindow();	//???
+	void showLogWindow();
     void hideLogWindow();
     void showRegWindow();
     void hideRegWindow();

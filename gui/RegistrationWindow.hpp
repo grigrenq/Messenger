@@ -16,7 +16,7 @@ class QApplication;
 class QPalette;
 class QVBoxLayout;
 class QString;
-class QMainWindow;
+class QCloseEvent;
 
 #include <QWidget>
 
@@ -38,6 +38,7 @@ public:
         *   @param  The only parameter is Controller&.  
         */
 	RegistrationWindow(Controller&);
+	void closeEvent(QCloseEvent *) override;
 
 
 public slots:
@@ -73,7 +74,6 @@ private:
         *   @return void
         */
     void setBackground();
-//	void addStatusBar();
 
         /** 
         *  @brief  addPic....   
@@ -103,16 +103,8 @@ private:
         */
 	void connectLines();
     void setTipColor();
-/*
-	void addPushButton();
-	void addLineEdit();
-	void addStatusBar();
-	void addPic();
-	void addLayout();
-	void addIcon();
-	void connectLines();
-*/	
-    QVBoxLayout* mainLayout_;
+
+	QVBoxLayout* mainLayout_;
 	QPushButton* signUp_;
 	QLineEdit* login_;
 	QLineEdit* name_;
