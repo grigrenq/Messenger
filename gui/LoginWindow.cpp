@@ -253,7 +253,6 @@ void LoginWindow::closeRegWindow()
 {
 	if (regWin != nullptr) {
 		regWin->close();
-		delete regWin;
 		regWin = nullptr;
 	}
 }

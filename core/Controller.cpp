@@ -224,6 +224,7 @@ void Controller::processRegistrationRespond(String& message)
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	if (result == error) {
+		return;
 		popError_->setText(message);
 		popError_->execute();
 	} else {
