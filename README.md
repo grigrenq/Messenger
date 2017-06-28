@@ -2,7 +2,7 @@
 
 Project consists of following directories, each of which has it's own Makefile.
 To run project's server , make Makefile in core directory,  run the generated executable file using following command: ./run. 
-
+THIS IS BOOST
 Next, to run project's user, make Makefile in gui directory, run the generated executable file using following command: ./gui.
 
 Testing can be accomplished either via GUI or terminal.
