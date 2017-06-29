@@ -4,7 +4,6 @@
 #include <fstream>
 
 
-
 Conversation::Conversation(const String& n)
 : fileName_(n)
 {
@@ -44,6 +43,7 @@ bool Conversation::equal(const String& u1, const String& u2) const
 
 void Conversation::addMessage(const String& msg)
 {
+	mutGuard mg(mutex_);
 	String file = Files::convDir + fileName_ + Files::fileType;
 	std::ofstream ofile(file, std::fstream::out | std::fstream::app);
 	ofile.write(msg.c_str(), msg.size());
@@ -51,11 +51,9 @@ void Conversation::addMessage(const String& msg)
 	ofile.close();
 }
 
-#include <iostream>
-
 Conversation::ConvPtr Conversation::getConversation()
 {
-	std::cout << "Conversation::getConversation()\n";
+	mutGuard mg(mutex_);
 	ConvPtr p(new Conv);
 	String file = Files::convDir + fileName_ + Files::fileType;
 	std::ifstream ifile(file, std::fstream::in);

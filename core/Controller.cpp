@@ -6,6 +6,7 @@
 
 #include "MessageTypes.hpp"
 
+
 Controller::Controller(Client& c)
 	: c_(c)
 	, loginWindow_(nullptr)
@@ -23,7 +24,8 @@ void Controller::run()
 	loginWindow_->showLogWindow();
 	std::shared_ptr<pthread_t> th(new pthread_t);
 	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
-		std::cout << "An error occurred during thread creation process.";
+		String log("An error occurred during thread creation process.");
+		dbcontroller_.log(log);
 		return;
 	}
 }
@@ -74,7 +76,6 @@ String Controller::sendRegistrationRequest(const String& login, const String& na
 {
 	String msg = login + delim + name + delim + surname
 			+ delim + offline + delim + password + delim;
-            std::cout << "Sending reg request" << std::endl;
 	return "Registration request: " + sendMessage(msg, registrationRequest);
 }
 
@@ -189,9 +190,8 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow_ != nullptr) {
 			loginWindow_->hideLogWindow();
 		}
-		//sleep(1);
 		if (mainWindow_ != nullptr) {
-			std::cout << "mainWindow != nullptr\n";
+			//std::cout << "mainWindow != nullptr\n";
 			mainWindow_->showWindow();
 		} else {
 			throw Error("Error: MainWindow == nullptr");
@@ -251,7 +251,7 @@ void Controller::processUserChangedRespond(String& userStr)
 			(*it)->setStatus(u->getStatus());
 			log += u->getLogin() + ". setting status to " + std::to_string(u->getStatus());
 		}
-	std::cout << log << std::endl;
+	//std::cout << log << std::endl;
 	dbcontroller_.log(log);
 	dbcontroller_.logUsers();
 	updateMainWindow();
@@ -270,8 +270,11 @@ void Controller::processUserListRespond(String& userList)
 		log = " adding into the list of users_: " + u->toStringLog();
 		dbcontroller_.log(log);
 	}
+//	std::cout << __FUNCTION__ << std::endl;
 	dbcontroller_.logUsers();
+//	std::cout << __FUNCTION__ << std::endl;
 	updateMainWindow();
+//	std::cout << __FUNCTION__ << std::endl;
 }
 
 void Controller::processConvRespond(String& msg)
@@ -284,8 +287,6 @@ void Controller::processConvRespond(String& msg)
 		String msg("No user with login-" + u);
 		throw Error(msg);
 	} else {
-		std::cout << __FUNCTION__ << std::endl;
-		std::cout << "msg = " << msg << std::endl;
 		(*it)->addMessage(msg, false);
 		updateMainWindow();
 	}
@@ -315,19 +316,18 @@ Controller::UserIter Controller::find(Controller::User& u)
 
 void Controller::updateMainWindow()
 {
-	//std::cout << "Controller::updateMainWindow()\n";
 	mainWindow_->updateMainWindow(users_);
 }
 
 
 
-void* readMessage(void *thisV) {
+void* readMessage(void* thisV) {
     Controller::InputReader *thisI = (Controller::InputReader *)thisV;
     thisI->readMessage();
 	return nullptr;
 }
 
-void* handleSession(void *p)
+void* handleSession(void* p)
 {
 	Controller* ptr = static_cast<Controller*>(p);
 	ptr->handleSession();

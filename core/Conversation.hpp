@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 #include <memory>
+#include <mutex>
 
 
 class Conversation
@@ -13,6 +14,7 @@ public:
 	using SizeType = String::size_type;
 	using Conv = std::list<String>;
 	using ConvPtr = std::shared_ptr<Conv>;
+	using mutGuard = std::lock_guard<std::mutex>;
 
 	Conversation() = delete;
 	Conversation(const String&);
@@ -28,6 +30,7 @@ public:
 	
 public:
 	String fileName_;
+	std::mutex mutex_;
 };
 
 #endif
