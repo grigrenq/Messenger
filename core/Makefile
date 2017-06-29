@@ -3,7 +3,7 @@ LogFiles := ./Log/*.txt ../gui/Log/*.txt
 UsersFiles := ./Server/Users/*.txt ./Server/PendingMessages/*.txt ./Server/Conversations/*.txt
 
 run:	Main.cpp $(OFiles) Includes.hpp
-	g++ -std=c++11 -Wall -pedantic Main.cpp $(OFiles) -o run -lpthread
+	g++ -std=c++11 -Wall -pedantic Main.cpp $(OFiles) -o run -lpthread -lboost_system -lboost_thread
 
 Server.o:   Server.hpp Server.cpp Includes.hpp MessageTypes.hpp TransportLayer.o DBController.hpp DBController.icpp
 	g++ -c -std=c++11 -Wall -pedantic Server.cpp -o Server.o

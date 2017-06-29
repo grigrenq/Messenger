@@ -23,6 +23,9 @@ public:
 	using mutGuard = std::lock_guard<std::mutex>;
 	using recMutGuard = std::lock_guard<std::recursive_mutex>;
 
+	using lockGuard = std::lock_guard<boost::shared_mutex>;
+	using shLockGuard = boost::shared_lock<boost::shared_mutex>;	//?????????
+
     Server();
 
     void run();
