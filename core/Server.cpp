@@ -68,8 +68,9 @@ void Server::doAcceptClient()
 	SOCKET sockAccepted = INVALID_SOCKET;
 	struct sockaddr_in ServerClient;
 
-	String log("Waiting for incoming connections...\n");
+	String log("Waiting for incoming connections...");
 	dbcontroller_.log(log);
+	std::cout << log << std::endl;
 	sockAccepted = accept(socket_, (sockaddr*)&ServerClient, (socklen_t*)&c);
 	if (sockAccepted == INVALID_SOCKET) {
 		log = "Accept failed.";
@@ -90,10 +91,13 @@ void Server::doAcceptClient()
 	if (threads_.find(sockAccepted) == threads_.end()) {
 		threads_[sockAccepted] = shptr;
 		log = "Thread - " + std::to_string(*(threads_.at(sockAccepted))) + " inserted in the map.\n";
+		std::cout << log << std::endl;
 		dbcontroller_.log(log);
 	} else {
 		log = "Socket already exists in the map.";
 		dbcontroller_.log(log);
+		std::cout << log << std::endl;
+		throw Error(log);
 	}
 }
 

@@ -56,6 +56,7 @@ public:
     void showRegWindow();
     void hideRegWindow();
 
+
 public slots:
     void openRegWin();
 	void checkLogin(const QString&);

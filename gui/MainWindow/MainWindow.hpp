@@ -31,6 +31,7 @@ class QLabel;
 class QVBoxLayout;
 class QGridLayout;
 class QIcon;
+class QCloseEvent;
 class Avatar;
 class Controller;
 class MessageBox;
@@ -116,6 +117,8 @@ public:
   	*/  
 	void showWindow();
 	void hideWindow();
+
+	void closeEvent(QCloseEvent*) override;
 
 public slots:
 	void showSlot();

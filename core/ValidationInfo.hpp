@@ -24,6 +24,8 @@ namespace ValidationInfo
     const String validName = "Validname";
     const String takenLogin = "Takenlogin";
     const String mismatchPass = "Mismatchingpass";
+
+	const String newLine = "!*#n~";
 }
 
 #endif

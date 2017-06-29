@@ -5,6 +5,7 @@
 #include "../gui/PopError.hpp"
 
 #include "MessageTypes.hpp"
+#include "ValidationInfo.hpp"
 
 
 Controller::Controller(Client& c)
@@ -52,7 +53,7 @@ void Controller::handleSession()
 			transportLayer_.clear();
 		}
 	} catch (const Error& err) {
-		std::cout << err.what() << std::endl;
+		std::cout << "Error. " << err.what() << std::endl;
 	}
 	inReaderPtr->stopRead();
 	c_.closeConnection();
@@ -88,6 +89,8 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	if (it == users_.end()) {
 		throw Error("Attempting to send a message to an unknown user.");
 	}
+	//std::replace(msg.begin(), msg.end(), '\n', ValidationInfo::newLine);	//boost????
+	std::replace(msg.begin(), msg.end(), '\n', '~');
 	msg = toUser + delim + msg;
 	msg = userLogin_ + delim + msg;
 	String res = sendMessage(msg, plainMessage);
@@ -125,64 +128,64 @@ String Controller::sendPendingMessagesRequest()
 }
 
 
-String Controller::sendMessage(String& message, const String& msgType)
+String Controller::sendMessage(String& msg, const String& msgType)
 {
-	message = msgType + delim + message;
-	message = std::to_string(message.size()) + delim + message; 
+	msg = msgType + delim + msg;
+	msg = std::to_string(msg.size()) + delim + msg; 
 
-	if (c_.sendMessage(message) == SUCCESS) {
+	if (c_.sendMessage(msg) == SUCCESS) {
 		return success;
 	} else {
 		return error;
 	}
 }
 
-void Controller::processMessage(String& message)
+void Controller::processMessage(String& msg)
 {
-	dbcontroller_.log(message);	
-	String msgType = wordExtractor_(message);
+	dbcontroller_.log(msg);	
+	String msgType = wordExtractor_(msg);
 	if (msgType == plainMessage) {
-		processPlainMessage(message);
+		processPlainMessage(msg);
 	} else if (msgType == loginRespond) {
-		processLoginRespond(message);
+		processLoginRespond(msg);
 	} else if (msgType == logoutRespond) {
-		processLogoutRespond(message);
+		processLogoutRespond(msg);
 	} else if (msgType == registrationRespond) {
-		processRegistrationRespond(message);
+		processRegistrationRespond(msg);
 	} else if (msgType == userChangedRespond) {
-		processUserChangedRespond(message);
+		processUserChangedRespond(msg);
 	} else if (msgType == userListRespond) {
-		processUserListRespond(message);
+		processUserListRespond(msg);
 	} else if (msgType == convRespond) {
-		processConvRespond(message);
+		processConvRespond(msg);
 	} else {
-		String log = "Unknown type: " + msgType + " message: " + message;
+		String log = "Unknown type: " + msgType + " message: " + msg;
 		dbcontroller_.log(log);
 		throw Error(log);
 	}
 }
 
-void Controller::processPlainMessage(String& message)
+void Controller::processPlainMessage(String& msg)
 {
-	dbcontroller_.log(message);
-	std::cout << message << std::endl;
-	String fromUser = wordExtractor_(message, false);
+	dbcontroller_.log(msg);
+	String fromUser = wordExtractor_(msg, false);
+	//std::replace(msg.begin(), msg.end(), ValidationInfo::newLine, String('\n'));	//boost??????
+	std::replace(msg.begin(), msg.end(), '~', '\n');
 	auto it = find(fromUser);
 	if (it == users_.end()) {
 		throw Error("The message is from unknown user");
 	} else {
-		(*it)->addMessage(message, true);
+		(*it)->addMessage(msg, true);
 		updateMainWindow();
 	}
 }
 
-void Controller::processLoginRespond(String& message)
+void Controller::processLoginRespond(String& msg)
 {
-	dbcontroller_.log(message);
-	std::cout << message << std::endl;
-	String result = wordExtractor_(message);
+	dbcontroller_.log(msg);
+	String result = wordExtractor_(msg);
 	if (result == error) {
-		popError_->setText(message);
+		popError_->setText(msg);
 		popError_->execute();
 		return;
 	} else {
@@ -200,13 +203,12 @@ void Controller::processLoginRespond(String& message)
 	}
 }
 
-void Controller::processLogoutRespond(String& message)
+void Controller::processLogoutRespond(String& msg)
 {
-	String result = wordExtractor_(message);
-	dbcontroller_.log(message);
-	std::cout << message << std::endl;
+	String result = wordExtractor_(msg);
+	dbcontroller_.log(msg);
 	if (result == error) {
-		popError_->setText(message);
+		popError_->setText(msg);
 		popError_->execute();
 	} else {
 		if (mainWindow_ != nullptr) {
@@ -218,14 +220,13 @@ void Controller::processLogoutRespond(String& message)
 	dbcontroller_.logUsers();
 }
 
-void Controller::processRegistrationRespond(String& message)
+void Controller::processRegistrationRespond(String& msg)
 {
-	String result = wordExtractor_(message);
-	dbcontroller_.log(message);
-	std::cout << message << std::endl;
+	String result = wordExtractor_(msg);
+	dbcontroller_.log(msg);
 	if (result == error) {
 		return;
-		popError_->setText(message);
+		popError_->setText(msg);
 		popError_->execute();
 	} else {
 		closeRegWindow();
@@ -243,15 +244,14 @@ void Controller::processUserChangedRespond(String& userStr)
 		throw Error("Error occurred when processing user changed respond");
 	}
 
-		it = find(*u);
-		if (it == users_.end()) {
-			users_.push_back(u);
-			log += ". adding into the list.";
-		} else {
-			(*it)->setStatus(u->getStatus());
-			log += u->getLogin() + ". setting status to " + std::to_string(u->getStatus());
-		}
-	//std::cout << log << std::endl;
+	it = find(*u);
+	if (it == users_.end()) {
+		users_.push_back(u);
+		log += ". adding into the list.";
+	} else {
+		(*it)->setStatus(u->getStatus());
+		log += u->getLogin() + ". setting status to " + std::to_string(u->getStatus());
+	}
 	dbcontroller_.log(log);
 	dbcontroller_.logUsers();
 	updateMainWindow();
@@ -261,7 +261,6 @@ void Controller::processUserListRespond(String& userList)
 {
 	String log = "processUserListResp..." + userList;
 	dbcontroller_.log(log);
-	std::cout << log << std::endl;
 	users_.erase(users_.begin(), users_.end());
 	UserPtr u(new User());
 	while (u->fromString(userList)) {
@@ -270,23 +269,20 @@ void Controller::processUserListRespond(String& userList)
 		log = " adding into the list of users_: " + u->toStringLog();
 		dbcontroller_.log(log);
 	}
-//	std::cout << __FUNCTION__ << std::endl;
 	dbcontroller_.logUsers();
-//	std::cout << __FUNCTION__ << std::endl;
 	updateMainWindow();
-//	std::cout << __FUNCTION__ << std::endl;
 }
 
 void Controller::processConvRespond(String& msg)
 {
 	dbcontroller_.log(msg);
-	std::cout << msg << std::endl;
 	String u = wordExtractor_(msg);
 	auto it = find(u);
 	if (it == users_.end()) {
 		String msg("No user with login-" + u);
 		throw Error(msg);
 	} else {
+		std::replace(msg.begin(), msg.end(), '~', '\n');
 		(*it)->addMessage(msg, false);
 		updateMainWindow();
 	}

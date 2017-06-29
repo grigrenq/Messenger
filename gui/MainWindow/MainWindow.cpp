@@ -10,6 +10,8 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QTextEdit>
+#include <QCloseEvent>
+#include <QMessageBox>
 
 #include "MainWindow.hpp"
 #include "Avatar.hpp"
@@ -227,4 +229,18 @@ void MainWindow::setWindowIcon()
 void MainWindow::sendConvRequest(const String& login)
 {
 	controller_.sendConvRequest(login);
+}
+
+void MainWindow::closeEvent(QCloseEvent* ev)
+{
+	QString s = "\nDo you want to quit?";
+	auto result = QMessageBox::question(this,"Exit", s,
+			QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes);
+	if (result == QMessageBox::Yes) {
+		controller_.sendLogoutRequest();
+		exit(1);
+		ev->accept();
+	} else {
+		ev->ignore();
+	}
 }
