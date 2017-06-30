@@ -13,6 +13,9 @@
 #include "WordExtractor.hpp"
 #include "Includes.hpp"
 
+#include <boost/asio.hpp>
+using namespace boost::asio;
+
 /**
 *  @brief .....  
 */
@@ -23,7 +26,8 @@ public:
 	using PMessages = std::list<String>;
 	using PMessagesPtr = std::shared_ptr<PMessages>;
 	using SizeType = PMessages::size_type;
-	using Socket = ip::tcp::socket;
+	using Socket = boost::asio::ip::tcp::socket;
+	using SocketPtr = boost::shared_ptr<Socket>;
 
         /** 
         *   @brief ...
@@ -35,14 +39,14 @@ public:
         *   @brief.... 
         *   @param  is an initialized....  ??
         */
-        ServerUser(const Socket&, const String&, const String&,
-			const String&, const String&,  const bool);
+        ServerUser(const SocketPtr&, const String&, 
+				const String&, const String&, const String&,  const bool);
 
         /** 
         *   @brief ....
         *   @param  is an initialized....  ??
         */
-        explicit ServerUser(const Socket&);
+        explicit ServerUser(const SocketPtr&);
 	
 
         /** 
@@ -78,7 +82,7 @@ public:
         *   @param  no parametrs
         *   @return ...
         */
-	SOCKET getSocket() const;
+	SocketPtr getSocket() const;
 
         /** 
         *   @brief ....
@@ -120,7 +124,7 @@ public:
         *   @param  is an initialized....  ??
         *   @return void
         */
-        void setSocket(const Socket&) const;
+        void setSocket(const SocketPtr&) const;
 
         /** 
         *   @brief ....
@@ -157,14 +161,6 @@ public:
         */
 	void closeSocket() const;
 
-
-
-        bool operator<(const ServerUser&) const;
-	void operator=(const ServerUser&);
-
-
-
-
         /** 
         *   @brief .....
         *   @param  no parametrs
@@ -173,7 +169,7 @@ public:
 	ServerUser* getPointer() const;
 
 private:
-	mutable Socket sock_;
+	mutable SocketPtr sock_;
 	String login_;
 	String name_;
 	String surname_;

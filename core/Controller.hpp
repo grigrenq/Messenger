@@ -15,7 +15,10 @@
 #include "DBController.hpp"
 #include "TransportLayer.hpp"
 
-//#include <memory>
+
+#include <boost/thread/thread.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
 
 class LoginWindow;
 class MainWindow;
@@ -23,17 +26,16 @@ class PopError;
 
 
 void* readMessage(void*);
-void* handleSession(void*);
-
 
 class Controller
 {
 public:
 	using User = ClientUser;
-	using UserPtr = std::shared_ptr<User>;
+	using UserPtr = boost::shared_ptr<User>;
 	using Users = std::list<UserPtr>;
 	using UserIter = Users::iterator;
 	using String = User::String;
+
 
 	class InputReader {
 		public:

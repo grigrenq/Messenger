@@ -6,6 +6,7 @@
 
 #include "MessageTypes.hpp"
 
+
 Controller::Controller(Client& c)
 	: c_(c)
 	, loginWindow_(nullptr)
@@ -20,12 +21,13 @@ Controller::Controller(Client& c)
 void Controller::run()
 {
 	c_.connectServer();
-	loginWindow_->showLogWindow();
-	std::shared_ptr<pthread_t> th(new pthread_t);
-	if (pthread_create(&(*th), NULL, ::handleSession, this)) {
+	//loginWindow_->showLogWindow();
+	//std::shared_ptr<pthread_t> th(new pthread_t);
+	/*if (pthread_create(&(*th), NULL, ::handleSession, this)) {
 		std::cout << "An error occurred during thread creation process.";
 		return;
-	}
+	}*/
+	//boost::thread th(&Controller::handleSession, this);
 }
 
 String Controller::getLogin() const
@@ -90,7 +92,7 @@ String Controller::sendMessageToUser(const String& toUser, String& msg)
 	msg = toUser + delim + msg;
 	msg = userLogin_ + delim + msg;
 	String res = sendMessage(msg, plainMessage);
-	if (res == success) {
+	if (res == successMsg) {
 		wordExtractor_(msg);
 		wordExtractor_(msg);
 		wordExtractor_(msg);
@@ -130,9 +132,9 @@ String Controller::sendMessage(String& message, const String& msgType)
 	message = std::to_string(message.size()) + delim + message; 
 
 	if (c_.sendMessage(message) == SUCCESS) {
-		return success;
+		return successMsg;
 	} else {
-		return error;
+		return errorMsg;
 	}
 }
 
@@ -180,7 +182,7 @@ void Controller::processLoginRespond(String& message)
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
 	String result = wordExtractor_(message);
-	if (result == error) {
+	if (result == errorMsg) {
 		popError_->setText(message);
 		popError_->execute();
 		return;
@@ -189,7 +191,6 @@ void Controller::processLoginRespond(String& message)
 		if (loginWindow_ != nullptr) {
 			loginWindow_->hideLogWindow();
 		}
-		//sleep(1);
 		if (mainWindow_ != nullptr) {
 			std::cout << "mainWindow != nullptr\n";
 			mainWindow_->showWindow();
@@ -205,7 +206,7 @@ void Controller::processLogoutRespond(String& message)
 	String result = wordExtractor_(message);
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
-	if (result == error) {
+	if (result == errorMsg) {
 		popError_->setText(message);
 		popError_->execute();
 	} else {
@@ -223,7 +224,7 @@ void Controller::processRegistrationRespond(String& message)
 	String result = wordExtractor_(message);
 	dbcontroller_.log(message);
 	std::cout << message << std::endl;
-	if (result == error) {
+	if (result == errorMsg) {
 		popError_->setText(message);
 		popError_->execute();
 	} else {
@@ -314,7 +315,6 @@ Controller::UserIter Controller::find(Controller::User& u)
 
 void Controller::updateMainWindow()
 {
-	//std::cout << "Controller::updateMainWindow()\n";
 	mainWindow_->updateMainWindow(users_);
 }
 
@@ -325,14 +325,6 @@ void* readMessage(void *thisV) {
     thisI->readMessage();
 	return nullptr;
 }
-
-void* handleSession(void *p)
-{
-	Controller* ptr = static_cast<Controller*>(p);
-	ptr->handleSession();
-	return nullptr;
-}
-
 
 void Controller::closeRegWindow()
 {

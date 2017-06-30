@@ -22,8 +22,8 @@ public:
 	using ConvPtr = Conversation::ConvPtr;
 	using PMessages = typename User::PMessages;
 	using PMessagesPtr = typename User::PMessagesPtr;
-	using lockGuard = std::lock_guard<boost::shared_mutex>;
-	using shLockGuard = boost::shared_lock<boost::shared_mutex>;
+	//using lockGuard = std::lock_guard<boost::shared_mutex>;
+	//using shLockGuard = boost::shared_lock<boost::shared_mutex>;
 
 	DBController();
 	DBController(Users*);
@@ -53,7 +53,7 @@ private:
 	Users* users_;
 	Conversations conversations_;
 	WordExtractor wordExtractor_;
-	mutable boost::shared_mutex mutex_;
+	mutable std::mutex mutex_;
 
 	String logFile_;
 	String usersLogFile_;

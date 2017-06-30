@@ -6,7 +6,7 @@
 #include <memory>
 #include <mutex>
 
-#include <boost/thread/shared_mutex.hpp>
+//#include <boost/thread/shared_mutex.hpp>
 
 class Conversation
 {
@@ -15,8 +15,8 @@ public:
 	using SizeType = String::size_type;
 	using Conv = std::list<String>;
 	using ConvPtr = std::shared_ptr<Conv>;
-	using lockGuard = std::lock_guard<boost::shared_mutex>;
-	using shLockGuard = boost::shared_lock<boost::shared_mutex>;
+	//using lockGuard = std::lock_guard<boost::shared_mutex>;
+	//using shLockGuard = boost::shared_lock<boost::shared_mutex>;
 
 	Conversation() = delete;
 	Conversation(const String&);
@@ -32,7 +32,7 @@ public:
 	
 public:
 	String fileName_;
-	mutable boost::shared_mutex mutex_;
+	mutable std::mutex mutex_;
 };
 
 #endif

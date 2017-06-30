@@ -5,49 +5,26 @@
 #include "arpa/inet.h"
 
 
-//#include "Includes.hpp"
 #include "Client.hpp"
-
 
 
 Client::Client()
 {
-	createSocket();
-    setupAddress();
-}
-
-
-void Client::createSocket()
-{
-	socket_ = socket(AF_INET, SOCK_STREAM, 0);
-
-	if (socket_ == INVALID_SOCKET) {
-		std::cout << "Could not create socket\n";
-		exit(1);
-	}
-}
-
-void Client::setupAddress()
-{
-	server_.sin_family = AF_INET;
-	server_.sin_addr.s_addr = inet_addr(DEFAULT_HOST);
-	server_.sin_port = htons(DEFAULT_PORT);
+	socket_.reset(new Socket(io_service_));
+	connectServer();
+	io_service_.run();
 }
 
 void Client::connectServer()
 {
-	int error = connect(socket_, (struct sockaddr*)&server_, sizeof(server_));
-	if (error < 0) {
-		std::cout << "Connect Error - " << error << std::endl;
-		exit(1);
-	}
-	std::cout << "Connected\n";
+	std::cout << "Attempting to connect to server.\n";
+	ip::tcp::endpoint ep(ip::address::from_string("127.0.0.1"), 9758);
+	socket_->async_connect(ep, boost::bind(&Client::handleConnect, this, _1));
 }
 
 int Client::sendMessage(const String& message)
 {
-
-	int sendSize = send(socket_, message.c_str(), message.size(), 0);
+	/*int sendSize = send(socket_, message.c_str(), message.size(), 0);
 	if (sendSize < 0) {
 		std::cout << "Send failed\n";
 		//inReaderPtr->stopRead();
@@ -61,11 +38,13 @@ int Client::sendMessage(const String& message)
 	} else {
 		return SUCCESS;
 	}
+	*/
+	return ERROR;
 }
 
 int Client::recvMessage(TransportLayer& tl)
 {
-	int recvSize = recv(socket_, tl.getBuffer(), tl.getBufferSize(), 0);
+	/*int recvSize = recv(socket_, tl.getBuffer(), tl.getBufferSize(), 0);
 	if (recvSize < 0) {
 		std::cout << "Receive failed\n";
 		//closeConnection();
@@ -79,10 +58,22 @@ int Client::recvMessage(TransportLayer& tl)
 		tl.processMessage();
 		return SUCCESS;
 	}
+	*/
+	return ERROR;
 }
 
 void Client::closeConnection()
 {
-	shutdown(socket_, SHUT_RDWR);
-	close(socket_);
+	errorCode err;
+	socket_->shutdown(socket_base::shutdown_both, err);
+	socket_->close(err);
+}
+
+void Client::handleConnect(const errorCode& err)
+{
+	if (err) {
+		std::cout << "Connect failed. err - " << err << std::endl;
+		return;
+	}
+	std::cout << "Connected.\n";
 }

@@ -21,8 +21,8 @@ const String convRespond = "userConvResp";
 const String online = "online";
 const String offline = "offline";
 
-const String success = "Success";
-const String error = "Error";
+const String successMsg = "Success";
+const String errorMsg = "Error";
 const String emptyMessage = "Error. Message cannot be empty";
 
 const char delim = '%';

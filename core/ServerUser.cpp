@@ -4,20 +4,20 @@
 
 
 ServerUser::ServerUser()
-: sock_(INVALID_SOCKET), status_(false)
+: status_(false)
 {
 	//
 }
 
-ServerUser::ServerUser(const SOCKET sock, const String& login, const String& name,
-		const String& surname, const String& password,  const bool st)
+ServerUser::ServerUser(const SocketPtr& sock, const String& login,
+		const String& name,	const String& surname, const String& password,  const bool st)
 : sock_(sock), login_(login), name_(name)
 , surname_(surname), password_(password), status_(st)
 {
 	//
 }
 
-ServerUser::ServerUser(const SOCKET sock)
+ServerUser::ServerUser(const SocketPtr& sock)
 : sock_(sock), status_(false)
 {
 	//
@@ -41,7 +41,7 @@ String ServerUser::toStringLog() const
 {
 	String clientStr = toString();
 	clientStr += password_ + delim;
-	clientStr += "Socket = " + std::to_string(sock_) + delim;
+	clientStr += "Socket = " + std::to_string(1) + delim;
 
 	return clientStr;
 }
@@ -76,7 +76,7 @@ bool ServerUser::fromString(String& str, int)
 	return true;
 }
 
-SOCKET ServerUser::getSocket() const
+ServerUser::SocketPtr ServerUser::getSocket() const
 {
 	return sock_; 
 }
@@ -106,9 +106,9 @@ bool ServerUser::getStatus() const
 	return status_; 
 }
 
-void ServerUser::setSocket(const SOCKET s) const 
+void ServerUser::setSocket(const SocketPtr& sock) const 
 {
-	sock_ = s; 
+	sock_ = sock;
 }
 
 void ServerUser::setStatus(const bool st) const 
@@ -139,24 +139,8 @@ ServerUser::PMessagesPtr ServerUser::getPMessages() const
 
 void ServerUser::closeSocket() const
 { 
-	shutdown(sock_,SHUT_RDWR);
-	close(sock_);
-}
-
-bool ServerUser::operator<(const ServerUser& rhs) const 
-{
-	return (sock_ < rhs.sock_);
-}
-
-void ServerUser::operator=(const ServerUser& u)
-{
-	sock_ = u.sock_;
-	login_ = u.login_;
-	name_ = u.name_;
-	surname_ = u.surname_;
-	password_ = u.password_;
-	status_ = u.status_;
-	pendingMessages_ = u.pendingMessages_;
+	//shutdown(sock_,SHUT_RDWR);
+	//close(sock_);
 }
 
 ServerUser* ServerUser::getPointer() const
