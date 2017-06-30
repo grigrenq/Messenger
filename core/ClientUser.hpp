@@ -151,8 +151,7 @@ class ClientUser
 			, messages_(c.messages_)
 			, login_(c.login_)
 		{
-			std::cout << ".......copy constructor..........\n";
-			//login_.store(c.login_.load());
+			//
 		}
 
 	private:
@@ -162,7 +161,6 @@ class ClientUser
 		bool reqSent;
 		size_t unreadMessages_;
 		Messages messages_;
-		//std::atomic<const char*> login_;
 		String login_;
 
 		WordExtractor wordExtractor_;

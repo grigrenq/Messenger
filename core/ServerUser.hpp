@@ -34,14 +34,14 @@ public:
         *   @brief.... 
         *   @param  is an initialized....  ??
         */
-        ServerUser(const SOCKET, const String&, const String&,
+        ServerUser(const SOCKET&, const String&, const String&,
 			const String&, const String&,  const bool);
 
         /** 
         *   @brief ....
         *   @param  is an initialized....  ??
         */
-        explicit ServerUser(const SOCKET);
+        explicit ServerUser(const SOCKET&);
 	
 
         /** 
@@ -119,7 +119,7 @@ public:
         *   @param  is an initialized....  ??
         *   @return void
         */
-        void setSocket(const SOCKET) const;
+        void setSocket(const SOCKET&) const;
 
         /** 
         *   @brief ....

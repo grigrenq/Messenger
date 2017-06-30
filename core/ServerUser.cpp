@@ -9,7 +9,7 @@ ServerUser::ServerUser()
 	//
 }
 
-ServerUser::ServerUser(const SOCKET sock, const String& login, const String& name,
+ServerUser::ServerUser(const SOCKET& sock, const String& login, const String& name,
 		const String& surname, const String& password,  const bool st)
 : sock_(sock), login_(login), name_(name)
 , surname_(surname), password_(password), status_(st)
@@ -17,7 +17,7 @@ ServerUser::ServerUser(const SOCKET sock, const String& login, const String& nam
 	//
 }
 
-ServerUser::ServerUser(const SOCKET sock)
+ServerUser::ServerUser(const SOCKET& sock)
 : sock_(sock), status_(false)
 {
 	//
@@ -106,9 +106,9 @@ bool ServerUser::getStatus() const
 	return status_; 
 }
 
-void ServerUser::setSocket(const SOCKET s) const 
+void ServerUser::setSocket(const SOCKET& sock) const 
 {
-	sock_ = s; 
+	sock_ = sock; 
 }
 
 void ServerUser::setStatus(const bool st) const 
