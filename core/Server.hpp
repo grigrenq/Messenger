@@ -17,12 +17,9 @@
 
 
 using namespace boost::asio;
-typedef boost::shared_ptr<ip::tcp::socket> socketPtr;
-typedef boost::system::error_code errorCode;
+using SocketPtr boost::shared_ptr<ip::tcp::socket>;
+using errorCode  boost::system::error_code;
 
-
-
-void* handleSession(void *);
 
 class Server
 {
@@ -31,15 +28,10 @@ public:
 	using UserPtr = std::shared_ptr<User>;
 	using Users = std::vector<UserPtr>;
 	using UserIter = Users::iterator;
-	using Threads = std::map<SOCKET, boost::thread>;
 	using String = std::string;
-	using mutGuard = std::lock_guard<std::mutex>;
-	using recMutGuard = std::lock_guard<std::recursive_mutex>;
-
-	using lockGuard = std::lock_guard<boost::shared_mutex>;
-	using shLockGuard = boost::shared_lock<boost::shared_mutex>;	//?????????
 
 	using Socket = ip::tcp::socket;
+	using Threads = std::map<SocketPtr, boost::thread>;
 
     Server();
 
@@ -98,6 +90,4 @@ private:
 	ip::tcp::acceptor acceptor_;
 };
 
-
 #endif
-

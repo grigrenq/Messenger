@@ -23,6 +23,7 @@ public:
 	using PMessages = std::list<String>;
 	using PMessagesPtr = std::shared_ptr<PMessages>;
 	using SizeType = PMessages::size_type;
+	using Socket = ip::tcp::socket;
 
         /** 
         *   @brief ...
@@ -34,14 +35,14 @@ public:
         *   @brief.... 
         *   @param  is an initialized....  ??
         */
-        ServerUser(const SOCKET, const String&, const String&,
+        ServerUser(const Socket&, const String&, const String&,
 			const String&, const String&,  const bool);
 
         /** 
         *   @brief ....
         *   @param  is an initialized....  ??
         */
-        explicit ServerUser(const SOCKET);
+        explicit ServerUser(const Socket&);
 	
 
         /** 
@@ -119,7 +120,7 @@ public:
         *   @param  is an initialized....  ??
         *   @return void
         */
-        void setSocket(const SOCKET) const;
+        void setSocket(const Socket&) const;
 
         /** 
         *   @brief ....
@@ -172,7 +173,7 @@ public:
 	ServerUser* getPointer() const;
 
 private:
-	mutable SOCKET sock_;
+	mutable Socket sock_;
 	String login_;
 	String name_;
 	String surname_;

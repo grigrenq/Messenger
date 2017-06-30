@@ -28,7 +28,7 @@ void Server::createSocket()
 {
 	socket_ = socket(AF_INET, SOCK_STREAM, 0);
 	if (socket_ == INVALID_Socket) {
-		String log("Could not create socket - " + std::to_string(socket_));
+		String log("Could not create socket - " + std::to_string("socket_"));
 		dbcontroller_.log(log);
 		exit(1);
 	}
@@ -78,7 +78,7 @@ void Server::doAcceptClient()
 		dbcontroller_.log(log);
 		return;
 	}*/
-	log = "Accepted - " + std::to_string(sockAccepted);
+	log = "Accepted - " + std::to_string("sockAccepted");
 	dbcontroller_.log(log);
 
 	acceptor_.async_accept(socket_, boost::bind(Server::handleSession, this, socket_));
@@ -123,7 +123,6 @@ void Server::handleSession(const Socket& sock)
 	}
 	
 	closeSocket(sock);
-	mutGuard mg(mutexThreads_);
 	if (threads_.find(sock) != threads_.end()) {
 		//pthread_detach(*(threads_.at(sock)));
 		//String log = "Thread - " + std::to_string(threads_.at(sock)) + " deleted.";
@@ -138,7 +137,7 @@ Server::UserIter Server::find(const Socket& sock)
 {
 	if (sock == INVALID_Socket) {
 		String msg("Cannot find user with INVALID_Socket ");
-		msg += std::to_string(sock);
+		msg += std::to_string("sock");
 		dbcontroller_.log(msg);
 		throw Error(msg);
 	}
@@ -166,7 +165,6 @@ Server::UserIter Server::find(const String& login)
 
 void Server::sendPendingMessages(UserIter it)
 {
-	recMutGuard mg(mutexUsers_);
 	(*it)->setPMessages(dbcontroller_.getPMessages((*it)->getLogin()));
 	String log("...Attempting to send " + std::to_string((*it)->messagesCount())
 			+ " pending messages to user: - "	+ (*it)->getLogin() + ".");
@@ -309,7 +307,6 @@ void Server::sendUserChangedRespond(const User& user)
 {
 	String log = "sendUserChangedResp......userchanged: " + user.toString();
 	dbcontroller_.log(log);
-	recMutGuard mg(mutexUsers_);
 	for (auto it = users_.begin(); it != users_.end(); ++it) {
 		if ((*it)->getStatus() == true && (*it)->getLogin() != user.getLogin()) {
 			String userStr = user.toString();
@@ -321,11 +318,10 @@ void Server::sendUserChangedRespond(const User& user)
 
 void Server::sendConvRespond(const Socket& sock, const String& u1, const String& u2)
 {
-	recMutGuard mg(mutexUsers_);
 	auto it = find(sock);
 	if (it == users_.end()) {
 		String msg("sendConvRespond: could not find user with socket-");
-		msg +=  std::to_string(sock);
+		msg +=  std::to_string("sock");
 		dbcontroller_.log(msg);
 		throw Error(msg);
 	}
@@ -366,8 +362,6 @@ void Server::processMessage(const Socket& sock, String& message)
 		dbcontroller_.log(log);
 	}
 }
-
-
 
 void Server::processPlainMessage(String& message)
 {
@@ -434,11 +428,11 @@ void Server::processLoginRequest(const Socket& sock, String& message)
 void Server::processLogoutRequest(const Socket& sock)
 {
 	String respond;
-	String log = "processLogoutRequest from socket:" + std::to_string(sock) + "......:";
+	String log = "processLogoutRequest from socket:" + std::to_string("sock") + "......:";
 	dbcontroller_.log(log);
 	auto it = find(sock);
 	if (it == users_.end()) {
-		respond = error + delim + "Client with socket:" + std::to_string(sock) + " is not registered.";
+		respond = error + delim + "Client with socket:" + std::to_string("sock") + " is not registered.";
 	} else {
 		if ((*it)->getStatus() == false) {
 			respond = error + delim + "Client with login: "	+ (*it)->getLogin() + " is already logged out.";
@@ -462,7 +456,6 @@ void Server::processRegistrationRequest(const Socket& sock, String& message)
 	dbcontroller_.log(log);
 
 	String respond;
-	recMutGuard mg(mutexUsers_);
 	auto it = find(u->getLogin());
 	if (it != users_.end()) {
 		respond = error + delim + "Client with login: " + u->getLogin() + " is already registered.";
@@ -481,7 +474,6 @@ void Server::processRegistrationRequest(const Socket& sock, String& message)
 void Server::processUserListRequest(const Socket& sock)
 {
 	String respond;
-	recMutGuard mg(mutexUsers_);
 	for (auto it = users_.begin(); it != users_.end(); ++it) {
 		User *p = (*it)->getPointer();
 		respond += p->toString();
@@ -504,14 +496,4 @@ void Server::processConvRequest(const Socket& sock, String& msg)
 	String u1 = wordExtractor_(msg);
 	String u2 = wordExtractor_(msg);
 	sendConvRespond(sock, u1, u2);
-}
-
-
-void* handleSession(void *pairV) 
-{
-	std::pair<Server*, Socket>* p = (std::pair<Server*, SOCKET>*)pairV;
-	Server* server = p->first;
-	Socket sock = p->second;
-	server->handleSession(sock);
-	return nullptr;
 }
