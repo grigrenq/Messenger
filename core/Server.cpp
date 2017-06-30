@@ -4,9 +4,11 @@
 
 
 Server::Server() 
-	: socket_(INVALID_SOCKET)
+	: socket_(INVALID_Socket)
 	, stopRequested_(false)
 	, dbcontroller_(&users_)
+	, acceptor_(io_service_, ip::tcp::endpoint(
+				ip::address::from_string(DEFAULT_HOST), DEFAULT_PORT))
 {
 
 }
@@ -14,9 +16,9 @@ Server::Server()
 void Server::run()
 {
 	createSocket();
-	setupAddress();
-	bindSocket();
-	listenSocket();
+	//setupAddress();
+	//bindSocket();
+	//listenSocket();
 	initializeUsers();
 	dbcontroller_.logUsers();
 	acceptClient();
@@ -25,7 +27,7 @@ void Server::run()
 void Server::createSocket() 
 {
 	socket_ = socket(AF_INET, SOCK_STREAM, 0);
-	if (socket_ == INVALID_SOCKET) {
+	if (socket_ == INVALID_Socket) {
 		String log("Could not create socket - " + std::to_string(socket_));
 		dbcontroller_.log(log);
 		exit(1);
@@ -58,34 +60,36 @@ void Server::acceptClient()
 {	
 	while (!stopRequested_) {
 		doAcceptClient();
-		sleep(5);
 	}
+	io_service_.run();
 }
 
 void Server::doAcceptClient() 
 {
 	size_t c = sizeof(sockaddr_in);
-	SOCKET sockAccepted = INVALID_SOCKET;
+	Socket sockAccepted = INVALID_SOCKET;
 	struct sockaddr_in ServerClient;
 
 	String log("Waiting for incoming connections...\n");
 	dbcontroller_.log(log);
-	sockAccepted = accept(socket_, (sockaddr*)&ServerClient, (socklen_t*)&c);
-	if (sockAccepted == INVALID_SOCKET) {
+	/*sockAccepted = accept(socket_, (sockaddr*)&ServerClient, (socklen_t*)&c);
+	if (sockAccepted == INVALID_Socket) {
 		log = "Accept failed.";
 		dbcontroller_.log(log);
 		return;
-	}
+	}*/
 	log = "Accepted - " + std::to_string(sockAccepted);
 	dbcontroller_.log(log);
 
-	std::pair<Server*, SOCKET> *pairPtr = new std::pair<Server*, SOCKET>(this, sockAccepted);
-	std::shared_ptr<pthread_t> shptr(new pthread_t);
-	if (pthread_create(&(*shptr), NULL, ::handleSession, pairPtr)) {
+	acceptor_.async_accept(socket_, boost::bind(Server::handleSession, this, socket_));
+
+	//boost::thread th();
+	/*if (pthread_create(&(*shptr), NULL, ::handleSession, pairPtr)) {
 		log = "An error occurred during thread creation process.";
 		dbcontroller_.log(log);
 		return;
-	}
+	}*/
+	/*
 	mutGuard mg(mutexThreads_);
 	if (threads_.find(sockAccepted) == threads_.end()) {
 		threads_[sockAccepted] = shptr;
@@ -94,7 +98,7 @@ void Server::doAcceptClient()
 	} else {
 		log = "Socket already exists in the map.";
 		dbcontroller_.log(log);
-	}
+	}*/
 }
 
 void Server::initializeUsers()
@@ -103,7 +107,7 @@ void Server::initializeUsers()
 }
 
 
-void Server::handleSession(const SOCKET& sock)
+void Server::handleSession(const Socket& sock)
 {
 	try {
 		TransportLayer tl;
@@ -121,19 +125,19 @@ void Server::handleSession(const SOCKET& sock)
 	closeSocket(sock);
 	mutGuard mg(mutexThreads_);
 	if (threads_.find(sock) != threads_.end()) {
-		pthread_detach(*(threads_.at(sock)));
-		String log = "Thread - " + std::to_string(*(threads_.at(sock))) + " deleted.";
-		std::cout << log << std::endl;
-		dbcontroller_.log(log);
+		//pthread_detach(*(threads_.at(sock)));
+		//String log = "Thread - " + std::to_string(threads_.at(sock)) + " deleted.";
+		//std::cout << log << std::endl;
+		//dbcontroller_.log(log);
 		threads_.erase(sock);
 	}
 }
 
 
-Server::UserIter Server::find(const SOCKET& sock) 
+Server::UserIter Server::find(const Socket& sock) 
 {
-	if (sock == INVALID_SOCKET) {
-		String msg("Cannot find user with INVALID_SOCKET ");
+	if (sock == INVALID_Socket) {
+		String msg("Cannot find user with INVALID_Socket ");
 		msg += std::to_string(sock);
 		dbcontroller_.log(msg);
 		throw Error(msg);
@@ -196,7 +200,7 @@ bool Server::setOnline(UserIter& it)
 	return false;
 }
 
-bool Server::setOnline(const SOCKET& sock)
+bool Server::setOnline(const Socket& sock)
 {
 	auto it = find(sock);
 	if (it == users_.end()) {
@@ -213,7 +217,7 @@ bool Server::setOffline(UserIter& it)
 		String log("Setting Offline user: " + (*it)->getLogin());
 		dbcontroller_.log(log);
 		(*it)->setStatus(false);
-		(*it)->setSocket(INVALID_SOCKET);
+		(*it)->setSocket(INVALID_Socket);
 		User *p = (*it)->getPointer();
 		dbcontroller_.logUsers();
 		sendUserChangedRespond(*p);
@@ -224,7 +228,7 @@ bool Server::setOffline(UserIter& it)
 	return false;
 }
 
-bool Server::setOffline(const SOCKET& sock)
+bool Server::setOffline(const Socket& sock)
 {
 	auto it = find(sock);
 	if (it == users_.end()) {
@@ -236,14 +240,14 @@ bool Server::setOffline(const SOCKET& sock)
 }
 
 
-void Server::closeSocket(const SOCKET& sock)
+void Server::closeSocket(const Socket& sock)
 {
 	shutdown(sock,SHUT_RDWR);
 	close(sock);
 }
 
 
-int Server::recvMessage(const SOCKET& sock, TransportLayer& tl)
+int Server::recvMessage(const Socket& sock, TransportLayer& tl)
 {
 	int recvSize = recv(sock, tl.getBuffer(), tl.getBufferSize(), 0);
 	String log;
@@ -254,13 +258,13 @@ int Server::recvMessage(const SOCKET& sock, TransportLayer& tl)
 		dbcontroller_.log(log);
 		//closeSocket(sock);
 		return ERROR;
-	} else if (recvSize == SOCKET_CLOSED) {
+	} else if (recvSize == Socket_CLOSED) {
 		setOffline(sock);
 		log = "Receive failed. Socket is closed.";
 		log += "User disconnected.";
 		dbcontroller_.log(log);
 		closeSocket(sock);
-		return SOCKET_CLOSED;
+		return Socket_CLOSED;
 	} else {
 		tl.setEnd(recvSize);
 		tl.processMessage();
@@ -272,7 +276,7 @@ int Server::recvMessage(const SOCKET& sock, TransportLayer& tl)
 	}
 }
 
-int Server::sendMessage(const SOCKET& sock, String& msg, const String& msgType) 
+int Server::sendMessage(const Socket& sock, String& msg, const String& msgType) 
 {
 	msg = msgType + delim + msg;
 	msg = std::to_string(msg.size()) + delim + msg;
@@ -286,14 +290,14 @@ int Server::sendMessage(const SOCKET& sock, String& msg, const String& msgType)
 		dbcontroller_.log(log);
 		setOffline(sock);
 		return ERROR;
-	} else if (sendSize == SOCKET_CLOSED) {
+	} else if (sendSize == Socket_CLOSED) {
 		log = "Send failed.Socket closed." + log;
 		log += "User disconnected.";
 		std::cout << log << std::endl;
 		dbcontroller_.log(log);
 		setOffline(sock);
 		closeSocket(sock);
-		return SOCKET_CLOSED;
+		return Socket_CLOSED;
 	} else {
 		String log = "Sent Row Message: " + msg;
 		dbcontroller_.log(log);
@@ -315,7 +319,7 @@ void Server::sendUserChangedRespond(const User& user)
 }
 
 
-void Server::sendConvRespond(const SOCKET& sock, const String& u1, const String& u2)
+void Server::sendConvRespond(const Socket& sock, const String& u1, const String& u2)
 {
 	recMutGuard mg(mutexUsers_);
 	auto it = find(sock);
@@ -339,7 +343,7 @@ void Server::sendConvRespond(const SOCKET& sock, const String& u1, const String&
 
 
 
-void Server::processMessage(const SOCKET& sock, String& message)
+void Server::processMessage(const Socket& sock, String& message)
 {
 	String msgType = wordExtractor_(message);
 	if (msgType == plainMessage) {
@@ -393,7 +397,7 @@ void Server::processPlainMessage(String& message)
 }
 
 
-void Server::processLoginRequest(const SOCKET& sock, String& message)
+void Server::processLoginRequest(const Socket& sock, String& message)
 {
 	User u;
 	u.fromString(message, 0);
@@ -427,7 +431,7 @@ void Server::processLoginRequest(const SOCKET& sock, String& message)
 }
 
 
-void Server::processLogoutRequest(const SOCKET& sock)
+void Server::processLogoutRequest(const Socket& sock)
 {
 	String respond;
 	String log = "processLogoutRequest from socket:" + std::to_string(sock) + "......:";
@@ -448,7 +452,7 @@ void Server::processLogoutRequest(const SOCKET& sock)
 	sendMessage(sock, respond, logoutRespond);
 }
 
-void Server::processRegistrationRequest(const SOCKET& sock, String& message)
+void Server::processRegistrationRequest(const Socket& sock, String& message)
 {
 	UserPtr u(new User());
 	u->fromString(message);
@@ -474,7 +478,7 @@ void Server::processRegistrationRequest(const SOCKET& sock, String& message)
 	sendMessage(sock, respond, registrationRespond);
 }
 
-void Server::processUserListRequest(const SOCKET& sock)
+void Server::processUserListRequest(const Socket& sock)
 {
 	String respond;
 	recMutGuard mg(mutexUsers_);
@@ -489,13 +493,13 @@ void Server::processUserListRequest(const SOCKET& sock)
 	}
 }
 
-void Server::processPendingMessagesRequest(const SOCKET& sock)
+void Server::processPendingMessagesRequest(const Socket& sock)
 {
 	auto it = find(sock);
 	sendPendingMessages(it);
 }
 
-void Server::processConvRequest(const SOCKET& sock, String& msg)
+void Server::processConvRequest(const Socket& sock, String& msg)
 {
 	String u1 = wordExtractor_(msg);
 	String u2 = wordExtractor_(msg);
@@ -505,9 +509,9 @@ void Server::processConvRequest(const SOCKET& sock, String& msg)
 
 void* handleSession(void *pairV) 
 {
-	std::pair<Server*, SOCKET>* p = (std::pair<Server*, SOCKET>*)pairV;
+	std::pair<Server*, Socket>* p = (std::pair<Server*, SOCKET>*)pairV;
 	Server* server = p->first;
-	SOCKET sock = p->second;
+	Socket sock = p->second;
 	server->handleSession(sock);
 	return nullptr;
 }

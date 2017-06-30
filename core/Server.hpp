@@ -9,6 +9,19 @@
 #include "TransportLayer.hpp"
 
 
+#include <boost/asio.hpp>
+//#include <boost/asio/impl/src.hpp>
+#include <boost/thread/thread.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
+
+
+using namespace boost::asio;
+typedef boost::shared_ptr<ip::tcp::socket> socketPtr;
+typedef boost::system::error_code errorCode;
+
+
+
 void* handleSession(void *);
 
 class Server
@@ -18,7 +31,7 @@ public:
 	using UserPtr = std::shared_ptr<User>;
 	using Users = std::vector<UserPtr>;
 	using UserIter = Users::iterator;
-	using Threads = std::map<SOCKET, std::shared_ptr<pthread_t>>;
+	using Threads = std::map<SOCKET, boost::thread>;
 	using String = std::string;
 	using mutGuard = std::lock_guard<std::mutex>;
 	using recMutGuard = std::lock_guard<std::recursive_mutex>;
@@ -26,10 +39,12 @@ public:
 	using lockGuard = std::lock_guard<boost::shared_mutex>;
 	using shLockGuard = boost::shared_lock<boost::shared_mutex>;	//?????????
 
+	using Socket = ip::tcp::socket;
+
     Server();
 
     void run();
-    void handleSession(const SOCKET&);
+    void handleSession(const Socket&);
 
 private:
     void createSocket();
@@ -40,35 +55,35 @@ private:
     void doAcceptClient();
 	void initializeUsers();
 
-	UserIter find(const SOCKET&);
+	UserIter find(const Socket&);
 	UserIter find(const String&);
 
 	void sendPendingMessages(UserIter);
 
 	bool setOnline(UserIter&);
-	bool setOnline(const SOCKET&);
+	bool setOnline(const Socket&);
 	bool setOffline(UserIter&);
-	bool setOffline(const SOCKET&);
+	bool setOffline(const Socket&);
 
-    void closeSocket(const SOCKET&);
-    int recvMessage(const SOCKET&, TransportLayer&);
-    int sendMessage(const SOCKET&, String&, const String&);
+    void closeSocket(const Socket&);
+    int recvMessage(const Socket&, TransportLayer&);
+    int sendMessage(const Socket&, String&, const String&);
 
 	void sendUserChangedRespond(const User&);
-	void sendConvRespond(const SOCKET&, const String&, const String&);
+	void sendConvRespond(const Socket&, const String&, const String&);
 
-	void processMessage(const SOCKET&, String&);
+	void processMessage(const Socket&, String&);
 	void processPlainMessage(String&);
-	void processLoginRequest(const SOCKET&, String&);
-	void processLogoutRequest(const SOCKET&);
-	void processRegistrationRequest(const SOCKET&, String&);
-	void processUserListRequest(const SOCKET&);
-	void processPendingMessagesRequest(const SOCKET&);
-	void processConvRequest(const SOCKET&, String&);
+	void processLoginRequest(const Socket&, String&);
+	void processLogoutRequest(const Sokcet&);
+	void processRegistrationRequest(const Socket&, String&);
+	void processUserListRequest(const Socket&);
+	void processPendingMessagesRequest(const Socket&);
+	void processConvRequest(const Socket&, String&);
 
 	Users users_;
 
-    SOCKET socket_;
+	Socket socket_;
     struct sockaddr_in server_;
 
     Threads threads_;
@@ -78,6 +93,9 @@ private:
     std::recursive_mutex mutexUsers_;
 	WordExtractor wordExtractor_;
 	DBController<Users> dbcontroller_;
+
+	io_service io_service_;
+	ip::tcp::acceptor acceptor_;
 };
 
 
